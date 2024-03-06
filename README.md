@@ -6,3 +6,14 @@ Ranks denote the importance of the body literals. Necessary literals (i.e., thos
 The head literal confidence indicates how much body literals are satisfied. This confidence allows to valuate the head literals even if data are missing and take into account the different influences of the body literals (expressed with weights).
 
 We let the reader refer to the article [**COMMING SOON**] for more details.
+
+# How to run this code
+The code provided in this repository can be run using **Java 8 or higher**. This project relies on [maven](https://maven.apache.org/install.html) for compilation, exectution and mananging dependencies.
+
+To run the project, go to the root of the repository and execute the following command:
+
+```
+mvn clean install exec:java
+```
+
+# Implementation details

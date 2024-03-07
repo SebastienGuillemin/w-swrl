@@ -24,7 +24,7 @@ mvn clean install exec:java
 ## Class diagram
 The [following figure ](#class_diagram) presents the project class diagram. Further changes may be made to the diagram in the future.
 
-|<a name="class_diagram">[ ![Class diagram](doc/class_diagram.png) ](doc/class_diagram.png)</a>|
+|<a name="class_diagram">[ ![Class diagram](doc/class_diagram.svg) ](doc/class_diagram.png)</a>|
 |:--:| 
 | *Project class diagram. Click on the picture to access the enlarge version (you will be redirected to "/doc"*). |
 

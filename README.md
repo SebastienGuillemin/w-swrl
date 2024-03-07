@@ -8,32 +8,28 @@ The head literal confidence indicates how much body literals are satisfied. This
 We let the reader refer to the article [**COMMING SOON**] for more details.
 
 # How to run this code
+## Requirements
+The code provided in this repository can be run using **Java 8 or higher**.
+
+This project relies on [Maven (external link)](https://maven.apache.org/install.html) for compilation, execution, and managing dependencies.
+
 ## Command
-To run the project, go to the root of the repository and execute the following command:
+To run the project, place yourself at the root of the repository and run the following command:
+
 ```
 mvn clean install exec:java
 ```
 
-See the rest of this section for project requirements and code dependencies.
+# Implementation details
+## Class diagram
+The [following figure ](#class_diagram) presents the project class diagram. Further changes may be made to the diagram in the future.
 
-## Requirements
-The code provided in this repository can be run using **Java 8 or higher**.
-
-This project relies on [Maven](https://maven.apache.org/install.html) for compilation, execution, and managing dependencies.
-
+|<a name="class_diagram">[ ![Class diagram](doc/class_diagram.png) ](doc/class_diagram.png)</a>|
+|:--:| 
+| *Project class diagram. Click on the picture to access the enlarge version (you will be redirected to "/doc"*). |
 
 ## Dependencies
 This project depends on the following packages:
 
 <!-- - A compléter ! -->
 - *All the required packages by Maven to manage the project.*
-
-# Implementation details
-## Class diagram
-The [following figure ](#class_diagram) presents the project class diagram. Further changes may be made to the diagram in the future.
-
-|<a name="class_diagram">![Class diagram](doc/class_diagram.png)</a>|
-|:--:| 
-| *Project class diagram. The original picture can be found in the "/doc" folder* |
-
-[ ![](doc/class_diagram.png) ](doc/class_diagram.png)

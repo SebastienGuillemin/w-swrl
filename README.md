@@ -35,3 +35,5 @@ The [following figure ](#class_diagram) presents the project class diagram. Furt
 |<a name="class_diagram">![Class diagram](doc/class_diagram.png)</a>|
 |:--:| 
 | *Project class diagram. The original picture can be found in the "/doc" folder* |
+
+[ ![](doc/class_diagram.png) ](doc/class_diagram.png)

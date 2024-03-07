@@ -29,3 +29,7 @@ This project depends on the following packages:
 - *All the required packages by Maven to manage the project.*
 
 # Implementation details
+## Class diagram
+The [following figure ](#class_diagram) presents the project class diagram. Further changes may be made to the diagram in the future.
+
+<a name="class_diagram">![Class diagram](doc/class_diagram.png)</a>

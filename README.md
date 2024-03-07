@@ -32,4 +32,6 @@ This project depends on the following packages:
 ## Class diagram
 The [following figure ](#class_diagram) presents the project class diagram. Further changes may be made to the diagram in the future.
 
-<a name="class_diagram">![Class diagram](doc/class_diagram.png)</a>
+|<a name="class_diagram">![Class diagram](doc/class_diagram.png)</a>|
+|:--:| 
+| *Project class diagram. The original picture can be found in the "/doc" folder* |

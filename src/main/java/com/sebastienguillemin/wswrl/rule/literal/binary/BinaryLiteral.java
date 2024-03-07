@@ -1,5 +1,7 @@
 package com.sebastienguillemin.wswrl.rule.literal.binary;
 
-public interface BinaryLiteral {
+import com.sebastienguillemin.wswrl.rule.literal.AbstractLiteral;
+
+public abstract class BinaryLiteral extends AbstractLiteral {
     
 }

@@ -1,5 +1,7 @@
 package com.sebastienguillemin.wswrl.rule.literal.builtin;
 
-public interface BuiltInLiteral {
+import com.sebastienguillemin.wswrl.rule.literal.AbstractLiteral;
+
+public abstract class BuiltInLiteral extends AbstractLiteral {
     
 }

@@ -1,18 +1,21 @@
 package com.sebastienguillemin.wswrl.rule.literal;
 
-import lombok.Getter;
+import java.util.List;
 
-public abstract class Literal {
-    @Getter
-    private float weight;
+import com.sebastienguillemin.wswrl.rule.variable.Value;
+import com.sebastienguillemin.wswrl.rule.variable.Variable;
+import com.sebastienguillemin.wswrl.rule.variable.exception.VariableNotFoundException;
 
-    @Getter
-    private Rank rank;
+public interface Literal {
+    public void setWeight(float weight);
+    public float getWeight();
+    
+    public void setVariableValue(String variableName, Value value) throws VariableNotFoundException;
+    public List<Variable<Value>> getVariables();
 
-    public void computeWeight() throws Exception {
-        throw new Exception("Not implemented yet.");
-    }
+    public void setRank(Rank rank);
+    public Rank getRank();
 
-    public abstract boolean test();
-    protected abstract boolean isValuable();    
+    public boolean test();
+    public boolean isValuable();
 }

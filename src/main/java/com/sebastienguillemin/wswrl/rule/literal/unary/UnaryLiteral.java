@@ -1,8 +1,7 @@
 package com.sebastienguillemin.wswrl.rule.literal.unary;
 
-import com.sebastienguillemin.wswrl.rule.variable.Value;
-import com.sebastienguillemin.wswrl.rule.variable.Variable;
+import com.sebastienguillemin.wswrl.rule.literal.AbstractLiteral;
 
-public abstract class UnaryLiteral {
-    private Variable<Value> variable;
+public abstract class UnaryLiteral extends AbstractLiteral{
+
 }

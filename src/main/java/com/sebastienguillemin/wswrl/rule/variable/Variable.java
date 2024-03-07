@@ -8,6 +8,6 @@ public class Variable<T extends Value> {
     private String name;
 
     @Getter
-    @Setter
+    @Setter // TODO : tester si une erreur est lancée si mauvais type de valeur.
     private T value;
 }

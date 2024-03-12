@@ -1,67 +1,186 @@
 <mxfile host="65bd71144e">
     <diagram id="XuE6fs28x3YZ3o2rZron" name="Page-1">
-        <mxGraphModel dx="1308" dy="657" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+        <mxGraphModel dx="771" dy="498" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
-                <mxCell id="2" value="&lt;b style=&quot;&quot;&gt;&lt;font style=&quot;font-size: 12px;&quot;&gt;:&lt;/font&gt;&lt;/b&gt;&lt;b&gt;DefaultSWRLRuleAndQueryEngine&lt;/b&gt;" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;" vertex="1" parent="1">
-                    <mxGeometry x="-100" y="160" width="220" height="320" as="geometry"/>
+                <mxCell id="64" value="loop" style="shape=umlFrame;whiteSpace=wrap;html=1;width=40;height=20;boundedLbl=1;verticalAlign=middle;align=left;spacingLeft=5;fontSize=10;" vertex="1" parent="1">
+                    <mxGeometry x="690" y="270" width="460" height="180" as="geometry"/>
                 </mxCell>
-                <mxCell id="21" value="&lt;span style=&quot;border-color: var(--border-color);&quot;&gt;&lt;b&gt;DefaultSWRLAPIOWLOntology&lt;/b&gt;&lt;/span&gt;" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;fontSize=12;" vertex="1" parent="1">
-                    <mxGeometry x="220" y="120" width="220" height="300" as="geometry"/>
+                <mxCell id="43" value="" style="group" vertex="1" connectable="0" parent="1">
+                    <mxGeometry x="1010" y="221" width="140" height="379" as="geometry"/>
                 </mxCell>
-                <mxCell id="22" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;fontSize=12;" vertex="1" parent="21">
-                    <mxGeometry x="105" y="100" width="10" height="120" as="geometry"/>
+                <mxCell id="44" value="&lt;span style=&quot;border-color: var(--border-color);&quot;&gt;&lt;b&gt;SWRLTokenizer&lt;/b&gt;&lt;/span&gt;" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;fontSize=12;" vertex="1" parent="43">
+                    <mxGeometry width="140" height="379" as="geometry"/>
                 </mxCell>
-                <mxCell id="42" value="" style="html=1;verticalAlign=bottom;labelBackgroundColor=none;endArrow=block;endFill=1;rounded=0;fontSize=12;" edge="1" parent="21" source="22" target="22">
-                    <mxGeometry width="160" relative="1" as="geometry">
-                        <mxPoint x="430" y="110" as="sourcePoint"/>
-                        <mxPoint x="590" y="110" as="targetPoint"/>
-                    </mxGeometry>
-                </mxCell>
-                <mxCell id="35" value="" style="group" vertex="1" connectable="0" parent="1">
-                    <mxGeometry x="630" y="160" width="220" height="300" as="geometry"/>
-                </mxCell>
-                <mxCell id="33" value="&lt;span style=&quot;border-color: var(--border-color);&quot;&gt;&lt;b&gt;SWRLRule&lt;/b&gt;&lt;/span&gt;" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;fontSize=12;" vertex="1" parent="35">
-                    <mxGeometry width="220" height="300" as="geometry"/>
-                </mxCell>
-                <mxCell id="34" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;fontSize=12;" vertex="1" parent="33">
-                    <mxGeometry x="105" y="62" width="10" height="120" as="geometry"/>
-                </mxCell>
-                <mxCell id="36" value="" style="html=1;verticalAlign=bottom;labelBackgroundColor=none;endArrow=block;endFill=1;fontSize=8;rounded=0;" edge="1" parent="33" source="34" target="34">
-                    <mxGeometry width="160" relative="1" as="geometry">
-                        <mxPoint x="-10" y="100" as="sourcePoint"/>
-                        <mxPoint x="150" y="100" as="targetPoint"/>
-                        <Array as="points">
-                            <mxPoint x="135" y="80"/>
-                            <mxPoint x="135" y="110"/>
-                        </Array>
-                    </mxGeometry>
-                </mxCell>
-                <mxCell id="37" value="&lt;font style=&quot;font-size: 12px;&quot;&gt;parseSWRLRule&lt;/font&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=8;" vertex="1" connectable="0" parent="36">
-                    <mxGeometry x="-0.1756" relative="1" as="geometry">
-                        <mxPoint x="55" y="6" as="offset"/>
-                    </mxGeometry>
-                </mxCell>
-                <mxCell id="27" value="" style="endArrow=openThin;html=1;rounded=0;align=center;verticalAlign=top;endFill=0;labelBackgroundColor=none;endSize=6;fontSize=12;dashed=1;" edge="1" parent="35" source="21">
+                <mxCell id="48" value="" style="endArrow=openThin;html=1;rounded=0;align=center;verticalAlign=top;endFill=0;labelBackgroundColor=none;endSize=6;fontSize=12;dashed=1;" edge="1" parent="43" source="33">
                     <mxGeometry relative="1" as="geometry">
-                        <mxPoint x="-250" y="25" as="sourcePoint"/>
-                        <mxPoint y="20" as="targetPoint"/>
+                        <mxPoint x="-159.0909090909091" y="31.583333333333332" as="sourcePoint"/>
+                        <mxPoint y="25.26666666666667" as="targetPoint"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="29" value="&lt;font style=&quot;font-size: 10px;&quot;&gt;&amp;lt;&amp;lt;creates&amp;gt;&amp;gt;&lt;/font&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=12;" vertex="1" connectable="0" parent="27">
+                <mxCell id="49" value="&lt;font style=&quot;font-size: 8px;&quot;&gt;&amp;lt;&amp;lt;creates&amp;gt;&amp;gt;&lt;/font&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=8;" vertex="1" connectable="0" parent="48">
                     <mxGeometry x="0.241" y="1" relative="1" as="geometry">
                         <mxPoint x="-14" as="offset"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="31" style="edgeStyle=none;html=1;fontSize=10;endArrow=blockThin;endFill=1;entryX=0.319;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="22" target="34">
+                <mxCell id="45" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;fontSize=12;" vertex="1" parent="43">
+                    <mxGeometry x="66.81818181818181" y="79" width="6.363636363636363" height="21" as="geometry"/>
+                </mxCell>
+                <mxCell id="87" value="" style="group" vertex="1" connectable="0" parent="1">
+                    <mxGeometry x="1190" y="160" width="160" height="440" as="geometry"/>
+                </mxCell>
+                <mxCell id="88" value="&lt;span style=&quot;border-color: var(--border-color);&quot;&gt;&lt;b&gt;SWRLParserSupport&lt;/b&gt;&lt;/span&gt;" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;fontSize=12;" vertex="1" parent="87">
+                    <mxGeometry width="160" height="440" as="geometry"/>
+                </mxCell>
+                <mxCell id="92" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;fontSize=8;" vertex="1" parent="87">
+                    <mxGeometry x="76.36363636363636" y="230" width="7.272727272727273" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="21" value="&lt;span style=&quot;border-color: var(--border-color);&quot;&gt;&lt;b&gt;DefaultSWRLAPIOWLOntology&lt;/b&gt;&lt;/span&gt;" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;fontSize=12;" parent="1" vertex="1">
+                    <mxGeometry x="220" y="120" width="220" height="480" as="geometry"/>
+                </mxCell>
+                <mxCell id="71" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;fontSize=8;" vertex="1" parent="21">
+                    <mxGeometry x="105" y="420" width="10" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="72" style="edgeStyle=none;html=1;entryX=0.961;entryY=0.994;entryDx=0;entryDy=0;entryPerimeter=0;fontSize=8;rounded=0;" edge="1" parent="21" target="71">
                     <mxGeometry relative="1" as="geometry">
-                        <mxPoint x="520" y="220" as="targetPoint"/>
+                        <mxPoint x="110.10784313725492" y="420" as="sourcePoint"/>
+                        <Array as="points">
+                            <mxPoint x="130" y="420"/>
+                            <mxPoint x="130" y="449"/>
+                            <mxPoint x="130" y="450"/>
+                        </Array>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="32" value="&lt;font style=&quot;font-size: 8px;&quot;&gt;parseRule(String rule, Boolean interactiveParseOnly, String ruleName, String comment)&amp;nbsp;&lt;/font&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;" vertex="1" connectable="0" parent="31">
+                <mxCell id="73" value="addSWRLRule(SWRLRule)" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=8;" vertex="1" connectable="0" parent="72">
+                    <mxGeometry x="-0.3269" relative="1" as="geometry">
+                        <mxPoint x="51" y="10" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="35" value="" style="group" parent="1" vertex="1" connectable="0">
+                    <mxGeometry x="630" y="160" width="220" height="440" as="geometry"/>
+                </mxCell>
+                <mxCell id="33" value="&lt;span style=&quot;border-color: var(--border-color);&quot;&gt;&lt;b&gt;SWRLParser&lt;/b&gt;&lt;/span&gt;" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;fontSize=12;" parent="35" vertex="1">
+                    <mxGeometry width="220" height="440" as="geometry"/>
+                </mxCell>
+                <mxCell id="34" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;fontSize=12;" parent="33" vertex="1">
+                    <mxGeometry x="105" y="60" width="10" height="270" as="geometry"/>
+                </mxCell>
+                <mxCell id="27" value="" style="endArrow=openThin;html=1;rounded=0;align=center;verticalAlign=top;endFill=0;labelBackgroundColor=none;endSize=6;fontSize=12;dashed=1;" parent="35" source="21" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="-250" y="36.666666666666664" as="sourcePoint"/>
+                        <mxPoint y="29.333333333333336" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="29" value="&lt;font style=&quot;font-size: 8px;&quot;&gt;&amp;lt;&amp;lt;creates&amp;gt;&amp;gt;&lt;/font&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=8;" parent="27" vertex="1" connectable="0">
+                    <mxGeometry x="0.241" y="1" relative="1" as="geometry">
+                        <mxPoint x="-14" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="79" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;fontSize=7;" vertex="1" parent="35">
+                    <mxGeometry x="110" y="180" width="10" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="80" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=7;exitX=0.991;exitY=0.009;exitDx=0;exitDy=0;exitPerimeter=0;entryX=1.043;entryY=0.977;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="35" source="79" target="79">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="150.00000000000003" y="229.37" as="targetPoint"/>
+                        <mxPoint x="150.52" y="200" as="sourcePoint"/>
+                        <Array as="points">
+                            <mxPoint x="170" y="180"/>
+                            <mxPoint x="170" y="200"/>
+                            <mxPoint x="120" y="200"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="81" value="parseAtom(SWRLToken.getValue())" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=7;" vertex="1" connectable="0" parent="80">
+                    <mxGeometry x="-0.3481" y="1" relative="1" as="geometry">
+                        <mxPoint x="68" y="11" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="31" style="edgeStyle=none;html=1;fontSize=10;endArrow=blockThin;endFill=1;entryX=0.319;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="21" target="34" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="520" y="220" as="targetPoint"/>
+                        <mxPoint x="335" y="254.08142857142855" as="sourcePoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="32" value="&lt;font style=&quot;font-size: 8px;&quot;&gt;parseRule(String rule, Boolean interactiveParseOnly, String ruleName, String comment)&amp;nbsp;&lt;/font&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=8;" parent="31" vertex="1" connectable="0">
                     <mxGeometry x="-0.2535" y="2" relative="1" as="geometry">
-                        <mxPoint x="45" y="1" as="offset"/>
+                        <mxPoint x="45" y="-4" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="60" value="" style="html=1;verticalAlign=bottom;labelBackgroundColor=none;endArrow=block;endFill=1;entryX=-0.024;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="34" target="45">
+                    <mxGeometry width="160" relative="1" as="geometry">
+                        <mxPoint x="745.05" y="303.70952" as="sourcePoint"/>
+                        <mxPoint x="1010" y="293" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="61" value="&lt;font style=&quot;font-size: 8px;&quot;&gt;getToken()&lt;/font&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=8;" vertex="1" connectable="0" parent="60">
+                    <mxGeometry x="-0.0886" y="2" relative="1" as="geometry">
+                        <mxPoint y="-5" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="62" style="edgeStyle=none;html=1;fontSize=10;dashed=1;exitX=0.467;exitY=1.013;exitDx=0;exitDy=0;exitPerimeter=0;endArrow=openThin;endFill=0;" edge="1" parent="1" source="45" target="34">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="744.8700000000001" y="322.52174" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="63" value="SWRLToken" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=8;" vertex="1" connectable="0" parent="62">
+                    <mxGeometry x="0.0946" y="1" relative="1" as="geometry">
+                        <mxPoint y="5" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="65" value="&lt;font style=&quot;font-size: 8px;&quot;&gt;[tokenizer.hasMoreTokens()]&lt;/font&gt;" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=10;" vertex="1" parent="1">
+                    <mxGeometry x="765" y="260" width="120" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="66" style="edgeStyle=none;html=1;fontSize=10;dashed=1;exitX=-0.011;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;endArrow=openThin;endFill=0;" edge="1" parent="1" source="34" target="21">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="730" y="370" as="sourcePoint"/>
+                        <mxPoint x="334.8900000000001" y="369.0999999999999" as="targetPoint"/>
+                        <Array as="points"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="67" value="SWRLRule" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=8;" vertex="1" connectable="0" parent="66">
+                    <mxGeometry x="0.0946" y="1" relative="1" as="geometry">
+                        <mxPoint y="5" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="75" value="" style="ellipse;html=1;fillColor=strokeColor;fontSize=7;" vertex="1" parent="1">
+                    <mxGeometry x="100" y="180" width="4" height="4" as="geometry"/>
+                </mxCell>
+                <mxCell id="76" value="" style="endArrow=open;html=1;rounded=0;align=center;verticalAlign=top;endFill=0;labelBackgroundColor=none;endSize=6;fontSize=7;" edge="1" source="75" parent="1" target="21">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="264" y="182" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="77" value="createSWRLRule(String ruleName, String rule, String comment, boolean isActive)" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=7;" vertex="1" connectable="0" parent="76">
+                    <mxGeometry x="-0.1715" y="1" relative="1" as="geometry">
+                        <mxPoint y="-11" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="86" style="rounded=0;html=1;exitX=0;exitY=0;exitDx=0;exitDy=0;exitPerimeter=0;fontSize=8;fontStyle=0;dashed=1;endArrow=none;endFill=0;entryX=0.515;entryY=0.48;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="84" target="33">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="84" value="The new atom is then added to the list of head atoms or the list of body atoms" style="shape=note2;boundedLbl=1;whiteSpace=wrap;html=1;size=13;verticalAlign=top;align=center;fontSize=8;" vertex="1" parent="1">
+                    <mxGeometry x="480" y="290" width="180" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="94" style="edgeStyle=none;rounded=0;html=1;fontSize=8;startArrow=none;startFill=0;endArrow=openThin;endFill=0;exitX=0.271;exitY=0.995;exitDx=0;exitDy=0;exitPerimeter=0;dashed=1;entryX=0.996;entryY=0.704;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="92" target="34">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="750" y="420" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="99" value="SWRLRule" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=8;" vertex="1" connectable="0" parent="94">
+                    <mxGeometry x="0.3801" y="-1" relative="1" as="geometry">
+                        <mxPoint x="-1" y="7" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="97" value="" style="html=1;verticalAlign=bottom;labelBackgroundColor=none;endArrow=block;endFill=1;rounded=0;fontSize=8;entryX=-0.01;entryY=0.033;entryDx=0;entryDy=0;entryPerimeter=0;exitX=0.955;exitY=0.63;exitDx=0;exitDy=0;exitPerimeter=0;" edge="1" parent="1" source="34" target="92">
+                    <mxGeometry width="160" relative="1" as="geometry">
+                        <mxPoint x="910" y="370" as="sourcePoint"/>
+                        <mxPoint x="1070" y="370" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="98" value="createSWRLRule(ruleName, headAtoms, bodyAtoms, comment, isEnable)" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=8;" vertex="1" connectable="0" parent="97">
+                    <mxGeometry x="-0.7982" relative="1" as="geometry">
+                        <mxPoint x="98" y="-7" as="offset"/>
                     </mxGeometry>
                 </mxCell>
             </root>

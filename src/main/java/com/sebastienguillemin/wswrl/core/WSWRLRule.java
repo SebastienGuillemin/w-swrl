@@ -2,15 +2,45 @@ package com.sebastienguillemin.wswrl.core;
 
 import java.util.List;
 
-import org.swrlapi.core.SWRLAPIRule;
-
 /**
  * A WSWRL rule.
  * 
  * @see WSWRLAtom
  * 
  */
-public interface WSWRLRule extends SWRLAPIRule {
+public interface WSWRLRule {
+    /**
+     * @return The name of the rule
+     */
+    public String getRuleName();
+
+    /**
+     * @return A comment annotation associated with a rule
+     */
+    public String getComment();
+
+    /**
+     * @return True if the rule is active
+     */
+    public boolean isActive();
+
+    /**
+     *
+     * @param active The active state
+     */
+    public void setActive(boolean active);
+
+    /**
+     * @return A list of SWRL atoms
+     */
+    public List<WSWRLAtom> getBodyAtoms();
+
+    /**
+     * @return The {@link com.sebastienguillemin.wswrl.core.WSWRLHeadAtom} of the
+     *         current rule.
+     */    
+    public WSWRLAtom getHeadAtom();
+
     /**
      * This method is used to calculate
      * {@link com.sebastienguillemin.wswrl.core.WSWRLAtom} weights.
@@ -34,10 +64,4 @@ public interface WSWRLRule extends SWRLAPIRule {
      * @return the list of valuable atoms.
      */
     public List<WSWRLAtom> valuable(List<WSWRLAtom> atoms);
-
-    /**
-     * @return The {@link com.sebastienguillemin.wswrl.core.WSWRLHeadAtom} of the
-     *         current rule.
-     */
-    public WSWRLHeadAtom getHeadAtom();
 }

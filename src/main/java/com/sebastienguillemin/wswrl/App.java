@@ -1,13 +1,13 @@
 package com.sebastienguillemin.wswrl;
 
 /**
- * Hello world!
+ * *TO DO : delete when finish*
  *
  */
 public class App 
 {
     public static void main( String[] args )
     {
-        System.out.println( "Hello World!" );
+        System.out.println( "WSWRL App." );
     }
 }

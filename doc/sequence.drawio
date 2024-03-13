@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e">
     <diagram id="XuE6fs28x3YZ3o2rZron" name="Page-1">
-        <mxGraphModel dx="935" dy="534" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+        <mxGraphModel dx="607" dy="393" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -180,7 +180,7 @@
                 <mxCell id="84" value="The new atom is then added to the list of head atoms (&lt;i&gt;headAtoms&lt;/i&gt;) or the list of body atoms (&lt;i&gt;bodyAtoms&lt;/i&gt;)" style="shape=note2;boundedLbl=1;whiteSpace=wrap;html=1;size=13;verticalAlign=top;align=center;fontSize=8;" parent="1" vertex="1">
                     <mxGeometry x="480" y="290" width="180" height="58" as="geometry"/>
                 </mxCell>
-                <mxCell id="94" style="edgeStyle=none;rounded=0;html=1;fontSize=8;startArrow=none;startFill=0;endArrow=openThin;endFill=0;exitX=0.271;exitY=0.995;exitDx=0;exitDy=0;exitPerimeter=0;dashed=1;entryX=0.988;entryY=0.815;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="92" edge="1" target="34">
+                <mxCell id="94" style="edgeStyle=none;rounded=0;html=1;fontSize=8;startArrow=none;startFill=0;endArrow=openThin;endFill=0;exitX=0.271;exitY=0.995;exitDx=0;exitDy=0;exitPerimeter=0;dashed=1;entryX=0.988;entryY=0.815;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="92" target="34" edge="1">
                     <mxGeometry relative="1" as="geometry">
                         <mxPoint x="744.9599999999998" y="439.0799999999999" as="targetPoint"/>
                     </mxGeometry>
@@ -190,7 +190,7 @@
                         <mxPoint x="-1" y="7" as="offset"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="97" value="" style="html=1;verticalAlign=bottom;labelBackgroundColor=none;endArrow=block;endFill=1;rounded=0;fontSize=8;entryX=-0.01;entryY=0.033;entryDx=0;entryDy=0;entryPerimeter=0;exitX=0.988;exitY=0.74;exitDx=0;exitDy=0;exitPerimeter=0;" parent="1" target="92" edge="1" source="34">
+                <mxCell id="97" value="" style="html=1;verticalAlign=bottom;labelBackgroundColor=none;endArrow=block;endFill=1;rounded=0;fontSize=8;entryX=-0.01;entryY=0.033;entryDx=0;entryDy=0;entryPerimeter=0;exitX=0.988;exitY=0.74;exitDx=0;exitDy=0;exitPerimeter=0;" parent="1" source="34" target="92" edge="1">
                     <mxGeometry width="160" relative="1" as="geometry">
                         <mxPoint x="750" y="420" as="sourcePoint"/>
                         <mxPoint x="1070" y="399" as="targetPoint"/>
@@ -213,31 +213,31 @@
                     </mxGeometry>
                 </mxCell>
                 <mxCell id="114" value="sub_diagrams" parent="0"/>
-                <mxCell id="117" value="" style="group" vertex="1" connectable="0" parent="114">
+                <mxCell id="117" value="" style="group" parent="114" vertex="1" connectable="0">
                     <mxGeometry x="686" y="260" width="624" height="247" as="geometry"/>
                 </mxCell>
-                <mxCell id="115" value="loop" style="shape=umlFrame;whiteSpace=wrap;html=1;width=40;height=15;boundedLbl=1;verticalAlign=middle;align=left;spacingLeft=5;fontSize=10;fillColor=#dae8fc;strokeColor=#6C8EBF;" vertex="1" parent="117">
+                <mxCell id="115" value="loop" style="shape=umlFrame;whiteSpace=wrap;html=1;width=40;height=15;boundedLbl=1;verticalAlign=middle;align=left;spacingLeft=5;fontSize=10;fillColor=#dae8fc;strokeColor=#6C8EBF;" parent="117" vertex="1">
                     <mxGeometry y="7" width="624" height="240" as="geometry"/>
                 </mxCell>
-                <mxCell id="116" value="&lt;font color=&quot;#6c8ebf&quot; style=&quot;font-size: 9px;&quot;&gt;[tokenizer.hasMoreTokens()]&lt;/font&gt;" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=10;fontColor=default;" vertex="1" parent="117">
+                <mxCell id="116" value="&lt;font color=&quot;#6c8ebf&quot; style=&quot;font-size: 9px;&quot;&gt;[tokenizer.hasMoreTokens()]&lt;/font&gt;" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=10;fontColor=default;" parent="117" vertex="1">
                     <mxGeometry x="60" y="2" width="131" height="24" as="geometry"/>
                 </mxCell>
-                <mxCell id="119" value="" style="group" vertex="1" connectable="0" parent="114">
+                <mxCell id="119" value="" style="group" parent="114" vertex="1" connectable="0">
                     <mxGeometry x="700" y="367.0009090909091" width="601" height="132.9990909090909" as="geometry"/>
                 </mxCell>
-                <mxCell id="120" value="" style="group;fillColor=none;strokeColor=#82B366;" vertex="1" connectable="0" parent="119">
+                <mxCell id="120" value="" style="group;fillColor=none;strokeColor=#82B366;" parent="119" vertex="1" connectable="0">
                     <mxGeometry y="12.99909090909091" width="601" height="120" as="geometry"/>
                 </mxCell>
-                <mxCell id="121" value="" style="group" vertex="1" connectable="0" parent="120">
+                <mxCell id="121" value="" style="group" parent="120" vertex="1" connectable="0">
                     <mxGeometry width="600.9999999999999" height="119.99999999999999" as="geometry"/>
                 </mxCell>
-                <mxCell id="122" value="&lt;font style=&quot;font-size: 10px;&quot;&gt;if&lt;/font&gt;" style="shape=umlFrame;whiteSpace=wrap;html=1;width=30;height=15;boundedLbl=1;verticalAlign=middle;align=left;spacingLeft=5;fillColor=#d5e8d4;strokeColor=#82B366;" vertex="1" parent="121">
+                <mxCell id="122" value="&lt;font style=&quot;font-size: 10px;&quot;&gt;if&lt;/font&gt;" style="shape=umlFrame;whiteSpace=wrap;html=1;width=30;height=15;boundedLbl=1;verticalAlign=middle;align=left;spacingLeft=5;fillColor=#d5e8d4;strokeColor=#82B366;" parent="121" vertex="1">
                     <mxGeometry width="600.9999999999999" height="119.99999999999999" as="geometry"/>
                 </mxCell>
-                <mxCell id="123" value="" style="line;strokeWidth=1;rotatable=0;dashed=0;labelPosition=right;align=left;verticalAlign=middle;spacingTop=0;spacingLeft=6;points=[];portConstraint=eastwest;fontSize=10;strokeColor=#82B366;" vertex="1" parent="121">
+                <mxCell id="123" value="" style="line;strokeWidth=1;rotatable=0;dashed=0;labelPosition=right;align=left;verticalAlign=middle;spacingTop=0;spacingLeft=6;points=[];portConstraint=eastwest;fontSize=10;strokeColor=#82B366;" parent="121" vertex="1">
                     <mxGeometry y="89.45454545454545" width="600.9999999999999" height="10.909090909090908" as="geometry"/>
                 </mxCell>
-                <mxCell id="124" value="&lt;p style=&quot;line-height: 100%; font-size: 9px;&quot;&gt;&lt;font color=&quot;#82b366&quot;&gt;[at leat one atom]&lt;/font&gt;&lt;/p&gt;" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=9;spacing=0;" vertex="1" parent="121">
+                <mxCell id="124" value="&lt;p style=&quot;line-height: 100%; font-size: 9px;&quot;&gt;&lt;font color=&quot;#82b366&quot;&gt;[at leat one atom]&lt;/font&gt;&lt;/p&gt;" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=9;spacing=0;" parent="121" vertex="1">
                     <mxGeometry x="48" y="-9.99909090909091" width="84" height="35" as="geometry"/>
                 </mxCell>
             </root>

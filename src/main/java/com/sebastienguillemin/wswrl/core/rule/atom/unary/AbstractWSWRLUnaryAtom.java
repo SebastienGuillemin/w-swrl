@@ -13,12 +13,13 @@ import org.semanticweb.owlapi.model.SWRLUnaryAtom;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
 import com.sebastienguillemin.wswrl.core.Rank;
+import com.sebastienguillemin.wswrl.core.WSWRLUnaryAtom;
 import com.sebastienguillemin.wswrl.core.rule.atom.AbstractWSWRLAtom;
 
 import lombok.Getter;
 import lombok.Setter;
 
-public abstract class AbstractWSWRLUnaryAtom<A extends SWRLArgument> extends AbstractWSWRLAtom implements SWRLUnaryAtom<A> {
+public abstract class AbstractWSWRLUnaryAtom<A extends SWRLArgument> extends AbstractWSWRLAtom implements WSWRLUnaryAtom<A>, SWRLUnaryAtom<A> {
     @Getter
     @Setter
     protected A argument;

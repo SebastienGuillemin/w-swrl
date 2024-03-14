@@ -36,7 +36,7 @@ public interface WSWRLRule {
     public List<WSWRLAtom> getBody();
 
     /**
-     * @return The {@link com.sebastienguillemin.wswrl.core.WSWRLHeadAtom} of the
+     * @return The head {@link com.sebastienguillemin.wswrl.core.WSWRLAtom} of the
      *         current rule.
      */    
     public WSWRLAtom getHead();

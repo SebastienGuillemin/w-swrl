@@ -14,8 +14,9 @@ import org.semanticweb.owlapi.model.SWRLPredicate;
 import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 
 import com.sebastienguillemin.wswrl.core.Rank;
+import com.sebastienguillemin.wswrl.core.WSWRLDataRangeAtom;
 
-public class DefaultWSWRLDataRange extends AbstractWSWRLUnaryAtom<SWRLDArgument> implements SWRLDataRangeAtom  {
+public class DefaultWSWRLDataRange extends AbstractWSWRLUnaryAtom<SWRLDArgument> implements WSWRLDataRangeAtom, SWRLDataRangeAtom  {
 
     @Override
     protected int index() {

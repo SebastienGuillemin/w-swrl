@@ -20,7 +20,6 @@ public abstract class AbstractWSWRLAtom extends SWRLAtomImpl implements WSWRLAto
 
     protected AbstractWSWRLAtom(SWRLPredicate predicate, Rank rank, float weight) {
         super(predicate);
-
         this.rank = rank;
         this.weight = weight;
     }

@@ -15,12 +15,13 @@ import org.semanticweb.owlapi.model.SWRLBinaryAtom;
 import org.semanticweb.owlapi.model.SWRLPredicate;
 
 import com.sebastienguillemin.wswrl.core.Rank;
+import com.sebastienguillemin.wswrl.core.WSWRLBinaryAtom;
 import com.sebastienguillemin.wswrl.core.rule.atom.AbstractWSWRLAtom;
 
 import lombok.Getter;
 import lombok.Setter;
 
-public abstract class AbstractWSWRLBinaryAtom<A extends SWRLArgument, B extends SWRLArgument> extends AbstractWSWRLAtom implements SWRLBinaryAtom<A, B> {
+public abstract class AbstractWSWRLBinaryAtom<A extends SWRLArgument, B extends SWRLArgument> extends AbstractWSWRLAtom implements WSWRLBinaryAtom<A, B>,  SWRLBinaryAtom<A, B> {
     @Getter
     @Setter
     protected A firstArgument;
@@ -29,13 +30,20 @@ public abstract class AbstractWSWRLBinaryAtom<A extends SWRLArgument, B extends 
     @Setter
     protected B secondArgument;
 
-    protected AbstractWSWRLBinaryAtom(SWRLPredicate predicate, Rank rank, float weight) {
+    protected AbstractWSWRLBinaryAtom(SWRLPredicate predicate, A firstArgument, B secondArgument, Rank rank, float weight) {
         super(predicate, rank, weight);
+        this.firstArgument = firstArgument;
+        this.secondArgument = secondArgument;
     }
 
-    protected AbstractWSWRLBinaryAtom(SWRLPredicate predicate, Rank rank) {
-        this(predicate, rank, 1);
+    protected AbstractWSWRLBinaryAtom(SWRLPredicate predicate , A firstArgument, B secondArgument, Rank rank) {
+        this(predicate, firstArgument, secondArgument, rank, 1);
     }
+
+    protected AbstractWSWRLBinaryAtom(SWRLPredicate predicate, A firstArgument, B secondArgument) {
+        this(predicate, firstArgument, secondArgument, null, 1);
+    }
+
     
     @Override
     public void addSignatureEntitiesToSet(Set<OWLEntity> entities) {

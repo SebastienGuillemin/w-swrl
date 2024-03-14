@@ -14,8 +14,9 @@ import org.semanticweb.owlapi.model.SWRLPredicate;
 import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 
 import com.sebastienguillemin.wswrl.core.Rank;
+import com.sebastienguillemin.wswrl.core.WSWRLClassAtom;
 
-public class DefaultWSWRLClassAtom extends AbstractWSWRLUnaryAtom<SWRLIArgument> implements SWRLClassAtom {
+public class DefaultWSWRLClassAtom extends AbstractWSWRLUnaryAtom<SWRLIArgument> implements WSWRLClassAtom, SWRLClassAtom {
 
     public DefaultWSWRLClassAtom(SWRLPredicate predicate, SWRLIArgument argument, Rank rank, float weight) {
         super(predicate, argument, rank, weight);

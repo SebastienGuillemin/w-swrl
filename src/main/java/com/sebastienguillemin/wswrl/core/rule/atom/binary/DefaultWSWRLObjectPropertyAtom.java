@@ -13,17 +13,20 @@ import org.semanticweb.owlapi.model.SWRLPredicate;
 import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 
 import com.sebastienguillemin.wswrl.core.Rank;
+import com.sebastienguillemin.wswrl.core.WSWRLObjectPropertyAtom;
 
-import uk.ac.manchester.cs.owl.owlapi.SWRLObjectPropertyAtomImpl;
+public class DefaultWSWRLObjectPropertyAtom extends AbstractWSWRLBinaryAtom<SWRLIArgument, SWRLIArgument> implements WSWRLObjectPropertyAtom, SWRLObjectPropertyAtom {
 
-public class DefaultWSWRLObjectPropertyAtom extends AbstractWSWRLBinaryAtom<SWRLIArgument, SWRLIArgument> implements SWRLObjectPropertyAtom {
-
-    protected DefaultWSWRLObjectPropertyAtom(SWRLPredicate predicate, Rank rank, float weight) {
-        super(predicate, rank, weight);
+    protected DefaultWSWRLObjectPropertyAtom(SWRLPredicate predicate, SWRLIArgument firstArgument, SWRLIArgument secondArgument, Rank rank, float weight) {
+        super(predicate, firstArgument, secondArgument, rank, weight);
     }
 
-    protected DefaultWSWRLObjectPropertyAtom(SWRLPredicate predicate, Rank rank) {
-        super(predicate, rank, 1);
+    protected DefaultWSWRLObjectPropertyAtom(SWRLPredicate predicate , SWRLIArgument firstArgument, SWRLIArgument secondArgument, Rank rank) {
+        this(predicate, firstArgument, secondArgument, rank, 1);
+    }
+
+    protected DefaultWSWRLObjectPropertyAtom(SWRLPredicate predicate, SWRLIArgument firstArgument, SWRLIArgument secondArgument) {
+        this(predicate, firstArgument, secondArgument, null, 1);
     }
 
     @Override
@@ -38,14 +41,19 @@ public class DefaultWSWRLObjectPropertyAtom extends AbstractWSWRLBinaryAtom<SWRL
     }
 
     @Override
-    public SWRLObjectPropertyAtom getSimplified() {
+    public WSWRLObjectPropertyAtom getSimplifiedWSWRLObject() {
         if (getPredicate().isNamed()) {
             // named property means no inversion of arguments
             return this;
         }
         // Flip
-        return new SWRLObjectPropertyAtomImpl(getPredicate().getInverseProperty(),
-            getSecondArgument(), getFirstArgument());
+        return new DefaultWSWRLObjectPropertyAtom(getPredicate().getInverseProperty(),
+        getSecondArgument(), getFirstArgument());
+    }
+
+    @Override
+    public SWRLObjectPropertyAtom getSimplified() {
+        return (SWRLObjectPropertyAtom) this.getSimplifiedWSWRLObject();
     }
 
     @Override

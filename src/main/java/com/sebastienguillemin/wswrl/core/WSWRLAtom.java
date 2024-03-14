@@ -1,14 +1,11 @@
 package com.sebastienguillemin.wswrl.core;
 
-import org.semanticweb.owlapi.model.SWRLAtom;
-
 /**
  * A {@link com.sebastienguillemin.wswrl.core.WSWRLRule} atom associated with a weight ranging in [0; 1].
  * 
  * @see org.semanticweb.owlapi.model.SWRLAtom
- * @see com.sebastienguillemin.wswrl.core.WSWRLHeadAtom
  */
-public interface WSWRLAtom extends SWRLAtom {
+public interface WSWRLAtom {
     /**
      * 
      * @return The atom weight.

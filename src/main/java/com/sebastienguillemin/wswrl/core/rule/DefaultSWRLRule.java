@@ -22,10 +22,10 @@ public class DefaultSWRLRule implements WSWRLRule {
     private boolean active;
 
     @Getter
-    private List<WSWRLAtom> bodyAtoms;
+    private List<WSWRLAtom> body;
 
     @Getter
-    private WSWRLHeadAtom headAtom;
+    private WSWRLHeadAtom head;
 
     @Override
     public void computeWeights() {
@@ -37,7 +37,7 @@ public class DefaultSWRLRule implements WSWRLRule {
     public List<WSWRLAtom> atRank(int rankIndex) {
         List<WSWRLAtom> atRankAtoms = new ArrayList<>();
 
-        for (WSWRLAtom atom : this.bodyAtoms) {
+        for (WSWRLAtom atom : this.body) {
             if (atom.getRank().getIndex() == rankIndex)
                 atRankAtoms.add(atom);
         }
@@ -49,7 +49,7 @@ public class DefaultSWRLRule implements WSWRLRule {
     public List<WSWRLAtom> valuable(List<WSWRLAtom> atoms) {
         List<WSWRLAtom> valuableAtoms = new ArrayList<>();
 
-        for (WSWRLAtom atom : this.bodyAtoms) {
+        for (WSWRLAtom atom : this.body) {
             if (atom.isValuable())
                 valuableAtoms.add(atom);
         }

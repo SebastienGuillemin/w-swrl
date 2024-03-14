@@ -33,13 +33,13 @@ public interface WSWRLRule {
     /**
      * @return A list of SWRL atoms
      */
-    public List<WSWRLAtom> getBodyAtoms();
+    public List<WSWRLAtom> getBody();
 
     /**
      * @return The {@link com.sebastienguillemin.wswrl.core.WSWRLHeadAtom} of the
      *         current rule.
      */    
-    public WSWRLAtom getHeadAtom();
+    public WSWRLAtom getHead();
 
     /**
      * This method is used to calculate

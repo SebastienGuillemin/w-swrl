@@ -1,4 +1,4 @@
-package com.sebastienguillemin.wswrl.core.rule.atom;
+package com.sebastienguillemin.wswrl.core.rule.atom.unary;
 
 import java.util.Collection;
 import java.util.Set;
@@ -13,6 +13,7 @@ import org.semanticweb.owlapi.model.SWRLUnaryAtom;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
 import com.sebastienguillemin.wswrl.core.Rank;
+import com.sebastienguillemin.wswrl.core.rule.atom.AbstractWSWRLAtom;
 
 import lombok.Getter;
 import lombok.Setter;

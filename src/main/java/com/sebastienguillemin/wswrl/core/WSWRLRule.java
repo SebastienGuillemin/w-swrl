@@ -48,6 +48,11 @@ public interface WSWRLRule {
     public void computeWeights();
 
     /**
+     * @return The head confidence.
+     */
+    public float getConfidence();
+
+    /**
      * Returns the atoms of a specific rank of the rule.
      * 
      * @param rankIndex The rank index of the atoms.

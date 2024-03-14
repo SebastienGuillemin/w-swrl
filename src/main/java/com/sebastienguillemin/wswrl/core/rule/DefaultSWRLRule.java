@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.sebastienguillemin.wswrl.core.WSWRLAtom;
-import com.sebastienguillemin.wswrl.core.WSWRLHeadAtom;
 import com.sebastienguillemin.wswrl.core.WSWRLRule;
 
 import lombok.Getter;
@@ -25,7 +24,10 @@ public class DefaultSWRLRule implements WSWRLRule {
     private List<WSWRLAtom> body;
 
     @Getter
-    private WSWRLHeadAtom head;
+    private WSWRLAtom head;
+
+    @Getter
+    private float confidence;
 
     @Override
     public void computeWeights() {

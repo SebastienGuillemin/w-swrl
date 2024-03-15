@@ -8,29 +8,33 @@ import org.swrlapi.core.IRIResolver;
 
 import com.sebastienguillemin.wswrl.core.WSWRLOntology;
 import com.sebastienguillemin.wswrl.core.WSWRLRule;
+import com.sebastienguillemin.wswrl.core.exception.AlreadyInRankException;
 import com.sebastienguillemin.wswrl.core.exception.WSWRLBuiltInException;
 import com.sebastienguillemin.wswrl.core.exception.WSWRLParseException;
+import com.sebastienguillemin.wswrl.core.factory.WSWRLDataFactory;
+import com.sebastienguillemin.wswrl.core.factory.WSWRLInternalFactory;
 import com.sebastienguillemin.wswrl.core.parser.WSWRLParser;
 
 public class DefaultWSWRLOntology extends DefaultSWRLAPIOWLOntology implements WSWRLOntology {
+    private WSWRLDataFactory wswrlDataFactory;
 
     public DefaultWSWRLOntology(@NonNull OWLOntology ontology, @NonNull IRIResolver iriResolver) {
         super(ontology, iriResolver);
-        // TODO Auto-generated constructor stub
+        this.wswrlDataFactory = WSWRLInternalFactory.createWSWRLDataFactory(iriResolver);
     }
 
     @Override
-    public WSWRLRule createWSWRLRule(String ruleName, String rule) throws WSWRLParseException, WSWRLBuiltInException {
+    public WSWRLRule createWSWRLRule(String ruleName, String rule) throws WSWRLParseException, WSWRLBuiltInException, AlreadyInRankException {
         return this.createWSWRLRule(ruleName, rule, "", true);
     }
 
     @Override
     public WSWRLRule createWSWRLRule(String ruleName, String rule, String comment, boolean isActive)
-            throws WSWRLParseException, WSWRLBuiltInException {
+            throws WSWRLParseException, WSWRLBuiltInException, AlreadyInRankException {
 
         WSWRLParser parser = new WSWRLParser(this);
 
-        Optional<WSWRLRule> wswrlRule = parser.parseWSWRLRule(ruleName, rule, comment, isActive);
+        Optional<WSWRLRule> wswrlRule = parser.parseWSWRLRule(ruleName, rule, comment, false);
 
         if (wswrlRule.isPresent()) {
             return wswrlRule.get();
@@ -39,4 +43,8 @@ public class DefaultWSWRLOntology extends DefaultSWRLAPIOWLOntology implements W
         return null;
     }
 
+    @Override
+    public WSWRLDataFactory getWSWRLDataFactory() {
+        return this.wswrlDataFactory;
+    }
 }

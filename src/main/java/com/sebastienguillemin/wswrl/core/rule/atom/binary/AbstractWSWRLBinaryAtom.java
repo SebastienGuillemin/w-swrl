@@ -30,18 +30,14 @@ public abstract class AbstractWSWRLBinaryAtom<A extends SWRLArgument, B extends 
     @Setter
     protected B secondArgument;
 
-    protected AbstractWSWRLBinaryAtom(SWRLPredicate predicate, A firstArgument, B secondArgument, Rank rank, float weight) {
-        super(predicate, rank, weight);
+    protected AbstractWSWRLBinaryAtom(SWRLPredicate predicate , A firstArgument, B secondArgument, Rank rank) {
+        super(predicate, rank);
         this.firstArgument = firstArgument;
         this.secondArgument = secondArgument;
     }
 
-    protected AbstractWSWRLBinaryAtom(SWRLPredicate predicate , A firstArgument, B secondArgument, Rank rank) {
-        this(predicate, firstArgument, secondArgument, rank, 1);
-    }
-
     protected AbstractWSWRLBinaryAtom(SWRLPredicate predicate, A firstArgument, B secondArgument) {
-        this(predicate, firstArgument, secondArgument, null, 1);
+        this(predicate, firstArgument, secondArgument, null);
     }
 
     

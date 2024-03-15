@@ -24,13 +24,9 @@ public abstract class AbstractWSWRLUnaryAtom<A extends SWRLArgument> extends Abs
     @Setter
     protected A argument;
 
-    protected AbstractWSWRLUnaryAtom(SWRLPredicate predicate, A argument, Rank rank, float weight) {
-        super(predicate, rank, weight);
-        this.argument = argument;
-    }
-
     protected AbstractWSWRLUnaryAtom(SWRLPredicate predicate, A argument, Rank rank) {
         super(predicate, rank);
+        this.argument = argument;
     }
 
     @Override

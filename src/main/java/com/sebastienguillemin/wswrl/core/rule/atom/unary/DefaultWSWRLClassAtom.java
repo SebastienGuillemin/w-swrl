@@ -18,12 +18,9 @@ import com.sebastienguillemin.wswrl.core.WSWRLClassAtom;
 
 public class DefaultWSWRLClassAtom extends AbstractWSWRLUnaryAtom<SWRLIArgument> implements WSWRLClassAtom, SWRLClassAtom {
 
-    public DefaultWSWRLClassAtom(SWRLPredicate predicate, SWRLIArgument argument, Rank rank, float weight) {
-        super(predicate, argument, rank, weight);
-    }
-
     public DefaultWSWRLClassAtom(SWRLPredicate predicate, SWRLIArgument argument, Rank rank) {
         super(predicate, argument, rank);
+        System.out.println("Class atom argument : " + argument);
     }
 
     @Override

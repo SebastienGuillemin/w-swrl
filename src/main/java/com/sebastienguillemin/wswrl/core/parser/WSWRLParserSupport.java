@@ -10,14 +10,12 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.SWRLClassAtom;
 import org.semanticweb.owlapi.model.SWRLDArgument;
 import org.semanticweb.owlapi.model.SWRLIArgument;
 import org.semanticweb.owlapi.model.parameters.Imports;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 import org.semanticweb.owlapi.vocab.XSDVocabulary;
 import org.swrlapi.core.IRIResolver;
-import org.swrlapi.parser.SWRLParseException;
 
 import com.sebastienguillemin.wswrl.core.WSWRLAtom;
 import com.sebastienguillemin.wswrl.core.WSWRLBuiltInAtom;
@@ -31,6 +29,7 @@ import com.sebastienguillemin.wswrl.core.WSWRLRule;
 import com.sebastienguillemin.wswrl.core.WSWRLSameIndividualAtom;
 import com.sebastienguillemin.wswrl.core.WSWRLVariable;
 import com.sebastienguillemin.wswrl.core.exception.WSWRLParseException;
+import com.sebastienguillemin.wswrl.core.factory.WSWRLDataFactory;
 
 public class WSWRLParserSupport {
     @NonNull
@@ -99,10 +98,10 @@ public class WSWRLParserSupport {
     }
 
     public WSWRLClassAtom createWSWRLClassAtom(@NonNull String classShortName, @NonNull SWRLIArgument iArgument)
-            throws SWRLParseException {
+            throws WSWRLParseException {
         OWLClass cls = createOWLClass(classShortName);
 
-        return getOWLDataFactory().getSWRLClassAtom(cls, iArgument);
+        return getWSWRLDataFactory().getWSWRLClassAtom(cls, iArgument);
     }
 
     public WSWRLObjectPropertyAtom createWSWRLObjectPropertyAtom(@NonNull String propertyShortName,
@@ -152,9 +151,17 @@ public class WSWRLParserSupport {
                     + " - cannot use name of existing OWL class, individual, property, or datatype");
     }
 
-    public WSWRLVariable createWSWRLVariable(String variableName) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'createSWRLVariable'");
+    public @NonNull WSWRLVariable createWSWRLVariable(@NonNull String variableName) throws WSWRLParseException {
+        if (isOWLEntity(variableName))
+            throw new WSWRLParseException(variableName
+                    + " cannot be used as a SWRL variable name because it refers to an existing OWL entity");
+
+        Optional<IRI> iri = getIRIResolver().variableName2IRI(variableName);
+
+        if (iri.isPresent())
+            return getWSWRLDataFactory().getWSWRLVariable(iri.get());
+        else
+            throw new WSWRLParseException("error creating SWRL variable " + variableName);
     }
 
     public boolean isOWLNamedIndividual(@NonNull String shortName) {
@@ -228,12 +235,12 @@ public class WSWRLParserSupport {
     }
 
     @NonNull
-    private OWLClass createOWLClass(@NonNull String classShortName) throws SWRLParseException {
+    private OWLClass createOWLClass(@NonNull String classShortName) throws WSWRLParseException {
         if (isOWLClass(classShortName)) {
             IRI classIRI = prefixedName2IRI(classShortName);
             return getOWLDataFactory().getOWLClass(classIRI);
         } else
-            throw new SWRLParseException(classShortName + " is not an OWL class");
+            throw new WSWRLParseException(classShortName + " is not an OWL class");
     }
 
     @NonNull
@@ -244,6 +251,11 @@ public class WSWRLParserSupport {
     @NonNull
     private OWLDataFactory getOWLDataFactory() {
         return this.wswrlOntology.getSWRLAPIOWLDataFactory();
+    }
+
+    @NonNull
+    private WSWRLDataFactory getWSWRLDataFactory() {
+        return this.wswrlOntology.getWSWRLDataFactory();
     }
 
     private IRI prefixedName2IRI(String prefixedName) {

@@ -4,6 +4,7 @@ import org.semanticweb.owlapi.model.SWRLPredicate;
 
 import com.sebastienguillemin.wswrl.core.Rank;
 import com.sebastienguillemin.wswrl.core.WSWRLAtom;
+import com.sebastienguillemin.wswrl.core.exception.AlreadyInRankException;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -15,16 +16,16 @@ public abstract class AbstractWSWRLAtom extends SWRLAtomImpl implements WSWRLAto
     protected float weight;
 
     @Getter
-    @Setter
     private Rank rank;
 
-    protected AbstractWSWRLAtom(SWRLPredicate predicate, Rank rank, float weight) {
-        super(predicate);
+    public void setRank(Rank rank) throws AlreadyInRankException {
         this.rank = rank;
-        this.weight = weight;
+        rank.addAtom(this);
+        System.out.println("Setting rank : " + rank);
     }
 
     protected AbstractWSWRLAtom(SWRLPredicate predicate, Rank rank) {
-        this(predicate, rank, 1);
+        super(predicate);
+        this.rank = rank;
     }
 }

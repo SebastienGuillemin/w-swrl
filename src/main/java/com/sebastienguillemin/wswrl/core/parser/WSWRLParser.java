@@ -22,6 +22,7 @@ import com.sebastienguillemin.wswrl.core.WSWRLOntology;
 import com.sebastienguillemin.wswrl.core.WSWRLRule;
 import com.sebastienguillemin.wswrl.core.WSWRLSameIndividualAtom;
 import com.sebastienguillemin.wswrl.core.WSWRLVariable;
+import com.sebastienguillemin.wswrl.core.exception.AlreadyInRankException;
 import com.sebastienguillemin.wswrl.core.exception.WSWRLIncompleteRuleException;
 import com.sebastienguillemin.wswrl.core.exception.WSWRLParseException;
 import com.sebastienguillemin.wswrl.core.rank.DefaultRank;
@@ -60,10 +61,11 @@ public class WSWRLParser {
      * @param interactiveParseOnly If True simply parse
      * @return The parsed rule
      * @throws WSWRLParseException If an error occurs during parsing
+     * @throws AlreadyInRankException 
      */
     public Optional<@NonNull WSWRLRule> parseWSWRLRule(@NonNull String ruleName,
             @NonNull String ruleText, @NonNull String comment, boolean interactiveParseOnly)
-            throws WSWRLParseException {
+            throws WSWRLParseException, AlreadyInRankException {
 
         WSWRLTokenizer tokenizer = new WSWRLTokenizer(ruleText.trim(), interactiveParseOnly);
         Optional<Set<WSWRLAtom>> head = !tokenizer.isInteractiveParseOnly()
@@ -173,7 +175,7 @@ public class WSWRLParser {
             return true;
         } catch (WSWRLIncompleteRuleException e) {
             return true;
-        } catch (WSWRLParseException e) {
+        } catch (WSWRLParseException | AlreadyInRankException e) {
             return false;
         }
     }
@@ -190,7 +192,7 @@ public class WSWRLParser {
         try {
             parseWSWRLRule("", ruleText, "", true);
             return true;
-        } catch (WSWRLParseException e) {
+        } catch (WSWRLParseException | AlreadyInRankException e) {
             return false;
         }
     }
@@ -215,11 +217,9 @@ public class WSWRLParser {
             tokenizer.checkAndSkipLParen("Expecting parentheses-enclosed arguments for different individuals atom");
             return parseWSWRLDifferentFromAtomArguments(tokenizer, isInHead);
         } else if (this.wswrlParserSupport.isWSWRLBuiltIn(shortName)) {
-            System.out.println("");
             tokenizer.checkAndSkipLParen("Expecting parentheses-enclosed arguments for built-in atom");
             return parseWSWRLBuiltinAtomArguments(shortName, tokenizer, isInHead);
         } else if (this.wswrlParserSupport.isOWLClass(shortName)) {
-            System.out.println("isOWLClass");
             tokenizer.checkAndSkipLParen("Expecting parentheses-enclosed arguments for class atom");
             return parseWSWRLClassAtomArguments(shortName, tokenizer, isInHead);
         } else if (this.wswrlParserSupport.isOWLObjectProperty(shortName)) {

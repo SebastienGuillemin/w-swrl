@@ -17,16 +17,12 @@ import com.sebastienguillemin.wswrl.core.WSWRLDataPropertyAtom;
 
 public class DefaultWSWRLDataPropertyAtom extends AbstractWSWRLBinaryAtom<SWRLIArgument, SWRLDArgument> implements WSWRLDataPropertyAtom, SWRLDataPropertyAtom {
 
-    protected DefaultWSWRLDataPropertyAtom(SWRLPredicate predicate, SWRLIArgument firstArgument, SWRLDArgument secondArgument, Rank rank, float weight) {
-        super(predicate, firstArgument, secondArgument, rank, weight);
-    }
-
-    protected DefaultWSWRLDataPropertyAtom(SWRLPredicate predicate , SWRLIArgument firstArgument, SWRLDArgument secondArgument, Rank rank) {
-        this(predicate, firstArgument, secondArgument, rank, 1);
+    protected DefaultWSWRLDataPropertyAtom(SWRLPredicate predicate, SWRLIArgument firstArgument, SWRLDArgument secondArgument, Rank rank) {
+        super(predicate, firstArgument, secondArgument, rank);
     }
 
     protected DefaultWSWRLDataPropertyAtom(SWRLPredicate predicate, SWRLIArgument firstArgument, SWRLDArgument secondArgument) {
-        this(predicate, firstArgument, secondArgument, null, 1);
+        this(predicate, firstArgument, secondArgument, null);
     }
 
     @Nonnull

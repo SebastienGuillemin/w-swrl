@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.sebastienguillemin.wswrl.core.Rank;
 import com.sebastienguillemin.wswrl.core.WSWRLAtom;
+import com.sebastienguillemin.wswrl.core.exception.AlreadyInRankException;
 
 public class DefaultRank implements Rank {
     private int index;
@@ -24,5 +25,21 @@ public class DefaultRank implements Rank {
     @Override
     public List<WSWRLAtom> getAtoms() {
         return this.atoms;
+    }
+
+    @Override
+    public String toString() {
+        return "Rank " + this.index + " containing " + this.atoms.size() + " atom(s).";
+    }
+
+    @Override
+    public void addAtom(WSWRLAtom wswrlAtom) throws AlreadyInRankException {
+
+        for (WSWRLAtom atom : this.atoms) {
+            if (wswrlAtom.equals(atom))
+                throw new AlreadyInRankException(wswrlAtom, this);
+        }
+
+        this.atoms.add(wswrlAtom);
     }
 }

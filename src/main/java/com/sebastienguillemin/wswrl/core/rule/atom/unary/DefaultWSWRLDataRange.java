@@ -23,10 +23,6 @@ public class DefaultWSWRLDataRange extends AbstractWSWRLUnaryAtom<SWRLDArgument>
         return OWLObjectTypeIndexProvider.RULE_OBJECT_TYPE_INDEX_BASE + 2;
     }
 
-    public DefaultWSWRLDataRange(SWRLPredicate predicate, SWRLDArgument argument, Rank rank, float weight) {
-        super(predicate, argument, rank, weight);
-    }
-
     public DefaultWSWRLDataRange(SWRLPredicate predicate, SWRLDArgument argument, Rank rank) {
         super(predicate, argument, rank);
     }

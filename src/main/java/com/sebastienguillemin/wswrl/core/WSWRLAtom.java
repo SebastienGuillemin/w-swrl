@@ -1,11 +1,26 @@
 package com.sebastienguillemin.wswrl.core;
 
+import javax.annotation.Nonnull;
+
+import org.semanticweb.owlapi.model.SWRLPredicate;
+
+import com.sebastienguillemin.wswrl.core.exception.AlreadyInRankException;
+
 /**
- * A {@link com.sebastienguillemin.wswrl.core.WSWRLRule} atom associated with a weight ranging in [0; 1].
+ * A {@link com.sebastienguillemin.wswrl.core.WSWRLRule} atom associated with a
+ * weight ranging in [0; 1].
  * 
  * @see org.semanticweb.owlapi.model.SWRLAtom
  */
 public interface WSWRLAtom {
+    /**
+     * Gets the predicate of this atom.
+     * 
+     * @return The atom predicate
+     */
+    @Nonnull
+    SWRLPredicate getPredicate();
+
     /**
      * 
      * @return The atom weight.
@@ -17,7 +32,7 @@ public interface WSWRLAtom {
      * 
      * @param rank The atom rank.
      */
-    public void setRank(Rank rank);
+    public void setRank(Rank rank) throws AlreadyInRankException;
 
     /**
      * 

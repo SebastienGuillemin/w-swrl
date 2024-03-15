@@ -20,7 +20,6 @@ public class DefaultWSWRLClassAtom extends AbstractWSWRLUnaryAtom<SWRLIArgument>
 
     public DefaultWSWRLClassAtom(SWRLPredicate predicate, SWRLIArgument argument, Rank rank) {
         super(predicate, argument, rank);
-        System.out.println("Class atom argument : " + argument);
     }
 
     @Override

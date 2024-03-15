@@ -21,11 +21,15 @@ public abstract class AbstractWSWRLAtom extends SWRLAtomImpl implements WSWRLAto
     public void setRank(Rank rank) throws AlreadyInRankException {
         this.rank = rank;
         rank.addAtom(this);
-        System.out.println("Setting rank : " + rank);
     }
 
     protected AbstractWSWRLAtom(SWRLPredicate predicate, Rank rank) {
         super(predicate);
         this.rank = rank;
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() + " Rank:" + this.rank.getIndex();
     }
 }

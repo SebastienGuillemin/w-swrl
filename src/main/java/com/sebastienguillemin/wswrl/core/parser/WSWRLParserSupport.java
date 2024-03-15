@@ -52,10 +52,9 @@ public class WSWRLParserSupport {
         throw new UnsupportedOperationException("Unimplemented method 'getShortNameFromIRI'");
     }
 
-    public WSWRLRule createWSWRLRule(@NonNull String ruleName, Set<WSWRLAtom> set, Set<WSWRLAtom> set2,
-            @NonNull String comment, boolean b) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'createWSWRLRule'");
+    public WSWRLRule createWSWRLRule(Set<WSWRLAtom> body, Set<WSWRLAtom> head, boolean isEnabled) {
+        // TODO : gérer le cas d'ajout d'une annotation.
+        return getWSWRLDataFactory().getWSWRLRule(body, head, isEnabled);
     }
 
     public boolean isOWLEntity(@NonNull String shortName) {

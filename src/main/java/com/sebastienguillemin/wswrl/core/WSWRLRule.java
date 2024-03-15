@@ -1,6 +1,7 @@
 package com.sebastienguillemin.wswrl.core;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * A WSWRL rule.
@@ -10,36 +11,29 @@ import java.util.List;
  */
 public interface WSWRLRule {
     /**
-     * @return The name of the rule
+     * @return The name of the rule.
      */
     public String getRuleName();
 
     /**
-     * @return A comment annotation associated with a rule
+     * @return A comment annotation associated with a rule.
      */
     public String getComment();
 
     /**
-     * @return True if the rule is active
+     * @return True if the rule is enables.
      */
-    public boolean isActive();
+    public boolean isEnabled();
 
     /**
-     *
-     * @param active The active state
+     * @return The body of the current rule.
      */
-    public void setActive(boolean active);
+    public Set<WSWRLAtom> getBody();
 
     /**
-     * @return A list of SWRL atoms
-     */
-    public List<WSWRLAtom> getBody();
-
-    /**
-     * @return The head {@link com.sebastienguillemin.wswrl.core.WSWRLAtom} of the
-     *         current rule.
+     * @return The head of the current rule.
      */    
-    public WSWRLAtom getHead();
+    public Set<WSWRLAtom> getHead();
 
     /**
      * This method is used to calculate
@@ -56,17 +50,17 @@ public interface WSWRLRule {
      * Returns the atoms of a specific rank of the rule.
      * 
      * @param rankIndex The rank index of the atoms.
-     * @return The list of {@link com.sebastienguillemin.wswrl.core.WSWRLAtom} at a
+     * @return The set of {@link com.sebastienguillemin.wswrl.core.WSWRLAtom} at a
      *         certain rank.
      */
-    public List<WSWRLAtom> atRank(int rankIndex);
+    public Set<WSWRLAtom> atRank(int rankIndex);
 
     /**
-     * Return the liste of valuable atoms in a given list of atoms.
+     * Return the set of valuable atoms in a given set of atoms.
      * 
-     * @param atoms a list of {@link com.sebastienguillemin.wswrl.core.WSWRLAtom} to
+     * @param atoms a set of {@link com.sebastienguillemin.wswrl.core.WSWRLAtom} to
      *              test
-     * @return the list of valuable atoms.
+     * @return the set of valuable atoms.
      */
-    public List<WSWRLAtom> valuable(List<WSWRLAtom> atoms);
+    public Set<WSWRLAtom> valuable(Set<WSWRLAtom> atoms);
 }

@@ -1,7 +1,7 @@
 package com.sebastienguillemin.wswrl.core.rule;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import com.sebastienguillemin.wswrl.core.WSWRLAtom;
 import com.sebastienguillemin.wswrl.core.WSWRLRule;
@@ -9,7 +9,7 @@ import com.sebastienguillemin.wswrl.core.WSWRLRule;
 import lombok.Getter;
 import lombok.Setter;
 
-public class DefaultSWRLRule implements WSWRLRule {
+public class DefaultWSWRLRule implements WSWRLRule {
     @Getter
     private String ruleName;
 
@@ -18,16 +18,22 @@ public class DefaultSWRLRule implements WSWRLRule {
 
     @Getter
     @Setter
-    private boolean active;
+    private boolean enabled;
 
     @Getter
-    private List<WSWRLAtom> body;
+    private Set<WSWRLAtom> body;
 
     @Getter
-    private WSWRLAtom head;
+    private Set<WSWRLAtom> head;
 
     @Getter
     private float confidence;
+
+    public DefaultWSWRLRule(Set<WSWRLAtom> body, Set<WSWRLAtom> head, boolean enabled) {
+        this.body = body;
+        this.head = head;
+        this.enabled = enabled;
+    }
 
     @Override
     public void computeWeights() {
@@ -36,8 +42,8 @@ public class DefaultSWRLRule implements WSWRLRule {
     }
 
     @Override
-    public List<WSWRLAtom> atRank(int rankIndex) {
-        List<WSWRLAtom> atRankAtoms = new ArrayList<>();
+    public Set<WSWRLAtom> atRank(int rankIndex) {
+        Set<WSWRLAtom> atRankAtoms = new HashSet<>();
 
         for (WSWRLAtom atom : this.body) {
             if (atom.getRank().getIndex() == rankIndex)
@@ -48,8 +54,8 @@ public class DefaultSWRLRule implements WSWRLRule {
     }
 
     @Override
-    public List<WSWRLAtom> valuable(List<WSWRLAtom> atoms) {
-        List<WSWRLAtom> valuableAtoms = new ArrayList<>();
+    public Set<WSWRLAtom> valuable(Set<WSWRLAtom> atoms) {
+        Set<WSWRLAtom> valuableAtoms = new HashSet<>();
 
         for (WSWRLAtom atom : this.body) {
             if (atom.isValuable())

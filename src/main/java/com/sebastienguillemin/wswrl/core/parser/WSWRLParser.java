@@ -156,7 +156,7 @@ public class WSWRLParser {
             if (!atLeastOneAtom)
                 throw new WSWRLParseException("Incomplete - no antecedent or consequent");
             return Optional
-                    .of(this.wswrlParserSupport.createWSWRLRule(ruleName, head.get(), body.get(), comment, true));
+                    .of(this.wswrlParserSupport.createWSWRLRule(head.get(), body.get(), true));
         } else
             return Optional.<@NonNull WSWRLRule>empty();
     }
@@ -207,8 +207,6 @@ public class WSWRLParser {
 
     private Optional<? extends @NonNull WSWRLAtom> parseWSWRLAtom(@NonNull String shortName,
             @NonNull WSWRLTokenizer tokenizer, boolean isInHead) throws WSWRLParseException {
-
-        System.out.println("Parsing: " + shortName);
 
         if (shortName.equalsIgnoreCase(SAME_AS_PREDICATE)) {
             tokenizer.checkAndSkipLParen("Expecting parentheses-enclosed arguments for same individual atom");

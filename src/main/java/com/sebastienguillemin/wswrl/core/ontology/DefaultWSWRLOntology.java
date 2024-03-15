@@ -1,8 +1,9 @@
 package com.sebastienguillemin.wswrl.core.ontology;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
-import org.checkerframework.checker.nullness.qual.NonNull;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.swrlapi.core.IRIResolver;
 
@@ -16,16 +17,22 @@ import com.sebastienguillemin.wswrl.core.factory.WSWRLInternalFactory;
 import com.sebastienguillemin.wswrl.core.parser.WSWRLParser;
 
 public class DefaultWSWRLOntology extends DefaultSWRLAPIOWLOntology implements WSWRLOntology {
+    private final Map<String, WSWRLRule> wswrlRules; 
     private WSWRLDataFactory wswrlDataFactory;
 
-    public DefaultWSWRLOntology(@NonNull OWLOntology ontology, @NonNull IRIResolver iriResolver) {
+    public DefaultWSWRLOntology(OWLOntology ontology, IRIResolver iriResolver) {
         super(ontology, iriResolver);
+        this.wswrlRules = new HashMap<>();
         this.wswrlDataFactory = WSWRLInternalFactory.createWSWRLDataFactory(iriResolver);
     }
 
     @Override
     public WSWRLRule createWSWRLRule(String ruleName, String rule) throws WSWRLParseException, WSWRLBuiltInException, AlreadyInRankException {
-        return this.createWSWRLRule(ruleName, rule, "", true);
+        WSWRLRule wswrlRule = this.createWSWRLRule(ruleName, rule, "", true);
+
+        this.wswrlRules.put(ruleName, wswrlRule);
+
+        return wswrlRule;
     }
 
     @Override

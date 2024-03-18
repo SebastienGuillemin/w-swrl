@@ -2,7 +2,6 @@ package com.sebastienguillemin.wswrl.core;
 
 import java.util.Set;
 
-import org.semanticweb.owlapi.model.OWLIndividual;
 import org.swrlapi.core.SWRLAPIOWLOntology;
 
 import com.sebastienguillemin.wswrl.core.exception.AlreadyInRankException;

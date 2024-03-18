@@ -16,7 +16,6 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
-import org.semanticweb.owlapi.model.SWRLRule;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 import org.swrlapi.bridge.SWRLRuleEngineBridgeController;
 import org.swrlapi.bridge.TargetSWRLRuleEngine;
@@ -292,12 +291,6 @@ public class DefaultWSWRLRuleEngine implements WSWRLRuleEngine {
     @Override
     public SWRLAPIOWLOntology getSWRLAPIOWLOntology() {
         return this.wswrlOntology;
-    }
-
-    private void loadWSWRLRules() {
-        for (SWRLAPIRule rule : this.getSWRLRules()) {
-            this.wswrlRules.put(rule.getRuleName(), (WSWRLRule) rule);
-        }
     }
 
     private void reset() {

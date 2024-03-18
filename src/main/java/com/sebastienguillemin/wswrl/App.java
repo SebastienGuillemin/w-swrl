@@ -6,8 +6,8 @@ import java.io.InputStream;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.SWRLRule;
 
-import com.sebastienguillemin.wswrl.core.WSWRLAtom;
 import com.sebastienguillemin.wswrl.core.WSWRLRule;
 import com.sebastienguillemin.wswrl.core.WSWRLRuleEngine;
 import com.sebastienguillemin.wswrl.core.factory.WSWRLFactory;
@@ -24,34 +24,12 @@ public class App {
         OWLOntologyManager ontologyManager = OWLManager.createOWLOntologyManager();
         OWLOntology ontology = ontologyManager.loadOntologyFromOntologyDocument(inputStream);
 
-        WSWRLRuleEngine wswrlRuleEngine = WSWRLFactory.createWSWRLRuleEngine(ontology);
+        // SWRLRuleEngine ruleEngine = SWRLAPIFactory.createSWRLRuleEngine(ontology);
 
-        WSWRLRule rule = wswrlRuleEngine.createWSWRLRule("testRule", "1*concept1(?x)->concept2(?x)");
+        WSWRLRuleEngine ruleEngine = WSWRLFactory.createWSWRLRuleEngine(ontology);
+        ruleEngine.createWSWRLRule("testRule", "1*concept1(?x)->concept2(?x)");
 
-        for (WSWRLAtom atom : rule.getBody())
-            System.out.println(atom);
-
-        for (WSWRLAtom atom : rule.getHead())
-            System.out.println(atom);
-
-        // swrlRuleEngine.infer();
-
-        // Set<SWRLAPIRule> swrlRules = swrlRuleEngine.getSWRLRules();
-
-        // for (SWRLAPIRule rule : swrlRules) {
-        // System.out.println("Body :");
-
-        // for (SWRLAtom atom : rule.getBody()) {
-        // System.out.println(" " + atom.getPredicate());
-
-        // for (SWRLArgument argument : atom.getAllArguments()) {
-        // System.out.println(" " + argument);
-        // System.out.println(" " + ((SWRLVariable) argument).isIndividual());
-        // }
-
-        // System.out.println();
-        // }
-
-        // }
+        SWRLRule rule = ruleEngine.getSWRLRule("ruleTest");
+        System.out.println(rule);
     }
 }

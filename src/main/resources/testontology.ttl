@@ -65,7 +65,6 @@
    rdf:type <http://www.w3.org/2003/11/swrl#Imp> ;
    <http://www.w3.org/2003/11/swrl#body> [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
                                            rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#ClassAtom> ;
-                                                       <http://www.wswrl.com#rank>  1 ;
                                                        <http://www.w3.org/2003/11/swrl#classPredicate> <http://www.semanticweb.org/guillemin/ontologies/2024/2/untitled-ontology-103/concept1> ;
                                                        <http://www.w3.org/2003/11/swrl#argument1> <http://www.semanticweb.org/guillemin/ontologies/2024/2/untitled-ontology-103/x>
                                                      ] ;

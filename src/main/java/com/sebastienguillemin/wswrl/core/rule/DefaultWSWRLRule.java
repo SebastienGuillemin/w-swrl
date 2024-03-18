@@ -21,20 +21,20 @@ public class DefaultWSWRLRule implements WSWRLRule {
     private boolean enabled;
 
     @Getter
-    private Set<WSWRLAtom> body;
+    private Set<WSWRLAtom> head;
 
     @Getter
-    private Set<WSWRLAtom> head;
+    private Set<WSWRLAtom> body;
 
     @Getter
     private float confidence;
 
-    public DefaultWSWRLRule(Set<WSWRLAtom> body, Set<WSWRLAtom> head, boolean enabled) {
-        this.body = body;
+    public DefaultWSWRLRule(String ruleName, Set<WSWRLAtom> head, Set<WSWRLAtom> body, boolean enabled) {
+        this.ruleName = ruleName;
         this.head = head;
+        this.body = body;
         this.enabled = enabled;
     }
-
     @Override
     public void computeWeights() {
         // TODO Auto-generated method stub

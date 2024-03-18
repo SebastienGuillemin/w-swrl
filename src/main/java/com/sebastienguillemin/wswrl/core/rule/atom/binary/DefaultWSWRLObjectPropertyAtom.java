@@ -1,33 +1,30 @@
 package com.sebastienguillemin.wswrl.core.rule.atom.binary;
 
+import java.util.stream.Stream;
+
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
+import org.semanticweb.owlapi.model.SWRLArgument;
 import org.semanticweb.owlapi.model.SWRLIArgument;
 import org.semanticweb.owlapi.model.SWRLObjectPropertyAtom;
 import org.semanticweb.owlapi.model.SWRLObjectVisitor;
 import org.semanticweb.owlapi.model.SWRLObjectVisitorEx;
 import org.semanticweb.owlapi.model.SWRLPredicate;
-import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 
 import com.sebastienguillemin.wswrl.core.Rank;
 import com.sebastienguillemin.wswrl.core.WSWRLObjectPropertyAtom;
 
 public class DefaultWSWRLObjectPropertyAtom extends AbstractWSWRLBinaryAtom<SWRLIArgument, SWRLIArgument> implements WSWRLObjectPropertyAtom, SWRLObjectPropertyAtom {
 
-    protected DefaultWSWRLObjectPropertyAtom(SWRLPredicate predicate , SWRLIArgument firstArgument, SWRLIArgument secondArgument, Rank rank) {
+    public DefaultWSWRLObjectPropertyAtom(SWRLPredicate predicate , SWRLIArgument firstArgument, SWRLIArgument secondArgument, Rank rank) {
         super(predicate, firstArgument, secondArgument, rank);
     }
 
-    protected DefaultWSWRLObjectPropertyAtom(SWRLPredicate predicate, SWRLIArgument firstArgument, SWRLIArgument secondArgument) {
+    public DefaultWSWRLObjectPropertyAtom(SWRLPredicate predicate, SWRLIArgument firstArgument, SWRLIArgument secondArgument) {
         this(predicate, firstArgument, secondArgument, null);
-    }
-
-    @Override
-    protected int index() {
-        return OWLObjectTypeIndexProvider.RULE_OBJECT_TYPE_INDEX_BASE + 3;
     }
 
     @Nonnull
@@ -96,5 +93,11 @@ public class DefaultWSWRLObjectPropertyAtom extends AbstractWSWRLBinaryAtom<SWRL
     public boolean evaluate() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'evaluate'");
+    }
+
+    @Override
+    protected int index() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'index'");
     }
 }

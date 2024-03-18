@@ -1,10 +1,13 @@
 package com.sebastienguillemin.wswrl.core.rule.atom.binary;
 
+import java.util.stream.Stream;
+
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
+import org.semanticweb.owlapi.model.SWRLArgument;
 import org.semanticweb.owlapi.model.SWRLDArgument;
 import org.semanticweb.owlapi.model.SWRLDataPropertyAtom;
 import org.semanticweb.owlapi.model.SWRLIArgument;
@@ -17,11 +20,11 @@ import com.sebastienguillemin.wswrl.core.WSWRLDataPropertyAtom;
 
 public class DefaultWSWRLDataPropertyAtom extends AbstractWSWRLBinaryAtom<SWRLIArgument, SWRLDArgument> implements WSWRLDataPropertyAtom, SWRLDataPropertyAtom {
 
-    protected DefaultWSWRLDataPropertyAtom(SWRLPredicate predicate, SWRLIArgument firstArgument, SWRLDArgument secondArgument, Rank rank) {
+    public DefaultWSWRLDataPropertyAtom(SWRLPredicate predicate, SWRLIArgument firstArgument, SWRLDArgument secondArgument, Rank rank) {
         super(predicate, firstArgument, secondArgument, rank);
     }
 
-    protected DefaultWSWRLDataPropertyAtom(SWRLPredicate predicate, SWRLIArgument firstArgument, SWRLDArgument secondArgument) {
+    public DefaultWSWRLDataPropertyAtom(SWRLPredicate predicate, SWRLIArgument firstArgument, SWRLDArgument secondArgument) {
         this(predicate, firstArgument, secondArgument, null);
     }
 
@@ -81,6 +84,5 @@ public class DefaultWSWRLDataPropertyAtom extends AbstractWSWRLBinaryAtom<SWRLIA
     protected int index() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'index'");
-    }
-    
+    }    
 }

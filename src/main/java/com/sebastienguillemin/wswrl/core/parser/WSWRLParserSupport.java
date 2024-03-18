@@ -9,6 +9,7 @@ import org.checkerframework.checker.nullness.qual.NonNull;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDataFactory;
+import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.SWRLDArgument;
 import org.semanticweb.owlapi.model.SWRLIArgument;
@@ -20,6 +21,7 @@ import org.swrlapi.core.IRIResolver;
 import com.sebastienguillemin.wswrl.core.WSWRLAtom;
 import com.sebastienguillemin.wswrl.core.WSWRLBuiltInAtom;
 import com.sebastienguillemin.wswrl.core.WSWRLClassAtom;
+import com.sebastienguillemin.wswrl.core.WSWRLDataFactory;
 import com.sebastienguillemin.wswrl.core.WSWRLDataPropertyAtom;
 import com.sebastienguillemin.wswrl.core.WSWRLDataRangeAtom;
 import com.sebastienguillemin.wswrl.core.WSWRLDifferentIndividualsAtom;
@@ -29,7 +31,6 @@ import com.sebastienguillemin.wswrl.core.WSWRLRule;
 import com.sebastienguillemin.wswrl.core.WSWRLSameIndividualAtom;
 import com.sebastienguillemin.wswrl.core.WSWRLVariable;
 import com.sebastienguillemin.wswrl.core.exception.WSWRLParseException;
-import com.sebastienguillemin.wswrl.core.factory.WSWRLDataFactory;
 
 public class WSWRLParserSupport {
     @NonNull
@@ -52,9 +53,9 @@ public class WSWRLParserSupport {
         throw new UnsupportedOperationException("Unimplemented method 'getShortNameFromIRI'");
     }
 
-    public WSWRLRule createWSWRLRule(Set<WSWRLAtom> body, Set<WSWRLAtom> head, boolean isEnabled) {
+    public WSWRLRule createWSWRLRule(String ruleName, Set<WSWRLAtom> head, Set<WSWRLAtom> body, boolean isEnabled) {
         // TODO : gérer le cas d'ajout d'une annotation.
-        return getWSWRLDataFactory().getWSWRLRule(body, head, isEnabled);
+        return getWSWRLDataFactory().getWSWRLRule(ruleName, head, body, isEnabled);
     }
 
     public boolean isOWLEntity(@NonNull String shortName) {
@@ -105,9 +106,10 @@ public class WSWRLParserSupport {
 
     public WSWRLObjectPropertyAtom createWSWRLObjectPropertyAtom(@NonNull String propertyShortName,
             @NonNull SWRLIArgument swrliArgument,
-            @NonNull SWRLIArgument swrliArgument2) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'createSWRLObjectPropertyAtom'");
+            @NonNull SWRLIArgument swrliArgument2) throws WSWRLParseException {
+        OWLObjectProperty objectProperty = createOWLObjectProperty(propertyShortName);
+
+        return getWSWRLDataFactory().getWSWRLObjectPropertyAtom(objectProperty, swrliArgument, swrliArgument2);
     }
 
     public WSWRLDataPropertyAtom createWSWRLDataPropertyAtom(@NonNull String propertyShortName,
@@ -294,5 +296,15 @@ public class WSWRLParserSupport {
 
     private IRIResolver getIRIResolver() {
         return this.wswrlOntology.getIRIResolver();
+    }
+
+    @NonNull
+    private OWLObjectProperty createOWLObjectProperty(@NonNull String objectPropertyShortName)
+            throws WSWRLParseException {
+        if (isOWLObjectProperty(objectPropertyShortName)) {
+            IRI propertyIRI = prefixedName2IRI(objectPropertyShortName);
+            return getOWLDataFactory().getOWLObjectProperty(propertyIRI);
+        } else
+            throw new WSWRLParseException(objectPropertyShortName + " is not an OWL object property");
     }
 }

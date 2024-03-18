@@ -156,7 +156,7 @@ public class WSWRLParser {
             if (!atLeastOneAtom)
                 throw new WSWRLParseException("Incomplete - no antecedent or consequent");
             return Optional
-                    .of(this.wswrlParserSupport.createWSWRLRule(head.get(), body.get(), true));
+                    .of(this.wswrlParserSupport.createWSWRLRule(ruleName, head.get(), body.get(), true));
         } else
             return Optional.<@NonNull WSWRLRule>empty();
     }

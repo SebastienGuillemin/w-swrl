@@ -11,17 +11,11 @@ import org.semanticweb.owlapi.model.SWRLDataRangeAtom;
 import org.semanticweb.owlapi.model.SWRLObjectVisitor;
 import org.semanticweb.owlapi.model.SWRLObjectVisitorEx;
 import org.semanticweb.owlapi.model.SWRLPredicate;
-import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 
 import com.sebastienguillemin.wswrl.core.Rank;
 import com.sebastienguillemin.wswrl.core.WSWRLDataRangeAtom;
 
 public class DefaultWSWRLDataRange extends AbstractWSWRLUnaryAtom<SWRLDArgument> implements WSWRLDataRangeAtom, SWRLDataRangeAtom  {
-
-    @Override
-    protected int index() {
-        return OWLObjectTypeIndexProvider.RULE_OBJECT_TYPE_INDEX_BASE + 2;
-    }
 
     public DefaultWSWRLDataRange(SWRLPredicate predicate, SWRLDArgument argument, Rank rank) {
         super(predicate, argument, rank);
@@ -86,6 +80,12 @@ public class DefaultWSWRLDataRange extends AbstractWSWRLUnaryAtom<SWRLDArgument>
     public boolean evaluate() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'evaluate'");
+    }
+
+    @Override
+    protected int index() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'index'");
     }
     
 }

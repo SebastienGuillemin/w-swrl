@@ -1,18 +1,19 @@
 package com.sebastienguillemin.wswrl.core.rule.atom.unary;
 
+import java.util.stream.Stream;
+
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
+import org.semanticweb.owlapi.model.SWRLArgument;
 import org.semanticweb.owlapi.model.SWRLClassAtom;
 import org.semanticweb.owlapi.model.SWRLIArgument;
 import org.semanticweb.owlapi.model.SWRLObjectVisitor;
 import org.semanticweb.owlapi.model.SWRLObjectVisitorEx;
 import org.semanticweb.owlapi.model.SWRLPredicate;
-import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
-
 import com.sebastienguillemin.wswrl.core.Rank;
 import com.sebastienguillemin.wswrl.core.WSWRLClassAtom;
 
@@ -21,12 +22,7 @@ public class DefaultWSWRLClassAtom extends AbstractWSWRLUnaryAtom<SWRLIArgument>
     public DefaultWSWRLClassAtom(SWRLPredicate predicate, SWRLIArgument argument, Rank rank) {
         super(predicate, argument, rank);
     }
-
-    @Override
-    protected int index() {
-        return OWLObjectTypeIndexProvider.RULE_OBJECT_TYPE_INDEX_BASE + 1;
-    }
-
+    
     @Nonnull
     @Override
     public OWLClassExpression getPredicate() {
@@ -86,5 +82,11 @@ public class DefaultWSWRLClassAtom extends AbstractWSWRLUnaryAtom<SWRLIArgument>
     public boolean evaluate() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'evaluate'");
+    }
+
+    @Override
+    protected int index() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'index'");
     }
 }

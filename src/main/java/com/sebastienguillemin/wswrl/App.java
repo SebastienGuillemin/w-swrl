@@ -6,7 +6,6 @@ import java.io.InputStream;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
-import org.semanticweb.owlapi.model.SWRLRule;
 
 import com.sebastienguillemin.wswrl.core.WSWRLRule;
 import com.sebastienguillemin.wswrl.core.WSWRLRuleEngine;
@@ -24,12 +23,12 @@ public class App {
         OWLOntologyManager ontologyManager = OWLManager.createOWLOntologyManager();
         OWLOntology ontology = ontologyManager.loadOntologyFromOntologyDocument(inputStream);
 
-        // SWRLRuleEngine ruleEngine = SWRLAPIFactory.createSWRLRuleEngine(ontology);
+        WSWRLRuleEngine wswrlRuleEngine = WSWRLFactory.createWSWRLRuleEngine(ontology);
+        wswrlRuleEngine.createWSWRLRule("testRule", "concept1(?x)^linked(?x, ?y)->concept2(?y)");
+        
 
-        WSWRLRuleEngine ruleEngine = WSWRLFactory.createWSWRLRuleEngine(ontology);
-        ruleEngine.createWSWRLRule("testRule", "1*concept1(?x)->concept2(?x)");
+        WSWRLRule rule = wswrlRuleEngine.getWSWRLRule("testRule");
 
-        SWRLRule rule = ruleEngine.getSWRLRule("ruleTest");
-        System.out.println(rule);
+        wswrlRuleEngine.infer();
     }
 }

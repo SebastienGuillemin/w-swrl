@@ -1,7 +1,13 @@
 package com.sebastienguillemin.wswrl.core;
 
-import org.swrlapi.bridge.TargetSWRLRuleEngine;
+import com.sebastienguillemin.wswrl.core.exception.TargetWSWRLRuleEngineException;
 
-public interface TargetWSWRLRuleEngine extends TargetSWRLRuleEngine {
-    
+public interface TargetWSWRLRuleEngine {
+    /**
+     * Run the rule engine.
+     * 
+     * @throws TargetWSWRLRuleEngineException If an error occurs in the target rule
+     *                                       engine
+     */
+    void runRuleEngine() throws TargetWSWRLRuleEngineException;
 }

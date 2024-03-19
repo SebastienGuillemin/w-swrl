@@ -14,7 +14,7 @@ public class DefaultTargetWSWRLRuleEngineCreator implements TargetWSWRLRuleEngin
     }
 
     @Override
-    public TargetWSWRLRuleEngine create(SWRLBridge bridge, WSWRLOntology WSWRLOntology) {
-        return new DefaultTargetWSWRLRuleEngine(bridge, WSWRLOntology);
+    public TargetWSWRLRuleEngine create(WSWRLOntology WSWRLOntology) {
+        return new DefaultTargetWSWRLRuleEngine(WSWRLOntology);
     }
 }

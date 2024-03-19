@@ -27,8 +27,6 @@ public class WSWRLIndividualWrapper extends WSWRLAbastractWrapper {
         this.classes = new HashSet<>();
         this.objectProperties = new HashSet<>();
         this.dataProperties = new HashSet<>();
-
-        System.out.println("New individual created : " + this.getIri());
     }
 
     public void addClass(OWLClass owlClass) {
@@ -49,7 +47,6 @@ public class WSWRLIndividualWrapper extends WSWRLAbastractWrapper {
 
     public void addDataProperty(WSWRLDataPropertyWrapper dataProperty) {
         this.dataProperties.add(dataProperty);
-        System.out.println("Data property added");
     }
 
     public void removeDataProperty(WSWRLDataPropertyWrapper dataProperty) {

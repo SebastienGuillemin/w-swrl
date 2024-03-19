@@ -11,7 +11,6 @@ import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLDeclarationAxiom;
 import org.semanticweb.owlapi.model.OWLEntity;
-import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
@@ -19,28 +18,24 @@ import org.semanticweb.owlapi.reasoner.OWLReasoner;
 import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
 import org.semanticweb.owlapi.reasoner.structural.StructuralReasonerFactory;
 import org.semanticweb.owlapi.util.InferredOntologyGenerator;
-import org.swrlapi.bridge.SWRLBridge;
-import org.swrlapi.drools.core.DroolsSWRLRuleEngine;
 
 import com.sebastienguillemin.wswrl.core.TargetWSWRLRuleEngine;
+import com.sebastienguillemin.wswrl.core.WSWRLAtom;
 import com.sebastienguillemin.wswrl.core.WSWRLOntology;
 import com.sebastienguillemin.wswrl.core.WSWRLRule;
 import com.sebastienguillemin.wswrl.core.engine.target.wrapper.WSWRLDataPropertyWrapper;
 import com.sebastienguillemin.wswrl.core.engine.target.wrapper.WSWRLIndividualWrapper;
 import com.sebastienguillemin.wswrl.core.engine.target.wrapper.WSWRLObjectPropertyWrapper;
 
-public class DefaultTargetWSWRLRuleEngine extends DroolsSWRLRuleEngine implements TargetWSWRLRuleEngine {
+public class DefaultTargetWSWRLRuleEngine implements TargetWSWRLRuleEngine {
     private WSWRLOntology wswrlOntology;
-    private Set<WSWRLRule> wswrlRules;
     private OWLReasonerFactory owlReasonerFactory;
     private OWLReasoner owlReasoner;
 
     private Hashtable<IRI, WSWRLIndividualWrapper> individuals; // Individual name -> instance
 
-    public DefaultTargetWSWRLRuleEngine(SWRLBridge bridge, WSWRLOntology WSWRLOntology) {
-        super(bridge);
+    public DefaultTargetWSWRLRuleEngine(WSWRLOntology WSWRLOntology) {
         this.wswrlOntology = WSWRLOntology;
-        this.wswrlRules = wswrlOntology.getWSWRLRules();
         this.owlReasonerFactory = new StructuralReasonerFactory();
         this.owlReasoner = this.owlReasonerFactory.createReasoner(this.wswrlOntology.getOWLOntology());
 
@@ -50,28 +45,30 @@ public class DefaultTargetWSWRLRuleEngine extends DroolsSWRLRuleEngine implement
     @Override
     public void runRuleEngine() {
         try {
-            this.processOntology();
+            // Processing WSWRL rules.
+            Set<WSWRLRule> wswrlRules = wswrlOntology.getWSWRLRules();
+            for (WSWRLRule rule : wswrlRules) {
+                Set<WSWRLAtom> body = rule.getBody();
+                Set<WSWRLAtom> head = rule.getHead();
 
-            for (WSWRLIndividualWrapper individual : this.individuals.values()) {
-                System.out.println(individual);
+                // DD <- Get data-dependant rule predicates
+                // for (WSWRLAtom atom : body) {
+                //     System.err.println(atom);
+                // }
+                // DI <- Get data-independent rule predicates
+
+                // Bind variables for DI
+                // Test valuability for DD
+
+                // Compute rank weights
+                // Bind variable for DD
+
+                // Evaluate
+                // Store results
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        // for (WSWRLRule rule : this.wswrlRules) {
-        // DD <- Get data-dependant rule predicates
-        // DI <- Get data-independent rule predicates
-
-        // Bind variables for DI
-        // Test valuability for DD
-
-        // Compute rank weights
-        // Bind variable for DD
-
-        // Evaluate
-        // Store results
-        // }
     }
 
     private void processOntology() throws Exception {
@@ -81,7 +78,6 @@ public class DefaultTargetWSWRLRuleEngine extends DroolsSWRLRuleEngine implement
         iog.fillOntology(ontologyManager.getOWLDataFactory(), this.wswrlOntology.getOWLOntology());
 
         for (OWLAxiom axiom : this.wswrlOntology.getOWLAxioms()) {
-            System.out.println("--> " + axiom);
             if (axiom.isOfType(AxiomType.DECLARATION)) {
                 OWLEntity entity = ((OWLDeclarationAxiom) axiom).getEntity();
 

@@ -58,8 +58,7 @@
 
 
 ###  http://www.semanticweb.org/guillemin/ontologies/2024/2/untitled-ontology-103/i2
-:i2 rdf:type owl:NamedIndividual ,
-             :concept2 .
+:i2 rdf:type owl:NamedIndividual .
 
 
 #################################################################
@@ -80,18 +79,18 @@
                                                        <http://www.w3.org/2003/11/swrl#argument1> :x
                                                      ] ;
                                            rdf:rest [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
-                                                      rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#ClassAtom> ;
-                                                                  <http://www.w3.org/2003/11/swrl#classPredicate> :concept2 ;
-                                                                  <http://www.w3.org/2003/11/swrl#argument1> :y
+                                                      rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#IndividualPropertyAtom> ;
+                                                                  <http://www.w3.org/2003/11/swrl#propertyPredicate> :linked ;
+                                                                  <http://www.w3.org/2003/11/swrl#argument1> :x ;
+                                                                  <http://www.w3.org/2003/11/swrl#argument2> :y
                                                                 ] ;
                                                       rdf:rest rdf:nil
                                                     ]
                                          ] ;
    <http://www.w3.org/2003/11/swrl#head> [ rdf:type <http://www.w3.org/2003/11/swrl#AtomList> ;
-                                           rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#IndividualPropertyAtom> ;
-                                                       <http://www.w3.org/2003/11/swrl#propertyPredicate> :linked ;
-                                                       <http://www.w3.org/2003/11/swrl#argument1> :x ;
-                                                       <http://www.w3.org/2003/11/swrl#argument2> :y
+                                           rdf:first [ rdf:type <http://www.w3.org/2003/11/swrl#ClassAtom> ;
+                                                       <http://www.w3.org/2003/11/swrl#classPredicate> :concept2 ;
+                                                       <http://www.w3.org/2003/11/swrl#argument1> :y
                                                      ] ;
                                            rdf:rest rdf:nil
                                          ]

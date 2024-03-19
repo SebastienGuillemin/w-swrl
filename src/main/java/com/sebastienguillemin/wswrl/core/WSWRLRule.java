@@ -1,6 +1,5 @@
 package com.sebastienguillemin.wswrl.core;
 
-import java.util.List;
 import java.util.Set;
 
 /**

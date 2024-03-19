@@ -1,7 +1,5 @@
 package com.sebastienguillemin.wswrl.core.engine.target;
 
-import org.swrlapi.bridge.SWRLBridge;
-
 import com.sebastienguillemin.wswrl.core.TargetWSWRLRuleEngine;
 import com.sebastienguillemin.wswrl.core.TargetWSWRLRuleEngineCreator;
 import com.sebastienguillemin.wswrl.core.WSWRLOntology;

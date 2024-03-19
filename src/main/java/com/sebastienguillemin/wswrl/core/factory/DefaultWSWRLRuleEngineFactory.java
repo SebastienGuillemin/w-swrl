@@ -1,13 +1,10 @@
 package com.sebastienguillemin.wswrl.core.factory;
 
-import java.util.Optional;
-
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.swrlapi.bridge.SWRLBridge;
 import org.swrlapi.bridge.TargetSWRLRuleEngine;
 import org.swrlapi.bridge.TargetSWRLRuleEngineCreator;
 import org.swrlapi.core.IRIResolver;
-import org.swrlapi.core.SWRLRuleEngine;
 import org.swrlapi.core.SWRLRuleEngineManager;
 import org.swrlapi.drools.core.DroolsSWRLRuleEngineCreator;
 import org.swrlapi.exceptions.NoRegisteredSWRLRuleEnginesException;

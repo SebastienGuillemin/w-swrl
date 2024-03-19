@@ -1,18 +1,19 @@
 package com.sebastienguillemin.wswrl.core.engine.target;
 
-import java.util.ArrayList;
 import java.util.Hashtable;
-import java.util.List;
 import java.util.Set;
 
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.AxiomType;
+import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLDeclarationAxiom;
 import org.semanticweb.owlapi.model.OWLEntity;
-import org.semanticweb.owlapi.model.OWLIndividual;
+import org.semanticweb.owlapi.model.OWLLiteral;
+import org.semanticweb.owlapi.model.OWLNamedIndividual;
+import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
@@ -24,6 +25,9 @@ import org.swrlapi.drools.core.DroolsSWRLRuleEngine;
 import com.sebastienguillemin.wswrl.core.TargetWSWRLRuleEngine;
 import com.sebastienguillemin.wswrl.core.WSWRLOntology;
 import com.sebastienguillemin.wswrl.core.WSWRLRule;
+import com.sebastienguillemin.wswrl.core.engine.target.wrapper.WSWRLDataPropertyWrapper;
+import com.sebastienguillemin.wswrl.core.engine.target.wrapper.WSWRLIndividualWrapper;
+import com.sebastienguillemin.wswrl.core.engine.target.wrapper.WSWRLObjectPropertyWrapper;
 
 public class DefaultTargetWSWRLRuleEngine extends DroolsSWRLRuleEngine implements TargetWSWRLRuleEngine {
     private WSWRLOntology wswrlOntology;
@@ -31,9 +35,7 @@ public class DefaultTargetWSWRLRuleEngine extends DroolsSWRLRuleEngine implement
     private OWLReasonerFactory owlReasonerFactory;
     private OWLReasoner owlReasoner;
 
-    private Hashtable<String, OWLClass> ontologyClasses; // Class name -> OWLClass instance.
-    private Hashtable<String, OWLIndividual> ontologyIndividuals; // Individual name -> OWLIndividual instance.
-    private Hashtable<String, List<OWLIndividual>> classIndividuals; // Class name -> list of OWLIndividuals.
+    private Hashtable<IRI, WSWRLIndividualWrapper> individuals; // Individual name -> instance
 
     public DefaultTargetWSWRLRuleEngine(SWRLBridge bridge, WSWRLOntology WSWRLOntology) {
         super(bridge);
@@ -41,44 +43,89 @@ public class DefaultTargetWSWRLRuleEngine extends DroolsSWRLRuleEngine implement
         this.wswrlRules = wswrlOntology.getWSWRLRules();
         this.owlReasonerFactory = new StructuralReasonerFactory();
         this.owlReasoner = this.owlReasonerFactory.createReasoner(this.wswrlOntology.getOWLOntology());
-        this.ontologyClasses = new Hashtable<>();
-        this.ontologyIndividuals = new Hashtable<>();
-        this.classIndividuals = new Hashtable<>();
+
+        this.individuals = new Hashtable<>();
     }
 
     @Override
     public void runRuleEngine() {
-        this.processOntology();
+        try {
+            this.processOntology();
+
+            for (WSWRLIndividualWrapper individual : this.individuals.values()) {
+                System.out.println(individual);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        // for (WSWRLRule rule : this.wswrlRules) {
+        // DD <- Get data-dependant rule predicates
+        // DI <- Get data-independent rule predicates
+
+        // Bind variables for DI
+        // Test valuability for DD
+
+        // Compute rank weights
+        // Bind variable for DD
+
+        // Evaluate
+        // Store results
+        // }
     }
 
-    private void processOntology() {
+    private void processOntology() throws Exception {
         InferredOntologyGenerator iog = new InferredOntologyGenerator(this.owlReasoner);
         OWLOntologyManager ontologyManager = OWLManager.createOWLOntologyManager();
-        
+
         iog.fillOntology(ontologyManager.getOWLDataFactory(), this.wswrlOntology.getOWLOntology());
 
         for (OWLAxiom axiom : this.wswrlOntology.getOWLAxioms()) {
+            System.out.println("--> " + axiom);
             if (axiom.isOfType(AxiomType.DECLARATION)) {
                 OWLEntity entity = ((OWLDeclarationAxiom) axiom).getEntity();
-                if (entity.isOWLClass())
-                    this.ontologyClasses.put(entity.getIRI().getFragment(), (OWLClass) entity);
-                else if (entity.isOWLNamedIndividual())
-                    this.ontologyIndividuals.put(entity.getIRI().getFragment(), (OWLIndividual) entity);
-            } else if (axiom instanceof OWLClassAssertionAxiom) {
-                OWLClassAssertionAxiom assertionAxiom = (OWLClassAssertionAxiom) axiom;
-                this.addIndividual(assertionAxiom.getClassExpression().asOWLClass().getIRI().getFragment(), assertionAxiom.getIndividual());
+
+                if (entity.isOWLNamedIndividual())
+                    this.addIndividual((OWLNamedIndividual) entity);
+            } else if (axiom.isOfType(AxiomType.DATA_PROPERTY_ASSERTION))
+                this.handleDataPropertyAxiom((OWLDataPropertyAssertionAxiom) axiom);
+
+            else if (axiom.isOfType(AxiomType.OBJECT_PROPERTY_ASSERTION))
+                this.handleObjectPropertyAxiom((OWLObjectPropertyAssertionAxiom) axiom);
+
+            else if (axiom.isOfType(AxiomType.CLASS_ASSERTION)) {
+                OWLClassAssertionAxiom classAssertionAxiom = (OWLClassAssertionAxiom) axiom;
+
+                OWLNamedIndividual individual = (OWLNamedIndividual) classAssertionAxiom.getIndividual();
+                this.individuals.get(individual.getIRI())
+                        .addClass(classAssertionAxiom.getClassExpression().asOWLClass());
             }
         }
     }
 
-    private void addIndividual(String className, OWLIndividual individual) {
-        List<OWLIndividual> individuals = this.classIndividuals.get(className);
+    private void handleDataPropertyAxiom(OWLDataPropertyAssertionAxiom axiom) throws Exception {
+        // Predicate and object are parsed by the wrapper.
+        WSWRLDataPropertyWrapper dataPropertyWrapper = new WSWRLDataPropertyWrapper(axiom);
 
-        if (individuals == null) {
-            individuals = new ArrayList<>();
-            this.classIndividuals.put(className, individuals);
+        // Parse subject.
+        dataPropertyWrapper.parseSubject(this.individuals);
+    }
+
+    private void handleObjectPropertyAxiom(OWLObjectPropertyAssertionAxiom axiom) throws Exception {
+        // Predicate is parsed by the wrapper.
+        WSWRLObjectPropertyWrapper objectPropertyWrapper = new WSWRLObjectPropertyWrapper(axiom);
+
+        // Parse subject.
+        objectPropertyWrapper.parseSubject(this.individuals);
+
+        // Parse object.
+        objectPropertyWrapper.parseObject(individuals);
+    }
+
+    private void addIndividual(OWLNamedIndividual individual) {
+        IRI iri = individual.getIRI();
+        if (!this.individuals.containsKey(iri)) {
+            this.individuals.put(iri, new WSWRLIndividualWrapper(individual));
         }
-
-        individuals.add(individual);
     }
 }

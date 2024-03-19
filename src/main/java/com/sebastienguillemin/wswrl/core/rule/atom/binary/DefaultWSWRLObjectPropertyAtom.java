@@ -85,8 +85,7 @@ public class DefaultWSWRLObjectPropertyAtom extends AbstractWSWRLBinaryAtom<SWRL
 
     @Override
     public boolean isValuable() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'isValuable'");
+        return true;
     }
 
     @Override

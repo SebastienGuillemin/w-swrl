@@ -1,13 +1,10 @@
 package com.sebastienguillemin.wswrl.core.rule.atom.binary;
 
-import java.util.stream.Stream;
-
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
-import org.semanticweb.owlapi.model.SWRLArgument;
 import org.semanticweb.owlapi.model.SWRLDArgument;
 import org.semanticweb.owlapi.model.SWRLDataPropertyAtom;
 import org.semanticweb.owlapi.model.SWRLIArgument;
@@ -70,8 +67,8 @@ public class DefaultWSWRLDataPropertyAtom extends AbstractWSWRLBinaryAtom<SWRLIA
 
     @Override
     public boolean isValuable() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'isValuable'");
+        this.getAllArguments();
+        return false;
     }
 
     @Override

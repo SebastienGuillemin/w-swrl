@@ -72,14 +72,12 @@ public class DefaultWSWRLClassAtom extends AbstractWSWRLUnaryAtom<SWRLIArgument>
 
     @Override
     public boolean isValuable() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'isValuable'");
+        return true;
     }
 
     @Override
     public boolean evaluate() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'evaluate'");
+        return false;
     }
 
     @Override

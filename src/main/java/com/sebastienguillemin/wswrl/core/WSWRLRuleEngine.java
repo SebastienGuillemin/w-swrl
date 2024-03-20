@@ -8,6 +8,7 @@ import org.swrlapi.exceptions.SWRLRuleEngineException;
 import org.swrlapi.parser.SWRLParseException;
 
 import com.sebastienguillemin.wswrl.core.exception.AlreadyInRankException;
+import com.sebastienguillemin.wswrl.core.exception.MissingRankException;
 import com.sebastienguillemin.wswrl.core.exception.WSWRLBuiltInException;
 import com.sebastienguillemin.wswrl.core.exception.WSWRLParseException;
 import com.sebastienguillemin.wswrl.core.exception.WSWRLRuleEngineException;
@@ -38,7 +39,7 @@ public interface WSWRLRuleEngine extends SWRLRuleEngine {
      * @throws SWRLParseException If an error occurs during parsing
      */
     WSWRLRule createWSWRLRule(String ruleName, String rule)
-            throws WSWRLParseException, WSWRLBuiltInException, AlreadyInRankException;
+            throws WSWRLParseException, WSWRLBuiltInException, AlreadyInRankException, MissingRankException;
 
     /**
      * @return A collection of WSWRL rules

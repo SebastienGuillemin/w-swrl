@@ -30,6 +30,8 @@ import com.sebastienguillemin.wswrl.core.WSWRLOntology;
 import com.sebastienguillemin.wswrl.core.WSWRLRule;
 import com.sebastienguillemin.wswrl.core.WSWRLSameIndividualAtom;
 import com.sebastienguillemin.wswrl.core.WSWRLVariable;
+import com.sebastienguillemin.wswrl.core.WSWRLVariableDomain;
+import com.sebastienguillemin.wswrl.core.exception.MissingRankException;
 import com.sebastienguillemin.wswrl.core.exception.WSWRLParseException;
 
 public class WSWRLParserSupport {
@@ -53,7 +55,7 @@ public class WSWRLParserSupport {
         throw new UnsupportedOperationException("Unimplemented method 'getShortNameFromIRI'");
     }
 
-    public WSWRLRule createWSWRLRule(String ruleName, Set<WSWRLAtom> head, Set<WSWRLAtom> body, boolean isEnabled) {
+    public WSWRLRule createWSWRLRule(String ruleName, Set<WSWRLAtom> head, Set<WSWRLAtom> body, boolean isEnabled) throws MissingRankException {
         // TODO : gérer le cas d'ajout d'une annotation.
         return getWSWRLDataFactory().getWSWRLRule(ruleName, head, body, isEnabled);
     }
@@ -145,26 +147,26 @@ public class WSWRLParserSupport {
 
     public void checkThatWSWRLVariableNameIsValid(@NonNull String variableName) throws WSWRLParseException {
         if (!isValidSWRLVariableName(variableName))
-            throw new WSWRLParseException("Invalid SWRL variable name " + variableName);
+            throw new WSWRLParseException("Invalid WSWRL variable name " + variableName);
 
         if (isOWLEntity(variableName))
-            throw new WSWRLParseException("Invalid SWRL variable name " + variableName
+            throw new WSWRLParseException("Invalid WSWRL variable name " + variableName
                     + " - cannot use name of existing OWL class, individual, property, or datatype");
     }
 
-    public @NonNull WSWRLVariable createWSWRLVariable(@NonNull String variableName) throws WSWRLParseException {
+    public @NonNull WSWRLVariable createWSWRLVariable(@NonNull String variableName, WSWRLVariableDomain domain) throws WSWRLParseException {
         if (isOWLEntity(variableName))
             throw new WSWRLParseException(variableName
-                    + " cannot be used as a SWRL variable name because it refers to an existing OWL entity");
+                    + " cannot be used as a WSWRL variable name because it refers to an existing OWL entity");
 
         Optional<IRI> iri = getIRIResolver().variableName2IRI(variableName);
 
         if (iri.isPresent())
-            return getWSWRLDataFactory().getWSWRLVariable(iri.get());
+            return getWSWRLDataFactory().getWSWRLVariable(iri.get(), domain);
         else
-            throw new WSWRLParseException("error creating SWRL variable " + variableName);
+            throw new WSWRLParseException("error creating WSWRL variable " + variableName);
     }
-
+    
     public boolean isOWLNamedIndividual(@NonNull String shortName) {
         IRI individualIRI = prefixedName2IRI(shortName);
         return getOWLOntology().containsIndividualInSignature(individualIRI, Imports.INCLUDED);

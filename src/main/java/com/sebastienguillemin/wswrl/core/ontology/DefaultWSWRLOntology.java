@@ -13,6 +13,7 @@ import com.sebastienguillemin.wswrl.core.WSWRLDataFactory;
 import com.sebastienguillemin.wswrl.core.WSWRLOntology;
 import com.sebastienguillemin.wswrl.core.WSWRLRule;
 import com.sebastienguillemin.wswrl.core.exception.AlreadyInRankException;
+import com.sebastienguillemin.wswrl.core.exception.MissingRankException;
 import com.sebastienguillemin.wswrl.core.exception.WSWRLBuiltInException;
 import com.sebastienguillemin.wswrl.core.exception.WSWRLParseException;
 import com.sebastienguillemin.wswrl.core.factory.WSWRLInternalFactory;
@@ -32,7 +33,7 @@ public class DefaultWSWRLOntology extends DefaultSWRLAPIOWLOntology implements W
 
     @Override
     public WSWRLRule createWSWRLRule(String ruleName, String rule)
-            throws WSWRLParseException, WSWRLBuiltInException, AlreadyInRankException {
+            throws WSWRLParseException, WSWRLBuiltInException, AlreadyInRankException, MissingRankException {
         WSWRLRule wswrlRule = this.createWSWRLRule(ruleName, rule, "", true);
 
         this.wswrlRules.put(ruleName, wswrlRule);
@@ -42,7 +43,7 @@ public class DefaultWSWRLOntology extends DefaultSWRLAPIOWLOntology implements W
 
     @Override
     public WSWRLRule createWSWRLRule(String ruleName, String rule, String comment, boolean isActive)
-            throws WSWRLParseException, WSWRLBuiltInException, AlreadyInRankException {
+            throws WSWRLParseException, WSWRLBuiltInException, AlreadyInRankException, MissingRankException {
 
         WSWRLParser parser = new WSWRLParser(this);
 

@@ -1,7 +1,10 @@
 package com.sebastienguillemin.wswrl.core.rule.atom.binary;
 
+import java.util.Set;
+
 import javax.annotation.Nonnull;
 
+import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
@@ -14,6 +17,8 @@ import org.semanticweb.owlapi.model.SWRLPredicate;
 
 import com.sebastienguillemin.wswrl.core.Rank;
 import com.sebastienguillemin.wswrl.core.WSWRLDataPropertyAtom;
+import com.sebastienguillemin.wswrl.core.WSWRLVariable;
+import com.sebastienguillemin.wswrl.core.exception.VariableNotFoundException;
 
 public class DefaultWSWRLDataPropertyAtom extends AbstractWSWRLBinaryAtom<SWRLIArgument, SWRLDArgument> implements WSWRLDataPropertyAtom, SWRLDataPropertyAtom {
 
@@ -81,5 +86,5 @@ public class DefaultWSWRLDataPropertyAtom extends AbstractWSWRLBinaryAtom<SWRLIA
     protected int index() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'index'");
-    }    
+    } 
 }

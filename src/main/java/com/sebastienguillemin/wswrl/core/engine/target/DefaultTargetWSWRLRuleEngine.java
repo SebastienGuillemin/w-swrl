@@ -5,30 +5,26 @@ import java.util.Hashtable;
 import java.util.Set;
 
 import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.SWRLClassAtom;
-import org.semanticweb.owlapi.reasoner.OWLReasoner;
 import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
 import org.semanticweb.owlapi.reasoner.structural.StructuralReasonerFactory;
 
 import com.sebastienguillemin.wswrl.core.TargetWSWRLRuleEngine;
 import com.sebastienguillemin.wswrl.core.WSWRLAtom;
-import com.sebastienguillemin.wswrl.core.WSWRLDataPropertyAtom;
-import com.sebastienguillemin.wswrl.core.WSWRLDataRangeAtom;
 import com.sebastienguillemin.wswrl.core.WSWRLOntology;
 import com.sebastienguillemin.wswrl.core.WSWRLRule;
+import com.sebastienguillemin.wswrl.core.WSWRLVariable;
 import com.sebastienguillemin.wswrl.core.engine.target.wrapper.WSWRLIndividualWrapper;
 
 public class DefaultTargetWSWRLRuleEngine implements TargetWSWRLRuleEngine {
     private WSWRLOntology wswrlOntology;
     private OWLReasonerFactory owlReasonerFactory;
-    private OWLReasoner owlReasoner;
+    // private OWLReasoner owlReasoner;
 
     private Hashtable<IRI, WSWRLIndividualWrapper> individuals; // Individual name -> instance
 
     public DefaultTargetWSWRLRuleEngine(WSWRLOntology WSWRLOntology) {
         this.wswrlOntology = WSWRLOntology;
         this.owlReasonerFactory = new StructuralReasonerFactory();
-        this.owlReasoner = this.owlReasonerFactory.createReasoner(this.wswrlOntology.getOWLOntology());
 
         this.individuals = new Hashtable<>();
     }
@@ -40,43 +36,55 @@ public class DefaultTargetWSWRLRuleEngine implements TargetWSWRLRuleEngine {
             // Processing WSWRL rules.
             Set<WSWRLRule> wswrlRules = wswrlOntology.getWSWRLRules();
             for (WSWRLRule rule : wswrlRules) {
+                if (!rule.isEnabled())
+                    continue;
+
                 Set<WSWRLAtom> body = rule.getBody();
                 Set<WSWRLAtom> head = rule.getHead();
 
-                // Get data-dependant rule predicates
-                Set<WSWRLAtom> dataDependentAtoms = this.getDataDependentAtoms(body);
-                
-                // Get data-independent rule predicates
-                Set<WSWRLAtom> dataIndependentAtoms = new HashSet<>(body);
-                dataDependentAtoms.removeAll(dataDependentAtoms);
+                Set<WSWRLAtom> allAtoms = new HashSet<>(body);
+                allAtoms.addAll(head);
 
-                // Bind variables for DI
-                // Test valuability for DD
+                // For each possible binding
+                // Bind variables
+                Set<WSWRLVariable> variables = this.getAllVariables(allAtoms);
+                // this.bind(variables);
 
-                // Compute rank weights
-                // Bind variable for DD
+                // Calculate rank weights
+                rule.calculateWeights();
+
 
                 // Evaluate
+                float confidence = rule.calculateConfidence();
+                System.out.println("Confidence : " + confidence);
+
                 // Store results
+                // Endfor
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    private Set<WSWRLAtom> getDataDependentAtoms(Set<WSWRLAtom> atoms) {
-        Set<WSWRLAtom> dataDependentAtoms = new HashSet<>();
-
-        for (WSWRLAtom atom : atoms) {
-            if (atom instanceof WSWRLDataPropertyAtom || atom instanceof WSWRLDataRangeAtom)
-                dataDependentAtoms.add(atom);
-        }
-
-        return dataDependentAtoms;
+    private void reset() {
+        this.individuals = new Hashtable<>();
     }
 
-    private void reset() {
+    private Set<WSWRLVariable> getAllVariables(Set<WSWRLAtom> atoms) {
+        Set<WSWRLVariable> variables = new HashSet<>();
 
+        for (WSWRLAtom atom : atoms) {
+            for (WSWRLVariable variable : atom.getVariables()) {
+                variables.add(variable);
+            }
+        }
+
+        return variables;
+    }
+
+    private void bind(Set<WSWRLVariable> variables) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'bind'");
     }
 
     // private void processOntology() throws Exception {

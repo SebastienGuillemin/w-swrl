@@ -1,10 +1,14 @@
 package com.sebastienguillemin.wswrl.core;
 
+import java.util.Set;
+
 import javax.annotation.Nonnull;
 
+import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.SWRLPredicate;
 
 import com.sebastienguillemin.wswrl.core.exception.AlreadyInRankException;
+import com.sebastienguillemin.wswrl.core.exception.VariableNotFoundException;
 
 /**
  * A {@link com.sebastienguillemin.wswrl.core.WSWRLRule} atom associated with a
@@ -20,6 +24,12 @@ public interface WSWRLAtom {
      */
     @Nonnull
     SWRLPredicate getPredicate();
+
+    /**
+     * 
+     * @param weight The atom weight.
+     */
+    public void setWeight(float weight);
 
     /**
      * 
@@ -54,4 +64,28 @@ public interface WSWRLAtom {
      * @return The atom truth value.
      */
     public boolean evaluate();
+
+    /**
+     * Returns the {@link WSWRLVariable} corresponding to an IRI.
+     * 
+     * @param variableIRI the variable IRI.
+     * @return the variable.
+     * @throws VariableNotFoundException If no variable corresponds to the IRI.
+     */
+    public WSWRLVariable getVariable(IRI variableIRI) throws VariableNotFoundException;
+
+    /**
+     * Returns the {@link WSWRLVariable} corresponding to a name.
+     * 
+     * @param variableName the variable name.
+     * @return the variable.
+     * @throws VariableNotFoundException If no variable corresponds to the name.
+     */
+    public WSWRLVariable getVariable(String variableName) throws VariableNotFoundException;
+
+    /**
+     * Returns all the atom variables.
+     * @return the set of variable (possibly empty).
+     */
+    public Set<WSWRLVariable> getVariables();
 }

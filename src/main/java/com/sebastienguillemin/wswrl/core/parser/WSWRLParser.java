@@ -22,7 +22,9 @@ import com.sebastienguillemin.wswrl.core.WSWRLOntology;
 import com.sebastienguillemin.wswrl.core.WSWRLRule;
 import com.sebastienguillemin.wswrl.core.WSWRLSameIndividualAtom;
 import com.sebastienguillemin.wswrl.core.WSWRLVariable;
+import com.sebastienguillemin.wswrl.core.WSWRLVariableDomain;
 import com.sebastienguillemin.wswrl.core.exception.AlreadyInRankException;
+import com.sebastienguillemin.wswrl.core.exception.MissingRankException;
 import com.sebastienguillemin.wswrl.core.exception.WSWRLIncompleteRuleException;
 import com.sebastienguillemin.wswrl.core.exception.WSWRLParseException;
 import com.sebastienguillemin.wswrl.core.rank.DefaultRank;
@@ -65,7 +67,7 @@ public class WSWRLParser {
      */
     public Optional<@NonNull WSWRLRule> parseWSWRLRule(@NonNull String ruleName,
             @NonNull String ruleText, @NonNull String comment, boolean interactiveParseOnly)
-            throws WSWRLParseException, AlreadyInRankException {
+            throws WSWRLParseException, AlreadyInRankException, MissingRankException {
 
         WSWRLTokenizer tokenizer = new WSWRLTokenizer(ruleText.trim(), interactiveParseOnly);
         Optional<Set<WSWRLAtom>> head = !tokenizer.isInteractiveParseOnly()
@@ -175,7 +177,7 @@ public class WSWRLParser {
             return true;
         } catch (WSWRLIncompleteRuleException e) {
             return true;
-        } catch (WSWRLParseException | AlreadyInRankException e) {
+        } catch (WSWRLParseException | AlreadyInRankException | MissingRankException e) {
             return false;
         }
     }
@@ -192,7 +194,7 @@ public class WSWRLParser {
         try {
             parseWSWRLRule("", ruleText, "", true);
             return true;
-        } catch (WSWRLParseException | AlreadyInRankException e) {
+        } catch (WSWRLParseException | AlreadyInRankException | MissingRankException e) {
             return false;
         }
     }
@@ -328,7 +330,7 @@ public class WSWRLParser {
                                 iArgument2.get()));
     }
 
-    private Optional<@NonNull WSWRLVariable> parseWSWRLVariable(@NonNull WSWRLTokenizer tokenizer, boolean isInHead)
+    private Optional<@NonNull WSWRLVariable> parseWSWRLVariable(@NonNull WSWRLTokenizer tokenizer, boolean isInHead, WSWRLVariableDomain domain)
             throws WSWRLParseException {
         WSWRLToken token = tokenizer.getToken(WSWRLToken.WSWRLTokenType.SHORTNAME, "Expecting variable name after ?");
         String variableName = token.getValue();
@@ -343,7 +345,7 @@ public class WSWRLParser {
                         "Variable ?" + variableName + " used in consequent is not present in antecedent");
         }
         return !tokenizer.isInteractiveParseOnly()
-                ? Optional.of(this.wswrlParserSupport.createWSWRLVariable(variableName))
+                ? Optional.of(this.wswrlParserSupport.createWSWRLVariable(variableName, domain))
                 : Optional.<@NonNull WSWRLVariable>empty();
     }
 
@@ -352,7 +354,7 @@ public class WSWRLParser {
         WSWRLToken token = tokenizer.getToken("Expecting variable or OWL individual name");
 
         if (token.isQuestion())
-            return parseWSWRLVariable(tokenizer, isInHead);
+            return parseWSWRLVariable(tokenizer, isInHead, WSWRLVariableDomain.INDIVIDUALS);
         else if (token.isShortName()) {
             String identifier = token.getValue();
             if (this.wswrlParserSupport.isOWLNamedIndividual(identifier)) {
@@ -376,7 +378,7 @@ public class WSWRLParser {
         WSWRLToken token = tokenizer.getToken(message);
 
         if (token.isQuestion())
-            return parseWSWRLVariable(tokenizer, isInHead);
+            return parseWSWRLVariable(tokenizer, isInHead, WSWRLVariableDomain.DATA);
         else if (token.isShortName()) {
             String shortName = token.getValue();
             return parseShortNameSWRLDArgument(tokenizer, isInBuiltIn, shortName);

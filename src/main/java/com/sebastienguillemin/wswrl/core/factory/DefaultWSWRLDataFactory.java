@@ -1,5 +1,6 @@
 package com.sebastienguillemin.wswrl.core.factory;
 
+import java.util.Hashtable;
 import java.util.Set;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
@@ -17,6 +18,8 @@ import com.sebastienguillemin.wswrl.core.WSWRLDataFactory;
 import com.sebastienguillemin.wswrl.core.WSWRLObjectPropertyAtom;
 import com.sebastienguillemin.wswrl.core.WSWRLRule;
 import com.sebastienguillemin.wswrl.core.WSWRLVariable;
+import com.sebastienguillemin.wswrl.core.WSWRLVariableDomain;
+import com.sebastienguillemin.wswrl.core.exception.MissingRankException;
 import com.sebastienguillemin.wswrl.core.rule.DefaultWSWRLRule;
 import com.sebastienguillemin.wswrl.core.rule.DefaultWSWRLVariable;
 import com.sebastienguillemin.wswrl.core.rule.atom.binary.DefaultWSWRLObjectPropertyAtom;
@@ -29,12 +32,16 @@ public class DefaultWSWRLDataFactory extends DefaultSWRLAPIOWLDataFactory implem
     private static final String CLASS_PREDICATE_CANNOT_BE_NULL = "class predicate cannot be null";
     private static final String VARIABLE_CANNOT_BE_NULL = "var cannot be null";
 
+    private Hashtable<IRI, WSWRLVariable> variables;
+
     public DefaultWSWRLDataFactory(@NonNull IRIResolver iriResolver) {
         super(iriResolver);
+
+        this.variables = new Hashtable<>();
     }
 
     @Override
-    public WSWRLRule getWSWRLRule(String ruleName, Set<WSWRLAtom> head, Set<WSWRLAtom> body, boolean enabled) {
+    public WSWRLRule getWSWRLRule(String ruleName, Set<WSWRLAtom> head, Set<WSWRLAtom> body, boolean enabled) throws MissingRankException {
         return new DefaultWSWRLRule(ruleName, head, body, enabled);
     }
 
@@ -45,10 +52,18 @@ public class DefaultWSWRLDataFactory extends DefaultSWRLAPIOWLDataFactory implem
         return new DefaultWSWRLClassAtom(predicate, iArgument, null);
     }
 
-    @Override
-    public WSWRLVariable getWSWRLVariable(IRI iri) {
+    public WSWRLVariable getWSWRLVariable(IRI iri, WSWRLVariableDomain domain) {
         OWLAPIPreconditions.checkNotNull(iri, VARIABLE_CANNOT_BE_NULL);
-        return new DefaultWSWRLVariable(iri);
+
+        WSWRLVariable variable;
+        if (!this.variables.containsKey(iri)) {
+            variable = new DefaultWSWRLVariable(iri, domain);
+            this.variables.put(iri, variable);
+        }
+        else
+            variable = this.variables.get(iri);
+
+        return variable;
     }
 
     @Override

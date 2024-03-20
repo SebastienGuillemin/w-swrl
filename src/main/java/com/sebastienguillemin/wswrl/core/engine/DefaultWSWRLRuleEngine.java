@@ -12,6 +12,7 @@ import com.sebastienguillemin.wswrl.core.WSWRLOntology;
 import com.sebastienguillemin.wswrl.core.WSWRLRule;
 import com.sebastienguillemin.wswrl.core.WSWRLRuleEngine;
 import com.sebastienguillemin.wswrl.core.exception.AlreadyInRankException;
+import com.sebastienguillemin.wswrl.core.exception.MissingRankException;
 import com.sebastienguillemin.wswrl.core.exception.WSWRLBuiltInException;
 import com.sebastienguillemin.wswrl.core.exception.WSWRLParseException;
 import com.sebastienguillemin.wswrl.core.exception.WSWRLRuleException;
@@ -36,7 +37,7 @@ public class DefaultWSWRLRuleEngine extends DefaultSWRLRuleEngine implements WSW
 
     @Override
     public WSWRLRule createWSWRLRule(String ruleName, String rule)
-            throws WSWRLParseException, WSWRLBuiltInException, AlreadyInRankException {
+            throws WSWRLParseException, WSWRLBuiltInException, AlreadyInRankException, MissingRankException {
         WSWRLRule wswrlRule = this.wswrlOntology.createWSWRLRule(ruleName, rule);
         this.wswrlRules.put(ruleName, wswrlRule);
         return wswrlRule;

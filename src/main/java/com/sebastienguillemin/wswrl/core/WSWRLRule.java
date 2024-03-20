@@ -2,6 +2,8 @@ package com.sebastienguillemin.wswrl.core;
 
 import java.util.Set;
 
+import com.sebastienguillemin.wswrl.core.exception.WeightCalculationException;
+
 /**
  * A WSWRL rule.
  * 
@@ -25,25 +27,26 @@ public interface WSWRLRule {
     public boolean isEnabled();
 
     /**
+     * @return The head of the current rule.
+     */
+    public Set<WSWRLAtom> getHead();
+
+    /**
      * @return The body of the current rule.
      */
     public Set<WSWRLAtom> getBody();
 
     /**
-     * @return The head of the current rule.
-     */    
-    public Set<WSWRLAtom> getHead();
-
-    /**
      * This method is used to calculate
      * {@link com.sebastienguillemin.wswrl.core.WSWRLAtom} weights.
      */
-    public void computeWeights();
+    public void calculateWeights() throws WeightCalculationException;
 
     /**
-     * @return The head confidence.
+     * Calculate rule confidence. Must be called after binding the variables and
+     * calling the calculateWeights function.
      */
-    public float getConfidence();
+    public float calculateConfidence();
 
     /**
      * Returns the atoms of a specific rank of the rule.

@@ -1,7 +1,10 @@
 package com.sebastienguillemin.wswrl.core.rule.atom.binary;
 
+import java.util.Set;
+
 import javax.annotation.Nonnull;
 
+import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
@@ -13,14 +16,19 @@ import org.semanticweb.owlapi.model.SWRLPredicate;
 
 import com.sebastienguillemin.wswrl.core.Rank;
 import com.sebastienguillemin.wswrl.core.WSWRLObjectPropertyAtom;
+import com.sebastienguillemin.wswrl.core.WSWRLVariable;
+import com.sebastienguillemin.wswrl.core.exception.VariableNotFoundException;
 
-public class DefaultWSWRLObjectPropertyAtom extends AbstractWSWRLBinaryAtom<SWRLIArgument, SWRLIArgument> implements WSWRLObjectPropertyAtom, SWRLObjectPropertyAtom {
+public class DefaultWSWRLObjectPropertyAtom extends AbstractWSWRLBinaryAtom<SWRLIArgument, SWRLIArgument>
+        implements WSWRLObjectPropertyAtom, SWRLObjectPropertyAtom {
 
-    public DefaultWSWRLObjectPropertyAtom(SWRLPredicate predicate , SWRLIArgument firstArgument, SWRLIArgument secondArgument, Rank rank) {
+    public DefaultWSWRLObjectPropertyAtom(SWRLPredicate predicate, SWRLIArgument firstArgument,
+            SWRLIArgument secondArgument, Rank rank) {
         super(predicate, firstArgument, secondArgument, rank);
     }
 
-    public DefaultWSWRLObjectPropertyAtom(SWRLPredicate predicate, SWRLIArgument firstArgument, SWRLIArgument secondArgument) {
+    public DefaultWSWRLObjectPropertyAtom(SWRLPredicate predicate, SWRLIArgument firstArgument,
+            SWRLIArgument secondArgument) {
         this(predicate, firstArgument, secondArgument, null);
     }
 
@@ -38,7 +46,7 @@ public class DefaultWSWRLObjectPropertyAtom extends AbstractWSWRLBinaryAtom<SWRL
         }
         // Flip
         return new DefaultWSWRLObjectPropertyAtom(getPredicate().getInverseProperty(),
-        getSecondArgument(), getFirstArgument());
+                getSecondArgument(), getFirstArgument());
     }
 
     @Override
@@ -76,8 +84,8 @@ public class DefaultWSWRLObjectPropertyAtom extends AbstractWSWRLBinaryAtom<SWRL
         }
         SWRLObjectPropertyAtom other = (SWRLObjectPropertyAtom) obj;
         return other.getPredicate().equals(getPredicate())
-            && other.getFirstArgument().equals(getFirstArgument())
-            && other.getSecondArgument().equals(getSecondArgument());
+                && other.getFirstArgument().equals(getFirstArgument())
+                && other.getSecondArgument().equals(getSecondArgument());
     }
 
     @Override
@@ -87,8 +95,7 @@ public class DefaultWSWRLObjectPropertyAtom extends AbstractWSWRLBinaryAtom<SWRL
 
     @Override
     public boolean evaluate() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'evaluate'");
+        return true;
     }
 
     @Override

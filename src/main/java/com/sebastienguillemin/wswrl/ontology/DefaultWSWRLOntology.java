@@ -9,9 +9,9 @@ import java.util.Set;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.swrlapi.core.IRIResolver;
 
-import com.sebastienguillemin.wswrl.core.WSWRLDataFactory;
-import com.sebastienguillemin.wswrl.core.WSWRLOntology;
-import com.sebastienguillemin.wswrl.core.WSWRLRule;
+import com.sebastienguillemin.wswrl.core.factory.WSWRLDataFactory;
+import com.sebastienguillemin.wswrl.core.ontology.WSWRLOntology;
+import com.sebastienguillemin.wswrl.core.rule.WSWRLRule;
 import com.sebastienguillemin.wswrl.factory.WSWRLInternalFactory;
 import com.sebastienguillemin.wswrl.parser.WSWRLParser;
 import com.sebastienguillemin.wswrl.exception.AlreadyInRankException;

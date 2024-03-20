@@ -1,4 +1,4 @@
-package com.sebastienguillemin.wswrl.core;
+package com.sebastienguillemin.wswrl.core.variable;
 
 import lombok.Getter;
 

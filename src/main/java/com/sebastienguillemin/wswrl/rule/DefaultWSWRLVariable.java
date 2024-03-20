@@ -2,8 +2,8 @@ package com.sebastienguillemin.wswrl.rule;
 
 import org.semanticweb.owlapi.model.IRI;
 
-import com.sebastienguillemin.wswrl.core.WSWRLVariable;
-import com.sebastienguillemin.wswrl.core.WSWRLVariableDomain;
+import com.sebastienguillemin.wswrl.core.variable.WSWRLVariable;
+import com.sebastienguillemin.wswrl.core.variable.WSWRLVariableDomain;
 
 import lombok.Getter;
 import uk.ac.manchester.cs.owl.owlapi.SWRLVariableImpl;

@@ -1,4 +1,4 @@
-package com.sebastienguillemin.wswrl.core;
+package com.sebastienguillemin.wswrl.core.engine;
 
 import com.sebastienguillemin.wswrl.exception.TargetWSWRLRuleEngineException;
 

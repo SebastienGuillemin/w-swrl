@@ -1,4 +1,4 @@
-package com.sebastienguillemin.wswrl.core;
+package com.sebastienguillemin.wswrl.core.factory;
 
 import java.util.Set;
 
@@ -8,6 +8,12 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.SWRLIArgument;
 import org.swrlapi.factory.SWRLAPIOWLDataFactory;
 
+import com.sebastienguillemin.wswrl.core.rule.WSWRLAtom;
+import com.sebastienguillemin.wswrl.core.rule.WSWRLClassAtom;
+import com.sebastienguillemin.wswrl.core.rule.WSWRLObjectPropertyAtom;
+import com.sebastienguillemin.wswrl.core.rule.WSWRLRule;
+import com.sebastienguillemin.wswrl.core.variable.WSWRLVariable;
+import com.sebastienguillemin.wswrl.core.variable.WSWRLVariableDomain;
 import com.sebastienguillemin.wswrl.exception.MissingRankException;
 
 public interface WSWRLDataFactory extends SWRLAPIOWLDataFactory {

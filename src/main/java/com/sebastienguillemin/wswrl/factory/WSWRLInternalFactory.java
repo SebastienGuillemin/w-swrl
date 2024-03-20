@@ -5,10 +5,10 @@ import org.swrlapi.core.IRIResolver;
 import org.swrlapi.exceptions.SWRLBuiltInException;
 import org.swrlapi.factory.SWRLAPIInternalFactory;
 
-import com.sebastienguillemin.wswrl.core.WSWRLDataFactory;
-import com.sebastienguillemin.wswrl.core.WSWRLOntology;
-import com.sebastienguillemin.wswrl.core.WSWRLRuleEngineFactory;
-import com.sebastienguillemin.wswrl.core.WSWRLRuleEngineManager;
+import com.sebastienguillemin.wswrl.core.engine.WSWRLRuleEngineManager;
+import com.sebastienguillemin.wswrl.core.factory.WSWRLDataFactory;
+import com.sebastienguillemin.wswrl.core.factory.WSWRLRuleEngineFactory;
+import com.sebastienguillemin.wswrl.core.ontology.WSWRLOntology;
 import com.sebastienguillemin.wswrl.ontology.DefaultWSWRLOntology;
 
 public class WSWRLInternalFactory extends SWRLAPIInternalFactory {
@@ -27,7 +27,7 @@ public class WSWRLInternalFactory extends SWRLAPIInternalFactory {
     }
 
     /**
-     * Create a {@link com.sebastienguillemin.wswrl.core.WSWRLOntology} from an
+     * Create a {@link com.sebastienguillemin.wswrl.core.ontology.WSWRLOntology} from an
      * WSWRLAPI-based
      * {@link org.swrlapi.core.SWRLAPIOWLOntology}.
      *

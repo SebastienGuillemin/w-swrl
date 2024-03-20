@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.sebastienguillemin.wswrl.core.Rank;
-import com.sebastienguillemin.wswrl.core.WSWRLAtom;
+import com.sebastienguillemin.wswrl.core.rule.WSWRLAtom;
 import com.sebastienguillemin.wswrl.exception.AlreadyInRankException;
 
 public class DefaultRank implements Rank {

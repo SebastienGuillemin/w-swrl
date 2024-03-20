@@ -7,10 +7,10 @@ import org.swrlapi.bridge.TargetSWRLRuleEngine;
 import org.swrlapi.builtins.SWRLBuiltInBridgeController;
 import org.swrlapi.exceptions.SWRLRuleEngineException;
 
-import com.sebastienguillemin.wswrl.core.TargetWSWRLRuleEngine;
-import com.sebastienguillemin.wswrl.core.WSWRLOntology;
-import com.sebastienguillemin.wswrl.core.WSWRLRule;
-import com.sebastienguillemin.wswrl.core.WSWRLRuleEngine;
+import com.sebastienguillemin.wswrl.core.engine.TargetWSWRLRuleEngine;
+import com.sebastienguillemin.wswrl.core.engine.WSWRLRuleEngine;
+import com.sebastienguillemin.wswrl.core.ontology.WSWRLOntology;
+import com.sebastienguillemin.wswrl.core.rule.WSWRLRule;
 import com.sebastienguillemin.wswrl.exception.AlreadyInRankException;
 import com.sebastienguillemin.wswrl.exception.MissingRankException;
 import com.sebastienguillemin.wswrl.exception.WSWRLBuiltInException;

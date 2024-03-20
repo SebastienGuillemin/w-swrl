@@ -15,7 +15,7 @@ import org.semanticweb.owlapi.model.SWRLBinaryAtom;
 import org.semanticweb.owlapi.model.SWRLPredicate;
 
 import com.sebastienguillemin.wswrl.core.Rank;
-import com.sebastienguillemin.wswrl.core.WSWRLBinaryAtom;
+import com.sebastienguillemin.wswrl.core.rule.WSWRLBinaryAtom;
 import com.sebastienguillemin.wswrl.rule.atom.AbstractWSWRLAtom;
 
 import lombok.Getter;

@@ -8,11 +8,11 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
 import org.semanticweb.owlapi.reasoner.structural.StructuralReasonerFactory;
 
-import com.sebastienguillemin.wswrl.core.TargetWSWRLRuleEngine;
-import com.sebastienguillemin.wswrl.core.WSWRLAtom;
-import com.sebastienguillemin.wswrl.core.WSWRLOntology;
-import com.sebastienguillemin.wswrl.core.WSWRLRule;
-import com.sebastienguillemin.wswrl.core.WSWRLVariable;
+import com.sebastienguillemin.wswrl.core.engine.TargetWSWRLRuleEngine;
+import com.sebastienguillemin.wswrl.core.ontology.WSWRLOntology;
+import com.sebastienguillemin.wswrl.core.rule.WSWRLAtom;
+import com.sebastienguillemin.wswrl.core.rule.WSWRLRule;
+import com.sebastienguillemin.wswrl.core.variable.WSWRLVariable;
 import com.sebastienguillemin.wswrl.engine.target.wrapper.WSWRLIndividualWrapper;
 
 public class DefaultTargetWSWRLRuleEngine implements TargetWSWRLRuleEngine {

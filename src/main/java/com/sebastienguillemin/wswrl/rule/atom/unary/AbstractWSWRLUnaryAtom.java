@@ -13,7 +13,7 @@ import org.semanticweb.owlapi.model.SWRLUnaryAtom;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
 import com.sebastienguillemin.wswrl.core.Rank;
-import com.sebastienguillemin.wswrl.core.WSWRLUnaryAtom;
+import com.sebastienguillemin.wswrl.core.rule.WSWRLUnaryAtom;
 import com.sebastienguillemin.wswrl.rule.atom.AbstractWSWRLAtom;
 
 import lombok.Getter;

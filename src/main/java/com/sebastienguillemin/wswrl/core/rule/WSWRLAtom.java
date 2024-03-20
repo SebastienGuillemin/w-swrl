@@ -1,4 +1,4 @@
-package com.sebastienguillemin.wswrl.core;
+package com.sebastienguillemin.wswrl.core.rule;
 
 import java.util.Set;
 
@@ -7,11 +7,13 @@ import javax.annotation.Nonnull;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.SWRLPredicate;
 
+import com.sebastienguillemin.wswrl.core.Rank;
+import com.sebastienguillemin.wswrl.core.variable.WSWRLVariable;
 import com.sebastienguillemin.wswrl.exception.AlreadyInRankException;
 import com.sebastienguillemin.wswrl.exception.VariableNotFoundException;
 
 /**
- * A {@link com.sebastienguillemin.wswrl.core.WSWRLRule} atom associated with a
+ * A {@link com.sebastienguillemin.wswrl.core.rule.WSWRLRule} atom associated with a
  * weight ranging in [0; 1].
  * 
  * @see org.semanticweb.owlapi.model.SWRLAtom

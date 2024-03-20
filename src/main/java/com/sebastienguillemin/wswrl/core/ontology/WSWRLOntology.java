@@ -1,9 +1,11 @@
-package com.sebastienguillemin.wswrl.core;
+package com.sebastienguillemin.wswrl.core.ontology;
 
 import java.util.Set;
 
 import org.swrlapi.core.SWRLAPIOWLOntology;
 
+import com.sebastienguillemin.wswrl.core.factory.WSWRLDataFactory;
+import com.sebastienguillemin.wswrl.core.rule.WSWRLRule;
 import com.sebastienguillemin.wswrl.exception.AlreadyInRankException;
 import com.sebastienguillemin.wswrl.exception.MissingRankException;
 import com.sebastienguillemin.wswrl.exception.WSWRLBuiltInException;

@@ -1,8 +1,8 @@
 package com.sebastienguillemin.wswrl.engine.target;
 
-import com.sebastienguillemin.wswrl.core.TargetWSWRLRuleEngine;
-import com.sebastienguillemin.wswrl.core.TargetWSWRLRuleEngineCreator;
-import com.sebastienguillemin.wswrl.core.WSWRLOntology;
+import com.sebastienguillemin.wswrl.core.engine.TargetWSWRLRuleEngine;
+import com.sebastienguillemin.wswrl.core.engine.TargetWSWRLRuleEngineCreator;
+import com.sebastienguillemin.wswrl.core.ontology.WSWRLOntology;
 
 public class DefaultTargetWSWRLRuleEngineCreator implements TargetWSWRLRuleEngineCreator {
 

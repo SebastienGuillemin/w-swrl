@@ -1,10 +1,12 @@
-package com.sebastienguillemin.wswrl.core;
+package com.sebastienguillemin.wswrl.core.factory;
 
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.swrlapi.bridge.TargetSWRLRuleEngineCreator;
 import org.swrlapi.core.IRIResolver;
 import org.swrlapi.exceptions.SWRLBuiltInException;
 
+import com.sebastienguillemin.wswrl.core.engine.TargetWSWRLRuleEngineCreator;
+import com.sebastienguillemin.wswrl.core.engine.WSWRLRuleEngine;
 import com.sebastienguillemin.wswrl.exception.WSWRLBuiltInException;
 
 public interface WSWRLRuleEngineFactory {

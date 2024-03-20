@@ -6,8 +6,8 @@ import org.swrlapi.exceptions.SWRLBuiltInException;
 import org.swrlapi.exceptions.SWRLRuleEngineException;
 import org.swrlapi.factory.SWRLAPIFactory;
 
-import com.sebastienguillemin.wswrl.core.WSWRLRuleEngine;
-import com.sebastienguillemin.wswrl.core.WSWRLRuleEngineFactory;
+import com.sebastienguillemin.wswrl.core.engine.WSWRLRuleEngine;
+import com.sebastienguillemin.wswrl.core.factory.WSWRLRuleEngineFactory;
 
 public class WSWRLFactory extends SWRLAPIFactory {
     private static final WSWRLRuleEngineFactory WSWRL_RULE_ENGINE_FACTORY;

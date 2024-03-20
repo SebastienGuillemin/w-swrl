@@ -1,4 +1,4 @@
-package com.sebastienguillemin.wswrl.core;
+package com.sebastienguillemin.wswrl.core.engine;
 
 import java.util.Hashtable;
 
@@ -7,6 +7,7 @@ import org.swrlapi.core.SWRLRuleEngine;
 import org.swrlapi.exceptions.SWRLRuleEngineException;
 import org.swrlapi.parser.SWRLParseException;
 
+import com.sebastienguillemin.wswrl.core.rule.WSWRLRule;
 import com.sebastienguillemin.wswrl.exception.AlreadyInRankException;
 import com.sebastienguillemin.wswrl.exception.MissingRankException;
 import com.sebastienguillemin.wswrl.exception.WSWRLBuiltInException;

@@ -5,8 +5,8 @@ import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
-import com.sebastienguillemin.wswrl.core.WSWRLAtom;
-import com.sebastienguillemin.wswrl.core.WSWRLRule;
+import com.sebastienguillemin.wswrl.core.rule.WSWRLAtom;
+import com.sebastienguillemin.wswrl.core.rule.WSWRLRule;
 import com.sebastienguillemin.wswrl.exception.MissingRankException;
 import com.sebastienguillemin.wswrl.exception.RankDoesNotExistException;
 import com.sebastienguillemin.wswrl.exception.WeightCalculationException;

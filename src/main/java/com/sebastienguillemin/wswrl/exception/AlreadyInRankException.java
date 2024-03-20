@@ -1,7 +1,7 @@
 package com.sebastienguillemin.wswrl.exception;
 
 import com.sebastienguillemin.wswrl.core.Rank;
-import com.sebastienguillemin.wswrl.core.WSWRLAtom;
+import com.sebastienguillemin.wswrl.core.rule.WSWRLAtom;
 
 public class AlreadyInRankException extends Exception {
     private Rank rank;

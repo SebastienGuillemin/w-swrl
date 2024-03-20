@@ -12,7 +12,7 @@ import org.semanticweb.owlapi.model.SWRLObjectVisitorEx;
 import org.semanticweb.owlapi.model.SWRLPredicate;
 
 import com.sebastienguillemin.wswrl.core.Rank;
-import com.sebastienguillemin.wswrl.core.WSWRLObjectPropertyAtom;
+import com.sebastienguillemin.wswrl.core.rule.WSWRLObjectPropertyAtom;
 
 public class DefaultWSWRLObjectPropertyAtom extends AbstractWSWRLBinaryAtom<SWRLIArgument, SWRLIArgument>
         implements WSWRLObjectPropertyAtom, SWRLObjectPropertyAtom {

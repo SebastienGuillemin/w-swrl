@@ -2,10 +2,11 @@ package com.sebastienguillemin.wswrl.core;
 
 import java.util.List;
 
+import com.sebastienguillemin.wswrl.core.rule.WSWRLAtom;
 import com.sebastienguillemin.wswrl.exception.AlreadyInRankException;
 
 /**
- * A {@link com.sebastienguillemin.wswrl.core.WSWRLAtom} rank.
+ * A {@link com.sebastienguillemin.wswrl.core.rule.WSWRLAtom} rank.
  * Each rank is identified by an index (an {@code int}).
  */
 public interface Rank {

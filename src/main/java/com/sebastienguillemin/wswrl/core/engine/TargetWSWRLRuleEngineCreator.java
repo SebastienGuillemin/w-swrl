@@ -1,6 +1,8 @@
-package com.sebastienguillemin.wswrl.core;
+package com.sebastienguillemin.wswrl.core.engine;
 
 import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
+
+import com.sebastienguillemin.wswrl.core.ontology.WSWRLOntology;
 
 public interface TargetWSWRLRuleEngineCreator {
     /**

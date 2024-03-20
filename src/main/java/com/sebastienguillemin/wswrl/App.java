@@ -8,7 +8,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 
 import com.sebastienguillemin.wswrl.core.WSWRLRuleEngine;
-import com.sebastienguillemin.wswrl.core.factory.WSWRLFactory;
+import com.sebastienguillemin.wswrl.factory.WSWRLFactory;
 
 /**
  * *TO DO : delete when finish*

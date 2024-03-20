@@ -8,7 +8,7 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.SWRLIArgument;
 import org.swrlapi.factory.SWRLAPIOWLDataFactory;
 
-import com.sebastienguillemin.wswrl.core.exception.MissingRankException;
+import com.sebastienguillemin.wswrl.exception.MissingRankException;
 
 public interface WSWRLDataFactory extends SWRLAPIOWLDataFactory {
 

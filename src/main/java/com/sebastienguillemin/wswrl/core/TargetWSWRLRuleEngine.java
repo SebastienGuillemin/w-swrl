@@ -1,6 +1,6 @@
 package com.sebastienguillemin.wswrl.core;
 
-import com.sebastienguillemin.wswrl.core.exception.TargetWSWRLRuleEngineException;
+import com.sebastienguillemin.wswrl.exception.TargetWSWRLRuleEngineException;
 
 public interface TargetWSWRLRuleEngine {
     /**

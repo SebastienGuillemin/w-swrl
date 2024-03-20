@@ -2,7 +2,7 @@ package com.sebastienguillemin.wswrl.core;
 
 import java.util.List;
 
-import com.sebastienguillemin.wswrl.core.exception.AlreadyInRankException;
+import com.sebastienguillemin.wswrl.exception.AlreadyInRankException;
 
 /**
  * A {@link com.sebastienguillemin.wswrl.core.WSWRLAtom} rank.

@@ -7,12 +7,12 @@ import org.swrlapi.core.SWRLRuleEngine;
 import org.swrlapi.exceptions.SWRLRuleEngineException;
 import org.swrlapi.parser.SWRLParseException;
 
-import com.sebastienguillemin.wswrl.core.exception.AlreadyInRankException;
-import com.sebastienguillemin.wswrl.core.exception.MissingRankException;
-import com.sebastienguillemin.wswrl.core.exception.WSWRLBuiltInException;
-import com.sebastienguillemin.wswrl.core.exception.WSWRLParseException;
-import com.sebastienguillemin.wswrl.core.exception.WSWRLRuleEngineException;
-import com.sebastienguillemin.wswrl.core.exception.WSWRLRuleException;
+import com.sebastienguillemin.wswrl.exception.AlreadyInRankException;
+import com.sebastienguillemin.wswrl.exception.MissingRankException;
+import com.sebastienguillemin.wswrl.exception.WSWRLBuiltInException;
+import com.sebastienguillemin.wswrl.exception.WSWRLParseException;
+import com.sebastienguillemin.wswrl.exception.WSWRLRuleEngineException;
+import com.sebastienguillemin.wswrl.exception.WSWRLRuleException;
 
 /**
  * This interface provides must that must be implemented be a WSWRL Rule engine.

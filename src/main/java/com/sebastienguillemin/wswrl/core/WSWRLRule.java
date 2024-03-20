@@ -2,7 +2,7 @@ package com.sebastienguillemin.wswrl.core;
 
 import java.util.Set;
 
-import com.sebastienguillemin.wswrl.core.exception.WeightCalculationException;
+import com.sebastienguillemin.wswrl.exception.WeightCalculationException;
 
 /**
  * A WSWRL rule.

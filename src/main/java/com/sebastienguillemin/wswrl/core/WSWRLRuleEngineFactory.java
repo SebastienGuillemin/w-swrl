@@ -5,7 +5,7 @@ import org.swrlapi.bridge.TargetSWRLRuleEngineCreator;
 import org.swrlapi.core.IRIResolver;
 import org.swrlapi.exceptions.SWRLBuiltInException;
 
-import com.sebastienguillemin.wswrl.core.exception.WSWRLBuiltInException;
+import com.sebastienguillemin.wswrl.exception.WSWRLBuiltInException;
 
 public interface WSWRLRuleEngineFactory {
     public WSWRLRuleEngine createWSWRLRuleEngine(OWLOntology ontology, IRIResolver iriResolver)

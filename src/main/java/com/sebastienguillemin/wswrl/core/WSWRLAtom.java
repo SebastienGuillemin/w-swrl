@@ -7,8 +7,8 @@ import javax.annotation.Nonnull;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.SWRLPredicate;
 
-import com.sebastienguillemin.wswrl.core.exception.AlreadyInRankException;
-import com.sebastienguillemin.wswrl.core.exception.VariableNotFoundException;
+import com.sebastienguillemin.wswrl.exception.AlreadyInRankException;
+import com.sebastienguillemin.wswrl.exception.VariableNotFoundException;
 
 /**
  * A {@link com.sebastienguillemin.wswrl.core.WSWRLRule} atom associated with a

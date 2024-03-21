@@ -2,7 +2,6 @@ package com.sebastienguillemin.wswrl.engine;
 
 import java.util.Hashtable;
 
-import org.semanticweb.owlapi.model.OWLAxiom;
 import org.swrlapi.bridge.SWRLRuleEngineBridgeController;
 import org.swrlapi.bridge.TargetSWRLRuleEngine;
 import org.swrlapi.builtins.SWRLBuiltInBridgeController;

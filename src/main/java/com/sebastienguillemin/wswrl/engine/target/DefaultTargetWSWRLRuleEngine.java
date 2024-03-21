@@ -26,7 +26,6 @@ import com.sebastienguillemin.wswrl.core.rule.atom.WSWRLObjectPropertyAtom;
 import com.sebastienguillemin.wswrl.core.rule.variable.VariableBinding;
 import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLDArgument;
 import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLIArgument;
-import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLIndividual;
 import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLVariable;
 import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLVariableDomain;
 import com.sebastienguillemin.wswrl.rule.atom.DefaultWSWRLClassAtom;
@@ -35,7 +34,6 @@ import com.sebastienguillemin.wswrl.rule.atom.DefaultWSWRLObjectPropertyAtom;
 import com.sebastienguillemin.wswrl.rule.variable.DefaultVariableBinding;
 import com.sebastienguillemin.wswrl.rule.variable.DefaultWSWRLDArgument;
 import com.sebastienguillemin.wswrl.rule.variable.DefaultWSWRLIArgument;
-import com.sebastienguillemin.wswrl.rule.variable.DefaultWSWRLIndividual;
 public class DefaultTargetWSWRLRuleEngine implements TargetWSWRLRuleEngine {
     private WSWRLOntology wswrlOntology;
 

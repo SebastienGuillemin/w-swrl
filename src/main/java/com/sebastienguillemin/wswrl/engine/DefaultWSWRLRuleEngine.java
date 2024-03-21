@@ -2,6 +2,7 @@ package com.sebastienguillemin.wswrl.engine;
 
 import java.util.Hashtable;
 
+import org.semanticweb.owlapi.model.OWLAxiom;
 import org.swrlapi.bridge.SWRLRuleEngineBridgeController;
 import org.swrlapi.bridge.TargetSWRLRuleEngine;
 import org.swrlapi.builtins.SWRLBuiltInBridgeController;
@@ -11,7 +12,6 @@ import com.sebastienguillemin.wswrl.core.engine.TargetWSWRLRuleEngine;
 import com.sebastienguillemin.wswrl.core.engine.WSWRLRuleEngine;
 import com.sebastienguillemin.wswrl.core.ontology.WSWRLOntology;
 import com.sebastienguillemin.wswrl.core.rule.WSWRLRule;
-import com.sebastienguillemin.wswrl.exception.AlreadyInRankException;
 import com.sebastienguillemin.wswrl.exception.MissingRankException;
 import com.sebastienguillemin.wswrl.exception.WSWRLBuiltInException;
 import com.sebastienguillemin.wswrl.exception.WSWRLParseException;
@@ -37,7 +37,7 @@ public class DefaultWSWRLRuleEngine extends DefaultSWRLRuleEngine implements WSW
 
     @Override
     public WSWRLRule createWSWRLRule(String ruleName, String rule)
-            throws WSWRLParseException, WSWRLBuiltInException, AlreadyInRankException, MissingRankException {
+            throws WSWRLParseException, WSWRLBuiltInException, MissingRankException {
         WSWRLRule wswrlRule = this.wswrlOntology.createWSWRLRule(ruleName, rule);
         this.wswrlRules.put(ruleName, wswrlRule);
         return wswrlRule;

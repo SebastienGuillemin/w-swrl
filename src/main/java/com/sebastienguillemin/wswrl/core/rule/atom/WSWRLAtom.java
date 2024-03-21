@@ -1,15 +1,15 @@
-package com.sebastienguillemin.wswrl.core.rule;
+package com.sebastienguillemin.wswrl.core.rule.atom;
 
 import java.util.Set;
 
 import javax.annotation.Nonnull;
 
+import org.semanticweb.owlapi.model.HasIRI;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.SWRLPredicate;
 
 import com.sebastienguillemin.wswrl.core.Rank;
-import com.sebastienguillemin.wswrl.core.variable.WSWRLVariable;
-import com.sebastienguillemin.wswrl.exception.AlreadyInRankException;
+import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLVariable;
 import com.sebastienguillemin.wswrl.exception.VariableNotFoundException;
 
 /**
@@ -18,7 +18,7 @@ import com.sebastienguillemin.wswrl.exception.VariableNotFoundException;
  * 
  * @see org.semanticweb.owlapi.model.SWRLAtom
  */
-public interface WSWRLAtom {
+public interface WSWRLAtom extends HasIRI {
     /**
      * Gets the predicate of this atom.
      * 
@@ -44,7 +44,7 @@ public interface WSWRLAtom {
      * 
      * @param rank The atom rank.
      */
-    public void setRank(Rank rank) throws AlreadyInRankException;
+    public void setRank(Rank rank);
 
     /**
      * 

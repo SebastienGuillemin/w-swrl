@@ -1,4 +1,4 @@
-package com.sebastienguillemin.wswrl.rule.atom.binary;
+package com.sebastienguillemin.wswrl.rule.atom;
 
 import javax.annotation.Nonnull;
 
@@ -7,22 +7,28 @@ import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.SWRLDArgument;
 import org.semanticweb.owlapi.model.SWRLDataPropertyAtom;
-import org.semanticweb.owlapi.model.SWRLIArgument;
 import org.semanticweb.owlapi.model.SWRLObjectVisitor;
 import org.semanticweb.owlapi.model.SWRLObjectVisitorEx;
-import org.semanticweb.owlapi.model.SWRLPredicate;
 
 import com.sebastienguillemin.wswrl.core.Rank;
-import com.sebastienguillemin.wswrl.core.rule.WSWRLDataPropertyAtom;
+import com.sebastienguillemin.wswrl.core.rule.atom.WSWRLDataPropertyAtom;
+import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLDArgument;
+import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLIArgument;
+import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLIndividual;
 
-public class DefaultWSWRLDataPropertyAtom extends AbstractWSWRLBinaryAtom<SWRLIArgument, SWRLDArgument> implements WSWRLDataPropertyAtom, SWRLDataPropertyAtom {
+public class DefaultWSWRLDataPropertyAtom extends AbstractWSWRLProperty<WSWRLDArgument> implements WSWRLDataPropertyAtom, SWRLDataPropertyAtom {
 
-    public DefaultWSWRLDataPropertyAtom(SWRLPredicate predicate, SWRLIArgument firstArgument, SWRLDArgument secondArgument, Rank rank) {
-        super(predicate, firstArgument, secondArgument, rank);
+    public DefaultWSWRLDataPropertyAtom(OWLDataPropertyExpression property, WSWRLIArgument firstArgument, WSWRLDArgument secondArgument, Rank rank) {
+        super(property, firstArgument, secondArgument, rank);
+        this.iri = property.asOWLDataProperty().getIRI();
     }
 
-    public DefaultWSWRLDataPropertyAtom(SWRLPredicate predicate, SWRLIArgument firstArgument, SWRLDArgument secondArgument) {
-        this(predicate, firstArgument, secondArgument, null);
+    public DefaultWSWRLDataPropertyAtom(OWLDataPropertyExpression property, WSWRLIArgument firstArgument, WSWRLDArgument secondArgument) {
+        this(property, firstArgument, secondArgument, null);
+    }
+
+    public SWRLDArgument getSecondArgument() {
+        return (SWRLDArgument) this.secondArgument;
     }
 
     @Nonnull
@@ -81,5 +87,10 @@ public class DefaultWSWRLDataPropertyAtom extends AbstractWSWRLBinaryAtom<SWRLIA
     protected int index() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'index'");
-    } 
+    }
+
+    @Override
+    public void addPropertyToIndividual(WSWRLIndividual individual) {
+        individual.addDataProperty(this);
+    }
 }

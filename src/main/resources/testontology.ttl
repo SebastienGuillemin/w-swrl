@@ -29,7 +29,7 @@
 #    Data properties
 #################################################################
 
-###  http://www.semanticweb.org/guillemin/ontologies/2024/2/untitled-ontology-103#dataprop
+###  http://www.semanticweb.org/guillemin/ontologies/2024/2/untitled-ontology-103/dataprop
 :dataprop rdf:type owl:DatatypeProperty ;
           rdfs:range xsd:string .
 
@@ -49,6 +49,10 @@
 #################################################################
 #    Individuals
 #################################################################
+
+###  http://www.semanticweb.org/guillemin/ontologies/2024/2/untitled-ontology-103#i3
+:i3 rdf:type owl:NamedIndividual .
+
 
 ###  http://www.semanticweb.org/guillemin/ontologies/2024/2/untitled-ontology-103/i1
 :i1 rdf:type owl:NamedIndividual ,

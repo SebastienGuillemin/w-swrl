@@ -2,6 +2,7 @@ package com.sebastienguillemin.wswrl.core.rule;
 
 import java.util.Set;
 
+import com.sebastienguillemin.wswrl.core.rule.atom.WSWRLAtom;
 import com.sebastienguillemin.wswrl.exception.WeightCalculationException;
 
 /**
@@ -38,7 +39,7 @@ public interface WSWRLRule {
 
     /**
      * This method is used to calculate
-     * {@link com.sebastienguillemin.wswrl.core.rule.WSWRLAtom} weights.
+     * {@link com.sebastienguillemin.wswrl.core.rule.atom.WSWRLAtom} weights.
      */
     public void calculateWeights() throws WeightCalculationException;
 
@@ -52,7 +53,7 @@ public interface WSWRLRule {
      * Returns the atoms of a specific rank of the rule.
      * 
      * @param rankIndex The rank index of the atoms.
-     * @return The set of {@link com.sebastienguillemin.wswrl.core.rule.WSWRLAtom} at a
+     * @return The set of {@link com.sebastienguillemin.wswrl.core.rule.atom.WSWRLAtom} at a
      *         certain rank.
      */
     public Set<WSWRLAtom> atRank(int rankIndex);
@@ -60,7 +61,7 @@ public interface WSWRLRule {
     /**
      * Return the set of valuable atoms in a given set of atoms.
      * 
-     * @param atoms a set of {@link com.sebastienguillemin.wswrl.core.rule.WSWRLAtom} to
+     * @param atoms a set of {@link com.sebastienguillemin.wswrl.core.rule.atom.WSWRLAtom} to
      *              test
      * @return the set of valuable atoms.
      */

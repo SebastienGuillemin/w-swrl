@@ -5,10 +5,8 @@ import java.util.Hashtable;
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.swrlapi.core.SWRLRuleEngine;
 import org.swrlapi.exceptions.SWRLRuleEngineException;
-import org.swrlapi.parser.SWRLParseException;
 
 import com.sebastienguillemin.wswrl.core.rule.WSWRLRule;
-import com.sebastienguillemin.wswrl.exception.AlreadyInRankException;
 import com.sebastienguillemin.wswrl.exception.MissingRankException;
 import com.sebastienguillemin.wswrl.exception.WSWRLBuiltInException;
 import com.sebastienguillemin.wswrl.exception.WSWRLParseException;
@@ -37,10 +35,12 @@ public interface WSWRLRuleEngine extends SWRLRuleEngine {
      * @param ruleName The name of the rule
      * @param rule     The rule text
      * @return A SWRL rule
-     * @throws SWRLParseException If an error occurs during parsing
+     * @throws WSWRLParseException @see com.sebastienguillemin.wswrl.exception.WSWRLParseException
+     * @throws WSWRLBuiltInException @see com.sebastienguillemin.wswrl.exception.WSWRLBuiltInException
+     * @throws MissingRankException @see com.sebastienguillemin.wswrl.exception.MissingRankException
      */
     WSWRLRule createWSWRLRule(String ruleName, String rule)
-            throws WSWRLParseException, WSWRLBuiltInException, AlreadyInRankException, MissingRankException;
+            throws WSWRLParseException, WSWRLBuiltInException, MissingRankException;
 
     /**
      * @return A collection of WSWRL rules

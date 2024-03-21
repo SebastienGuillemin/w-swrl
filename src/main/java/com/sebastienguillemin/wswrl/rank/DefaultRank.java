@@ -1,20 +1,20 @@
 package com.sebastienguillemin.wswrl.rank;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import com.sebastienguillemin.wswrl.core.Rank;
-import com.sebastienguillemin.wswrl.core.rule.WSWRLAtom;
-import com.sebastienguillemin.wswrl.exception.AlreadyInRankException;
+import com.sebastienguillemin.wswrl.core.rule.atom.WSWRLAtom;
+
 
 public class DefaultRank implements Rank {
     private int index;
 
-    private List<WSWRLAtom> atoms;
+    private Set<WSWRLAtom> atoms;
 
     public DefaultRank(int index) {
         this.index = index;
-        this.atoms = new ArrayList<>();
+        this.atoms = new HashSet<>();
     }
 
     @Override
@@ -23,7 +23,7 @@ public class DefaultRank implements Rank {
     }
 
     @Override
-    public List<WSWRLAtom> getAtoms() {
+    public Set<WSWRLAtom> getAtoms() {
         return this.atoms;
     }
 
@@ -33,13 +33,7 @@ public class DefaultRank implements Rank {
     }
 
     @Override
-    public void addAtom(WSWRLAtom wswrlAtom) throws AlreadyInRankException {
-
-        for (WSWRLAtom atom : this.atoms) {
-            if (wswrlAtom.equals(atom))
-                throw new AlreadyInRankException(wswrlAtom, this);
-        }
-
+    public void addAtom(WSWRLAtom wswrlAtom) {
         this.atoms.add(wswrlAtom);
     }
 }

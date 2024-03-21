@@ -1,4 +1,4 @@
-package com.sebastienguillemin.wswrl.core.rule;
+package com.sebastienguillemin.wswrl.core.rule.atom;
 
 import java.util.List;
 

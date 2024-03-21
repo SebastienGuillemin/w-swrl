@@ -1,4 +1,4 @@
-package com.sebastienguillemin.wswrl.rule.atom.unary;
+package com.sebastienguillemin.wswrl.rule.atom;
 
 import javax.annotation.Nonnull;
 
@@ -10,16 +10,20 @@ import org.semanticweb.owlapi.model.SWRLDArgument;
 import org.semanticweb.owlapi.model.SWRLDataRangeAtom;
 import org.semanticweb.owlapi.model.SWRLObjectVisitor;
 import org.semanticweb.owlapi.model.SWRLObjectVisitorEx;
-import org.semanticweb.owlapi.model.SWRLPredicate;
 
 import com.sebastienguillemin.wswrl.core.Rank;
-import com.sebastienguillemin.wswrl.core.rule.WSWRLDataRangeAtom;
+import com.sebastienguillemin.wswrl.core.rule.atom.WSWRLDataRangeAtom;
+import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLDArgument;
 
-public class DefaultWSWRLDataRange extends AbstractWSWRLUnaryAtom<SWRLDArgument>
-        implements WSWRLDataRangeAtom, SWRLDataRangeAtom {
+public class DefaultWSWRLDataRange extends AbstractWSWRLUnaryAtom<WSWRLDArgument> implements WSWRLDataRangeAtom, SWRLDataRangeAtom {
 
-    public DefaultWSWRLDataRange(SWRLPredicate predicate, SWRLDArgument argument, Rank rank) {
-        super(predicate, argument, rank);
+    public DefaultWSWRLDataRange(OWLDataRange dataRange, WSWRLDArgument argument, Rank rank) {
+        super(dataRange, argument, rank);
+        this.iri = dataRange.asOWLDatatype().getIRI();
+    }
+
+    public SWRLDArgument getArgument() {
+        return (SWRLDArgument) this.argument;
     }
 
     @Nonnull

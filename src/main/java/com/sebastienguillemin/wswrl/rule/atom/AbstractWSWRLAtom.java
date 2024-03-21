@@ -8,9 +8,8 @@ import org.semanticweb.owlapi.model.SWRLArgument;
 import org.semanticweb.owlapi.model.SWRLPredicate;
 
 import com.sebastienguillemin.wswrl.core.Rank;
-import com.sebastienguillemin.wswrl.core.rule.WSWRLAtom;
-import com.sebastienguillemin.wswrl.core.variable.WSWRLVariable;
-import com.sebastienguillemin.wswrl.exception.AlreadyInRankException;
+import com.sebastienguillemin.wswrl.core.rule.atom.WSWRLAtom;
+import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLVariable;
 import com.sebastienguillemin.wswrl.exception.VariableNotFoundException;
 
 import lombok.Getter;
@@ -25,10 +24,7 @@ public abstract class AbstractWSWRLAtom extends SWRLAtomImpl implements WSWRLAto
     @Getter
     private Rank rank;
 
-    public void setRank(Rank rank) throws AlreadyInRankException {
-        this.rank = rank;
-        rank.addAtom(this);
-    }
+    protected IRI iri;
 
     protected AbstractWSWRLAtom(SWRLPredicate predicate, Rank rank) {
         super(predicate);
@@ -36,8 +32,13 @@ public abstract class AbstractWSWRLAtom extends SWRLAtomImpl implements WSWRLAto
     }
 
     @Override
-    public String toString() {
-        return super.toString() + " Rank:" + this.rank.getIndex();
+    public IRI getIRI() {
+        return this.iri;
+    }
+
+    public void setRank(Rank rank) {
+        this.rank = rank;
+        rank.addAtom(this);
     }
 
     @Override
@@ -77,5 +78,10 @@ public abstract class AbstractWSWRLAtom extends SWRLAtomImpl implements WSWRLAto
         }
 
         return variables;
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() + " Rank:" + this.rank.getIndex();
     }
 }

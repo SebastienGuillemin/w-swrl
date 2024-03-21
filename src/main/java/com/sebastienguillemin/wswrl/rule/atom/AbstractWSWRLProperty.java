@@ -1,4 +1,4 @@
-package com.sebastienguillemin.wswrl.rule.atom.binary;
+package com.sebastienguillemin.wswrl.rule.atom;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -10,34 +10,38 @@ import javax.annotation.Nonnull;
 import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLObject;
+import org.semanticweb.owlapi.model.OWLPropertyExpression;
 import org.semanticweb.owlapi.model.SWRLArgument;
 import org.semanticweb.owlapi.model.SWRLBinaryAtom;
+import org.semanticweb.owlapi.model.SWRLIArgument;
 import org.semanticweb.owlapi.model.SWRLPredicate;
 
 import com.sebastienguillemin.wswrl.core.Rank;
-import com.sebastienguillemin.wswrl.core.rule.WSWRLBinaryAtom;
-import com.sebastienguillemin.wswrl.rule.atom.AbstractWSWRLAtom;
+import com.sebastienguillemin.wswrl.core.rule.atom.WSWRLPropertyAtom;
+import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLArgument;
+import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLIArgument;
 
-import lombok.Getter;
-import lombok.Setter;
+public abstract class AbstractWSWRLProperty<ObjectType extends WSWRLArgument> extends AbstractWSWRLAtom implements WSWRLPropertyAtom<ObjectType> {
+    protected WSWRLIArgument firstArgument;
+    protected ObjectType secondArgument;
 
-public abstract class AbstractWSWRLBinaryAtom<A extends SWRLArgument, B extends SWRLArgument> extends AbstractWSWRLAtom implements WSWRLBinaryAtom<A, B>,  SWRLBinaryAtom<A, B> {
-    @Getter
-    @Setter
-    protected A firstArgument;
-
-    @Getter
-    @Setter
-    protected B secondArgument;
-
-    protected AbstractWSWRLBinaryAtom(SWRLPredicate predicate , A firstArgument, B secondArgument, Rank rank) {
-        super(predicate, rank);
+    protected AbstractWSWRLProperty(OWLPropertyExpression property, WSWRLIArgument firstArgument, ObjectType secondArgument, Rank rank) {
+        super((SWRLPredicate) property, rank);
         this.firstArgument = firstArgument;
         this.secondArgument = secondArgument;
     }
 
-    protected AbstractWSWRLBinaryAtom(SWRLPredicate predicate, A firstArgument, B secondArgument) {
-        this(predicate, firstArgument, secondArgument, null);
+
+    public SWRLIArgument getFirstArgument() {
+        return (SWRLIArgument) this.firstArgument;
+    }
+
+    public WSWRLIArgument getFirstWSWRLArgument() {
+        return this.firstArgument;
+    }    
+
+    public ObjectType getSecondWSWRLArgument() {
+        return this.secondArgument;
     }
 
     

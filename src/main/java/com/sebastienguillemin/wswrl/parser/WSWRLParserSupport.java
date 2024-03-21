@@ -11,8 +11,6 @@ import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.SWRLDArgument;
-import org.semanticweb.owlapi.model.SWRLIArgument;
 import org.semanticweb.owlapi.model.parameters.Imports;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 import org.semanticweb.owlapi.vocab.XSDVocabulary;
@@ -20,17 +18,19 @@ import org.swrlapi.core.IRIResolver;
 
 import com.sebastienguillemin.wswrl.core.factory.WSWRLDataFactory;
 import com.sebastienguillemin.wswrl.core.ontology.WSWRLOntology;
-import com.sebastienguillemin.wswrl.core.rule.WSWRLAtom;
-import com.sebastienguillemin.wswrl.core.rule.WSWRLBuiltInAtom;
-import com.sebastienguillemin.wswrl.core.rule.WSWRLClassAtom;
-import com.sebastienguillemin.wswrl.core.rule.WSWRLDataPropertyAtom;
-import com.sebastienguillemin.wswrl.core.rule.WSWRLDataRangeAtom;
-import com.sebastienguillemin.wswrl.core.rule.WSWRLDifferentIndividualsAtom;
-import com.sebastienguillemin.wswrl.core.rule.WSWRLObjectPropertyAtom;
 import com.sebastienguillemin.wswrl.core.rule.WSWRLRule;
-import com.sebastienguillemin.wswrl.core.rule.WSWRLSameIndividualAtom;
-import com.sebastienguillemin.wswrl.core.variable.WSWRLVariable;
-import com.sebastienguillemin.wswrl.core.variable.WSWRLVariableDomain;
+import com.sebastienguillemin.wswrl.core.rule.atom.WSWRLAtom;
+import com.sebastienguillemin.wswrl.core.rule.atom.WSWRLBuiltInAtom;
+import com.sebastienguillemin.wswrl.core.rule.atom.WSWRLClassAtom;
+import com.sebastienguillemin.wswrl.core.rule.atom.WSWRLDataPropertyAtom;
+import com.sebastienguillemin.wswrl.core.rule.atom.WSWRLDataRangeAtom;
+import com.sebastienguillemin.wswrl.core.rule.atom.WSWRLDifferentIndividualsAtom;
+import com.sebastienguillemin.wswrl.core.rule.atom.WSWRLObjectPropertyAtom;
+import com.sebastienguillemin.wswrl.core.rule.atom.WSWRLSameIndividualAtom;
+import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLDArgument;
+import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLIArgument;
+import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLVariable;
+import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLVariableDomain;
 import com.sebastienguillemin.wswrl.exception.MissingRankException;
 import com.sebastienguillemin.wswrl.exception.WSWRLParseException;
 
@@ -99,7 +99,7 @@ public class WSWRLParserSupport {
             }
     }
 
-    public WSWRLClassAtom createWSWRLClassAtom(@NonNull String classShortName, @NonNull SWRLIArgument iArgument)
+    public WSWRLClassAtom createWSWRLClassAtom(@NonNull String classShortName, @NonNull WSWRLIArgument iArgument)
             throws WSWRLParseException {
         OWLClass cls = createOWLClass(classShortName);
 
@@ -107,40 +107,40 @@ public class WSWRLParserSupport {
     }
 
     public WSWRLObjectPropertyAtom createWSWRLObjectPropertyAtom(@NonNull String propertyShortName,
-            @NonNull SWRLIArgument swrliArgument,
-            @NonNull SWRLIArgument swrliArgument2) throws WSWRLParseException {
+            @NonNull WSWRLIArgument subject,
+            @NonNull WSWRLIArgument object) throws WSWRLParseException {
         OWLObjectProperty objectProperty = createOWLObjectProperty(propertyShortName);
 
-        return getWSWRLDataFactory().getWSWRLObjectPropertyAtom(objectProperty, swrliArgument, swrliArgument2);
+        return getWSWRLDataFactory().getWSWRLObjectPropertyAtom(objectProperty, subject, object);
     }
 
     public WSWRLDataPropertyAtom createWSWRLDataPropertyAtom(@NonNull String propertyShortName,
-            @NonNull SWRLIArgument swrliArgument,
-            @NonNull SWRLDArgument swrldArgument) {
+            @NonNull WSWRLIArgument WSWRLIArgument,
+            @NonNull WSWRLDArgument WSWRLDArgument) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'createSWRLDataPropertyAtom'");
     }
 
     public WSWRLBuiltInAtom createWSWRLBuiltInAtom(@NonNull String builtInPrefixedName,
-            @NonNull List<@NonNull SWRLDArgument> list) {
+            @NonNull List<@NonNull WSWRLDArgument> list) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'createSWRLBuiltInAtom'");
     }
 
     public WSWRLDataRangeAtom createWSWRLDataRangeAtom(@NonNull String datatypePrefixedName,
-            @NonNull SWRLDArgument swrldArgument) {
+            @NonNull WSWRLDArgument WSWRLDArgument) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'createSWRLDataRangeAtom'");
     }
 
-    public WSWRLSameIndividualAtom createWSWRLSameIndividualAtom(@NonNull SWRLIArgument swrliArgument,
-            @NonNull SWRLIArgument swrliArgument2) {
+    public WSWRLSameIndividualAtom createWSWRLSameIndividualAtom(@NonNull WSWRLIArgument WSWRLIArgument,
+            @NonNull WSWRLIArgument swrliArgument2) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'createSWRLSameIndividualAtom'");
     }
 
-    public WSWRLDifferentIndividualsAtom createWSWRLDifferentIndividualsAtom(@NonNull SWRLIArgument swrliArgument,
-            @NonNull SWRLIArgument swrliArgument2) {
+    public WSWRLDifferentIndividualsAtom createWSWRLDifferentIndividualsAtom(@NonNull WSWRLIArgument WSWRLIArgument,
+            @NonNull WSWRLIArgument swrliArgument2) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'createSWRLDifferentIndividualsAtom'");
     }
@@ -172,52 +172,52 @@ public class WSWRLParserSupport {
         return getOWLOntology().containsIndividualInSignature(individualIRI, Imports.INCLUDED);
     }
 
-    public SWRLIArgument createSWRLIndividualArgument(String identifier) {
+    public WSWRLIArgument createWSWRLIndividualArgument(String identifier) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'createSWRLIndividualArgument'");
     }
 
-    public SWRLDArgument createXSDIntegerSWRLLiteralArgument(@NonNull String value) {
+    public WSWRLDArgument createXSDIntegerSWRLLiteralArgument(@NonNull String value) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'createXSDIntegerSWRLLiteralArgument'");
     }
 
-    public SWRLDArgument createXSDDecimalSWRLLiteralArgument(@NonNull String value) {
+    public WSWRLDArgument createXSDDecimalSWRLLiteralArgument(@NonNull String value) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'createXSDDecimalSWRLLiteralArgument'");
     }
 
-    public SWRLDArgument createSWRLLiteralArgument(@NonNull String literalValue, String datatype) {
+    public WSWRLDArgument createSWRLLiteralArgument(@NonNull String literalValue, String datatype) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'createSWRLLiteralArgument'");
     }
 
-    public SWRLDArgument createXSDStringSWRLLiteralArgument(@NonNull String literalValue) {
+    public WSWRLDArgument createXSDStringSWRLLiteralArgument(@NonNull String literalValue) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'createXSDStringSWRLLiteralArgument'");
     }
 
-    public SWRLDArgument createXSDBooleanSWRLLiteralArgument(@NonNull String shortName) {
+    public WSWRLDArgument createXSDBooleanSWRLLiteralArgument(@NonNull String shortName) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'createXSDBooleanSWRLLiteralArgument'");
     }
 
-    public SWRLDArgument createSWRLNamedIndividualBuiltInArgument(@NonNull String shortName) {
+    public WSWRLDArgument createSWRLNamedIndividualBuiltInArgument(@NonNull String shortName) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'createSWRLNamedIndividualBuiltInArgument'");
     }
 
-    public SWRLDArgument createSWRLClassBuiltInArgument(@NonNull String shortName) {
+    public WSWRLDArgument createSWRLClassBuiltInArgument(@NonNull String shortName) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'createSWRLClassBuiltInArgument'");
     }
 
-    public SWRLDArgument createSWRLObjectPropertyBuiltInArgument(@NonNull String shortName) {
+    public WSWRLDArgument createSWRLObjectPropertyBuiltInArgument(@NonNull String shortName) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'createSWRLObjectPropertyBuiltInArgument'");
     }
 
-    public SWRLDArgument createSWRLDataPropertyBuiltInArgument(@NonNull String shortName) {
+    public WSWRLDArgument createSWRLDataPropertyBuiltInArgument(@NonNull String shortName) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'createSWRLDataPropertyBuiltInArgument'");
     }
@@ -227,12 +227,12 @@ public class WSWRLParserSupport {
         return getOWLOntology().containsAnnotationPropertyInSignature(propertyIRI, Imports.INCLUDED);
     }
 
-    public SWRLDArgument createSWRLAnnotationPropertyBuiltInArgument(@NonNull String shortName) {
+    public WSWRLDArgument createSWRLAnnotationPropertyBuiltInArgument(@NonNull String shortName) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'createSWRLAnnotationPropertyBuiltInArgument'");
     }
 
-    public SWRLDArgument createSWRLDatatypeBuiltInArgument(@NonNull String shortName) {
+    public WSWRLDArgument createSWRLDatatypeBuiltInArgument(@NonNull String shortName) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'createSWRLDatatypeBuiltInArgument'");
     }

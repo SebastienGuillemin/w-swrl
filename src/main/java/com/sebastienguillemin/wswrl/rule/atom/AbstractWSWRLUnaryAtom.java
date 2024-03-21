@@ -1,4 +1,4 @@
-package com.sebastienguillemin.wswrl.rule.atom.unary;
+package com.sebastienguillemin.wswrl.rule.atom;
 
 import java.util.Collection;
 import java.util.Set;
@@ -9,24 +9,22 @@ import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.SWRLArgument;
 import org.semanticweb.owlapi.model.SWRLPredicate;
-import org.semanticweb.owlapi.model.SWRLUnaryAtom;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
 import com.sebastienguillemin.wswrl.core.Rank;
-import com.sebastienguillemin.wswrl.core.rule.WSWRLUnaryAtom;
-import com.sebastienguillemin.wswrl.rule.atom.AbstractWSWRLAtom;
+import com.sebastienguillemin.wswrl.core.rule.atom.WSWRLUnaryAtom;
+import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLArgument;
 
-import lombok.Getter;
-import lombok.Setter;
-
-public abstract class AbstractWSWRLUnaryAtom<A extends SWRLArgument> extends AbstractWSWRLAtom implements WSWRLUnaryAtom<A>, SWRLUnaryAtom<A> {
-    @Getter
-    @Setter
+public abstract class AbstractWSWRLUnaryAtom<A extends WSWRLArgument> extends AbstractWSWRLAtom implements WSWRLUnaryAtom<A> {
     protected A argument;
 
     protected AbstractWSWRLUnaryAtom(SWRLPredicate predicate, A argument, Rank rank) {
         super(predicate, rank);
         this.argument = argument;
+    }
+    
+    public A getWSWRLArgument() {
+        return this.argument;
     }
 
     @Override

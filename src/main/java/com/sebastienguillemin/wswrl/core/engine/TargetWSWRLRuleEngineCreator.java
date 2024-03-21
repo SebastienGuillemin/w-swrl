@@ -11,7 +11,7 @@ public interface TargetWSWRLRuleEngineCreator {
     String getRuleEngineName();
 
     /**
-     * @param wswrlOntology An ontology adapted for WSWRL
+     * @param WSWRLOntology An WSWRL ontology.
      * @return A target SWRL rule engine
      * @throws TargetSWRLRuleEngineException If an exception occurs during creation
      */

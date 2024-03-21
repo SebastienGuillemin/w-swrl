@@ -1,4 +1,6 @@
-package com.sebastienguillemin.wswrl.rule.atom.unary;
+package com.sebastienguillemin.wswrl.rule.atom;
+
+import java.util.Set;
 
 import javax.annotation.Nonnull;
 
@@ -13,12 +15,25 @@ import org.semanticweb.owlapi.model.SWRLObjectVisitorEx;
 import org.semanticweb.owlapi.model.SWRLPredicate;
 
 import com.sebastienguillemin.wswrl.core.Rank;
-import com.sebastienguillemin.wswrl.core.rule.WSWRLClassAtom;
+import com.sebastienguillemin.wswrl.core.rule.atom.WSWRLClassAtom;
+import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLIArgument;
+import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLIndividual;
+import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLVariable;
+import com.sebastienguillemin.wswrl.rule.variable.DefaultWSWRLIndividual;
 
-public class DefaultWSWRLClassAtom extends AbstractWSWRLUnaryAtom<SWRLIArgument> implements WSWRLClassAtom, SWRLClassAtom {
+public class DefaultWSWRLClassAtom extends AbstractWSWRLUnaryAtom<WSWRLIArgument> implements WSWRLClassAtom, SWRLClassAtom {
 
-    public DefaultWSWRLClassAtom(SWRLPredicate predicate, SWRLIArgument argument, Rank rank) {
-        super(predicate, argument, rank);
+    public DefaultWSWRLClassAtom(OWLClassExpression classExpression, WSWRLIArgument argument, Rank rank) {
+        super((SWRLPredicate) classExpression, argument, rank);
+        this.iri = classExpression.asOWLClass().getIRI();
+    }
+
+    public DefaultWSWRLClassAtom(OWLClassExpression classExpression, WSWRLIArgument argument) {
+        this(classExpression, argument, null);
+    }
+
+    public SWRLIArgument getArgument() {
+        return (SWRLIArgument) this.argument;
     }
     
     @Nonnull
@@ -77,7 +92,15 @@ public class DefaultWSWRLClassAtom extends AbstractWSWRLUnaryAtom<SWRLIArgument>
 
     @Override
     public boolean evaluate() {
-        return false;
+        Set<WSWRLVariable> variables = this.getVariables();
+
+        WSWRLIndividual individual;
+        for (WSWRLIArgument variable : variables) {
+            individual = variable.getWSWRLIndividual();
+            if (individual == null)
+                return false;
+        }
+        return true;
     }
 
     @Override

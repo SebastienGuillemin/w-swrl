@@ -1,12 +1,11 @@
 package com.sebastienguillemin.wswrl.core;
 
-import java.util.List;
+import java.util.Set;
 
-import com.sebastienguillemin.wswrl.core.rule.WSWRLAtom;
-import com.sebastienguillemin.wswrl.exception.AlreadyInRankException;
+import com.sebastienguillemin.wswrl.core.rule.atom.WSWRLAtom;
 
 /**
- * A {@link com.sebastienguillemin.wswrl.core.rule.WSWRLAtom} rank.
+ * A {@link com.sebastienguillemin.wswrl.core.rule.atom.WSWRLAtom} rank.
  * Each rank is identified by an index (an {@code int}).
  */
 public interface Rank {
@@ -17,15 +16,15 @@ public interface Rank {
     public int getIndex();
 
     /**
-     * Return the list of atoms assigned to the current rank.
+     * Return the set of atoms assigned to the current rank.
      * 
-     * @return The list of atoms assigned to the rank.
+     * @return The set of atoms assigned to the rank.
      */
-    public List<WSWRLAtom> getAtoms();
+    public Set<WSWRLAtom> getAtoms();
 
     /**
      * Add an atom the current rank.
      * @param atom The atom to add.
      */
-    public void addAtom(WSWRLAtom atom) throws AlreadyInRankException;
+    public void addAtom(WSWRLAtom atom);
 }

@@ -7,23 +7,23 @@ import org.checkerframework.checker.nullness.qual.NonNull;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
-import org.semanticweb.owlapi.model.SWRLIArgument;
 import org.semanticweb.owlapi.util.OWLAPIPreconditions;
 import org.swrlapi.core.IRIResolver;
 import org.swrlapi.factory.DefaultSWRLAPIOWLDataFactory;
 
 import com.sebastienguillemin.wswrl.core.factory.WSWRLDataFactory;
-import com.sebastienguillemin.wswrl.core.rule.WSWRLAtom;
-import com.sebastienguillemin.wswrl.core.rule.WSWRLClassAtom;
-import com.sebastienguillemin.wswrl.core.rule.WSWRLObjectPropertyAtom;
 import com.sebastienguillemin.wswrl.core.rule.WSWRLRule;
-import com.sebastienguillemin.wswrl.core.variable.WSWRLVariable;
-import com.sebastienguillemin.wswrl.core.variable.WSWRLVariableDomain;
-import com.sebastienguillemin.wswrl.rule.DefaultWSWRLRule;
-import com.sebastienguillemin.wswrl.rule.DefaultWSWRLVariable;
-import com.sebastienguillemin.wswrl.rule.atom.binary.DefaultWSWRLObjectPropertyAtom;
-import com.sebastienguillemin.wswrl.rule.atom.unary.DefaultWSWRLClassAtom;
+import com.sebastienguillemin.wswrl.core.rule.atom.WSWRLAtom;
+import com.sebastienguillemin.wswrl.core.rule.atom.WSWRLClassAtom;
+import com.sebastienguillemin.wswrl.core.rule.atom.WSWRLObjectPropertyAtom;
+import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLIArgument;
+import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLVariable;
+import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLVariableDomain;
 import com.sebastienguillemin.wswrl.exception.MissingRankException;
+import com.sebastienguillemin.wswrl.rule.DefaultWSWRLRule;
+import com.sebastienguillemin.wswrl.rule.atom.DefaultWSWRLClassAtom;
+import com.sebastienguillemin.wswrl.rule.atom.DefaultWSWRLObjectPropertyAtom;
+import com.sebastienguillemin.wswrl.rule.variable.DefaultWSWRLVariable;
 
 public class DefaultWSWRLDataFactory extends DefaultSWRLAPIOWLDataFactory implements WSWRLDataFactory {
     private static final String ARG0_CANNOT_BE_NULL = "arg0 cannot be null";
@@ -41,12 +41,13 @@ public class DefaultWSWRLDataFactory extends DefaultSWRLAPIOWLDataFactory implem
     }
 
     @Override
-    public WSWRLRule getWSWRLRule(String ruleName, Set<WSWRLAtom> head, Set<WSWRLAtom> body, boolean enabled) throws MissingRankException {
+    public WSWRLRule getWSWRLRule(String ruleName, Set<WSWRLAtom> head, Set<WSWRLAtom> body, boolean enabled)
+            throws MissingRankException {
         return new DefaultWSWRLRule(ruleName, head, body, enabled);
     }
 
     @Override
-    public WSWRLClassAtom getWSWRLClassAtom(OWLClass predicate, @NonNull SWRLIArgument iArgument) {
+    public WSWRLClassAtom getWSWRLClassAtom(OWLClass predicate, @NonNull WSWRLIArgument iArgument) {
         OWLAPIPreconditions.checkNotNull(predicate, CLASS_PREDICATE_CANNOT_BE_NULL);
         OWLAPIPreconditions.checkNotNull(iArgument, ARG0_CANNOT_BE_NULL);
         return new DefaultWSWRLClassAtom(predicate, iArgument, null);
@@ -59,21 +60,19 @@ public class DefaultWSWRLDataFactory extends DefaultSWRLAPIOWLDataFactory implem
         if (!this.variables.containsKey(iri)) {
             variable = new DefaultWSWRLVariable(iri, domain);
             this.variables.put(iri, variable);
-        }
-        else
+        } else
             variable = this.variables.get(iri);
 
         return variable;
     }
 
     @Override
-    public WSWRLObjectPropertyAtom getWSWRLObjectPropertyAtom(OWLObjectProperty objectProperty,
-            SWRLIArgument swrliArgument, SWRLIArgument swrliArgument2) {
+    public WSWRLObjectPropertyAtom getWSWRLObjectPropertyAtom(OWLObjectProperty objectProperty, WSWRLIArgument wswrliArgument, WSWRLIArgument wswrliArgument2) {
         OWLAPIPreconditions.checkNotNull(objectProperty, PROPERTY_CANNOT_BE_NULL);
-        OWLAPIPreconditions.checkNotNull(swrliArgument, ARG0_CANNOT_BE_NULL);
-        OWLAPIPreconditions.checkNotNull(swrliArgument2, ARG1_CANNOT_BE_NULL);
+        OWLAPIPreconditions.checkNotNull(wswrliArgument, ARG0_CANNOT_BE_NULL);
+        OWLAPIPreconditions.checkNotNull(wswrliArgument2, ARG1_CANNOT_BE_NULL);
 
-        return new DefaultWSWRLObjectPropertyAtom(objectProperty, swrliArgument, swrliArgument2);
+        return new DefaultWSWRLObjectPropertyAtom(objectProperty, wswrliArgument, wswrliArgument2);
     }
 
 }

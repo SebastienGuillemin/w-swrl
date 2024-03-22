@@ -59,12 +59,14 @@ public class DefaultWSWRLIndividual extends OWLNamedIndividualImpl implements WS
     }
 
     @Override
-    public OWLObjectPropertyAssertionAxiom getObjectProperty(IRI iri) {
-        for (OWLObjectPropertyAssertionAxiom atom : this.objectProperties)
-            if (atom.getProperty().asOWLObjectProperty().getIRI().equals(iri))
-                return atom;
+    public Set<OWLObjectPropertyAssertionAxiom> getObjectProperties(IRI iri) {
+        Set<OWLObjectPropertyAssertionAxiom> properties = new HashSet<>();
 
-        return null;
+        for (OWLObjectPropertyAssertionAxiom axiom : this.objectProperties)
+            if (axiom.getProperty().asOWLObjectProperty().getIRI().equals(iri))
+                properties.add(axiom);
+
+        return properties;
     }
 
     public void removeObjectProperty(OWLObjectPropertyAssertionAxiom objectProperty) {
@@ -76,12 +78,14 @@ public class DefaultWSWRLIndividual extends OWLNamedIndividualImpl implements WS
     }
 
     @Override
-    public OWLDataPropertyAssertionAxiom getDataProperty(IRI iri) {
-        for (OWLDataPropertyAssertionAxiom atom : this.dataProperties)
-            if (atom.getProperty().asOWLDataProperty().getIRI().equals(iri))
-                return atom;
+    public Set<OWLDataPropertyAssertionAxiom> getDataProperties(IRI iri) {
+        Set<OWLDataPropertyAssertionAxiom> properties = new HashSet<>();
 
-        return null;
+        for (OWLDataPropertyAssertionAxiom axiom : this.dataProperties)
+            if (axiom.getProperty().asOWLDataProperty().getIRI().equals(iri))
+                properties.add(axiom);
+
+        return properties;
     }
 
     public void removeDataProperty(OWLDataPropertyAssertionAxiom dataProperty) {

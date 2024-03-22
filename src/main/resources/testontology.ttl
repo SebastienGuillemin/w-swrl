@@ -53,12 +53,18 @@
 ###  http://www.semanticweb.org/guillemin/ontologies/2024/2/untitled-ontology-103/i1
 :i1 rdf:type owl:NamedIndividual ,
              :concept1 ;
-    :linked :i2 ;
+    :linked :i2 ,
+            :i3 ;
     :dataprop "Value !" .
 
 
 ###  http://www.semanticweb.org/guillemin/ontologies/2024/2/untitled-ontology-103/i2
 :i2 rdf:type owl:NamedIndividual .
+
+
+###  http://www.semanticweb.org/guillemin/ontologies/2024/2/untitled-ontology-103/i3
+:i3 rdf:type owl:NamedIndividual ,
+             :concept1 .
 
 
 #################################################################

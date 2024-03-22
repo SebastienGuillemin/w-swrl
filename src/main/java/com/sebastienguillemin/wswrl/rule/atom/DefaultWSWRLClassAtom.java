@@ -14,23 +14,20 @@ import org.semanticweb.owlapi.model.SWRLPredicate;
 
 import com.sebastienguillemin.wswrl.core.Rank;
 import com.sebastienguillemin.wswrl.core.rule.atom.WSWRLClassAtom;
-import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLIArgument;
+import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLIVariable;
 
-public class DefaultWSWRLClassAtom extends AbstractWSWRLUnaryAtom<WSWRLIArgument> implements WSWRLClassAtom, SWRLClassAtom {
+public class DefaultWSWRLClassAtom extends AbstractWSWRLUnaryAtom<WSWRLIVariable>
+        implements WSWRLClassAtom, SWRLClassAtom {
 
-    public DefaultWSWRLClassAtom(OWLClassExpression classExpression, WSWRLIArgument argument, Rank rank) {
+    public DefaultWSWRLClassAtom(OWLClassExpression classExpression, WSWRLIVariable argument, Rank rank) {
         super((SWRLPredicate) classExpression, argument, rank);
         this.iri = classExpression.asOWLClass().getIRI();
     }
 
-    public DefaultWSWRLClassAtom(OWLClassExpression classExpression, WSWRLIArgument argument) {
+    public DefaultWSWRLClassAtom(OWLClassExpression classExpression, WSWRLIVariable argument) {
         this(classExpression, argument, null);
     }
 
-    public SWRLIArgument getArgument() {
-        return (SWRLIArgument) this.argument;
-    }
-    
     @Nonnull
     @Override
     public OWLClassExpression getPredicate() {
@@ -86,13 +83,18 @@ public class DefaultWSWRLClassAtom extends AbstractWSWRLUnaryAtom<WSWRLIArgument
     }
 
     @Override
-    public boolean evaluate() {        
-        return this.getWSWRLArgument().getWSWRLIndividual().getOWLClass(this.iri) != null;
+    public boolean evaluate() {
+        return this.getWSWRLArgument().getValue().getOWLClass(this.iri) != null;
     }
 
     @Override
     protected int index() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'index'");
+    }
+
+    @Override
+    public SWRLIArgument getArgument() {
+        return (SWRLIArgument) this.getArgument();
     }
 }

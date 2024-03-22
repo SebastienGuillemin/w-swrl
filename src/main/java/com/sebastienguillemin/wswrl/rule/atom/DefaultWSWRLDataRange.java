@@ -13,11 +13,11 @@ import org.semanticweb.owlapi.model.SWRLObjectVisitorEx;
 
 import com.sebastienguillemin.wswrl.core.Rank;
 import com.sebastienguillemin.wswrl.core.rule.atom.WSWRLDataRangeAtom;
-import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLDArgument;
+import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLDVariable;
 
-public class DefaultWSWRLDataRange extends AbstractWSWRLUnaryAtom<WSWRLDArgument> implements WSWRLDataRangeAtom, SWRLDataRangeAtom {
+public class DefaultWSWRLDataRange extends AbstractWSWRLUnaryAtom<WSWRLDVariable> implements WSWRLDataRangeAtom, SWRLDataRangeAtom {
 
-    public DefaultWSWRLDataRange(OWLDataRange dataRange, WSWRLDArgument argument, Rank rank) {
+    public DefaultWSWRLDataRange(OWLDataRange dataRange, WSWRLDVariable argument, Rank rank) {
         super(dataRange, argument, rank);
         this.iri = dataRange.asOWLDatatype().getIRI();
     }

@@ -12,17 +12,17 @@ import org.semanticweb.owlapi.model.SWRLObjectVisitorEx;
 
 import com.sebastienguillemin.wswrl.core.Rank;
 import com.sebastienguillemin.wswrl.core.rule.atom.WSWRLDataPropertyAtom;
-import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLDArgument;
-import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLIArgument;
+import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLDVariable;
+import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLIVariable;
 
-public class DefaultWSWRLDataPropertyAtom extends AbstractWSWRLProperty<WSWRLDArgument> implements WSWRLDataPropertyAtom, SWRLDataPropertyAtom {
+public class DefaultWSWRLDataPropertyAtom extends AbstractWSWRLProperty<WSWRLDVariable> implements WSWRLDataPropertyAtom, SWRLDataPropertyAtom {
 
-    public DefaultWSWRLDataPropertyAtom(OWLDataPropertyExpression property, WSWRLIArgument firstArgument, WSWRLDArgument secondArgument, Rank rank) {
+    public DefaultWSWRLDataPropertyAtom(OWLDataPropertyExpression property, WSWRLIVariable firstArgument, WSWRLDVariable secondArgument, Rank rank) {
         super(property, firstArgument, secondArgument, rank);
         this.iri = property.asOWLDataProperty().getIRI();
     }
 
-    public DefaultWSWRLDataPropertyAtom(OWLDataPropertyExpression property, WSWRLIArgument firstArgument, WSWRLDArgument secondArgument) {
+    public DefaultWSWRLDataPropertyAtom(OWLDataPropertyExpression property, WSWRLIVariable firstArgument, WSWRLDVariable secondArgument) {
         this(property, firstArgument, secondArgument, null);
     }
 
@@ -72,14 +72,12 @@ public class DefaultWSWRLDataPropertyAtom extends AbstractWSWRLProperty<WSWRLDAr
 
     @Override
     public boolean isValuable() {
-        this.getAllArguments();
-        return false;
+        return this.evaluate();
     }
 
     @Override
     public boolean evaluate() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'evaluate'");
+        return this.getSecondWSWRLArgument().getValue() != null;
     }
 
     @Override

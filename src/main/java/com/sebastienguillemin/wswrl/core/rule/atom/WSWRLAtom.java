@@ -68,7 +68,7 @@ public interface WSWRLAtom extends HasIRI {
     public boolean evaluate();
 
     /**
-     * Returns the {@link WSWRLVariable} corresponding to an IRI.
+     * Returns the {@link WSWRLVariable<Object>} corresponding to an IRI.
      * 
      * @param variableIRI the variable IRI.
      * @return the variable.
@@ -77,7 +77,7 @@ public interface WSWRLAtom extends HasIRI {
     public WSWRLVariable getVariable(IRI variableIRI) throws VariableNotFoundException;
 
     /**
-     * Returns the {@link WSWRLVariable} corresponding to a name.
+     * Returns the {@link WSWRLVariable<Object>} corresponding to a name.
      * 
      * @param variableName the variable name.
      * @return the variable.

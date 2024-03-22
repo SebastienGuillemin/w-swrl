@@ -1,10 +1,7 @@
 package com.sebastienguillemin.wswrl.core.rule.variable;
 
-import java.util.Hashtable;
-
 import org.semanticweb.owlapi.model.IRI;
-
-import com.sebastienguillemin.wswrl.exception.UnknownVariableDomainException;
+import org.semanticweb.owlapi.model.OWLLiteral;
 
 /**
  * Represents a binding for the rule variables.
@@ -26,7 +23,8 @@ import com.sebastienguillemin.wswrl.exception.UnknownVariableDomainException;
  * <br>
  * <br>
  * 
- * The internal {@link com.sebastienguillemin.wswrl.core.rule.variable.WSWRLVariable}
+ * The internal
+ * {@link com.sebastienguillemin.wswrl.core.rule.variable.WSWRLVariable}
  * of a variable is not modified until the {@link #bindVariables} function has
  * been called.
  */
@@ -39,27 +37,22 @@ public interface VariableBinding {
      * @param variable The considered variable.
      * @param value    The value to bind.
      */
-    public void bindLiteral(WSWRLVariable variable, String value);
+    public void bindLiteral(WSWRLDVariable variable, OWLLiteral value);
 
     /**
-     * Binds a {@link com.sebastienguillemin.wswrl.core.rule.variable.WSWRLIndividual} IRI.
+     * Binds a
+     * {@link com.sebastienguillemin.wswrl.core.rule.variable.WSWRLIndividual} IRI.
      * to a
      * variable.
      * 
      * @param variable      The considered variable.
      * @param individualIRI The individual IRI to bind.
      */
-    public void bindIndividual(WSWRLVariable variable, IRI individualIRI);
+    public void bindIndividual(WSWRLIVariable variable, WSWRLIndividual value);
 
-    /**
-     * Returns the the string representation of the value (i.e., an
-     * {@link com.sebastienguillemin.wswrl.core.rule.variable.WSWRLVariable} or an
-     * {@link org.semanticweb.owlapi.model.OWLLiteral}).
-     * 
-     * @param variable
-     * @return
-     */
-    public String getValue(WSWRLVariable variable);
+    public OWLLiteral getLiteralValue(IRI variableIRI);
+
+    public WSWRLIndividual getIndividualValue(IRI variableIRI);
 
     /**
      * Changes the inner state of variables by setting their values according to
@@ -67,6 +60,5 @@ public interface VariableBinding {
      * 
      * @param individuals
      */
-    public void bindVariables(Hashtable<IRI, WSWRLIndividual> individuals) throws UnknownVariableDomainException;
-
+    public void bindVariables();
 }

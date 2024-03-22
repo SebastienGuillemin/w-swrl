@@ -1,6 +1,7 @@
 package com.sebastienguillemin.wswrl.rule;
 
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
@@ -102,15 +103,14 @@ public class DefaultWSWRLRule implements WSWRLRule {
         // WSWRLDataRangeAtom) && !headAtom.isValuable()) {
         // return 0;
         // }
+
         float confidence = 1;
-        for (WSWRLAtom bodyAtom : this.body) {
-            if (!bodyAtom.isValuable()) {
-                // System.out.println("Atom non valuable : " + bodyAtom + ", weight : " + bodyAtom.getWeight());
-                confidence -= bodyAtom.getWeight();
-            } else if (!bodyAtom.evaluate()) {
-                // System.out.println("Atom valuable and evaluale to False : " + bodyAtom + ", weight : " + bodyAtom.getWeight());
-                confidence -= bodyAtom.getWeight();
-            }
+        Iterator<WSWRLAtom> bodyAtoms = this.body.iterator();
+        WSWRLAtom atom;
+        while (bodyAtoms.hasNext() && confidence > 0) {
+            atom = bodyAtoms.next();
+            if (!atom.isValuable() || !atom.evaluate())
+                confidence -= atom.getWeight();
         }
         return confidence;
     }

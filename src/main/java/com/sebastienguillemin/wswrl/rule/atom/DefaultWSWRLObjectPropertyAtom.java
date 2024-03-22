@@ -5,6 +5,7 @@ import java.util.Hashtable;
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
@@ -15,21 +16,21 @@ import org.semanticweb.owlapi.model.SWRLObjectVisitorEx;
 
 import com.sebastienguillemin.wswrl.core.Rank;
 import com.sebastienguillemin.wswrl.core.rule.atom.WSWRLObjectPropertyAtom;
-import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLIArgument;
+import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLIVariable;
 import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLIndividual;
 
-public class DefaultWSWRLObjectPropertyAtom extends AbstractWSWRLProperty<WSWRLIArgument>
+public class DefaultWSWRLObjectPropertyAtom extends AbstractWSWRLProperty<WSWRLIVariable>
         implements WSWRLObjectPropertyAtom, SWRLObjectPropertyAtom {
 
-    public DefaultWSWRLObjectPropertyAtom(OWLObjectPropertyExpression property, WSWRLIArgument firstArgument,
-            WSWRLIArgument secondArgument, Rank rank) {
+    public DefaultWSWRLObjectPropertyAtom(OWLObjectPropertyExpression property, WSWRLIVariable firstArgument,
+            WSWRLIVariable secondArgument, Rank rank) {
         super(property, firstArgument, secondArgument, rank);
         this.iri = property.asOWLObjectProperty().getIRI();
 
     }
 
-    public DefaultWSWRLObjectPropertyAtom(OWLObjectPropertyExpression property, WSWRLIArgument firstArgument,
-            WSWRLIArgument secondArgument) {
+    public DefaultWSWRLObjectPropertyAtom(OWLObjectPropertyExpression property, WSWRLIVariable firstArgument,
+            WSWRLIVariable secondArgument) {
         this(property, firstArgument, secondArgument, null);
     }
 
@@ -79,18 +80,20 @@ public class DefaultWSWRLObjectPropertyAtom extends AbstractWSWRLProperty<WSWRLI
 
     @Override
     public boolean isValuable() {
-        WSWRLIArgument firstArgument = this.getFirstWSWRLArgument();
+        return !this.getFirstWSWRLArgument().getValue().getObjectProperties(this.iri).isEmpty();
 
-        return firstArgument.getWSWRLIndividual().getObjectProperty(this.getIRI()) != null;
     }
 
     @Override
     public boolean evaluate() {
-        WSWRLIArgument firstVariable = this.getFirstWSWRLArgument();
-        WSWRLIArgument secondVariable = this.getSecondWSWRLArgument();
+        WSWRLIVariable firstVariable = this.getFirstWSWRLArgument();
+        WSWRLIVariable secondVariable = this.getSecondWSWRLArgument();
 
-        return firstVariable.getWSWRLIndividual().getObjectProperty(this.iri).getObject().asOWLNamedIndividual()
-                .getIRI().equals(secondVariable.getWSWRLIndividual().getIRI());
+        for (OWLObjectPropertyAssertionAxiom propertyAxiom : firstVariable.getValue().getObjectProperties(this.iri))
+            if (propertyAxiom.getObject().asOWLNamedIndividual().getIRI().equals(secondVariable.getValue().getIRI()))
+                return true;
+
+        return false;
     }
 
     @Override

@@ -1,5 +1,7 @@
 package com.sebastienguillemin.wswrl.core.rule.variable;
 
+import java.util.Set;
+
 import org.semanticweb.owlapi.model.HasIRI;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLClass;
@@ -20,7 +22,7 @@ public interface WSWRLIndividual extends OWLIndividual, HasIRI {
     public void addOWLClass(OWLClass classAtom);
 
     /**
-     * Return the object class corresponding to a certain
+     * Return the indivudal object class corresponding to a certain
      * {@link org.semanticweb.owlapi.model.IRI}.
      * 
      * @param iri The property IRI.
@@ -43,16 +45,15 @@ public interface WSWRLIndividual extends OWLIndividual, HasIRI {
     public void addObjectProperty(OWLObjectPropertyAssertionAxiom objectProperty);
 
     /**
-     * Return the object property corresponding to a certain
+     * Return the individual object properties corresponding to a certain
      * {@link org.semanticweb.owlapi.model.IRI}.
      * 
      * @param iri The property IRI.
-     * @return The
+     * @return A set (possibly empty) containing
      *         {@link org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom}
-     *         (possibly
-     *         null).
+     *         instances.
      */
-    public OWLObjectPropertyAssertionAxiom getObjectProperty(IRI iri);
+    public Set<OWLObjectPropertyAssertionAxiom> getObjectProperties(IRI iri);
 
     /**
      * Remove an object property to the indvidual.
@@ -69,16 +70,15 @@ public interface WSWRLIndividual extends OWLIndividual, HasIRI {
     public void addDataProperty(OWLDataPropertyAssertionAxiom dataProperty);
 
     /**
-     * Return the data property corresponding to a certain{ @link
+     * Return the individual data properties corresponding to a certain{ @link
      * org.semanticweb.owlapi.model.IRI}.
      * 
      * @param iri The property IRI.
-     * @return The
+     * @return A set (possibly empty) containing
      *         {@link org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom}
-     *         (possibly
-     *         null).
+     *         instances.
      */
-    public OWLDataPropertyAssertionAxiom getDataProperty(IRI iri);
+    public Set<OWLDataPropertyAssertionAxiom> getDataProperties(IRI iri);
 
     /**
      * Remove a data property to the indvidual.

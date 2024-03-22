@@ -13,16 +13,17 @@ import org.semanticweb.owlapi.util.CollectionFactory;
 
 import com.sebastienguillemin.wswrl.core.Rank;
 import com.sebastienguillemin.wswrl.core.rule.atom.WSWRLUnaryAtom;
-import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLArgument;
+import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLVariable;
 
-public abstract class AbstractWSWRLUnaryAtom<A extends WSWRLArgument> extends AbstractWSWRLAtom implements WSWRLUnaryAtom<A> {
+public abstract class AbstractWSWRLUnaryAtom<A extends WSWRLVariable> extends AbstractWSWRLAtom implements WSWRLUnaryAtom<A> {
     protected A argument;
 
     protected AbstractWSWRLUnaryAtom(SWRLPredicate predicate, A argument, Rank rank) {
         super(predicate, rank);
         this.argument = argument;
     }
-    
+
+    @Override
     public A getWSWRLArgument() {
         return this.argument;
     }

@@ -1,11 +1,11 @@
 package com.sebastienguillemin.wswrl.core.rule.atom;
 
-import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLArgument;
-import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLIArgument;
+import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLVariable;
+import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLIVariable;
 
-public interface WSWRLPropertyAtom<ObjectType extends WSWRLArgument> extends WSWRLAtom {
+public interface WSWRLPropertyAtom<ObjectType extends WSWRLVariable> extends WSWRLAtom {
 
-    WSWRLIArgument getFirstWSWRLArgument();
+    WSWRLIVariable getFirstWSWRLArgument();
 
     ObjectType getSecondWSWRLArgument();
 }

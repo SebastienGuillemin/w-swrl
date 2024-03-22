@@ -1,8 +1,9 @@
 package com.sebastienguillemin.wswrl.core.rule.variable;
 
 import org.semanticweb.owlapi.model.HasIRI;
+import org.semanticweb.owlapi.model.SWRLArgument;
 
-public interface WSWRLVariable extends WSWRLDArgument, WSWRLIArgument, HasIRI {
+public interface WSWRLVariable extends HasIRI, SWRLArgument {
     /**
      * Returns the variable domain.
      * 
@@ -10,8 +11,5 @@ public interface WSWRLVariable extends WSWRLDArgument, WSWRLIArgument, HasIRI {
      * @return the variable domain (INDIVIDUAL or DATA).
      */
     public WSWRLVariableDomain getDomain();
-
-    public Object getValue();
-
-    public void setValue(Object value);
 }
+

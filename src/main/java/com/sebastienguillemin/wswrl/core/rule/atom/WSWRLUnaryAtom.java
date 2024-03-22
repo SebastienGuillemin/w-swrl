@@ -1,8 +1,8 @@
 package com.sebastienguillemin.wswrl.core.rule.atom;
 
-import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLArgument;
+import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLVariable;
 
-public interface WSWRLUnaryAtom<A extends WSWRLArgument> extends WSWRLAtom {
+public interface WSWRLUnaryAtom<A extends WSWRLVariable> extends WSWRLAtom {
 
-    A getWSWRLArgument();
+    public A getWSWRLArgument();
 }

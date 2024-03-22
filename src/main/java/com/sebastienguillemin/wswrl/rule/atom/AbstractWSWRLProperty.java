@@ -18,14 +18,14 @@ import org.semanticweb.owlapi.model.SWRLPredicate;
 
 import com.sebastienguillemin.wswrl.core.Rank;
 import com.sebastienguillemin.wswrl.core.rule.atom.WSWRLPropertyAtom;
-import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLArgument;
-import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLIArgument;
+import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLVariable;
+import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLIVariable;
 
-public abstract class AbstractWSWRLProperty<ObjectType extends WSWRLArgument> extends AbstractWSWRLAtom implements WSWRLPropertyAtom<ObjectType> {
-    protected WSWRLIArgument firstArgument;
+public abstract class AbstractWSWRLProperty<ObjectType extends WSWRLVariable> extends AbstractWSWRLAtom implements WSWRLPropertyAtom<ObjectType> {
+    protected WSWRLIVariable firstArgument;
     protected ObjectType secondArgument;
 
-    protected AbstractWSWRLProperty(OWLPropertyExpression property, WSWRLIArgument firstArgument, ObjectType secondArgument, Rank rank) {
+    protected AbstractWSWRLProperty(OWLPropertyExpression property, WSWRLIVariable firstArgument, ObjectType secondArgument, Rank rank) {
         super((SWRLPredicate) property, rank);
         this.firstArgument = firstArgument;
         this.secondArgument = secondArgument;
@@ -36,7 +36,7 @@ public abstract class AbstractWSWRLProperty<ObjectType extends WSWRLArgument> ex
         return (SWRLIArgument) this.firstArgument;
     }
 
-    public WSWRLIArgument getFirstWSWRLArgument() {
+    public WSWRLIVariable getFirstWSWRLArgument() {
         return this.firstArgument;
     }    
 

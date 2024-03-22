@@ -1,7 +1,5 @@
 package com.sebastienguillemin.wswrl.rule.atom;
 
-import java.util.Set;
-
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.OWLClassExpression;
@@ -17,8 +15,6 @@ import org.semanticweb.owlapi.model.SWRLPredicate;
 import com.sebastienguillemin.wswrl.core.Rank;
 import com.sebastienguillemin.wswrl.core.rule.atom.WSWRLClassAtom;
 import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLIArgument;
-import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLIndividual;
-import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLVariable;
 
 public class DefaultWSWRLClassAtom extends AbstractWSWRLUnaryAtom<WSWRLIArgument> implements WSWRLClassAtom, SWRLClassAtom {
 

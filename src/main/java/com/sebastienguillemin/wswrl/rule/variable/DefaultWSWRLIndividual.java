@@ -54,7 +54,6 @@ public class DefaultWSWRLIndividual extends OWLNamedIndividualImpl implements WS
     }
 
     public void addObjectProperty(OWLObjectPropertyAssertionAxiom objectProperty) {
-        // System.out.println(this.getIRI() + " adding : " + objectProperty.getIRI());
         this.objectProperties.add(objectProperty);
     }
 

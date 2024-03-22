@@ -37,7 +37,6 @@ public class DefaultVariableBinding implements VariableBinding {
     @Override
     public void bindLiteral(WSWRLDVariable variable, OWLLiteral value) {
         this.dataBindings.put(variable, value);
-        System.out.println(value + " bound to " + variable);
     }
 
     @Override

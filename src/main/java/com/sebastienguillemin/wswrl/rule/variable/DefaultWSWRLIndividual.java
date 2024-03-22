@@ -3,11 +3,12 @@ package com.sebastienguillemin.wswrl.rule.variable;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
+import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
 
-import com.sebastienguillemin.wswrl.core.rule.atom.WSWRLClassAtom;
-import com.sebastienguillemin.wswrl.core.rule.atom.WSWRLDataPropertyAtom;
-import com.sebastienguillemin.wswrl.core.rule.atom.WSWRLObjectPropertyAtom;
 import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLIndividual;
 import com.sebastienguillemin.wswrl.engine.target.DefaultTargetWSWRLRuleEngine;
 
@@ -22,9 +23,9 @@ import uk.ac.manchester.cs.owl.owlapi.OWLNamedIndividualImpl;
  */
 @Getter
 public class DefaultWSWRLIndividual extends OWLNamedIndividualImpl implements WSWRLIndividual {
-    private Set<WSWRLClassAtom> classes;
-    private Set<WSWRLObjectPropertyAtom> objectProperties;
-    private Set<WSWRLDataPropertyAtom> dataProperties;
+    private Set<OWLClass> classes;
+    private Set<OWLObjectPropertyAssertionAxiom> objectProperties;
+    private Set<OWLDataPropertyAssertionAxiom> dataProperties;
 
     public DefaultWSWRLIndividual(OWLNamedIndividual owlNamedIndividual) {
         super(owlNamedIndividual.getIRI());
@@ -34,34 +35,62 @@ public class DefaultWSWRLIndividual extends OWLNamedIndividualImpl implements WS
     }
 
     @Override
-    public void addClass(WSWRLClassAtom classAtom) {
+    public void addOWLClass(OWLClass classAtom) {
         this.classes.add(classAtom);
     }
 
     @Override
-    public void removeClass(WSWRLClassAtom classAtom) {
+    public OWLClass getOWLClass(IRI iri) {
+        for (OWLClass atom : this.classes)
+            if (atom.getIRI().equals(iri))
+                return atom;
+
+        return null;
+    }
+
+    @Override
+    public void removeOWLClass(OWLClass classAtom) {
         this.classes.remove(classAtom);
     }
 
-    public void addObjectProperty(WSWRLObjectPropertyAtom objectProperty) {
+    public void addObjectProperty(OWLObjectPropertyAssertionAxiom objectProperty) {
+        // System.out.println(this.getIRI() + " adding : " + objectProperty.getIRI());
         this.objectProperties.add(objectProperty);
     }
 
-    public void removeObjectProperty(WSWRLObjectPropertyAtom objectProperty) {
+    @Override
+    public OWLObjectPropertyAssertionAxiom getObjectProperty(IRI iri) {
+        for (OWLObjectPropertyAssertionAxiom atom : this.objectProperties)
+            if (atom.getProperty().asOWLObjectProperty().getIRI().equals(iri))
+                return atom;
+
+        return null;
+    }
+
+    public void removeObjectProperty(OWLObjectPropertyAssertionAxiom objectProperty) {
         this.objectProperties.remove(objectProperty);
     }
 
-    public void addDataProperty(WSWRLDataPropertyAtom dataProperty) {
+    public void addDataProperty(OWLDataPropertyAssertionAxiom dataProperty) {
         this.dataProperties.add(dataProperty);
     }
 
-    public void removeDataProperty(WSWRLDataPropertyAtom dataProperty) {
+    @Override
+    public OWLDataPropertyAssertionAxiom getDataProperty(IRI iri) {
+        for (OWLDataPropertyAssertionAxiom atom : this.dataProperties)
+            if (atom.getProperty().asOWLDataProperty().getIRI().equals(iri))
+                return atom;
+
+        return null;
+    }
+
+    public void removeDataProperty(OWLDataPropertyAssertionAxiom dataProperty) {
         this.dataProperties.remove(dataProperty);
     }
 
     @Override
     public String toString() {
-        return    "Individual " + this.getIRI().toString()
+        return "Individual " + this.getIRI().toString()
                 + "\n  Classes : " + this.classes
                 + "\n  Object properties : " + this.objectProperties
                 + "\n  Data properties : " + this.dataProperties;

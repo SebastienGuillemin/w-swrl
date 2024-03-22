@@ -18,15 +18,18 @@ import com.sebastienguillemin.wswrl.core.rule.atom.WSWRLObjectPropertyAtom;
 import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLIArgument;
 import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLIndividual;
 
-public class DefaultWSWRLObjectPropertyAtom extends AbstractWSWRLProperty<WSWRLIArgument> implements WSWRLObjectPropertyAtom, SWRLObjectPropertyAtom {
+public class DefaultWSWRLObjectPropertyAtom extends AbstractWSWRLProperty<WSWRLIArgument>
+        implements WSWRLObjectPropertyAtom, SWRLObjectPropertyAtom {
 
-    public DefaultWSWRLObjectPropertyAtom(OWLObjectPropertyExpression property, WSWRLIArgument firstArgument, WSWRLIArgument secondArgument, Rank rank) {
+    public DefaultWSWRLObjectPropertyAtom(OWLObjectPropertyExpression property, WSWRLIArgument firstArgument,
+            WSWRLIArgument secondArgument, Rank rank) {
         super(property, firstArgument, secondArgument, rank);
         this.iri = property.asOWLObjectProperty().getIRI();
 
     }
 
-    public DefaultWSWRLObjectPropertyAtom(OWLObjectPropertyExpression property, WSWRLIArgument firstArgument, WSWRLIArgument secondArgument) {
+    public DefaultWSWRLObjectPropertyAtom(OWLObjectPropertyExpression property, WSWRLIArgument firstArgument,
+            WSWRLIArgument secondArgument) {
         this(property, firstArgument, secondArgument, null);
     }
 
@@ -76,15 +79,18 @@ public class DefaultWSWRLObjectPropertyAtom extends AbstractWSWRLProperty<WSWRLI
 
     @Override
     public boolean isValuable() {
-        return true;
+        WSWRLIArgument firstArgument = this.getFirstWSWRLArgument();
+
+        return firstArgument.getWSWRLIndividual().getObjectProperty(this.getIRI()) != null;
     }
 
     @Override
     public boolean evaluate() {
-        // WSWRLVariable firstVariable = (WSWRLVariable) this.getFirstArgument();
-        // WSWRLVariable secondVariable = (WSWRLVariable) this.getSecondArgument();
+        WSWRLIArgument firstVariable = this.getFirstWSWRLArgument();
+        WSWRLIArgument secondVariable = this.getSecondWSWRLArgument();
 
-        return false;
+        return firstVariable.getWSWRLIndividual().getObjectProperty(this.iri).getObject().asOWLNamedIndividual()
+                .getIRI().equals(secondVariable.getWSWRLIndividual().getIRI());
     }
 
     @Override
@@ -95,16 +101,12 @@ public class DefaultWSWRLObjectPropertyAtom extends AbstractWSWRLProperty<WSWRLI
 
     @Override
     public void parseObject(Hashtable<IRI, WSWRLIndividual> individuals) {
-        // this.object = this.parseIndividual((OWLNamedIndividual) this.propertyAssertion.getObject(), individuals);
+        // this.object = this.parseIndividual((OWLNamedIndividual)
+        // this.propertyAssertion.getObject(), individuals);
     }
 
     @Override
     public SWRLObjectPropertyAtom getSimplified() {
         return (SWRLObjectPropertyAtom) this;
-    }
-
-    @Override
-    public void addPropertyToIndividual(WSWRLIndividual individual) {
-        individual.addObjectProperty(this);
     }
 }

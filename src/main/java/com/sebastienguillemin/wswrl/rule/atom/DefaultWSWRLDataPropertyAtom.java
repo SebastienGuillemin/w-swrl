@@ -14,7 +14,6 @@ import com.sebastienguillemin.wswrl.core.Rank;
 import com.sebastienguillemin.wswrl.core.rule.atom.WSWRLDataPropertyAtom;
 import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLDArgument;
 import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLIArgument;
-import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLIndividual;
 
 public class DefaultWSWRLDataPropertyAtom extends AbstractWSWRLProperty<WSWRLDArgument> implements WSWRLDataPropertyAtom, SWRLDataPropertyAtom {
 
@@ -87,10 +86,5 @@ public class DefaultWSWRLDataPropertyAtom extends AbstractWSWRLProperty<WSWRLDAr
     protected int index() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'index'");
-    }
-
-    @Override
-    public void addPropertyToIndividual(WSWRLIndividual individual) {
-        individual.addDataProperty(this);
     }
 }

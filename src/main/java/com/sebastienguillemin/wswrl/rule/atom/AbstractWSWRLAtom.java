@@ -82,6 +82,6 @@ public abstract class AbstractWSWRLAtom extends SWRLAtomImpl implements WSWRLAto
 
     @Override
     public String toString() {
-        return super.toString() + " Rank:" + this.rank.getIndex();
+        return super.toString() + ((this.rank != null) ? " Rank:" + this.rank.getIndex() : "");
     }
 }

@@ -90,16 +90,8 @@ public class DefaultWSWRLClassAtom extends AbstractWSWRLUnaryAtom<WSWRLIArgument
     }
 
     @Override
-    public boolean evaluate() {
-        Set<WSWRLVariable> variables = this.getVariables();
-
-        WSWRLIndividual individual;
-        for (WSWRLIArgument variable : variables) {
-            individual = variable.getWSWRLIndividual();
-            if (individual == null)
-                return false;
-        }
-        return true;
+    public boolean evaluate() {        
+        return this.getWSWRLArgument().getWSWRLIndividual().getOWLClass(this.iri) != null;
     }
 
     @Override

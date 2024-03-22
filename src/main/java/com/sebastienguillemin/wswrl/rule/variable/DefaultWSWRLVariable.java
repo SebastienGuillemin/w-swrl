@@ -22,7 +22,6 @@ public class DefaultWSWRLVariable extends SWRLVariableImpl implements WSWRLVaria
     }
 
     public void setValue(Object value) {
-        System.out.println(value.getClass());
         this.value = value;
     }
     

@@ -67,12 +67,12 @@ public class DefaultWSWRLDataFactory extends DefaultSWRLAPIOWLDataFactory implem
     }
 
     @Override
-    public WSWRLObjectPropertyAtom getWSWRLObjectPropertyAtom(OWLObjectProperty objectProperty, WSWRLIArgument wswrliArgument, WSWRLIArgument wswrliArgument2) {
+    public WSWRLObjectPropertyAtom getWSWRLObjectPropertyAtom(OWLObjectProperty objectProperty, WSWRLIArgument subject, WSWRLIArgument object) {
         OWLAPIPreconditions.checkNotNull(objectProperty, PROPERTY_CANNOT_BE_NULL);
-        OWLAPIPreconditions.checkNotNull(wswrliArgument, ARG0_CANNOT_BE_NULL);
-        OWLAPIPreconditions.checkNotNull(wswrliArgument2, ARG1_CANNOT_BE_NULL);
+        OWLAPIPreconditions.checkNotNull(subject, ARG0_CANNOT_BE_NULL);
+        OWLAPIPreconditions.checkNotNull(object, ARG1_CANNOT_BE_NULL);
 
-        return new DefaultWSWRLObjectPropertyAtom(objectProperty, wswrliArgument, wswrliArgument2);
+        return new DefaultWSWRLObjectPropertyAtom(objectProperty, subject, object);
     }
 
 }

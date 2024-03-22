@@ -6,7 +6,7 @@ import java.util.Map.Entry;
 import org.semanticweb.owlapi.model.IRI;
 
 import com.sebastienguillemin.wswrl.core.rule.variable.VariableBinding;
-import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLIArgument;
+import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLIndividual;
 import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLVariable;
 import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLVariableDomain;
 import com.sebastienguillemin.wswrl.exception.UnknownVariableDomainException;
@@ -47,7 +47,7 @@ public class DefaultVariableBinding implements VariableBinding {
      * Set variable values.
      * @param individuals
      */
-    public void bindVariables(Hashtable<IRI, WSWRLIArgument> individuals) throws UnknownVariableDomainException {
+    public void bindVariables(Hashtable<IRI, WSWRLIndividual> individuals) throws UnknownVariableDomainException {
         WSWRLVariable variable;
         String value;
         for (Entry<WSWRLVariable, String> entry : this.bindings.entrySet()) {
@@ -57,7 +57,7 @@ public class DefaultVariableBinding implements VariableBinding {
             if (variable.getDomain() == WSWRLVariableDomain.DATA)
                 variable.setValue(value);
             else if (variable.getDomain() == WSWRLVariableDomain.INDIVIDUALS)
-                variable.setValue(individuals.get(IRI.create(value)).getWSWRLIndividual());
+                variable.setValue(individuals.get(IRI.create(value)));
             else
                 throw new UnknownVariableDomainException(variable.getIRI());
         }

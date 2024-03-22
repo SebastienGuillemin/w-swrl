@@ -79,14 +79,14 @@ public class DefaultWSWRLRule implements WSWRLRule {
                 for (WSWRLAtom atom : atoms) {
                     if (atom.isValuable())
                         valuableAtomsCount++;
-                    else
+                    else if (index != 0)
                         atom.setWeight(0);
                 }
 
                 atomsWeight = this.calculateAtomsWeight(index, atoms.size(), valuableAtomsCount);
 
                 for (WSWRLAtom atom : atoms) {
-                    if (atom.isValuable())
+                    if (atom.isValuable() || index == 0)
                         atom.setWeight(atomsWeight);
                 }
             }
@@ -97,14 +97,18 @@ public class DefaultWSWRLRule implements WSWRLRule {
 
     @Override
     public float calculateConfidence() {
-        for (WSWRLAtom headAtom : this.head)
-            if (!headAtom.isValuable()) {
-                return 0;
-            }
-
+        // for (WSWRLAtom headAtom : this.head)
+        // if ((headAtom instanceof WSWRLDataPropertyAtom || headAtom instanceof
+        // WSWRLDataRangeAtom) && !headAtom.isValuable()) {
+        // return 0;
+        // }
         float confidence = 1;
         for (WSWRLAtom bodyAtom : this.body) {
-            if (!bodyAtom.isValuable() || !bodyAtom.evaluate()) {
+            if (!bodyAtom.isValuable()) {
+                // System.out.println("Atom non valuable : " + bodyAtom + ", weight : " + bodyAtom.getWeight());
+                confidence -= bodyAtom.getWeight();
+            } else if (!bodyAtom.evaluate()) {
+                // System.out.println("Atom valuable and evaluale to False : " + bodyAtom + ", weight : " + bodyAtom.getWeight());
                 confidence -= bodyAtom.getWeight();
             }
         }

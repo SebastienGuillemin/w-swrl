@@ -67,6 +67,6 @@ public interface VariableBinding {
      * 
      * @param individuals
      */
-    public void bindVariables(Hashtable<IRI, WSWRLIArgument> individuals) throws UnknownVariableDomainException;
+    public void bindVariables(Hashtable<IRI, WSWRLIndividual> individuals) throws UnknownVariableDomainException;
 
 }

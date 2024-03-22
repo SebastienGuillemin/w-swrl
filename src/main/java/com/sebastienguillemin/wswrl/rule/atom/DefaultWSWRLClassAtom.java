@@ -28,6 +28,11 @@ public class DefaultWSWRLClassAtom extends AbstractWSWRLUnaryAtom<WSWRLIVariable
         this(classExpression, argument, null);
     }
 
+    @Override
+    public SWRLIArgument getArgument() {
+        return (SWRLIArgument) this.getWSWRLArgument();
+    }
+
     @Nonnull
     @Override
     public OWLClassExpression getPredicate() {
@@ -91,10 +96,5 @@ public class DefaultWSWRLClassAtom extends AbstractWSWRLUnaryAtom<WSWRLIVariable
     protected int index() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'index'");
-    }
-
-    @Override
-    public SWRLIArgument getArgument() {
-        return (SWRLIArgument) this.getArgument();
     }
 }

@@ -1,4 +1,4 @@
-package com.sebastienguillemin.wswrl.rule.atom;
+package com.sebastienguillemin.wswrl.rule.atom.property;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -19,6 +19,7 @@ import org.semanticweb.owlapi.model.SWRLPredicate;
 import com.sebastienguillemin.wswrl.core.Rank;
 import com.sebastienguillemin.wswrl.core.rule.atom.WSWRLPropertyAtom;
 import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLVariable;
+import com.sebastienguillemin.wswrl.rule.atom.AbstractWSWRLAtom;
 import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLIVariable;
 
 public abstract class AbstractWSWRLProperty<ObjectType extends WSWRLVariable> extends AbstractWSWRLAtom implements WSWRLPropertyAtom<ObjectType> {

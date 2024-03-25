@@ -24,9 +24,9 @@ import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLVariable;
 import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLVariableDomain;
 import com.sebastienguillemin.wswrl.exception.MissingRankException;
 import com.sebastienguillemin.wswrl.rule.DefaultWSWRLRule;
-import com.sebastienguillemin.wswrl.rule.atom.DefaultWSWRLClassAtom;
-import com.sebastienguillemin.wswrl.rule.atom.DefaultWSWRLDataPropertyAtom;
-import com.sebastienguillemin.wswrl.rule.atom.DefaultWSWRLObjectPropertyAtom;
+import com.sebastienguillemin.wswrl.rule.atom.property.DefaultWSWRLDataPropertyAtom;
+import com.sebastienguillemin.wswrl.rule.atom.property.DefaultWSWRLObjectPropertyAtom;
+import com.sebastienguillemin.wswrl.rule.atom.unary.DefaultWSWRLClassAtom;
 import com.sebastienguillemin.wswrl.rule.variable.DefaultWSWRLDVariable;
 import com.sebastienguillemin.wswrl.rule.variable.DefaultWSWRLIVariable;
 

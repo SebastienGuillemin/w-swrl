@@ -1,4 +1,4 @@
-package com.sebastienguillemin.wswrl.rule.atom;
+package com.sebastienguillemin.wswrl.rule.atom.property;
 
 import javax.annotation.Nonnull;
 

@@ -23,7 +23,7 @@ public class App {
         OWLOntology ontology = ontologyManager.loadOntologyFromOntologyDocument(inputStream);
 
         WSWRLRuleEngine wswrlRuleEngine = WSWRLFactory.createWSWRLRuleEngine(ontology);
-        wswrlRuleEngine.createWSWRLRule("test", "xsd::string(?d)^dataprop(?x,?d) -> concept1(?x)");
+        wswrlRuleEngine.createWSWRLRule("test", "concept1(?x)^concept1(?y)^differentFrom(?x,?y) -> linked(?x,?y)");
         
         wswrlRuleEngine.infer();
     }

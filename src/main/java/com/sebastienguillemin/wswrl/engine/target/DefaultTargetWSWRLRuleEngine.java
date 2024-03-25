@@ -130,12 +130,12 @@ public class DefaultTargetWSWRLRuleEngine implements TargetWSWRLRuleEngine {
         Set<WSWRLVariable> variables = this.getAllVariables(atoms);
 
         // Bind individual variables.
-        List<VariableBinding> bindings = this.generateIndividualBindings(variables);
+        List<VariableBinding> individualBindings = this.generateIndividualBindings(variables);
 
         // Bind data variables.
-        bindings = this.generateDataBindings(bindings, atoms, variables);
+        List<VariableBinding> finalBindings = this.generateDataBindings(individualBindings, atoms, variables);
 
-        return bindings;
+        return finalBindings;
     }
 
     private Set<WSWRLVariable> getAllVariables(Set<WSWRLAtom> atoms) {
@@ -187,7 +187,7 @@ public class DefaultTargetWSWRLRuleEngine implements TargetWSWRLRuleEngine {
         return bindings;
     }
 
-    private List<VariableBinding> generateDataBindings(List<VariableBinding> bindings, Set<WSWRLAtom> atoms, Set<WSWRLVariable> variables) {
+    private List<VariableBinding> generateDataBindings(List<VariableBinding> individualBindings, Set<WSWRLAtom> atoms, Set<WSWRLVariable> variables) {
         List<WSWRLDataPropertyAtom> dataPropertyAtoms = atoms.stream().filter(a -> a instanceof WSWRLDataPropertyAtom)
                 .map(a -> (WSWRLDataPropertyAtom) a)
                 .collect(Collectors.toList());
@@ -202,7 +202,7 @@ public class DefaultTargetWSWRLRuleEngine implements TargetWSWRLRuleEngine {
             WSWRLIVariable atomSubject = atom.getFirstWSWRLArgument();
             WSWRLDVariable atomObject = atom.getSecondWSWRLArgument();
 
-            for (VariableBinding binding : bindings) {
+            for (VariableBinding binding : individualBindings) {
                 individual = binding.getIndividualValue(atomSubject.getIRI());
                 
                 boundValue = false;

@@ -1,4 +1,4 @@
-package com.sebastienguillemin.wswrl.rule.atom;
+package com.sebastienguillemin.wswrl.rule.atom.unary;
 
 import java.util.Collection;
 import java.util.Set;
@@ -14,6 +14,7 @@ import org.semanticweb.owlapi.util.CollectionFactory;
 import com.sebastienguillemin.wswrl.core.Rank;
 import com.sebastienguillemin.wswrl.core.rule.atom.WSWRLUnaryAtom;
 import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLVariable;
+import com.sebastienguillemin.wswrl.rule.atom.AbstractWSWRLAtom;
 
 public abstract class AbstractWSWRLUnaryAtom<A extends WSWRLVariable> extends AbstractWSWRLAtom implements WSWRLUnaryAtom<A> {
     protected A argument;

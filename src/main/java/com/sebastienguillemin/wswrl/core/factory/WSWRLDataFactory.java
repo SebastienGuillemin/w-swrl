@@ -13,6 +13,7 @@ import com.sebastienguillemin.wswrl.core.rule.WSWRLRule;
 import com.sebastienguillemin.wswrl.core.rule.atom.WSWRLAtom;
 import com.sebastienguillemin.wswrl.core.rule.atom.WSWRLClassAtom;
 import com.sebastienguillemin.wswrl.core.rule.atom.WSWRLDataPropertyAtom;
+import com.sebastienguillemin.wswrl.core.rule.atom.WSWRLDifferentIndividualsAtom;
 import com.sebastienguillemin.wswrl.core.rule.atom.WSWRLObjectPropertyAtom;
 import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLDVariable;
 import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLIVariable;
@@ -24,7 +25,8 @@ public interface WSWRLDataFactory extends SWRLAPIOWLDataFactory {
 
     public WSWRLVariable getWSWRLVariable(IRI iri, WSWRLVariableDomain domain);
 
-    public WSWRLRule getWSWRLRule(String ruleName, Set<WSWRLAtom> head, Set<WSWRLAtom> body, boolean enabled) throws MissingRankException;
+    public WSWRLRule getWSWRLRule(String ruleName, Set<WSWRLAtom> head, Set<WSWRLAtom> body, boolean enabled)
+            throws MissingRankException;
 
     public WSWRLClassAtom getWSWRLClassAtom(OWLClass cls, WSWRLIVariable iArgument);
 
@@ -33,4 +35,7 @@ public interface WSWRLDataFactory extends SWRLAPIOWLDataFactory {
 
     public WSWRLDataPropertyAtom getWSWRLDataPropertyAtom(OWLDataProperty dataProperty, @NonNull WSWRLIVariable subject,
             @NonNull WSWRLDVariable object);
+
+    public WSWRLDifferentIndividualsAtom getWSWRLDifferentIndividualsAtom(@NonNull WSWRLIVariable subject,
+            @NonNull WSWRLIVariable object);
 }

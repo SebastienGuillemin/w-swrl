@@ -33,17 +33,22 @@ public class DefaultWSWRLDataRangeAtom extends AbstractWSWRLUnaryAtom<WSWRLDVari
     }
 
     @Override
-    public void accept(OWLObjectVisitor visitor) {
-        visitor.visit(this);
-    }
-
-    @Override
     public void accept(SWRLObjectVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
     public <O> O accept(SWRLObjectVisitorEx<O> visitor) {
+        return visitor.visit(this);
+    }
+
+    @Override
+    public void accept(OWLObjectVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    @Override
+    public <O> O accept(OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
@@ -58,11 +63,6 @@ public class DefaultWSWRLDataRangeAtom extends AbstractWSWRLUnaryAtom<WSWRLDVari
         SWRLDataRangeAtom other = (SWRLDataRangeAtom) obj;
         return other.getArgument().equals(getArgument())
                 && other.getPredicate().equals(getPredicate());
-    }
-
-    @Override
-    public <O> O accept(OWLObjectVisitorEx<O> visitor) {
-        return visitor.visit(this);
     }
 
     @Override

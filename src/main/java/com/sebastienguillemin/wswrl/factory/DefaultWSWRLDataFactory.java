@@ -17,6 +17,7 @@ import com.sebastienguillemin.wswrl.core.rule.WSWRLRule;
 import com.sebastienguillemin.wswrl.core.rule.atom.WSWRLAtom;
 import com.sebastienguillemin.wswrl.core.rule.atom.WSWRLClassAtom;
 import com.sebastienguillemin.wswrl.core.rule.atom.WSWRLDataPropertyAtom;
+import com.sebastienguillemin.wswrl.core.rule.atom.WSWRLDifferentIndividualsAtom;
 import com.sebastienguillemin.wswrl.core.rule.atom.WSWRLObjectPropertyAtom;
 import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLDVariable;
 import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLIVariable;
@@ -25,10 +26,13 @@ import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLVariableDomain;
 import com.sebastienguillemin.wswrl.exception.MissingRankException;
 import com.sebastienguillemin.wswrl.rule.DefaultWSWRLRule;
 import com.sebastienguillemin.wswrl.rule.atom.property.DefaultWSWRLDataPropertyAtom;
+import com.sebastienguillemin.wswrl.rule.atom.property.DefaultWSWRLDifferentIndividualsAtom;
 import com.sebastienguillemin.wswrl.rule.atom.property.DefaultWSWRLObjectPropertyAtom;
 import com.sebastienguillemin.wswrl.rule.atom.unary.DefaultWSWRLClassAtom;
 import com.sebastienguillemin.wswrl.rule.variable.DefaultWSWRLDVariable;
 import com.sebastienguillemin.wswrl.rule.variable.DefaultWSWRLIVariable;
+
+import uk.ac.manchester.cs.owl.owlapi.OWLObjectPropertyImpl;
 
 public class DefaultWSWRLDataFactory extends DefaultSWRLAPIOWLDataFactory implements WSWRLDataFactory {
     private static final String ARG0_CANNOT_BE_NULL = "arg0 cannot be null";
@@ -92,5 +96,14 @@ public class DefaultWSWRLDataFactory extends DefaultSWRLAPIOWLDataFactory implem
         OWLAPIPreconditions.checkNotNull(object, ARG1_CANNOT_BE_NULL);
 
         return new DefaultWSWRLDataPropertyAtom(dataProperty, subject, object);
+    }
+
+    @Override
+    public WSWRLDifferentIndividualsAtom getWSWRLDifferentIndividualsAtom(@NonNull WSWRLIVariable subject,
+            @NonNull WSWRLIVariable object) {
+        OWLAPIPreconditions.checkNotNull(subject, ARG0_CANNOT_BE_NULL);
+        OWLAPIPreconditions.checkNotNull(object, ARG1_CANNOT_BE_NULL);
+        
+        return new DefaultWSWRLDifferentIndividualsAtom(new OWLObjectPropertyImpl(IRI.create("http://www.w3.org/2002/07/owl#differentFrom")), subject, object);
     }
 }

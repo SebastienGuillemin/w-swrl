@@ -45,13 +45,13 @@ public class DefaultWSWRLClassAtom extends AbstractWSWRLUnaryAtom<WSWRLIVariable
     }
 
     @Override
-    public void accept(OWLObjectVisitor visitor) {
-        visitor.visit(this);
+    public <O> O accept(SWRLObjectVisitorEx<O> visitor) {
+        return visitor.visit(this);
     }
 
     @Override
-    public <O> O accept(SWRLObjectVisitorEx<O> visitor) {
-        return visitor.visit(this);
+    public void accept(OWLObjectVisitor visitor) {
+        visitor.visit(this);
     }
 
     @Override

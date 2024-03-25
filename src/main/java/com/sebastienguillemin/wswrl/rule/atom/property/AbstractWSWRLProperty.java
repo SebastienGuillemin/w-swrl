@@ -10,7 +10,6 @@ import javax.annotation.Nonnull;
 import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLObject;
-import org.semanticweb.owlapi.model.OWLPropertyExpression;
 import org.semanticweb.owlapi.model.SWRLArgument;
 import org.semanticweb.owlapi.model.SWRLBinaryAtom;
 import org.semanticweb.owlapi.model.SWRLIArgument;
@@ -18,21 +17,20 @@ import org.semanticweb.owlapi.model.SWRLPredicate;
 
 import com.sebastienguillemin.wswrl.core.Rank;
 import com.sebastienguillemin.wswrl.core.rule.atom.WSWRLPropertyAtom;
+import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLIVariable;
 import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLVariable;
 import com.sebastienguillemin.wswrl.rule.atom.AbstractWSWRLAtom;
-import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLIVariable;
 
 public abstract class AbstractWSWRLProperty<ObjectType extends WSWRLVariable> extends AbstractWSWRLAtom implements WSWRLPropertyAtom<ObjectType> {
     protected WSWRLIVariable firstArgument;
     protected ObjectType secondArgument;
 
-    protected AbstractWSWRLProperty(OWLPropertyExpression property, WSWRLIVariable firstArgument, ObjectType secondArgument, Rank rank) {
-        super((SWRLPredicate) property, rank);
+    protected AbstractWSWRLProperty(SWRLPredicate property, WSWRLIVariable firstArgument, ObjectType secondArgument, Rank rank) {
+        super(property, rank);
         this.firstArgument = firstArgument;
         this.secondArgument = secondArgument;
     }
-
-
+    
     public SWRLIArgument getFirstArgument() {
         return (SWRLIArgument) this.firstArgument;
     }

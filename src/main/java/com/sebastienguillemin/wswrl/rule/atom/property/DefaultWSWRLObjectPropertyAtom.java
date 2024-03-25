@@ -45,11 +45,6 @@ public class DefaultWSWRLObjectPropertyAtom extends AbstractWSWRLProperty<WSWRLI
     }
 
     @Override
-    public void accept(OWLObjectVisitor visitor) {
-        visitor.visit(this);
-    }
-
-    @Override
     public void accept(SWRLObjectVisitor visitor) {
         visitor.visit(this);
     }
@@ -57,6 +52,11 @@ public class DefaultWSWRLObjectPropertyAtom extends AbstractWSWRLProperty<WSWRLI
     @Override
     public <O> O accept(SWRLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
+    }
+
+    @Override
+    public void accept(OWLObjectVisitor visitor) {
+        visitor.visit(this);
     }
 
     @Override

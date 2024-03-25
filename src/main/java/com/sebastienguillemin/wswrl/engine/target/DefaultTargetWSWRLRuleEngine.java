@@ -187,12 +187,17 @@ public class DefaultTargetWSWRLRuleEngine implements TargetWSWRLRuleEngine {
         return bindings;
     }
 
-    private List<VariableBinding> generateDataBindings(List<VariableBinding> individualBindings, Set<WSWRLAtom> atoms, Set<WSWRLVariable> variables) {
+    private List<VariableBinding> generateDataBindings(List<VariableBinding> individualBindings, Set<WSWRLAtom> atoms,
+            Set<WSWRLVariable> variables) {
+
         List<WSWRLDataPropertyAtom> dataPropertyAtoms = atoms.stream().filter(a -> a instanceof WSWRLDataPropertyAtom)
                 .map(a -> (WSWRLDataPropertyAtom) a)
                 .collect(Collectors.toList());
 
-        System.out.println(dataPropertyAtoms.size() + " datat property atoms found\n");
+        if (dataPropertyAtoms.size() == 0)
+            return individualBindings;
+        else
+            System.out.println(dataPropertyAtoms.size() + " data property atoms found\n");
 
         List<VariableBinding> newBindings = new ArrayList<>();
         WSWRLIndividual individual;
@@ -204,9 +209,9 @@ public class DefaultTargetWSWRLRuleEngine implements TargetWSWRLRuleEngine {
 
             for (VariableBinding binding : individualBindings) {
                 individual = binding.getIndividualValue(atomSubject.getIRI());
-                
+
                 boundValue = false;
-                for(OWLDataPropertyAssertionAxiom axiom : individual.getDataProperties(atom.getIRI())) {
+                for (OWLDataPropertyAssertionAxiom axiom : individual.getDataProperties(atom.getIRI())) {
                     // Copy of binding
                     newBinding = new DefaultVariableBinding((DefaultVariableBinding) binding);
                     newBinding.bindLiteral(atomObject, axiom.getObject());

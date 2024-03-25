@@ -143,10 +143,10 @@ public class WSWRLParserSupport {
         throw new UnsupportedOperationException("Unimplemented method 'createSWRLSameIndividualAtom'");
     }
 
-    public WSWRLDifferentIndividualsAtom createWSWRLDifferentIndividualsAtom(@NonNull WSWRLIVariable WSWRLIArgument,
-            @NonNull WSWRLIVariable swrliArgument2) {
+    public WSWRLDifferentIndividualsAtom createWSWRLDifferentIndividualsAtom(@NonNull WSWRLIVariable subject,
+            @NonNull WSWRLIVariable object) {
         // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'createSWRLDifferentIndividualsAtom'");
+        return getWSWRLDataFactory().getWSWRLDifferentIndividualsAtom(subject, object);
     }
 
     public void checkThatWSWRLVariableNameIsValid(@NonNull String variableName) throws WSWRLParseException {

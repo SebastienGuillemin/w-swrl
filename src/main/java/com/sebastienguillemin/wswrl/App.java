@@ -23,7 +23,7 @@ public class App {
         OWLOntology ontology = ontologyManager.loadOntologyFromOntologyDocument(inputStream);
 
         WSWRLRuleEngine wswrlRuleEngine = WSWRLFactory.createWSWRLRuleEngine(ontology);
-        wswrlRuleEngine.createWSWRLRule("test", "dataprop(?x, ?d)^swrlb:contains(?d,\"Value\") -> concept1(?x)");
+        wswrlRuleEngine.createWSWRLRule("test", "dataprop(?x, ?d)^swrlb:contains(?d,\"rien\") -> concept1(?x)");
         
         wswrlRuleEngine.infer();
     }

@@ -126,10 +126,10 @@ public class WSWRLParserSupport {
         return this.getDataFactory().getWSWRLDataPropertyAtom(dataProperty, subject, object);
     }
 
-    public WSWRLBuiltInAtom createWSWRLBuiltInAtom(String builtInPrefixedName, List<WSWRLDVariable> arguments)
+    public WSWRLBuiltInAtom createWSWRLBuiltInAtom(String ruleName, String builtInPrefixedName, List<WSWRLDVariable> arguments)
             throws WSWRLParseException {
         IRI builtInIRI = this.createSWRLBuiltInIRI(builtInPrefixedName);
-        return this.getDataFactory().getWSWRLBuiltInAtom(builtInIRI, builtInPrefixedName, arguments);
+        return this.getDataFactory().getWSWRLBuiltInAtom(ruleName, builtInIRI, builtInPrefixedName, arguments, this.wswrlOntology);
     }
 
     public WSWRLDataRangeAtom createWSWRLDataRangeAtom(String datatypePrefixedName,

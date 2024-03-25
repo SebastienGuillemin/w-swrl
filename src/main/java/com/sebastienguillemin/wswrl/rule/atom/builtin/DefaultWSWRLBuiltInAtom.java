@@ -1,9 +1,11 @@
 package com.sebastienguillemin.wswrl.rule.atom.builtin;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.checkerframework.checker.nullness.qual.NonNull;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.SWRLPredicate;
 import org.swrlapi.builtins.arguments.SWRLBuiltInArgument;
@@ -24,8 +26,12 @@ public class DefaultWSWRLBuiltInAtom implements WSWRLBuiltInAtom {
     private IRI IRI;
 
     @Getter
+    private String ruleName;
+
+    @Getter
     private String builtInPrefixedName;
     private List<WSWRLLiteralBuiltInVariable> variables;
+    private WSWRLBuiltinInvoker builtinInvoker;
     @Getter
     private Rank rank;
 
@@ -33,18 +39,20 @@ public class DefaultWSWRLBuiltInAtom implements WSWRLBuiltInAtom {
     @Setter
     private float weight;
 
-    public DefaultWSWRLBuiltInAtom(IRI builtInIRI, String builtInPrefixedName,
-            List<WSWRLLiteralBuiltInVariable> variables,
+    public DefaultWSWRLBuiltInAtom(String ruleName, IRI builtInIRI, String builtInPrefixedName,
+            List<WSWRLLiteralBuiltInVariable> variables, WSWRLBuiltinInvoker builtinInvoker, 
             Rank rank) {
+        this.ruleName = ruleName;
         this.IRI = builtInIRI;
         this.rank = rank;
         this.builtInPrefixedName = builtInPrefixedName;
         this.variables = variables;
+        this.builtinInvoker = builtinInvoker;
     }
-
-    public DefaultWSWRLBuiltInAtom(IRI builtInIRI, String builtInPrefixedName,
-            List<WSWRLLiteralBuiltInVariable> variables) {
-        this(builtInIRI, builtInPrefixedName, variables, null);
+    
+    public DefaultWSWRLBuiltInAtom(String ruleName, IRI builtInIRI, String builtInPrefixedName,
+    List<WSWRLLiteralBuiltInVariable> variables, WSWRLBuiltinInvoker builtinInvoker) {
+        this(ruleName, builtInIRI, builtInPrefixedName, variables, builtinInvoker, null);
     }
 
     @Override
@@ -60,7 +68,6 @@ public class DefaultWSWRLBuiltInAtom implements WSWRLBuiltInAtom {
     @Override
     public boolean isValuable() {
         for (WSWRLLiteralBuiltInVariable builtInVariable : this.variables) {
-            System.err.println("[DefaultWSWRLBuiltInAtom] Variable : " + builtInVariable.getIRI() + " value :" + builtInVariable.getValue());
             if (builtInVariable.getValue() == null)
                 return false;
         }
@@ -104,10 +111,20 @@ public class DefaultWSWRLBuiltInAtom implements WSWRLBuiltInAtom {
     @Override
     public boolean evaluate() {
         try {
-            return WSWRLBuiltinInvoker.invoke(this.builtInPrefixedName, this.variables);
+            return this.builtinInvoker.invoke(this);
         } catch (BuiltInInvocationException e) {
             e.printStackTrace();
             return false;
         }
+    }
+
+    @Override
+    public @NonNull List<@NonNull SWRLBuiltInArgument> getSWRLArguments() {
+        List<SWRLBuiltInArgument> swrlArgmuents = new ArrayList<>();
+
+        for (WSWRLLiteralBuiltInVariable builtInVariable : this.variables)
+            swrlArgmuents.add((SWRLBuiltInArgument) builtInVariable);
+
+        return swrlArgmuents;
     }
 }

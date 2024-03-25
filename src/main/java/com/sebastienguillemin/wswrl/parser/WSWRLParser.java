@@ -117,7 +117,7 @@ public class WSWRLParser {
                 // TODO Class or property expression
             } else if (currentToken.isShortName()) {
                 String shortName = currentToken.getValue();
-                WSWRLAtom atom = parseWSWRLAtom(shortName, tokenizer, isInHead).get();
+                WSWRLAtom atom = parseWSWRLAtom(ruleName, shortName, tokenizer, isInHead).get();
                 Rank rank = this.getRank(rankIndex);
                 atom.setRank(rank);
 
@@ -131,7 +131,7 @@ public class WSWRLParser {
             } else if (currentToken.isIRI()) {
                 String shortName = this.wswrlParserSupport.getShortNameFromIRI(currentToken.getValue(),
                         tokenizer.isInteractiveParseOnly());
-                WSWRLAtom atom = parseWSWRLAtom(shortName, tokenizer, isInHead).get();
+                WSWRLAtom atom = parseWSWRLAtom(ruleName, shortName, tokenizer, isInHead).get();
                 Rank rank = this.getRank(rankIndex);
                 atom.setRank(rank);
 
@@ -204,7 +204,7 @@ public class WSWRLParser {
         return this.ranks.get(rankIndex);
     }
 
-    private Optional<? extends WSWRLAtom> parseWSWRLAtom(@NonNull String shortName,
+    private Optional<? extends WSWRLAtom> parseWSWRLAtom(String ruleName, @NonNull String shortName,
             @NonNull WSWRLTokenizer tokenizer, boolean isInHead) throws WSWRLParseException {
 
         if (shortName.equalsIgnoreCase(SAME_AS_PREDICATE)) {
@@ -215,7 +215,7 @@ public class WSWRLParser {
             return parseWSWRLDifferentFromAtomArguments(tokenizer, isInHead);
         } else if (this.wswrlParserSupport.isWSWRLBuiltIn(shortName)) {
             tokenizer.checkAndSkipLParen("Expecting parentheses-enclosed arguments for built-in atom");
-            return parseWSWRLBuiltinAtomArguments(shortName, tokenizer, isInHead);
+            return parseWSWRLBuiltinAtomArguments(ruleName, shortName, tokenizer, isInHead);
         } else if (this.wswrlParserSupport.isOWLClass(shortName)) {
             tokenizer.checkAndSkipLParen("Expecting parentheses-enclosed arguments for class atom");
             return parseWSWRLClassAtomArguments(shortName, tokenizer, isInHead);
@@ -277,13 +277,13 @@ public class WSWRLParser {
                 : Optional.<WSWRLDataPropertyAtom>empty();
     }
 
-    private Optional<WSWRLBuiltInAtom> parseWSWRLBuiltinAtomArguments(@NonNull String builtInPrefixedName,
+    private Optional<WSWRLBuiltInAtom> parseWSWRLBuiltinAtomArguments(String ruleName, @NonNull String builtInPrefixedName,
             @NonNull WSWRLTokenizer tokenizer, boolean isInHead) throws WSWRLParseException {
         Optional<@NonNull List<@NonNull WSWRLDVariable>> dVariablesList = parseWSWRLDVariableList(tokenizer,
                 isInHead); // Swallows ')'
 
         return !tokenizer.isInteractiveParseOnly()
-                ? Optional.of(this.wswrlParserSupport.createWSWRLBuiltInAtom(builtInPrefixedName, dVariablesList.get()))
+                ? Optional.of(this.wswrlParserSupport.createWSWRLBuiltInAtom(ruleName, builtInPrefixedName, dVariablesList.get()))
                 : Optional.<WSWRLBuiltInAtom>empty();
     }
 

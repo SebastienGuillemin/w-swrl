@@ -10,6 +10,7 @@ import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.swrlapi.factory.SWRLAPIOWLDataFactory;
 
+import com.sebastienguillemin.wswrl.core.ontology.WSWRLOntology;
 import com.sebastienguillemin.wswrl.core.rule.WSWRLRule;
 import com.sebastienguillemin.wswrl.core.rule.atom.WSWRLAtom;
 import com.sebastienguillemin.wswrl.core.rule.atom.WSWRLBuiltInAtom;
@@ -43,5 +44,5 @@ public interface WSWRLDataFactory extends SWRLAPIOWLDataFactory {
 
     public WSWRLSameIndividualAtom getWSWRLSameIndividualsAtom(@NonNull WSWRLIVariable subject, WSWRLIVariable object);
 
-    public WSWRLBuiltInAtom getWSWRLBuiltInAtom(IRI builtInIRI, String builtInPrefixedName, List<WSWRLDVariable> arguments);
+    public WSWRLBuiltInAtom getWSWRLBuiltInAtom(String ruleName, IRI builtInIRI, String builtInPrefixedName, List<WSWRLDVariable> arguments, WSWRLOntology ontology);
 }

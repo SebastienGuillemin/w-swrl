@@ -64,7 +64,7 @@ public class DefaultVariableBinding implements VariableBinding {
         for (Entry<WSWRLDVariable, OWLLiteral> entry : this.dataBindings.entrySet()) {
             dataVariable = entry.getKey();
             data = entry.getValue();
-
+            
             dataVariable.setValue(data);
         }
     }

@@ -2,6 +2,8 @@ package com.sebastienguillemin.wswrl.core.rule;
 
 import java.util.Set;
 
+import org.swrlapi.bridge.SWRLBridge;
+
 import com.sebastienguillemin.wswrl.core.rule.atom.WSWRLAtom;
 import com.sebastienguillemin.wswrl.exception.WeightCalculationException;
 
@@ -46,8 +48,9 @@ public interface WSWRLRule {
     /**
      * Calculate rule confidence. Must be called after binding the variables and
      * calling the calculateWeights function.
+     * @param bridge 
      */
-    public float calculateConfidence();
+    public float calculateConfidence(SWRLBridge bridge);
 
     /**
      * Returns the atoms of a specific rank of the rule.

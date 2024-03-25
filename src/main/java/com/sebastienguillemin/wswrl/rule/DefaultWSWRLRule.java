@@ -6,6 +6,8 @@ import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
+import org.swrlapi.bridge.SWRLBridge;
+
 import com.sebastienguillemin.wswrl.core.rule.WSWRLRule;
 import com.sebastienguillemin.wswrl.core.rule.atom.WSWRLAtom;
 import com.sebastienguillemin.wswrl.exception.MissingRankException;
@@ -97,7 +99,7 @@ public class DefaultWSWRLRule implements WSWRLRule {
     }
 
     @Override
-    public float calculateConfidence() {
+    public float calculateConfidence(SWRLBridge bridge) {
         // for (WSWRLAtom headAtom : this.head)
         // if ((headAtom instanceof WSWRLDataPropertyAtom || headAtom instanceof
         // WSWRLDataRangeAtom) && !headAtom.isValuable()) {
@@ -109,8 +111,14 @@ public class DefaultWSWRLRule implements WSWRLRule {
         WSWRLAtom atom;
         while (bodyAtoms.hasNext() && confidence > 0) {
             atom = bodyAtoms.next();
-            if (!atom.isValuable() || !atom.evaluate())
+            if (!atom.isValuable()) {
+                System.out.println("Atom " + atom + " is not valuable.");
                 confidence -= atom.getWeight();
+            }
+            else if(!atom.evaluate()) {
+                System.out.println("Atom " + atom + " is valuable but evaluate to false.");
+                confidence -= atom.getWeight();
+            }
         }
         return confidence;
     }

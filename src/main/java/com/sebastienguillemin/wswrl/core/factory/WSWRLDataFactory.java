@@ -1,5 +1,6 @@
 package com.sebastienguillemin.wswrl.core.factory;
 
+import java.util.List;
 import java.util.Set;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
@@ -11,6 +12,7 @@ import org.swrlapi.factory.SWRLAPIOWLDataFactory;
 
 import com.sebastienguillemin.wswrl.core.rule.WSWRLRule;
 import com.sebastienguillemin.wswrl.core.rule.atom.WSWRLAtom;
+import com.sebastienguillemin.wswrl.core.rule.atom.WSWRLBuiltInAtom;
 import com.sebastienguillemin.wswrl.core.rule.atom.WSWRLClassAtom;
 import com.sebastienguillemin.wswrl.core.rule.atom.WSWRLDataPropertyAtom;
 import com.sebastienguillemin.wswrl.core.rule.atom.WSWRLDifferentIndividualsAtom;
@@ -34,10 +36,12 @@ public interface WSWRLDataFactory extends SWRLAPIOWLDataFactory {
     public WSWRLObjectPropertyAtom getWSWRLObjectPropertyAtom(OWLObjectProperty objectProperty,
             WSWRLIVariable swrliArgument, WSWRLIVariable swrliArgument2);
 
-    public WSWRLDataPropertyAtom getWSWRLDataPropertyAtom(OWLDataProperty dataProperty, @NonNull WSWRLIVariable subject,
-            @NonNull WSWRLDVariable object);
+    public WSWRLDataPropertyAtom getWSWRLDataPropertyAtom(OWLDataProperty dataProperty, WSWRLIVariable subject,
+            WSWRLDVariable object);
 
-    public WSWRLDifferentIndividualsAtom getWSWRLDifferentIndividualsAtom(@NonNull WSWRLIVariable subject, @NonNull WSWRLIVariable object);
+    public WSWRLDifferentIndividualsAtom getWSWRLDifferentIndividualsAtom(@NonNull WSWRLIVariable subject, WSWRLIVariable object);
 
-    public WSWRLSameIndividualAtom getWSWRLSameIndividualsAtom(@NonNull WSWRLIVariable subject, @NonNull WSWRLIVariable object);
+    public WSWRLSameIndividualAtom getWSWRLSameIndividualsAtom(@NonNull WSWRLIVariable subject, WSWRLIVariable object);
+
+    public WSWRLBuiltInAtom getWSWRLBuiltInAtom(IRI builtInIRI, String builtInPrefixedName, List<WSWRLDVariable> arguments);
 }

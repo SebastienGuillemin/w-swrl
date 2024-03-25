@@ -6,15 +6,12 @@ import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLIVariable;
 import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLIndividual;
 import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLVariableDomain;
 
-import lombok.Getter;
-import lombok.Setter;
-
-public class DefaultWSWRLIVariable extends DefaultWSWRLVariable implements WSWRLIVariable {
-    @Getter
-    @Setter
-    private WSWRLIndividual value;    
-
+public class DefaultWSWRLIVariable extends DefaultWSWRLTypedVariable<WSWRLIndividual> implements WSWRLIVariable {
     public DefaultWSWRLIVariable(IRI iri) {
         super(iri, WSWRLVariableDomain.INDIVIDUALS);
+    }
+
+    public DefaultWSWRLIVariable(IRI iri, WSWRLIndividual value) {
+        super(iri, WSWRLVariableDomain.INDIVIDUALS, value);
     }
 }

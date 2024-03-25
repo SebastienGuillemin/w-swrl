@@ -6,15 +6,12 @@ import org.semanticweb.owlapi.model.OWLLiteral;
 import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLDVariable;
 import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLVariableDomain;
 
-import lombok.Getter;
-import lombok.Setter;
-
-public class DefaultWSWRLDVariable extends DefaultWSWRLVariable implements WSWRLDVariable {
-    @Getter
-    @Setter
-    private OWLLiteral value;    
-
+public class DefaultWSWRLDVariable extends DefaultWSWRLTypedVariable<OWLLiteral> implements WSWRLDVariable {
     public DefaultWSWRLDVariable(IRI iri) {
         super(iri, WSWRLVariableDomain.DATA);
+    }
+
+    public DefaultWSWRLDVariable(IRI iri, OWLLiteral value) {
+        super(iri, WSWRLVariableDomain.DATA, value);
     }
 }

@@ -8,14 +8,15 @@ import java.util.Set;
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataProperty;
+import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.parameters.Imports;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 import org.semanticweb.owlapi.vocab.XSDVocabulary;
 import org.swrlapi.core.IRIResolver;
+import org.swrlapi.core.SWRLAPIOWLOntology;
 
 import com.sebastienguillemin.wswrl.core.factory.WSWRLDataFactory;
 import com.sebastienguillemin.wswrl.core.ontology.WSWRLOntology;
@@ -33,6 +34,7 @@ import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLIVariable;
 import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLVariableDomain;
 import com.sebastienguillemin.wswrl.exception.MissingRankException;
 import com.sebastienguillemin.wswrl.exception.WSWRLParseException;
+import com.sebastienguillemin.wswrl.rule.variable.DefaultWSWRLDVariable;
 
 public class WSWRLParserSupport {
     @NonNull
@@ -50,7 +52,7 @@ public class WSWRLParserSupport {
         return new LinkedHashSet<>();
     }
 
-    public String getShortNameFromIRI(@NonNull String value, boolean interactiveParseOnly) {
+    public String getShortNameFromIRI(String value, boolean interactiveParseOnly) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'getShortNameFromIRI'");
     }
@@ -58,36 +60,36 @@ public class WSWRLParserSupport {
     public WSWRLRule createWSWRLRule(String ruleName, Set<WSWRLAtom> head, Set<WSWRLAtom> body, boolean isEnabled)
             throws MissingRankException {
         // TODO : gérer le cas d'ajout d'une annotation.
-        return getWSWRLDataFactory().getWSWRLRule(ruleName, head, body, isEnabled);
+        return this.getDataFactory().getWSWRLRule(ruleName, head, body, isEnabled);
     }
 
-    public boolean isOWLEntity(@NonNull String shortName) {
+    public boolean isOWLEntity(String shortName) {
         return isOWLClass(shortName) || isOWLNamedIndividual(shortName) || isOWLObjectProperty(shortName)
                 || isOWLDataProperty(shortName) || isOWLAnnotationProperty(shortName) || isOWLDatatype(shortName);
     }
 
-    public boolean isOWLClass(@NonNull String shortName) {
+    public boolean isOWLClass(String shortName) {
         IRI classIRI = prefixedName2IRI(shortName);
 
         return getOWLOntology().containsClassInSignature(classIRI, Imports.INCLUDED) || classIRI
                 .equals(OWLRDFVocabulary.OWL_THING.getIRI()) || classIRI.equals(OWLRDFVocabulary.OWL_NOTHING.getIRI());
     }
 
-    public boolean isWSWRLBuiltIn(@NonNull String shortName) {
+    public boolean isWSWRLBuiltIn(String shortName) {
         return this.wswrlOntology.isSWRLBuiltIn(shortName);
     }
 
-    public boolean isOWLObjectProperty(@NonNull String shortName) {
+    public boolean isOWLObjectProperty(String shortName) {
         IRI propertyIRI = prefixedName2IRI(shortName);
         return this.getOWLOntology().containsObjectPropertyInSignature(propertyIRI, Imports.INCLUDED);
     }
 
-    public boolean isOWLDataProperty(@NonNull String shortName) {
+    public boolean isOWLDataProperty(String shortName) {
         IRI propertyIRI = prefixedName2IRI(shortName);
         return this.getOWLOntology().containsDataPropertyInSignature(propertyIRI, Imports.INCLUDED);
     }
 
-    public boolean isOWLDatatype(@NonNull String shortName) {
+    public boolean isOWLDatatype(String shortName) {
         if (shortName.equals("rdf:PlainLiteral") || shortName.equals("rdfs:Literal")
                 || shortName.equals("rdf:XMLLiteral"))
             return true;
@@ -100,54 +102,54 @@ public class WSWRLParserSupport {
             }
     }
 
-    public WSWRLClassAtom createWSWRLClassAtom(@NonNull String classShortName, @NonNull WSWRLIVariable iArgument)
+    public WSWRLClassAtom createWSWRLClassAtom(String classShortName, WSWRLIVariable iArgument)
             throws WSWRLParseException {
         OWLClass cls = createOWLClass(classShortName);
 
-        return this.getWSWRLDataFactory().getWSWRLClassAtom(cls, iArgument);
+        return this.getDataFactory().getWSWRLClassAtom(cls, iArgument);
     }
 
-    public WSWRLObjectPropertyAtom createWSWRLObjectPropertyAtom(@NonNull String propertyShortName,
-            @NonNull WSWRLIVariable subject,
-            @NonNull WSWRLIVariable object) throws WSWRLParseException {
+    public WSWRLObjectPropertyAtom createWSWRLObjectPropertyAtom(String propertyShortName,
+            WSWRLIVariable subject,
+            WSWRLIVariable object) throws WSWRLParseException {
         OWLObjectProperty objectProperty = this.createOWLObjectProperty(propertyShortName);
 
-        return getWSWRLDataFactory().getWSWRLObjectPropertyAtom(objectProperty, subject, object);
+        return this.getDataFactory().getWSWRLObjectPropertyAtom(objectProperty, subject, object);
     }
 
-    public WSWRLDataPropertyAtom createWSWRLDataPropertyAtom(@NonNull String propertyShortName,
-            @NonNull WSWRLIVariable subject,
-            @NonNull WSWRLDVariable object) throws WSWRLParseException {
+    public WSWRLDataPropertyAtom createWSWRLDataPropertyAtom(String propertyShortName,
+            WSWRLIVariable subject,
+            WSWRLDVariable object) throws WSWRLParseException {
         // TODO Auto-generated method stub
         OWLDataProperty dataProperty = this.createOWLDataProperty(propertyShortName);
 
-        return this.getWSWRLDataFactory().getWSWRLDataPropertyAtom(dataProperty, subject, object);
+        return this.getDataFactory().getWSWRLDataPropertyAtom(dataProperty, subject, object);
     }
 
-    public WSWRLBuiltInAtom createWSWRLBuiltInAtom(@NonNull String builtInPrefixedName,
-            @NonNull List<@NonNull WSWRLDVariable> list) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'createSWRLBuiltInAtom'");
+    public WSWRLBuiltInAtom createWSWRLBuiltInAtom(String builtInPrefixedName, List<WSWRLDVariable> arguments)
+            throws WSWRLParseException {
+        IRI builtInIRI = this.createSWRLBuiltInIRI(builtInPrefixedName);
+        return this.getDataFactory().getWSWRLBuiltInAtom(builtInIRI, builtInPrefixedName, arguments);
     }
 
-    public WSWRLDataRangeAtom createWSWRLDataRangeAtom(@NonNull String datatypePrefixedName,
-            @NonNull WSWRLDVariable WSWRLDVariable) {
+    public WSWRLDataRangeAtom createWSWRLDataRangeAtom(String datatypePrefixedName,
+            WSWRLDVariable WSWRLDVariable) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'createSWRLDataRangeAtom'");
     }
 
-    public WSWRLSameIndividualAtom createWSWRLSameIndividualAtom(@NonNull WSWRLIVariable subject,
-            @NonNull WSWRLIVariable object) {
-        return getWSWRLDataFactory().getWSWRLSameIndividualsAtom(subject, object);
+    public WSWRLSameIndividualAtom createWSWRLSameIndividualAtom(WSWRLIVariable subject,
+            WSWRLIVariable object) {
+        return this.getDataFactory().getWSWRLSameIndividualsAtom(subject, object);
     }
 
-    public WSWRLDifferentIndividualsAtom createWSWRLDifferentIndividualsAtom(@NonNull WSWRLIVariable subject,
-            @NonNull WSWRLIVariable object) {
+    public WSWRLDifferentIndividualsAtom createWSWRLDifferentIndividualsAtom(WSWRLIVariable subject,
+            WSWRLIVariable object) {
         // TODO Auto-generated method stub
-        return getWSWRLDataFactory().getWSWRLDifferentIndividualsAtom(subject, object);
+        return this.getDataFactory().getWSWRLDifferentIndividualsAtom(subject, object);
     }
 
-    public void checkThatWSWRLVariableNameIsValid(@NonNull String variableName) throws WSWRLParseException {
+    public void checkThatWSWRLVariableNameIsValid(String variableName) throws WSWRLParseException {
         if (!isValidSWRLVariableName(variableName))
             throw new WSWRLParseException("Invalid WSWRL variable name " + variableName);
 
@@ -156,7 +158,7 @@ public class WSWRLParserSupport {
                     + " - cannot use name of existing OWL class, individual, property, or datatype");
     }
 
-    public @NonNull WSWRLIVariable createWSWRLIVariable(@NonNull String variableName) throws WSWRLParseException {
+    public WSWRLIVariable createWSWRLIVariable(String variableName) throws WSWRLParseException {
         if (isOWLEntity(variableName))
             throw new WSWRLParseException(variableName
                     + " cannot be used as a WSWRL variable name because it refers to an existing OWL entity");
@@ -164,12 +166,12 @@ public class WSWRLParserSupport {
         Optional<IRI> iri = getIRIResolver().variableName2IRI(variableName);
 
         if (iri.isPresent())
-            return (WSWRLIVariable) getWSWRLDataFactory().getWSWRLVariable(iri.get(), WSWRLVariableDomain.INDIVIDUALS);
+            return (WSWRLIVariable) this.getDataFactory().getWSWRLVariable(iri.get(), WSWRLVariableDomain.INDIVIDUALS);
         else
             throw new WSWRLParseException("error creating WSWRL variable " + variableName);
     }
 
-    public @NonNull WSWRLDVariable createWSWRLDVariable(@NonNull String variableName) throws WSWRLParseException {
+    public WSWRLDVariable createWSWRLDVariable(String variableName) throws WSWRLParseException {
         if (isOWLEntity(variableName))
             throw new WSWRLParseException(variableName
                     + " cannot be used as a WSWRL variable name because it refers to an existing OWL entity");
@@ -177,14 +179,14 @@ public class WSWRLParserSupport {
         Optional<IRI> iri = getIRIResolver().variableName2IRI(variableName);
 
         if (iri.isPresent())
-            return (WSWRLDVariable) getWSWRLDataFactory().getWSWRLVariable(iri.get(), WSWRLVariableDomain.DATA);
+            return (WSWRLDVariable) this.getDataFactory().getWSWRLVariable(iri.get(), WSWRLVariableDomain.DATA);
         else
             throw new WSWRLParseException("error creating WSWRL variable " + variableName);
     }
 
-    public boolean isOWLNamedIndividual(@NonNull String shortName) {
+    public boolean isOWLNamedIndividual(String shortName) {
         IRI individualIRI = prefixedName2IRI(shortName);
-        return getOWLOntology().containsIndividualInSignature(individualIRI, Imports.INCLUDED);
+        return this.getOWLOntology().containsIndividualInSignature(individualIRI, Imports.INCLUDED);
     }
 
     public WSWRLIVariable createWSWRLIndividualArgument(String identifier) {
@@ -192,71 +194,72 @@ public class WSWRLParserSupport {
         throw new UnsupportedOperationException("Unimplemented method 'createSWRLIndividualArgument'");
     }
 
-    public WSWRLDVariable createXSDIntegerSWRLLiteralArgument(@NonNull String value) {
+    public WSWRLDVariable createXSDIntegerSWRLLiteralArgument(String value) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'createXSDIntegerSWRLLiteralArgument'");
     }
 
-    public WSWRLDVariable createXSDDecimalSWRLLiteralArgument(@NonNull String value) {
+    public WSWRLDVariable createXSDDecimalSWRLLiteralArgument(String value) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'createXSDDecimalSWRLLiteralArgument'");
     }
 
-    public WSWRLDVariable createSWRLLiteralArgument(@NonNull String literalValue, String datatype) {
+    public WSWRLDVariable createSWRLLiteralArgument(String literalValue, String datatype) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'createSWRLLiteralArgument'");
     }
 
-    public WSWRLDVariable createXSDStringSWRLLiteralArgument(@NonNull String literalValue) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'createXSDStringSWRLLiteralArgument'");
+    @NonNull
+    public WSWRLDVariable createXSDStringSWRLLiteralArgument(String lexicalValue) {
+        OWLLiteral owlLiteral = this.getDataFactory().getOWLLiteralFactory().getOWLLiteral(lexicalValue);
+        return new DefaultWSWRLDVariable(IRI.create("string constant"), owlLiteral);
     }
 
-    public WSWRLDVariable createXSDBooleanSWRLLiteralArgument(@NonNull String shortName) {
+    public WSWRLDVariable createXSDBooleanSWRLLiteralArgument(String shortName) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'createXSDBooleanSWRLLiteralArgument'");
     }
 
-    public WSWRLDVariable createSWRLNamedIndividualBuiltInArgument(@NonNull String shortName) {
+    public WSWRLDVariable createSWRLNamedIndividualBuiltInArgument(String shortName) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'createSWRLNamedIndividualBuiltInArgument'");
     }
 
-    public WSWRLDVariable createSWRLClassBuiltInArgument(@NonNull String shortName) {
+    public WSWRLDVariable createSWRLClassBuiltInArgument(String shortName) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'createSWRLClassBuiltInArgument'");
     }
 
-    public WSWRLDVariable createSWRLObjectPropertyBuiltInArgument(@NonNull String shortName) {
+    public WSWRLDVariable createSWRLObjectPropertyBuiltInArgument(String shortName) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'createSWRLObjectPropertyBuiltInArgument'");
     }
 
-    public WSWRLDVariable createSWRLDataPropertyBuiltInArgument(@NonNull String shortName) {
+    public WSWRLDVariable createSWRLDataPropertyBuiltInArgument(String shortName) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'createSWRLDataPropertyBuiltInArgument'");
     }
 
-    public boolean isOWLAnnotationProperty(@NonNull String shortName) {
+    public boolean isOWLAnnotationProperty(String shortName) {
         IRI propertyIRI = prefixedName2IRI(shortName);
         return getOWLOntology().containsAnnotationPropertyInSignature(propertyIRI, Imports.INCLUDED);
     }
 
-    public WSWRLDVariable createSWRLAnnotationPropertyBuiltInArgument(@NonNull String shortName) {
+    public WSWRLDVariable createSWRLAnnotationPropertyBuiltInArgument(String shortName) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'createSWRLAnnotationPropertyBuiltInArgument'");
     }
 
-    public WSWRLDVariable createSWRLDatatypeBuiltInArgument(@NonNull String shortName) {
+    public WSWRLDVariable createSWRLDatatypeBuiltInArgument(String shortName) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'createSWRLDatatypeBuiltInArgument'");
     }
 
     @NonNull
-    private OWLClass createOWLClass(@NonNull String classShortName) throws WSWRLParseException {
+    private OWLClass createOWLClass(String classShortName) throws WSWRLParseException {
         if (isOWLClass(classShortName)) {
             IRI classIRI = prefixedName2IRI(classShortName);
-            return getOWLDataFactory().getOWLClass(classIRI);
+            return this.getDataFactory().getOWLClass(classIRI);
         } else
             throw new WSWRLParseException(classShortName + " is not an OWL class");
     }
@@ -267,17 +270,17 @@ public class WSWRLParserSupport {
     }
 
     @NonNull
-    private OWLDataFactory getOWLDataFactory() {
-        return this.wswrlOntology.getSWRLAPIOWLDataFactory();
+    private SWRLAPIOWLOntology getSWRLAPIOWLOntology() {
+        return (SWRLAPIOWLOntology) this.wswrlOntology;
     }
 
     @NonNull
-    private WSWRLDataFactory getWSWRLDataFactory() {
+    private WSWRLDataFactory getDataFactory() {
         return this.wswrlOntology.getWSWRLDataFactory();
     }
 
     private IRI prefixedName2IRI(String prefixedName) {
-        Optional<@NonNull IRI> iri = getIRIResolver().prefixedName2IRI(prefixedName);
+        Optional<IRI> iri = getIRIResolver().prefixedName2IRI(prefixedName);
 
         if (iri.isPresent())
             return iri.get();
@@ -295,7 +298,7 @@ public class WSWRLParserSupport {
      * @param candidateSWRLVariableName The candidate variable name
      * @return True if variable name is valid, false otherwise
      */
-    private boolean isValidSWRLVariableName(@NonNull String candidateSWRLVariableName) {
+    private boolean isValidSWRLVariableName(String candidateSWRLVariableName) {
         if (candidateSWRLVariableName.length() == 0)
             return false;
 
@@ -316,22 +319,32 @@ public class WSWRLParserSupport {
     }
 
     @NonNull
-    private OWLObjectProperty createOWLObjectProperty(@NonNull String objectPropertyShortName)
+    private OWLObjectProperty createOWLObjectProperty(String objectPropertyShortName)
             throws WSWRLParseException {
         if (isOWLObjectProperty(objectPropertyShortName)) {
             IRI propertyIRI = prefixedName2IRI(objectPropertyShortName);
-            return getOWLDataFactory().getOWLObjectProperty(propertyIRI);
+            return this.getDataFactory().getOWLObjectProperty(propertyIRI);
         } else
             throw new WSWRLParseException(objectPropertyShortName + " is not an OWL object property");
     }
 
     @NonNull
-    private OWLDataProperty createOWLDataProperty(@NonNull String dataPropertyShortName)
+    private OWLDataProperty createOWLDataProperty(String dataPropertyShortName)
             throws WSWRLParseException {
         if (isOWLDataProperty(dataPropertyShortName)) {
             IRI propertyIRI = prefixedName2IRI(dataPropertyShortName);
-            return getOWLDataFactory().getOWLDataProperty(propertyIRI);
+            return this.getDataFactory().getOWLDataProperty(propertyIRI);
         } else
             throw new WSWRLParseException(dataPropertyShortName + " is not an OWL data property");
+    }
+
+    @NonNull
+    private IRI createSWRLBuiltInIRI(String builtInPrefixedName) throws WSWRLParseException {
+        Optional<IRI> iri = this.getSWRLAPIOWLOntology().swrlBuiltInPrefixedName2IRI(builtInPrefixedName);
+
+        if (iri.isPresent())
+            return iri.get();
+        else
+            throw new WSWRLParseException(builtInPrefixedName + " is not a SWRL built-in");
     }
 }

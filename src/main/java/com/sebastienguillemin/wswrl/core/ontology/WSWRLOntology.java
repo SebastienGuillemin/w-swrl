@@ -21,5 +21,4 @@ public interface WSWRLOntology extends SWRLAPIOWLOntology {
     public Set<WSWRLRule> getWSWRLRules();
 
     public WSWRLDataFactory getWSWRLDataFactory();
-
 }

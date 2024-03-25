@@ -1,15 +1,8 @@
 package com.sebastienguillemin.wswrl.core.rule.atom;
 
-import java.util.List;
-
-import javax.annotation.Nonnull;
-
-import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLVariable;
-
 public interface WSWRLBuiltInAtom extends WSWRLAtom {
     /**
-     * @return list of arguments
+     * @return The prefixed name of the built-in
      */
-    @Nonnull
-    List<WSWRLVariable> getArguments();
+    String getBuiltInPrefixedName();
 }

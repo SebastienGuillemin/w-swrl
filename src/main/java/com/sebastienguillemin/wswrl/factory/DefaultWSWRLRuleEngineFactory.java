@@ -89,7 +89,7 @@ public class DefaultWSWRLRuleEngineFactory implements WSWRLRuleEngineFactory {
                 TargetSWRLRuleEngine targetSWRLRuleEngine = targetSWRLRuleEngineCreator.create(bridge);
                 bridge.setTargetSWRLRuleEngine(targetSWRLRuleEngine);
 
-                TargetWSWRLRuleEngine targetWSWRLRuleEngine = targetWSWRLRuleEngineCreator.create(WSWRLOntology);
+                TargetWSWRLRuleEngine targetWSWRLRuleEngine = targetWSWRLRuleEngineCreator.create(WSWRLOntology, bridge);
 
                 WSWRLRuleEngine ruleEngine = new DefaultWSWRLRuleEngine(WSWRLOntology, targetWSWRLRuleEngine, targetSWRLRuleEngine, bridge, bridge);
                 ruleEngine.importAssertedOWLAxioms();

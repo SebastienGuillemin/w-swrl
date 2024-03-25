@@ -60,14 +60,6 @@ public interface WSWRLAtom extends HasIRI {
     public boolean isValuable();
 
     /**
-     * Returns the true value (i.e., {@code True} or {@code False}) of the current
-     * atom for a certain valuation.
-     * 
-     * @return The atom truth value.
-     */
-    public boolean evaluate();
-
-    /**
      * Returns the {@link WSWRLVariable<Object>} corresponding to an IRI.
      * 
      * @param variableIRI the variable IRI.
@@ -90,4 +82,12 @@ public interface WSWRLAtom extends HasIRI {
      * @return the set of variable (possibly empty).
      */
     public Set<WSWRLVariable> getVariables();
+
+    /**
+     * Returns the true value (i.e., {@code True} or {@code False}) of the current
+     * atom for a certain valuation.
+     * 
+     * @return The atom truth value.
+     */
+    public boolean evaluate();
 }

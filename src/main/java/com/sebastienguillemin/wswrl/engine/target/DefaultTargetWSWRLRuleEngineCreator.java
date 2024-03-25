@@ -1,5 +1,7 @@
 package com.sebastienguillemin.wswrl.engine.target;
 
+import org.swrlapi.bridge.SWRLBridge;
+
 import com.sebastienguillemin.wswrl.core.engine.TargetWSWRLRuleEngine;
 import com.sebastienguillemin.wswrl.core.engine.TargetWSWRLRuleEngineCreator;
 import com.sebastienguillemin.wswrl.core.ontology.WSWRLOntology;
@@ -12,7 +14,7 @@ public class DefaultTargetWSWRLRuleEngineCreator implements TargetWSWRLRuleEngin
     }
 
     @Override
-    public TargetWSWRLRuleEngine create(WSWRLOntology WSWRLOntology) {
-        return new DefaultTargetWSWRLRuleEngine(WSWRLOntology);
+    public TargetWSWRLRuleEngine create(WSWRLOntology WSWRLOntology, SWRLBridge bridge) {
+        return new DefaultTargetWSWRLRuleEngine(WSWRLOntology, bridge);
     }
 }

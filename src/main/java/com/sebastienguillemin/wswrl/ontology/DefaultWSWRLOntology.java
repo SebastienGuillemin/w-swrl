@@ -12,12 +12,11 @@ import org.swrlapi.core.IRIResolver;
 import com.sebastienguillemin.wswrl.core.factory.WSWRLDataFactory;
 import com.sebastienguillemin.wswrl.core.ontology.WSWRLOntology;
 import com.sebastienguillemin.wswrl.core.rule.WSWRLRule;
-import com.sebastienguillemin.wswrl.factory.WSWRLInternalFactory;
-import com.sebastienguillemin.wswrl.parser.WSWRLParser;
-
 import com.sebastienguillemin.wswrl.exception.MissingRankException;
 import com.sebastienguillemin.wswrl.exception.WSWRLBuiltInException;
 import com.sebastienguillemin.wswrl.exception.WSWRLParseException;
+import com.sebastienguillemin.wswrl.factory.WSWRLInternalFactory;
+import com.sebastienguillemin.wswrl.parser.WSWRLParser;
 
 public class DefaultWSWRLOntology extends DefaultSWRLAPIOWLOntology implements WSWRLOntology {
     private final Map<String, WSWRLRule> wswrlRules;

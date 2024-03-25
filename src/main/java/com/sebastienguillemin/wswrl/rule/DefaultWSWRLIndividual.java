@@ -1,4 +1,4 @@
-package com.sebastienguillemin.wswrl.rule.variable;
+package com.sebastienguillemin.wswrl.rule;
 
 import java.util.HashSet;
 import java.util.Set;

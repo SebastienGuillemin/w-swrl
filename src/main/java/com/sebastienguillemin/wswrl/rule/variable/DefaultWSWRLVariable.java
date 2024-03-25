@@ -2,12 +2,13 @@ package com.sebastienguillemin.wswrl.rule.variable;
 
 import org.semanticweb.owlapi.model.IRI;
 
+import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLVariable;
 import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLVariableDomain;
 
 import lombok.Getter;
 import uk.ac.manchester.cs.owl.owlapi.SWRLVariableImpl;
 
-public abstract class DefaultWSWRLVariable extends SWRLVariableImpl{
+public abstract class DefaultWSWRLVariable extends SWRLVariableImpl implements WSWRLVariable{
     @Getter
     private WSWRLVariableDomain domain;
 

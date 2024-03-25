@@ -55,7 +55,8 @@ public class WSWRLParserSupport {
         throw new UnsupportedOperationException("Unimplemented method 'getShortNameFromIRI'");
     }
 
-    public WSWRLRule createWSWRLRule(String ruleName, Set<WSWRLAtom> head, Set<WSWRLAtom> body, boolean isEnabled) throws MissingRankException {
+    public WSWRLRule createWSWRLRule(String ruleName, Set<WSWRLAtom> head, Set<WSWRLAtom> body, boolean isEnabled)
+            throws MissingRankException {
         // TODO : gérer le cas d'ajout d'une annotation.
         return getWSWRLDataFactory().getWSWRLRule(ruleName, head, body, isEnabled);
     }
@@ -123,8 +124,6 @@ public class WSWRLParserSupport {
         return this.getWSWRLDataFactory().getWSWRLDataPropertyAtom(dataProperty, subject, object);
     }
 
-    
-
     public WSWRLBuiltInAtom createWSWRLBuiltInAtom(@NonNull String builtInPrefixedName,
             @NonNull List<@NonNull WSWRLDVariable> list) {
         // TODO Auto-generated method stub
@@ -137,10 +136,9 @@ public class WSWRLParserSupport {
         throw new UnsupportedOperationException("Unimplemented method 'createSWRLDataRangeAtom'");
     }
 
-    public WSWRLSameIndividualAtom createWSWRLSameIndividualAtom(@NonNull WSWRLIVariable WSWRLIArgument,
-            @NonNull WSWRLIVariable swrliArgument2) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'createSWRLSameIndividualAtom'");
+    public WSWRLSameIndividualAtom createWSWRLSameIndividualAtom(@NonNull WSWRLIVariable subject,
+            @NonNull WSWRLIVariable object) {
+        return getWSWRLDataFactory().getWSWRLSameIndividualsAtom(subject, object);
     }
 
     public WSWRLDifferentIndividualsAtom createWSWRLDifferentIndividualsAtom(@NonNull WSWRLIVariable subject,
@@ -183,7 +181,7 @@ public class WSWRLParserSupport {
         else
             throw new WSWRLParseException("error creating WSWRL variable " + variableName);
     }
-    
+
     public boolean isOWLNamedIndividual(@NonNull String shortName) {
         IRI individualIRI = prefixedName2IRI(shortName);
         return getOWLOntology().containsIndividualInSignature(individualIRI, Imports.INCLUDED);

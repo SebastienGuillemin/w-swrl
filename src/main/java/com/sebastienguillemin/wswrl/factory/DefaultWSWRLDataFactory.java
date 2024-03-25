@@ -19,6 +19,7 @@ import com.sebastienguillemin.wswrl.core.rule.atom.WSWRLClassAtom;
 import com.sebastienguillemin.wswrl.core.rule.atom.WSWRLDataPropertyAtom;
 import com.sebastienguillemin.wswrl.core.rule.atom.WSWRLDifferentIndividualsAtom;
 import com.sebastienguillemin.wswrl.core.rule.atom.WSWRLObjectPropertyAtom;
+import com.sebastienguillemin.wswrl.core.rule.atom.WSWRLSameIndividualAtom;
 import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLDVariable;
 import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLIVariable;
 import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLVariable;
@@ -28,6 +29,7 @@ import com.sebastienguillemin.wswrl.rule.DefaultWSWRLRule;
 import com.sebastienguillemin.wswrl.rule.atom.property.DefaultWSWRLDataPropertyAtom;
 import com.sebastienguillemin.wswrl.rule.atom.property.DefaultWSWRLDifferentIndividualsAtom;
 import com.sebastienguillemin.wswrl.rule.atom.property.DefaultWSWRLObjectPropertyAtom;
+import com.sebastienguillemin.wswrl.rule.atom.property.DefaultWSWRLSameIndividual;
 import com.sebastienguillemin.wswrl.rule.atom.unary.DefaultWSWRLClassAtom;
 import com.sebastienguillemin.wswrl.rule.variable.DefaultWSWRLDVariable;
 import com.sebastienguillemin.wswrl.rule.variable.DefaultWSWRLIVariable;
@@ -99,11 +101,18 @@ public class DefaultWSWRLDataFactory extends DefaultSWRLAPIOWLDataFactory implem
     }
 
     @Override
-    public WSWRLDifferentIndividualsAtom getWSWRLDifferentIndividualsAtom(@NonNull WSWRLIVariable subject,
-            @NonNull WSWRLIVariable object) {
+    public WSWRLDifferentIndividualsAtom getWSWRLDifferentIndividualsAtom(@NonNull WSWRLIVariable subject, @NonNull WSWRLIVariable object) {
         OWLAPIPreconditions.checkNotNull(subject, ARG0_CANNOT_BE_NULL);
         OWLAPIPreconditions.checkNotNull(object, ARG1_CANNOT_BE_NULL);
         
         return new DefaultWSWRLDifferentIndividualsAtom(new OWLObjectPropertyImpl(IRI.create("http://www.w3.org/2002/07/owl#differentFrom")), subject, object);
+    }
+
+    @Override
+    public WSWRLSameIndividualAtom getWSWRLSameIndividualsAtom(@NonNull WSWRLIVariable subject, @NonNull WSWRLIVariable object) {
+        OWLAPIPreconditions.checkNotNull(subject, ARG0_CANNOT_BE_NULL);
+        OWLAPIPreconditions.checkNotNull(object, ARG1_CANNOT_BE_NULL);
+        
+        return new DefaultWSWRLSameIndividual(new OWLObjectPropertyImpl(IRI.create("http://www.w3.org/2002/07/owl#sameAs")), subject, object);
     }
 }

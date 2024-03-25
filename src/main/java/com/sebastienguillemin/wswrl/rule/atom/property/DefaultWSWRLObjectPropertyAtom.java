@@ -1,10 +1,7 @@
 package com.sebastienguillemin.wswrl.rule.atom.property;
 
-import java.util.Hashtable;
-
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
@@ -17,7 +14,6 @@ import org.semanticweb.owlapi.model.SWRLObjectVisitorEx;
 import com.sebastienguillemin.wswrl.core.Rank;
 import com.sebastienguillemin.wswrl.core.rule.atom.WSWRLObjectPropertyAtom;
 import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLIVariable;
-import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLIndividual;
 
 public class DefaultWSWRLObjectPropertyAtom extends AbstractWSWRLProperty<WSWRLIVariable>
         implements WSWRLObjectPropertyAtom, SWRLObjectPropertyAtom {
@@ -100,12 +96,6 @@ public class DefaultWSWRLObjectPropertyAtom extends AbstractWSWRLProperty<WSWRLI
     protected int index() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'index'");
-    }
-
-    @Override
-    public void parseObject(Hashtable<IRI, WSWRLIndividual> individuals) {
-        // this.object = this.parseIndividual((OWLNamedIndividual)
-        // this.propertyAssertion.getObject(), individuals);
     }
 
     @Override

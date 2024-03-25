@@ -15,6 +15,7 @@ import com.sebastienguillemin.wswrl.core.rule.atom.WSWRLClassAtom;
 import com.sebastienguillemin.wswrl.core.rule.atom.WSWRLDataPropertyAtom;
 import com.sebastienguillemin.wswrl.core.rule.atom.WSWRLDifferentIndividualsAtom;
 import com.sebastienguillemin.wswrl.core.rule.atom.WSWRLObjectPropertyAtom;
+import com.sebastienguillemin.wswrl.core.rule.atom.WSWRLSameIndividualAtom;
 import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLDVariable;
 import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLIVariable;
 import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLVariable;
@@ -36,6 +37,7 @@ public interface WSWRLDataFactory extends SWRLAPIOWLDataFactory {
     public WSWRLDataPropertyAtom getWSWRLDataPropertyAtom(OWLDataProperty dataProperty, @NonNull WSWRLIVariable subject,
             @NonNull WSWRLDVariable object);
 
-    public WSWRLDifferentIndividualsAtom getWSWRLDifferentIndividualsAtom(@NonNull WSWRLIVariable subject,
-            @NonNull WSWRLIVariable object);
+    public WSWRLDifferentIndividualsAtom getWSWRLDifferentIndividualsAtom(@NonNull WSWRLIVariable subject, @NonNull WSWRLIVariable object);
+
+    public WSWRLSameIndividualAtom getWSWRLSameIndividualsAtom(@NonNull WSWRLIVariable subject, @NonNull WSWRLIVariable object);
 }

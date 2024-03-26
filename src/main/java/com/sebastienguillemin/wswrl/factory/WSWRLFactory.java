@@ -9,6 +9,9 @@ import org.swrlapi.factory.SWRLAPIFactory;
 import com.sebastienguillemin.wswrl.core.engine.WSWRLRuleEngine;
 import com.sebastienguillemin.wswrl.core.factory.WSWRLRuleEngineFactory;
 
+/**
+ * General static factory.
+ */
 public class WSWRLFactory extends SWRLAPIFactory {
     private static final WSWRLRuleEngineFactory WSWRL_RULE_ENGINE_FACTORY;
 

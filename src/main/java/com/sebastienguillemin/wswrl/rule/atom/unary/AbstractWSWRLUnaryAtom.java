@@ -16,6 +16,9 @@ import com.sebastienguillemin.wswrl.core.rule.atom.WSWRLUnaryAtom;
 import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLVariable;
 import com.sebastienguillemin.wswrl.rule.atom.AbstractWSWRLAtom;
 
+/**
+ * {@inheritDoc}
+ */
 public abstract class AbstractWSWRLUnaryAtom<A extends WSWRLVariable> extends AbstractWSWRLAtom implements WSWRLUnaryAtom<A> {
     protected A argument;
 

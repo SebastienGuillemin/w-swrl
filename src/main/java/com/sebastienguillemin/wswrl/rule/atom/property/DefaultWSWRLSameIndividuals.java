@@ -10,17 +10,20 @@ import org.semanticweb.owlapi.model.SWRLPredicate;
 import org.semanticweb.owlapi.model.SWRLSameIndividualAtom;
 
 import com.sebastienguillemin.wswrl.core.Rank;
-import com.sebastienguillemin.wswrl.core.rule.atom.WSWRLSameIndividualAtom;
+import com.sebastienguillemin.wswrl.core.rule.atom.WSWRLSameIndividualsAtom;
 import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLIVariable;
 
-public class DefaultWSWRLSameIndividual extends AbstractWSWRLProperty<WSWRLIVariable> implements WSWRLSameIndividualAtom, SWRLSameIndividualAtom {
+/**
+ * {@inheritDoc}
+ */
+public class DefaultWSWRLSameIndividuals extends AbstractWSWRLProperty<WSWRLIVariable> implements WSWRLSameIndividualsAtom, SWRLSameIndividualAtom {
 
-    public DefaultWSWRLSameIndividual(SWRLPredicate property, WSWRLIVariable firstArgument,
+    public DefaultWSWRLSameIndividuals(SWRLPredicate property, WSWRLIVariable firstArgument,
             WSWRLIVariable secondArgument, Rank rank) {
         super(property, firstArgument, secondArgument, rank);
     }
 
-    public DefaultWSWRLSameIndividual(SWRLPredicate property, WSWRLIVariable firstArgument, WSWRLIVariable secondArgument) {
+    public DefaultWSWRLSameIndividuals(SWRLPredicate property, WSWRLIVariable firstArgument, WSWRLIVariable secondArgument) {
         this(property, firstArgument, secondArgument, null);
     }
 

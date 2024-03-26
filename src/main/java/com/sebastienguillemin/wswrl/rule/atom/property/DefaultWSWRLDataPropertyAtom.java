@@ -15,6 +15,9 @@ import com.sebastienguillemin.wswrl.core.rule.atom.WSWRLDataPropertyAtom;
 import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLDVariable;
 import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLIVariable;
 
+/**
+ * {@inheritDoc}
+ */
 public class DefaultWSWRLDataPropertyAtom extends AbstractWSWRLProperty<WSWRLDVariable> implements WSWRLDataPropertyAtom, SWRLDataPropertyAtom {
 
     public DefaultWSWRLDataPropertyAtom(OWLDataPropertyExpression property, WSWRLIVariable firstArgument, WSWRLDVariable secondArgument, Rank rank) {
@@ -26,6 +29,7 @@ public class DefaultWSWRLDataPropertyAtom extends AbstractWSWRLProperty<WSWRLDVa
         this(property, firstArgument, secondArgument, null);
     }
 
+    @Override
     public SWRLDArgument getSecondArgument() {
         return (SWRLDArgument) this.secondArgument;
     }
@@ -77,7 +81,7 @@ public class DefaultWSWRLDataPropertyAtom extends AbstractWSWRLProperty<WSWRLDVa
 
     @Override
     public boolean evaluate() {
-        return this.getSecondWSWRLArgument().getValue() != null;
+        return this.getObject().getValue() != null;
     }
 
     @Override

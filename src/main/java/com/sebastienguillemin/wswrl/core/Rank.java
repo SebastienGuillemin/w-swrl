@@ -10,7 +10,7 @@ import com.sebastienguillemin.wswrl.core.rule.atom.WSWRLAtom;
  */
 public interface Rank {
     /**
-     * 
+     * Returns the rank index.
      * @return The rank index.
      */
     public int getIndex();

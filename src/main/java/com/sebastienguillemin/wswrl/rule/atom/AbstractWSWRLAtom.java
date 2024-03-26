@@ -16,6 +16,9 @@ import lombok.Getter;
 import lombok.Setter;
 import uk.ac.manchester.cs.owl.owlapi.SWRLAtomImpl;
 
+/**
+ * {@inheritDoc}
+ */
 public abstract class AbstractWSWRLAtom extends SWRLAtomImpl implements WSWRLAtom {
     @Getter
     @Setter
@@ -55,6 +58,7 @@ public abstract class AbstractWSWRLAtom extends SWRLAtomImpl implements WSWRLAto
         throw new VariableNotFoundException(variableIRI);
     }
 
+    @Override
     public WSWRLVariable getVariable(String variableName) throws VariableNotFoundException {
         for (SWRLArgument argument : this.getAllArguments())
             if (argument instanceof WSWRLVariable) {

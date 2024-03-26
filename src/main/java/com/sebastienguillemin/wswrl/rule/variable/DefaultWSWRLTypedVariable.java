@@ -8,6 +8,10 @@ import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLVariableDomain;
 import lombok.Getter;
 import lombok.Setter;
 
+
+/**
+ * {@inheritDoc}
+ */
 public abstract class DefaultWSWRLTypedVariable<T> extends DefaultWSWRLVariable implements WSWRLTypedVariable<T> {
     @Getter
     @Setter

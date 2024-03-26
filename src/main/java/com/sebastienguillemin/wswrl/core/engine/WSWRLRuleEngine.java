@@ -20,11 +20,11 @@ import com.sebastienguillemin.wswrl.exception.WSWRLRuleException;
  */
 public interface WSWRLRuleEngine extends SWRLRuleEngine {
     /**
-     * Load rules and knowledge from OWL, send them to the rule engine, run the rule
+     * Load rules and knowledge from the ontology, send them to the rule engine, run the rule
      * engine, and write any inferred
-     * knowledge back to OWL.
+     * knowledge back to the ontology.
      *
-     * @throws SWRLRuleEngineException If an error occurs during inference
+     * @throws SWRLRuleEngineException If an error occurs during inference.
      */
     @Override
     void infer() throws WSWRLRuleEngineException;
@@ -32,9 +32,9 @@ public interface WSWRLRuleEngine extends SWRLRuleEngine {
     /**
      * Create a SWRL rule
      *
-     * @param ruleName The name of the rule
-     * @param rule     The rule text
-     * @return A SWRL rule
+     * @param ruleName The name of the rule.
+     * @param rule     The rule text.
+     * @return A SWRL rule.
      * @throws WSWRLParseException @see com.sebastienguillemin.wswrl.exception.WSWRLParseException
      * @throws WSWRLBuiltInException @see com.sebastienguillemin.wswrl.exception.WSWRLBuiltInException
      * @throws MissingRankException @see com.sebastienguillemin.wswrl.exception.MissingRankException
@@ -43,16 +43,18 @@ public interface WSWRLRuleEngine extends SWRLRuleEngine {
             throws WSWRLParseException, WSWRLBuiltInException, MissingRankException;
 
     /**
-     * @return A collection of WSWRL rules
-     * @throws WSWRLRuleException If an error occurs
+     * Returns all the WSWRL rules crated in the rule engine.
+     * @return A collection of WSWRL rules.
+     * @throws WSWRLRuleException If an error occurs.
      */
     @NonNull
     Hashtable<String, WSWRLRule> getWSWRLRules() throws WSWRLRuleException;
 
     /**
-     * @param ruleName The name of the rule
-     * @return A WSWRL rule
-     * @throws WSWRLRuleException If an error occurs
+     * Returns a WSWRL rule corresponding to the name passed by the {@code ruleName} parameter.
+     * @param ruleName The name of the rule.
+     * @return A WSWRL rule.
+     * @throws WSWRLRuleException If an error occurs.
      */
     WSWRLRule getWSWRLRule(@NonNull String ruleName) throws WSWRLRuleException;
 }

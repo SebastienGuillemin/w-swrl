@@ -8,6 +8,10 @@ import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLVariableDomain;
 import lombok.Getter;
 import uk.ac.manchester.cs.owl.owlapi.SWRLVariableImpl;
 
+
+/**
+ * {@inheritDoc}
+ */
 public abstract class DefaultWSWRLVariable extends SWRLVariableImpl implements WSWRLVariable{
     @Getter
     private WSWRLVariableDomain domain;

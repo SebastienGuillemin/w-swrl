@@ -15,6 +15,9 @@ import com.sebastienguillemin.wswrl.core.Rank;
 import com.sebastienguillemin.wswrl.core.rule.atom.WSWRLObjectPropertyAtom;
 import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLIVariable;
 
+/**
+ * {@inheritDoc}
+ */
 public class DefaultWSWRLObjectPropertyAtom extends AbstractWSWRLProperty<WSWRLIVariable>
         implements WSWRLObjectPropertyAtom, SWRLObjectPropertyAtom {
 
@@ -76,14 +79,14 @@ public class DefaultWSWRLObjectPropertyAtom extends AbstractWSWRLProperty<WSWRLI
 
     @Override
     public boolean isValuable() {
-        return !this.getFirstWSWRLArgument().getValue().getObjectProperties(this.iri).isEmpty();
+        return !this.getSubject().getValue().getObjectProperties(this.iri).isEmpty();
 
     }
 
     @Override
     public boolean evaluate() {
-        WSWRLIVariable firstVariable = this.getFirstWSWRLArgument();
-        WSWRLIVariable secondVariable = this.getSecondWSWRLArgument();
+        WSWRLIVariable firstVariable = this.getSubject();
+        WSWRLIVariable secondVariable = this.getObject();
 
         for (OWLObjectPropertyAssertionAxiom propertyAxiom : firstVariable.getValue().getObjectProperties(this.iri))
             if (propertyAxiom.getObject().asOWLNamedIndividual().getIRI().equals(secondVariable.getValue().getIRI()))

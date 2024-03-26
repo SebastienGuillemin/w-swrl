@@ -12,6 +12,9 @@ import com.sebastienguillemin.wswrl.core.Rank;
 import com.sebastienguillemin.wswrl.core.rule.atom.WSWRLDifferentIndividualsAtom;
 import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLIVariable;
 
+/**
+ * {@inheritDoc}
+ */
 public class DefaultWSWRLDifferentIndividualsAtom extends AbstractWSWRLProperty<WSWRLIVariable>
         implements WSWRLDifferentIndividualsAtom, SWRLDifferentIndividualsAtom {
 

@@ -10,18 +10,12 @@ import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
 
 import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLIndividual;
-import com.sebastienguillemin.wswrl.engine.target.DefaultTargetWSWRLRuleEngine;
 
-import lombok.Getter;
 import uk.ac.manchester.cs.owl.owlapi.OWLNamedIndividualImpl;
 
 /**
- * This class encapsulates OWL individual data to facilitate the infer procedure
- * implementation.
- * 
- * @see DefaultTargetWSWRLRuleEngine
+ * {@inheritDoc}
  */
-@Getter
 public class DefaultWSWRLIndividual extends OWLNamedIndividualImpl implements WSWRLIndividual {
     private Set<OWLClass> classes;
     private Set<OWLObjectPropertyAssertionAxiom> objectProperties;
@@ -68,10 +62,12 @@ public class DefaultWSWRLIndividual extends OWLNamedIndividualImpl implements WS
         return properties;
     }
 
+    @Override
     public void removeObjectProperty(OWLObjectPropertyAssertionAxiom objectProperty) {
         this.objectProperties.remove(objectProperty);
     }
 
+    @Override
     public void addDataProperty(OWLDataPropertyAssertionAxiom dataProperty) {
         this.dataProperties.add(dataProperty);
     }
@@ -87,6 +83,7 @@ public class DefaultWSWRLIndividual extends OWLNamedIndividualImpl implements WS
         return properties;
     }
 
+    @Override
     public void removeDataProperty(OWLDataPropertyAssertionAxiom dataProperty) {
         this.dataProperties.remove(dataProperty);
     }

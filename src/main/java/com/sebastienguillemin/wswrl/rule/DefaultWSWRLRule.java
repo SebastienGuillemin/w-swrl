@@ -6,8 +6,6 @@ import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
-import org.swrlapi.bridge.SWRLBridge;
-
 import com.sebastienguillemin.wswrl.core.rule.WSWRLRule;
 import com.sebastienguillemin.wswrl.core.rule.atom.WSWRLAtom;
 import com.sebastienguillemin.wswrl.exception.MissingRankException;
@@ -16,6 +14,10 @@ import com.sebastienguillemin.wswrl.exception.WeightCalculationException;
 
 import lombok.Getter;
 
+
+/**
+ * {@inheritDoc}
+ */
 public class DefaultWSWRLRule implements WSWRLRule {
     private static final boolean IGNORE_UNVALUABLE_ATOMS = true;
     private static final float EPSILON = 0.01f;
@@ -99,7 +101,7 @@ public class DefaultWSWRLRule implements WSWRLRule {
     }
 
     @Override
-    public float calculateConfidence(SWRLBridge bridge) {
+    public float calculateConfidence() {
         // for (WSWRLAtom headAtom : this.head)
         // if ((headAtom instanceof WSWRLDataPropertyAtom || headAtom instanceof
         // WSWRLDataRangeAtom) && !headAtom.isValuable()) {

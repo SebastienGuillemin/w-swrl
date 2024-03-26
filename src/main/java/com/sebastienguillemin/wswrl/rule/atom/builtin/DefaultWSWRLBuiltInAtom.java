@@ -11,6 +11,7 @@ import org.semanticweb.owlapi.model.SWRLPredicate;
 import org.swrlapi.builtins.arguments.SWRLBuiltInArgument;
 
 import com.sebastienguillemin.wswrl.core.Rank;
+import com.sebastienguillemin.wswrl.core.engine.WSWRLBuiltinInvoker;
 import com.sebastienguillemin.wswrl.core.rule.atom.WSWRLBuiltInAtom;
 import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLLiteralBuiltInVariable;
 import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLVariable;
@@ -20,6 +21,9 @@ import com.sebastienguillemin.wswrl.exception.VariableNotFoundException;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * {@inheritDoc}
+ */
 public class DefaultWSWRLBuiltInAtom implements WSWRLBuiltInAtom {
     @Getter
     @Setter
@@ -39,6 +43,7 @@ public class DefaultWSWRLBuiltInAtom implements WSWRLBuiltInAtom {
     @Setter
     private float weight;
 
+    
     public DefaultWSWRLBuiltInAtom(String ruleName, IRI builtInIRI, String builtInPrefixedName,
             List<WSWRLLiteralBuiltInVariable> variables, WSWRLBuiltinInvoker builtinInvoker, 
             Rank rank) {
@@ -88,6 +93,7 @@ public class DefaultWSWRLBuiltInAtom implements WSWRLBuiltInAtom {
 
     }
 
+    @Override
     public WSWRLVariable getVariable(String variableName) throws VariableNotFoundException {
         for (SWRLBuiltInArgument argument : this.variables) {
             WSWRLVariable variable = (WSWRLVariable) argument;

@@ -17,7 +17,7 @@ import com.sebastienguillemin.wswrl.core.rule.atom.WSWRLDataPropertyAtom;
 import com.sebastienguillemin.wswrl.core.rule.atom.WSWRLDataRangeAtom;
 import com.sebastienguillemin.wswrl.core.rule.atom.WSWRLDifferentIndividualsAtom;
 import com.sebastienguillemin.wswrl.core.rule.atom.WSWRLObjectPropertyAtom;
-import com.sebastienguillemin.wswrl.core.rule.atom.WSWRLSameIndividualAtom;
+import com.sebastienguillemin.wswrl.core.rule.atom.WSWRLSameIndividualsAtom;
 import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLDVariable;
 import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLIVariable;
 import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLVariable;
@@ -26,6 +26,7 @@ import com.sebastienguillemin.wswrl.exception.MissingRankException;
 import com.sebastienguillemin.wswrl.exception.WSWRLIncompleteRuleException;
 import com.sebastienguillemin.wswrl.exception.WSWRLParseException;
 import com.sebastienguillemin.wswrl.rank.DefaultRank;
+
 
 public class WSWRLParser {
     public final static char CONJUNCTION_CHAR = '^';
@@ -300,14 +301,14 @@ public class WSWRLParser {
                 : Optional.empty();
     }
 
-    private Optional<WSWRLSameIndividualAtom> parseWSWRLSameAsAtomArguments(@NonNull WSWRLTokenizer tokenizer,
+    private Optional<WSWRLSameIndividualsAtom> parseWSWRLSameAsAtomArguments(@NonNull WSWRLTokenizer tokenizer,
             boolean isInHead) throws WSWRLParseException {
         Optional<? extends @NonNull WSWRLIVariable> iVariable1 = parseWSWRLIVariable(tokenizer, isInHead);
         tokenizer.checkAndSkipComma("Expecting comma-separated second argument for same individual atom");
         Optional<? extends @NonNull WSWRLIVariable> iVariable2 = parseWSWRLIVariable(tokenizer, isInHead);
         tokenizer.checkAndSkipRParen("Expecting closing parenthesis after second argument to same individual atom");
 
-        return tokenizer.isInteractiveParseOnly() ? Optional.<WSWRLSameIndividualAtom>empty()
+        return tokenizer.isInteractiveParseOnly() ? Optional.<WSWRLSameIndividualsAtom>empty()
                 : Optional
                         .of(this.wswrlParserSupport.createWSWRLSameIndividualAtom(iVariable1.get(), iVariable2.get()));
     }

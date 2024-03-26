@@ -16,7 +16,6 @@ import org.semanticweb.owlapi.model.OWLDeclarationAxiom;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
-import org.swrlapi.bridge.SWRLBridge;
 
 import com.sebastienguillemin.wswrl.core.engine.TargetWSWRLRuleEngine;
 import com.sebastienguillemin.wswrl.core.ontology.WSWRLOntology;
@@ -32,15 +31,16 @@ import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLVariableDomain;
 import com.sebastienguillemin.wswrl.rule.DefaultWSWRLIndividual;
 import com.sebastienguillemin.wswrl.rule.variable.DefaultVariableBinding;
 
+/**
+ * {@inheritDoc}
+ */
 public class DefaultTargetWSWRLRuleEngine implements TargetWSWRLRuleEngine {
     private WSWRLOntology wswrlOntology;
-    private SWRLBridge bridge;
 
     private Hashtable<IRI, WSWRLIndividual> individuals;
 
-    public DefaultTargetWSWRLRuleEngine(WSWRLOntology WSWRLOntology, SWRLBridge bridge) {
+    public DefaultTargetWSWRLRuleEngine(WSWRLOntology WSWRLOntology) {
         this.wswrlOntology = WSWRLOntology;
-        this.bridge = bridge;
 
         this.individuals = new Hashtable<>();
     }
@@ -59,17 +59,17 @@ public class DefaultTargetWSWRLRuleEngine implements TargetWSWRLRuleEngine {
 
                 Set<WSWRLAtom> body = rule.getBody();
                 for (VariableBinding binding : this.generateBindings(body)) {
-                    System.out.println(binding);
                     binding.bindVariables();
-
+                    
                     // Calculate rank weights
                     rule.calculateWeights();
-
+                    
                     // Evaluate
-                    float confidence = rule.calculateConfidence(this.bridge);
-                    // if (confidence > 0) {
-                    System.out.println("Confidence : " + confidence + "\n");
-                    // }
+                    float confidence = rule.calculateConfidence();
+                    if (confidence > 0) {
+                        System.out.println(binding);
+                        System.out.println("Confidence : " + confidence + "\n");
+                    }
 
                     // TODO: Store result
                 }
@@ -208,8 +208,8 @@ public class DefaultTargetWSWRLRuleEngine implements TargetWSWRLRuleEngine {
             VariableBinding newBinding;
             boolean boundValue;
             for (WSWRLDataPropertyAtom atom : dataPropertyAtoms) {
-                WSWRLIVariable atomSubject = atom.getFirstWSWRLArgument();
-                WSWRLDVariable atomObject = atom.getSecondWSWRLArgument();
+                WSWRLIVariable atomSubject = atom.getSubject();
+                WSWRLDVariable atomObject = atom.getObject();
 
                 for (VariableBinding binding : individualBindings) {
                     individual = binding.getIndividualValue(atomSubject.getIRI());

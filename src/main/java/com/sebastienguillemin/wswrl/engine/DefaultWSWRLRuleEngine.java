@@ -16,6 +16,9 @@ import com.sebastienguillemin.wswrl.exception.WSWRLBuiltInException;
 import com.sebastienguillemin.wswrl.exception.WSWRLParseException;
 import com.sebastienguillemin.wswrl.exception.WSWRLRuleException;
 
+/**
+ * {@inheritDoc}
+ */
 public class DefaultWSWRLRuleEngine extends DefaultSWRLRuleEngine implements WSWRLRuleEngine {
     private WSWRLOntology wswrlOntology;
     private Hashtable<String, WSWRLRule> wswrlRules;

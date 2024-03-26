@@ -28,7 +28,7 @@ import com.sebastienguillemin.wswrl.core.rule.atom.WSWRLDataPropertyAtom;
 import com.sebastienguillemin.wswrl.core.rule.atom.WSWRLDataRangeAtom;
 import com.sebastienguillemin.wswrl.core.rule.atom.WSWRLDifferentIndividualsAtom;
 import com.sebastienguillemin.wswrl.core.rule.atom.WSWRLObjectPropertyAtom;
-import com.sebastienguillemin.wswrl.core.rule.atom.WSWRLSameIndividualAtom;
+import com.sebastienguillemin.wswrl.core.rule.atom.WSWRLSameIndividualsAtom;
 import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLDVariable;
 import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLIVariable;
 import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLVariableDomain;
@@ -138,7 +138,7 @@ public class WSWRLParserSupport {
         throw new UnsupportedOperationException("Unimplemented method 'createSWRLDataRangeAtom'");
     }
 
-    public WSWRLSameIndividualAtom createWSWRLSameIndividualAtom(WSWRLIVariable subject,
+    public WSWRLSameIndividualsAtom createWSWRLSameIndividualAtom(WSWRLIVariable subject,
             WSWRLIVariable object) {
         return this.getDataFactory().getWSWRLSameIndividualsAtom(subject, object);
     }

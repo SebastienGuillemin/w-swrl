@@ -21,29 +21,35 @@ import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLIVariable;
 import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLVariable;
 import com.sebastienguillemin.wswrl.rule.atom.AbstractWSWRLAtom;
 
-public abstract class AbstractWSWRLProperty<ObjectType extends WSWRLVariable> extends AbstractWSWRLAtom implements WSWRLPropertyAtom<ObjectType> {
+/**
+ * {@inheritDoc}
+ */
+public abstract class AbstractWSWRLProperty<ObjectType extends WSWRLVariable> extends AbstractWSWRLAtom
+        implements WSWRLPropertyAtom<ObjectType> {
     protected WSWRLIVariable firstArgument;
     protected ObjectType secondArgument;
 
-    protected AbstractWSWRLProperty(SWRLPredicate property, WSWRLIVariable firstArgument, ObjectType secondArgument, Rank rank) {
+    protected AbstractWSWRLProperty(SWRLPredicate property, WSWRLIVariable firstArgument, ObjectType secondArgument,
+            Rank rank) {
         super(property, rank);
         this.firstArgument = firstArgument;
         this.secondArgument = secondArgument;
     }
-    
+
     public SWRLIArgument getFirstArgument() {
         return (SWRLIArgument) this.firstArgument;
     }
 
-    public WSWRLIVariable getFirstWSWRLArgument() {
+    @Override
+    public WSWRLIVariable getSubject() {
         return this.firstArgument;
-    }    
+    }
 
-    public ObjectType getSecondWSWRLArgument() {
+    @Override
+    public ObjectType getObject() {
         return this.secondArgument;
     }
 
-    
     @Override
     public void addSignatureEntitiesToSet(Set<OWLEntity> entities) {
         addSignatureEntitiesToSetForValue(entities, this.firstArgument);

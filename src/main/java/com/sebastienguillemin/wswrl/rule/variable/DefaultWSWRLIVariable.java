@@ -6,6 +6,9 @@ import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLIVariable;
 import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLIndividual;
 import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLVariableDomain;
 
+/**
+ * {@inheritDoc}
+ */
 public class DefaultWSWRLIVariable extends DefaultWSWRLTypedVariable<WSWRLIndividual> implements WSWRLIVariable {
     public DefaultWSWRLIVariable(IRI iri) {
         super(iri, WSWRLVariableDomain.INDIVIDUALS);

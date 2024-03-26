@@ -13,11 +13,13 @@ import com.sebastienguillemin.wswrl.core.factory.WSWRLDataFactory;
 import com.sebastienguillemin.wswrl.core.ontology.WSWRLOntology;
 import com.sebastienguillemin.wswrl.core.rule.WSWRLRule;
 import com.sebastienguillemin.wswrl.exception.MissingRankException;
-import com.sebastienguillemin.wswrl.exception.WSWRLBuiltInException;
 import com.sebastienguillemin.wswrl.exception.WSWRLParseException;
 import com.sebastienguillemin.wswrl.factory.WSWRLInternalFactory;
 import com.sebastienguillemin.wswrl.parser.WSWRLParser;
 
+/**
+ * This class extends the {@link DefaultSWRLAPIOWLOntology} to adapt it to WSWRL.
+ */
 public class DefaultWSWRLOntology extends DefaultSWRLAPIOWLOntology implements WSWRLOntology {
     private final Map<String, WSWRLRule> wswrlRules;
     private WSWRLDataFactory wswrlDataFactory;
@@ -26,13 +28,11 @@ public class DefaultWSWRLOntology extends DefaultSWRLAPIOWLOntology implements W
         super(ontology, iriResolver);
         this.wswrlRules = new HashMap<>();
         this.wswrlDataFactory = WSWRLInternalFactory.createWSWRLDataFactory(iriResolver);
-
-        // this.processWSWRLRules();
     }
 
     @Override
     public WSWRLRule createWSWRLRule(String ruleName, String rule)
-            throws WSWRLParseException, WSWRLBuiltInException, MissingRankException {
+            throws WSWRLParseException, MissingRankException {
         WSWRLRule wswrlRule = this.createWSWRLRule(ruleName, rule, "", true);
 
         this.wswrlRules.put(ruleName, wswrlRule);
@@ -42,7 +42,7 @@ public class DefaultWSWRLOntology extends DefaultSWRLAPIOWLOntology implements W
 
     @Override
     public WSWRLRule createWSWRLRule(String ruleName, String rule, String comment, boolean isActive)
-            throws WSWRLParseException, WSWRLBuiltInException, MissingRankException {
+            throws WSWRLParseException, MissingRankException {
 
         WSWRLParser parser = new WSWRLParser(this);
 

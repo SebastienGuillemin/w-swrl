@@ -15,6 +15,9 @@ import com.sebastienguillemin.wswrl.core.Rank;
 import com.sebastienguillemin.wswrl.core.rule.atom.WSWRLDataRangeAtom;
 import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLDVariable;
 
+/**
+ * {@inheritDoc}
+ */
 public class DefaultWSWRLDataRangeAtom extends AbstractWSWRLUnaryAtom<WSWRLDVariable> implements WSWRLDataRangeAtom, SWRLDataRangeAtom {
 
     public DefaultWSWRLDataRangeAtom(OWLDataRange dataRange, WSWRLDVariable argument, Rank rank) {

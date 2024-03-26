@@ -36,9 +36,12 @@ import org.swrlapi.parser.SWRLParser;
 import org.swrlapi.ui.model.SWRLAutoCompleter;
 
 /**
+ * {@inheritDoc}
+ * 
  * This class provides an implementation of some of the core functionality
- * required by a SWRL rule engine.
- * **The following code is taken from the SWRLAPI**
+ * required by a SWRL rule engine.<br>
+ * This implementation is taken from the SWRLAPI.
+ * 
  */
 public class DefaultSWRLRuleEngine implements SWRLRuleEngine {
     @NonNull

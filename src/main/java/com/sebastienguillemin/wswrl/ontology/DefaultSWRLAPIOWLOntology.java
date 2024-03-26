@@ -112,7 +112,7 @@ import org.swrlapi.ui.model.SWRLAutoCompleter;
 import org.swrlapi.ui.model.SWRLRuleEngineModel;
 
 /**
- * This class is the DefaultSWRLAPIOWLOntology from the swrlapi. The code is
+ * This class is the DefaultSWRLAPIOWLOntology from the SWRLAPI. The code is
  * exactly the same.
  * 
  * This is used to make the SWRLAPI class public (by default, the class

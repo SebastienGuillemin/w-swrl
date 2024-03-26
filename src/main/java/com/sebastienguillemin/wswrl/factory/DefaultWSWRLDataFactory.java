@@ -13,8 +13,8 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.util.OWLAPIPreconditions;
 import org.swrlapi.core.IRIResolver;
 import org.swrlapi.factory.DefaultSWRLAPIOWLDataFactory;
-import org.swrlapi.owl2rl.OWL2RLPersistenceLayer;
 
+import com.sebastienguillemin.wswrl.core.engine.WSWRLBuiltinInvoker;
 import com.sebastienguillemin.wswrl.core.factory.WSWRLDataFactory;
 import com.sebastienguillemin.wswrl.core.ontology.WSWRLOntology;
 import com.sebastienguillemin.wswrl.core.rule.WSWRLRule;
@@ -24,7 +24,7 @@ import com.sebastienguillemin.wswrl.core.rule.atom.WSWRLClassAtom;
 import com.sebastienguillemin.wswrl.core.rule.atom.WSWRLDataPropertyAtom;
 import com.sebastienguillemin.wswrl.core.rule.atom.WSWRLDifferentIndividualsAtom;
 import com.sebastienguillemin.wswrl.core.rule.atom.WSWRLObjectPropertyAtom;
-import com.sebastienguillemin.wswrl.core.rule.atom.WSWRLSameIndividualAtom;
+import com.sebastienguillemin.wswrl.core.rule.atom.WSWRLSameIndividualsAtom;
 import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLDVariable;
 import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLIVariable;
 import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLLiteralBuiltInVariable;
@@ -33,18 +33,20 @@ import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLVariableDomain;
 import com.sebastienguillemin.wswrl.exception.MissingRankException;
 import com.sebastienguillemin.wswrl.rule.DefaultWSWRLRule;
 import com.sebastienguillemin.wswrl.rule.atom.builtin.DefaultWSWRLBuiltInAtom;
-import com.sebastienguillemin.wswrl.rule.atom.builtin.WSWRLBuiltinInvoker;
 import com.sebastienguillemin.wswrl.rule.atom.property.DefaultWSWRLDataPropertyAtom;
 import com.sebastienguillemin.wswrl.rule.atom.property.DefaultWSWRLDifferentIndividualsAtom;
 import com.sebastienguillemin.wswrl.rule.atom.property.DefaultWSWRLObjectPropertyAtom;
-import com.sebastienguillemin.wswrl.rule.atom.property.DefaultWSWRLSameIndividual;
+import com.sebastienguillemin.wswrl.rule.atom.property.DefaultWSWRLSameIndividuals;
 import com.sebastienguillemin.wswrl.rule.atom.unary.DefaultWSWRLClassAtom;
-import com.sebastienguillemin.wswrl.rule.variable.DefaultWSWRLLiteralBuiltinVariable;
 import com.sebastienguillemin.wswrl.rule.variable.DefaultWSWRLDVariable;
 import com.sebastienguillemin.wswrl.rule.variable.DefaultWSWRLIVariable;
+import com.sebastienguillemin.wswrl.rule.variable.DefaultWSWRLLiteralBuiltinVariable;
 
 import uk.ac.manchester.cs.owl.owlapi.OWLObjectPropertyImpl;
 
+/**
+ * {@inheritDoc}
+ */
 public class DefaultWSWRLDataFactory extends DefaultSWRLAPIOWLDataFactory implements WSWRLDataFactory {
     private static final String ARG0_CANNOT_BE_NULL = "arg0 cannot be null";
     private static final String ARG1_CANNOT_BE_NULL = "arg1 cannot be null";
@@ -61,18 +63,6 @@ public class DefaultWSWRLDataFactory extends DefaultSWRLAPIOWLDataFactory implem
     }
 
     @Override
-    public WSWRLRule getWSWRLRule(String ruleName, Set<WSWRLAtom> head, Set<WSWRLAtom> body, boolean enabled)
-            throws MissingRankException {
-        return new DefaultWSWRLRule(ruleName, head, body, enabled);
-    }
-
-    @Override
-    public WSWRLClassAtom getWSWRLClassAtom(OWLClass predicate, @NonNull WSWRLIVariable object) {
-        OWLAPIPreconditions.checkNotNull(predicate, CLASS_PREDICATE_CANNOT_BE_NULL);
-        OWLAPIPreconditions.checkNotNull(object, ARG0_CANNOT_BE_NULL);
-        return new DefaultWSWRLClassAtom(predicate, object, null);
-    }
-
     public WSWRLVariable getWSWRLVariable(IRI iri, WSWRLVariableDomain domain) {
         OWLAPIPreconditions.checkNotNull(iri, VARIABLE_CANNOT_BE_NULL);
 
@@ -87,6 +77,19 @@ public class DefaultWSWRLDataFactory extends DefaultSWRLAPIOWLDataFactory implem
             variable = this.variables.get(iri);
 
         return variable;
+    }
+
+    @Override
+    public WSWRLRule getWSWRLRule(String ruleName, Set<WSWRLAtom> head, Set<WSWRLAtom> body, boolean enabled)
+            throws MissingRankException {
+        return new DefaultWSWRLRule(ruleName, head, body, enabled);
+    }
+
+    @Override
+    public WSWRLClassAtom getWSWRLClassAtom(OWLClass atomClass, WSWRLIVariable iVariable) {
+        OWLAPIPreconditions.checkNotNull(atomClass, CLASS_PREDICATE_CANNOT_BE_NULL);
+        OWLAPIPreconditions.checkNotNull(iVariable, ARG0_CANNOT_BE_NULL);
+        return new DefaultWSWRLClassAtom(atomClass, iVariable, null);
     }
 
     @Override
@@ -118,23 +121,22 @@ public class DefaultWSWRLDataFactory extends DefaultSWRLAPIOWLDataFactory implem
     }
 
     @Override
-    public WSWRLSameIndividualAtom getWSWRLSameIndividualsAtom(@NonNull WSWRLIVariable subject, @NonNull WSWRLIVariable object) {
+    public WSWRLSameIndividualsAtom getWSWRLSameIndividualsAtom(@NonNull WSWRLIVariable subject, @NonNull WSWRLIVariable object) {
         OWLAPIPreconditions.checkNotNull(subject, ARG0_CANNOT_BE_NULL);
         OWLAPIPreconditions.checkNotNull(object, ARG1_CANNOT_BE_NULL);
         
-        return new DefaultWSWRLSameIndividual(new OWLObjectPropertyImpl(IRI.create("http://www.w3.org/2002/07/owl#sameAs")), subject, object);
+        return new DefaultWSWRLSameIndividuals(new OWLObjectPropertyImpl(IRI.create("http://www.w3.org/2002/07/owl#sameAs")), subject, object);
     }
 
     @Override
-    public WSWRLBuiltInAtom getWSWRLBuiltInAtom(String ruleName, IRI builtInIRI, String builtInPrefixedName, List<WSWRLDVariable> arguments, WSWRLOntology ontology) {
+    public WSWRLBuiltInAtom getWSWRLBuiltInAtom(String ruleName, IRI builtInIRI, String builtInPrefixedName, List<WSWRLDVariable> variables, WSWRLOntology ontology) {
         List<WSWRLLiteralBuiltInVariable> wswrlLiteralBuiltInVariables = new ArrayList<>();
 
-        for (WSWRLDVariable argument : arguments) {
-            wswrlLiteralBuiltInVariables.add(new DefaultWSWRLLiteralBuiltinVariable(argument));
+        for (WSWRLDVariable variable : variables) {
+            wswrlLiteralBuiltInVariables.add(new DefaultWSWRLLiteralBuiltinVariable(variable));
         }
 
-        OWL2RLPersistenceLayer owl2RLPersistenceLayer = WSWRLInternalFactory.createOWL2RLPersistenceLayer(ontology.getOWLOntology());
-        WSWRLBuiltinInvoker builtinInvoker = WSWRLInternalFactory.getWSWRLlBuiltinInvoker(ontology, owl2RLPersistenceLayer);
+        WSWRLBuiltinInvoker builtinInvoker = WSWRLInternalFactory.getWSWRLlBuiltinInvoker(ontology);
 
         return new DefaultWSWRLBuiltInAtom(ruleName, builtInIRI, builtInPrefixedName, wswrlLiteralBuiltInVariables, builtinInvoker);
     }

@@ -16,6 +16,9 @@ import com.sebastienguillemin.wswrl.core.Rank;
 import com.sebastienguillemin.wswrl.core.rule.atom.WSWRLClassAtom;
 import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLIVariable;
 
+/**
+ * {@inheritDoc}
+ */
 public class DefaultWSWRLClassAtom extends AbstractWSWRLUnaryAtom<WSWRLIVariable>
         implements WSWRLClassAtom, SWRLClassAtom {
 

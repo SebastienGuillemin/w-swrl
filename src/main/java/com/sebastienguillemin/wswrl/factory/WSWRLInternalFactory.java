@@ -8,13 +8,22 @@ import org.swrlapi.factory.DefaultSWRLBridge;
 import org.swrlapi.factory.SWRLAPIInternalFactory;
 import org.swrlapi.owl2rl.OWL2RLPersistenceLayer;
 
+import com.sebastienguillemin.wswrl.core.engine.WSWRLBuiltinInvoker;
 import com.sebastienguillemin.wswrl.core.engine.WSWRLRuleEngineManager;
 import com.sebastienguillemin.wswrl.core.factory.WSWRLDataFactory;
 import com.sebastienguillemin.wswrl.core.factory.WSWRLRuleEngineFactory;
 import com.sebastienguillemin.wswrl.core.ontology.WSWRLOntology;
+import com.sebastienguillemin.wswrl.engine.DefaultWSWRLBuiltinInvoker;
+import com.sebastienguillemin.wswrl.engine.DefaultWSWRLRuleEngineManager;
 import com.sebastienguillemin.wswrl.ontology.DefaultWSWRLOntology;
-import com.sebastienguillemin.wswrl.rule.atom.builtin.WSWRLBuiltinInvoker;
 
+/**
+ * Static factory that creates requirements for other factories. Extends {@link org.swrlapi.factory.SWRLAPIInternalFactory}.
+ * 
+ * @see com.sebastienguillemin.wswrl.factory.DefaultWSWRLDataFactory
+ * @see com.sebastienguillemin.wswrl.factory.DefaultWSWRLRuleEngineFactory
+ * @see com.sebastienguillemin.wswrl.factory.WSWRLFactory
+ */
 public class WSWRLInternalFactory extends SWRLAPIInternalFactory {
     private static final WSWRLRuleEngineFactory ruleEngineFactory;
 
@@ -31,7 +40,8 @@ public class WSWRLInternalFactory extends SWRLAPIInternalFactory {
     }
 
     /**
-     * Create a {@link com.sebastienguillemin.wswrl.core.ontology.WSWRLOntology} from an
+     * Create a {@link com.sebastienguillemin.wswrl.core.ontology.WSWRLOntology}
+     * from an
      * WSWRLAPI-based
      * {@link org.swrlapi.core.SWRLAPIOWLOntology}.
      *
@@ -60,9 +70,19 @@ public class WSWRLInternalFactory extends SWRLAPIInternalFactory {
         return new DefaultWSWRLRuleEngineManager();
     }
 
-    public static WSWRLBuiltinInvoker getWSWRLlBuiltinInvoker(WSWRLOntology ontology, OWL2RLPersistenceLayer persistenceLayer) {
-        SWRLBridge bridge = new DefaultSWRLBridge(ontology, persistenceLayer);
-        WSWRLBuiltinInvoker builtinInvoker = new WSWRLBuiltinInvoker(bridge);
+    /**
+     * Creates a
+     * {@link com.sebastienguillemin.wswrl.engine.DefaultWSWRLBuiltinInvoker} from
+     * an ontolory. DefaultWSWRLBuiltinInvoker instance is a singleton instance.
+     * 
+     * @param ontology The ontology used to create the built-in invoker.
+     * @return A built-in invoer instance.
+     */
+    public static WSWRLBuiltinInvoker getWSWRLlBuiltinInvoker(WSWRLOntology ontology) {
+        OWL2RLPersistenceLayer owl2RLPersistenceLayer = WSWRLInternalFactory
+                .createOWL2RLPersistenceLayer(ontology.getOWLOntology());
+        SWRLBridge bridge = new DefaultSWRLBridge(ontology, owl2RLPersistenceLayer);
+        WSWRLBuiltinInvoker builtinInvoker = DefaultWSWRLBuiltinInvoker.getInstance(bridge);
         return builtinInvoker;
     }
 }

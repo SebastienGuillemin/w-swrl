@@ -12,7 +12,7 @@ import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLIVariable;
 import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLIndividual;
 
 /**
- * This class bind a variable to a value (represented as a string).
+ * {@inheritDoc}
  */
 public class DefaultVariableBinding implements VariableBinding {
     private HashMap<WSWRLIVariable, WSWRLIndividual> individualBindings;
@@ -44,11 +44,7 @@ public class DefaultVariableBinding implements VariableBinding {
         this.individualBindings.put(variable, value);
     }
 
-    /**
-     * Set variable values.
-     * 
-     * @param individuals
-     */
+    @Override
     public void bindVariables() {
         WSWRLIVariable individualVariable;
         WSWRLIndividual individual;

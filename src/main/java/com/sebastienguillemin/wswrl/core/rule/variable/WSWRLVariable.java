@@ -3,6 +3,9 @@ package com.sebastienguillemin.wswrl.core.rule.variable;
 import org.semanticweb.owlapi.model.HasIRI;
 import org.semanticweb.owlapi.model.SWRLArgument;
 
+/**
+ * A variable of an WSWRL rule.
+ */
 public interface WSWRLVariable extends HasIRI, SWRLArgument {
     /**
      * Returns the variable domain.

@@ -8,22 +8,22 @@ import org.swrlapi.core.IRIResolver;
 import org.swrlapi.core.SWRLRuleEngineManager;
 import org.swrlapi.drools.core.DroolsSWRLRuleEngineCreator;
 import org.swrlapi.exceptions.NoRegisteredSWRLRuleEnginesException;
-import org.swrlapi.exceptions.SWRLBuiltInException;
 import org.swrlapi.factory.SWRLAPIInternalFactory;
 import org.swrlapi.owl2rl.OWL2RLPersistenceLayer;
 
 import com.sebastienguillemin.wswrl.core.engine.TargetWSWRLRuleEngine;
-import com.sebastienguillemin.wswrl.core.engine.TargetWSWRLRuleEngineCreator;
 import com.sebastienguillemin.wswrl.core.engine.WSWRLRuleEngine;
 import com.sebastienguillemin.wswrl.core.engine.WSWRLRuleEngineManager;
+import com.sebastienguillemin.wswrl.core.factory.TargetWSWRLRuleEngineCreator;
 import com.sebastienguillemin.wswrl.core.factory.WSWRLRuleEngineFactory;
 import com.sebastienguillemin.wswrl.core.ontology.WSWRLOntology;
 import com.sebastienguillemin.wswrl.engine.DefaultWSWRLRuleEngine;
-import com.sebastienguillemin.wswrl.engine.target.DefaultTargetWSWRLRuleEngineCreator;
 import com.sebastienguillemin.wswrl.exception.NoRegisteredWSWRLRuleEnginesException;
-import com.sebastienguillemin.wswrl.exception.WSWRLBuiltInException;
 import com.sebastienguillemin.wswrl.exception.WSWRLRuleEngineException;
 
+/**
+ * {@inheritDoc}
+ */
 public class DefaultWSWRLRuleEngineFactory implements WSWRLRuleEngineFactory {
     private SWRLRuleEngineManager swrlRuleEngineManager;
     private WSWRLRuleEngineManager wswrlRuleEngineManager;
@@ -48,7 +48,7 @@ public class DefaultWSWRLRuleEngineFactory implements WSWRLRuleEngineFactory {
 
     @Override
     public WSWRLRuleEngine createWSWRLRuleEngine(OWLOntology ontology, IRIResolver iriResolver)
-            throws SWRLBuiltInException {
+            throws WSWRLRuleEngineException {
 
         String swrlRuleEngineName, wswrlRuleEngineName;
 
@@ -72,7 +72,7 @@ public class DefaultWSWRLRuleEngineFactory implements WSWRLRuleEngineFactory {
 
     @Override
     public WSWRLRuleEngine createWSWRLRuleEngine(String swrlRuleEngineName, String wswrlRuleEngineName,
-            OWLOntology OWLOntology, IRIResolver iriResolver) throws WSWRLBuiltInException {
+            OWLOntology OWLOntology, IRIResolver iriResolver) throws WSWRLRuleEngineException {
 
         try {
             WSWRLOntology WSWRLOntology = WSWRLInternalFactory.createWSWRLAPIOntology(OWLOntology, iriResolver);
@@ -89,7 +89,7 @@ public class DefaultWSWRLRuleEngineFactory implements WSWRLRuleEngineFactory {
                 TargetSWRLRuleEngine targetSWRLRuleEngine = targetSWRLRuleEngineCreator.create(bridge);
                 bridge.setTargetSWRLRuleEngine(targetSWRLRuleEngine);
 
-                TargetWSWRLRuleEngine targetWSWRLRuleEngine = targetWSWRLRuleEngineCreator.create(WSWRLOntology, bridge);
+                TargetWSWRLRuleEngine targetWSWRLRuleEngine = targetWSWRLRuleEngineCreator.create(WSWRLOntology);
 
                 WSWRLRuleEngine ruleEngine = new DefaultWSWRLRuleEngine(WSWRLOntology, targetWSWRLRuleEngine, targetSWRLRuleEngine, bridge, bridge);
                 ruleEngine.importAssertedOWLAxioms();

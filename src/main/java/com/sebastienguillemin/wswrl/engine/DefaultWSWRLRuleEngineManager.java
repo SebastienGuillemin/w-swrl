@@ -1,12 +1,15 @@
-package com.sebastienguillemin.wswrl.factory;
+package com.sebastienguillemin.wswrl.engine;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-import com.sebastienguillemin.wswrl.core.engine.TargetWSWRLRuleEngineCreator;
 import com.sebastienguillemin.wswrl.core.engine.WSWRLRuleEngineManager;
+import com.sebastienguillemin.wswrl.core.factory.TargetWSWRLRuleEngineCreator;
 
+/**
+ * {@inheritDoc}
+ */
 public class DefaultWSWRLRuleEngineManager implements WSWRLRuleEngineManager {
     private Map<String, TargetWSWRLRuleEngineCreator> registeredSWRLRuleEngines;
 

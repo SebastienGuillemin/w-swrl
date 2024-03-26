@@ -18,20 +18,42 @@ import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLIVariable;
 /**
  * {@inheritDoc}
  */
-public class DefaultWSWRLDataPropertyAtom extends AbstractWSWRLProperty<WSWRLDVariable> implements WSWRLDataPropertyAtom, SWRLDataPropertyAtom {
+public class DefaultWSWRLDataPropertyAtom extends AbstractWSWRLProperty<WSWRLDVariable>
+        implements WSWRLDataPropertyAtom, SWRLDataPropertyAtom {
 
-    public DefaultWSWRLDataPropertyAtom(OWLDataPropertyExpression property, WSWRLIVariable firstArgument, WSWRLDVariable secondArgument, Rank rank) {
-        super(property, firstArgument, secondArgument, rank);
+    /**
+     * Constructor.
+     * 
+     * @param property An
+     *                 {@link org.semanticweb.owlapi.model.OWLDataPropertyExpression}
+     *                 represnting the property.
+     * @param subject  The property subject.
+     * @param object   Th eproperty object.
+     * @param rank     The atom rank.
+     */
+    public DefaultWSWRLDataPropertyAtom(OWLDataPropertyExpression property, WSWRLIVariable subject,
+            WSWRLDVariable object, Rank rank) {
+        super(property, subject, object, rank);
         this.iri = property.asOWLDataProperty().getIRI();
     }
 
-    public DefaultWSWRLDataPropertyAtom(OWLDataPropertyExpression property, WSWRLIVariable firstArgument, WSWRLDVariable secondArgument) {
-        this(property, firstArgument, secondArgument, null);
+    /**
+     * 
+     * 
+     * @param property An
+     *                 {@link org.semanticweb.owlapi.model.OWLDataPropertyExpression}
+     *                 represnting the property.
+     * @param subject  The property subject.
+     * @param object   Th eproperty object.
+     */
+    public DefaultWSWRLDataPropertyAtom(OWLDataPropertyExpression property, WSWRLIVariable subject,
+            WSWRLDVariable object) {
+        this(property, subject, object, null);
     }
 
     @Override
     public SWRLDArgument getSecondArgument() {
-        return (SWRLDArgument) this.secondArgument;
+        return (SWRLDArgument) this.object;
     }
 
     @Nonnull

@@ -22,11 +22,24 @@ import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLIVariable;
 public class DefaultWSWRLClassAtom extends AbstractWSWRLUnaryAtom<WSWRLIVariable>
         implements WSWRLClassAtom, SWRLClassAtom {
 
+    /**
+     * Constructor.
+     * 
+     * @param classExpression An {@link org.semanticweb.owlapi.model.OWLClassExpression} representing the class atom.
+     * @param argument  The atom argument.
+     * @param rank     The atom rank.
+     */
     public DefaultWSWRLClassAtom(OWLClassExpression classExpression, WSWRLIVariable argument, Rank rank) {
         super((SWRLPredicate) classExpression, argument, rank);
         this.iri = classExpression.asOWLClass().getIRI();
     }
 
+    /**
+     * Constructor without rank (set to {@code null}).
+     * 
+     * @param classExpression An {@link org.semanticweb.owlapi.model.OWLClassExpression} representing the class atom.
+     * @param argument  The atom argument.
+     */
     public DefaultWSWRLClassAtom(OWLClassExpression classExpression, WSWRLIVariable argument) {
         this(classExpression, argument, null);
     }

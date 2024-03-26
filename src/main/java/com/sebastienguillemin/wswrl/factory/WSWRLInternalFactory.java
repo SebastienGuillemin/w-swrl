@@ -18,7 +18,8 @@ import com.sebastienguillemin.wswrl.engine.DefaultWSWRLRuleEngineManager;
 import com.sebastienguillemin.wswrl.ontology.DefaultWSWRLOntology;
 
 /**
- * Static factory that creates requirements for other factories. Extends {@link org.swrlapi.factory.SWRLAPIInternalFactory}.
+ * Static factory that creates requirements for other factories. Extends
+ * {@link org.swrlapi.factory.SWRLAPIInternalFactory}.
  * 
  * @see com.sebastienguillemin.wswrl.factory.DefaultWSWRLDataFactory
  * @see com.sebastienguillemin.wswrl.factory.DefaultWSWRLRuleEngineFactory
@@ -26,9 +27,27 @@ import com.sebastienguillemin.wswrl.ontology.DefaultWSWRLOntology;
  */
 public class WSWRLInternalFactory extends SWRLAPIInternalFactory {
     private static final WSWRLRuleEngineFactory ruleEngineFactory;
+    private static SWRLBridge swrlBridge;
 
     static {
         ruleEngineFactory = new DefaultWSWRLRuleEngineFactory();
+    }
+
+    /**
+     * Returns a bridge instance. This instance is a singleton and ensures that a
+     * unique bridge is used in the application.
+     * 
+     * @param ontology THe ontology used to create the bridge.
+     * @return The bridge instance.
+     */
+    public static SWRLBridge getBridge(WSWRLOntology ontology) {
+        if (swrlBridge == null) {
+            OWL2RLPersistenceLayer owl2RLPersistenceLayer = WSWRLInternalFactory
+                    .createOWL2RLPersistenceLayer(ontology.getOWLOntology());
+            swrlBridge = new DefaultSWRLBridge(ontology, owl2RLPersistenceLayer);
+        }
+
+        return swrlBridge;
     }
 
     /**
@@ -79,10 +98,7 @@ public class WSWRLInternalFactory extends SWRLAPIInternalFactory {
      * @return A built-in invoer instance.
      */
     public static WSWRLBuiltinInvoker getWSWRLlBuiltinInvoker(WSWRLOntology ontology) {
-        OWL2RLPersistenceLayer owl2RLPersistenceLayer = WSWRLInternalFactory
-                .createOWL2RLPersistenceLayer(ontology.getOWLOntology());
-        SWRLBridge bridge = new DefaultSWRLBridge(ontology, owl2RLPersistenceLayer);
-        WSWRLBuiltinInvoker builtinInvoker = DefaultWSWRLBuiltinInvoker.getInstance(bridge);
+        WSWRLBuiltinInvoker builtinInvoker = DefaultWSWRLBuiltinInvoker.getInstance(getBridge(ontology));
         return builtinInvoker;
     }
 }

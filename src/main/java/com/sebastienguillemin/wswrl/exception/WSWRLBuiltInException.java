@@ -6,7 +6,10 @@ import org.swrlapi.exceptions.SWRLBuiltInException;
 public class WSWRLBuiltInException extends SWRLBuiltInException {
     private static final long serialVersionUID = 1L;
 
-    public WSWRLBuiltInException() {
+    /**
+  * Default constructor.
+  */
+public WSWRLBuiltInException() {
         super();
     }
 

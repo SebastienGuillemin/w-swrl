@@ -5,11 +5,15 @@ import org.checkerframework.dataflow.qual.SideEffectFree;
 
 /**
  * Defines a basic token class used by the
- * {@link org.swrlapi.parser.SWRLTokenizer} and
- * {@link org.swrlapi.parser.SWRLParser}.
+ * {@link com.sebastienguillemin.wswrl.parser.WSWRLToken} and
+ * {@link com.sebastienguillemin.wswrl.parser.WSWRLTokenizer}.
+ * 
+ * <br><br>
+ * 
+ * Code adapted from the SWRL API.
  *
- * @see org.swrlapi.parser.SWRLTokenizer
- * @see org.swrlapi.parser.SWRLParser
+ * @see com.sebastienguillemin.wswrl.parser.WSWRLToken
+ * @see com.sebastienguillemin.wswrl.parser.WSWRLTokenizer
  */
 class WSWRLToken {
     @NonNull

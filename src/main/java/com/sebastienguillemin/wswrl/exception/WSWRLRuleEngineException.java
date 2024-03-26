@@ -3,6 +3,9 @@ package com.sebastienguillemin.wswrl.exception;
 import org.swrlapi.exceptions.SWRLRuleEngineException;
 
 public class WSWRLRuleEngineException extends SWRLRuleEngineException {
+    /**
+     * Default constructor.
+     */
     public WSWRLRuleEngineException() {
         super();
     }

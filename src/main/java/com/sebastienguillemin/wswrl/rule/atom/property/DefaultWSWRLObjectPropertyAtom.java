@@ -21,20 +21,39 @@ import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLIVariable;
 public class DefaultWSWRLObjectPropertyAtom extends AbstractWSWRLProperty<WSWRLIVariable>
         implements WSWRLObjectPropertyAtom, SWRLObjectPropertyAtom {
 
-    public DefaultWSWRLObjectPropertyAtom(OWLObjectPropertyExpression property, WSWRLIVariable firstArgument,
-            WSWRLIVariable secondArgument, Rank rank) {
-        super(property, firstArgument, secondArgument, rank);
+    /**
+     * Constructor.
+     * 
+     * @param property An
+     *                 {@link org.semanticweb.owlapi.model.OWLDataPropertyExpression}
+     *                 represnting the property.
+     * @param subject  The property subject.
+     * @param object   Th eproperty object.
+     * @param rank     The atom rank.
+     */
+    public DefaultWSWRLObjectPropertyAtom(OWLObjectPropertyExpression property, WSWRLIVariable subject,
+            WSWRLIVariable object, Rank rank) {
+        super(property, subject, object, rank);
         this.iri = property.asOWLObjectProperty().getIRI();
 
     }
 
-    public DefaultWSWRLObjectPropertyAtom(OWLObjectPropertyExpression property, WSWRLIVariable firstArgument,
-            WSWRLIVariable secondArgument) {
-        this(property, firstArgument, secondArgument, null);
+    /**
+     * Constructor without rank (set to {@code null}).
+     * 
+     * @param property An
+     *                 {@link org.semanticweb.owlapi.model.OWLDataPropertyExpression}
+     *                 represnting the property.
+     * @param subject  The property subject.
+     * @param object   Th eproperty object.
+     */
+    public DefaultWSWRLObjectPropertyAtom(OWLObjectPropertyExpression property, WSWRLIVariable subject,
+            WSWRLIVariable object) {
+        this(property, subject, object, null);
     }
 
     public SWRLIArgument getSecondArgument() {
-        return (SWRLIArgument) this.secondArgument;
+        return (SWRLIArgument) this.object;
     }
 
     @Nonnull

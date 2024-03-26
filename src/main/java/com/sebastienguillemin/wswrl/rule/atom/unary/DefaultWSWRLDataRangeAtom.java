@@ -20,9 +20,26 @@ import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLDVariable;
  */
 public class DefaultWSWRLDataRangeAtom extends AbstractWSWRLUnaryAtom<WSWRLDVariable> implements WSWRLDataRangeAtom, SWRLDataRangeAtom {
 
+    /**
+     * Constructor.
+     * 
+     * @param dataRange An {@link org.semanticweb.owlapi.model.OWLDataRange} representing tha cata range atom.
+     * @param argument  The atom argument.
+     * @param rank     The atom rank.
+     */
     public DefaultWSWRLDataRangeAtom(OWLDataRange dataRange, WSWRLDVariable argument, Rank rank) {
         super(dataRange, argument, rank);
         this.iri = dataRange.asOWLDatatype().getIRI();
+    }
+
+    /**
+     * Constructor without rank (set to {@code null}).
+     * 
+     * @param dataRange An {@link org.semanticweb.owlapi.model.OWLDataRange} representing tha cata range atom.
+     * @param argument  The atom argument.
+     */
+    public DefaultWSWRLDataRangeAtom(OWLDataRange dataRange, WSWRLDVariable argument) {
+        this(dataRange, argument, null);
     }
 
     public SWRLDArgument getArgument() {

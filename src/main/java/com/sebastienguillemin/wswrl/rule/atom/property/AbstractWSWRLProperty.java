@@ -26,48 +26,48 @@ import com.sebastienguillemin.wswrl.rule.atom.AbstractWSWRLAtom;
  */
 public abstract class AbstractWSWRLProperty<ObjectType extends WSWRLVariable> extends AbstractWSWRLAtom
         implements WSWRLPropertyAtom<ObjectType> {
-    protected WSWRLIVariable firstArgument;
-    protected ObjectType secondArgument;
-
-    protected AbstractWSWRLProperty(SWRLPredicate property, WSWRLIVariable firstArgument, ObjectType secondArgument,
+    protected WSWRLIVariable subject;
+    protected ObjectType object;
+    
+    protected AbstractWSWRLProperty(SWRLPredicate property, WSWRLIVariable subject, ObjectType object,
             Rank rank) {
         super(property, rank);
-        this.firstArgument = firstArgument;
-        this.secondArgument = secondArgument;
+        this.subject = subject;
+        this.object = object;
     }
 
     public SWRLIArgument getFirstArgument() {
-        return (SWRLIArgument) this.firstArgument;
+        return (SWRLIArgument) this.subject;
     }
 
     @Override
     public WSWRLIVariable getSubject() {
-        return this.firstArgument;
+        return this.subject;
     }
 
     @Override
     public ObjectType getObject() {
-        return this.secondArgument;
+        return this.object;
     }
 
     @Override
     public void addSignatureEntitiesToSet(Set<OWLEntity> entities) {
-        addSignatureEntitiesToSetForValue(entities, this.firstArgument);
-        addSignatureEntitiesToSetForValue(entities, this.secondArgument);
+        addSignatureEntitiesToSetForValue(entities, this.subject);
+        addSignatureEntitiesToSetForValue(entities, this.object);
     }
 
     @Override
     public void addAnonymousIndividualsToSet(Set<OWLAnonymousIndividual> anons) {
-        addAnonymousIndividualsToSetForValue(anons, this.firstArgument);
-        addAnonymousIndividualsToSetForValue(anons, this.secondArgument);
+        addAnonymousIndividualsToSetForValue(anons, this.subject);
+        addAnonymousIndividualsToSetForValue(anons, this.object);
     }
 
     @Nonnull
     @Override
     public Collection<SWRLArgument> getAllArguments() {
         List<SWRLArgument> objs = new ArrayList<>();
-        objs.add(this.firstArgument);
-        objs.add(this.secondArgument);
+        objs.add(this.subject);
+        objs.add(this.object);
         return objs;
     }
 
@@ -79,10 +79,10 @@ public abstract class AbstractWSWRLProperty<ObjectType extends WSWRLVariable> ex
         if (diff != 0) {
             return diff;
         }
-        diff = this.firstArgument.compareTo(other.getFirstArgument());
+        diff = this.subject.compareTo(other.getFirstArgument());
         if (diff != 0) {
             return diff;
         }
-        return this.secondArgument.compareTo(other.getSecondArgument());
+        return this.object.compareTo(other.getSecondArgument());
     }
 }

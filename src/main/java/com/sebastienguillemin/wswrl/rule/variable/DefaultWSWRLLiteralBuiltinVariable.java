@@ -49,16 +49,20 @@ import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLLiteralBuiltInVariab
 import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLVariableDomain;
 import com.sebastienguillemin.wswrl.exception.WSWRLBuiltInException;
 
-
 /**
  * {@inheritDoc}
- *  The code is taken from the SWRL API.
+ * The code is taken from the SWRL API.
  */
 public class DefaultWSWRLLiteralBuiltinVariable implements WSWRLLiteralBuiltInVariable {
     private static final Comparator<OWLLiteral> owlLiteralComparator = OWLLiteralComparator.COMPARATOR;
     private WSWRLDVariable wswrldVariable;
     private String boundVariableName = null;
 
+    /**
+     * Constructor.
+     * 
+     * @param wswrldVariable the built-in variable.
+     */
     public DefaultWSWRLLiteralBuiltinVariable(WSWRLDVariable wswrldVariable) {
         this.wswrldVariable = wswrldVariable;
     }

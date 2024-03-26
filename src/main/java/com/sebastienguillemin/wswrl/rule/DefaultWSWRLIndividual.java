@@ -21,6 +21,12 @@ public class DefaultWSWRLIndividual extends OWLNamedIndividualImpl implements WS
     private Set<OWLObjectPropertyAssertionAxiom> objectProperties;
     private Set<OWLDataPropertyAssertionAxiom> dataProperties;
 
+    /**
+     * Constructor.
+     * 
+     * @param owlNamedIndividual An OWL named individual used to create this WSWRL
+     *                           individual.
+     */
     public DefaultWSWRLIndividual(OWLNamedIndividual owlNamedIndividual) {
         super(owlNamedIndividual.getIRI());
         this.classes = new HashSet<>();

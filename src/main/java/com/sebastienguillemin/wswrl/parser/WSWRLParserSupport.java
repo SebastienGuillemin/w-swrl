@@ -36,6 +36,15 @@ import com.sebastienguillemin.wswrl.exception.MissingRankException;
 import com.sebastienguillemin.wswrl.exception.WSWRLParseException;
 import com.sebastienguillemin.wswrl.rule.variable.DefaultWSWRLDVariable;
 
+/**
+ * Provides support methods used by the {@link com.sebastienguillemin.wswrl.parser.WSWRLParser}.
+ * 
+ * <br><br>
+ * 
+ * Code adapted from the SWRL API.
+ *
+ * @see com.sebastienguillemin.wswrl.parser.WSWRLParser
+ */
 public class WSWRLParserSupport {
     @NonNull
     private final WSWRLOntology wswrlOntology;

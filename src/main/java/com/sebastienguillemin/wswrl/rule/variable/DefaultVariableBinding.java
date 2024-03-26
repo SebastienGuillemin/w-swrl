@@ -18,11 +18,18 @@ public class DefaultVariableBinding implements VariableBinding {
     private HashMap<WSWRLIVariable, WSWRLIndividual> individualBindings;
     private HashMap<WSWRLDVariable, OWLLiteral> dataBindings;
 
+    /**
+     * Default constructor.
+     */
     public DefaultVariableBinding() {
         this.dataBindings = new HashMap<>();
         this.individualBindings = new HashMap<>();
     }
 
+    /**
+     * Copy constructor.
+     * @param binding Another {@link DefaultVariableBinding} to copy.
+     */
     public DefaultVariableBinding(DefaultVariableBinding binding) {
         this();
 

@@ -39,6 +39,10 @@ public class DefaultTargetWSWRLRuleEngine implements TargetWSWRLRuleEngine {
 
     private Hashtable<IRI, WSWRLIndividual> individuals;
 
+    /**
+     * Constructor.
+     * @param WSWRLOntology The ontology to used to create the target rule engine.
+     */
     public DefaultTargetWSWRLRuleEngine(WSWRLOntology WSWRLOntology) {
         this.wswrlOntology = WSWRLOntology;
 

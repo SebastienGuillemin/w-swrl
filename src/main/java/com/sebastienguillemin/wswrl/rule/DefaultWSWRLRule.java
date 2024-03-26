@@ -14,7 +14,6 @@ import com.sebastienguillemin.wswrl.exception.WeightCalculationException;
 
 import lombok.Getter;
 
-
 /**
  * {@inheritDoc}
  */
@@ -40,6 +39,15 @@ public class DefaultWSWRLRule implements WSWRLRule {
     private SortedSet<Integer> rankIndexes;
     private float[] globalRankWeights;
 
+    /**
+     * Constructor.
+     * 
+     * @param ruleName The rule name.
+     * @param head     WSWRL head atoms.
+     * @param body     WSWRL body atoms.
+     * @param enabled  Whether the rule is enable or not.
+     * @throws MissingRankException
+     */
     public DefaultWSWRLRule(String ruleName, Set<WSWRLAtom> head, Set<WSWRLAtom> body, boolean enabled)
             throws MissingRankException {
         this.ruleName = ruleName;
@@ -116,8 +124,7 @@ public class DefaultWSWRLRule implements WSWRLRule {
             if (!atom.isValuable()) {
                 System.out.println("Atom " + atom + " is not valuable.");
                 confidence -= atom.getWeight();
-            }
-            else if(!atom.evaluate()) {
+            } else if (!atom.evaluate()) {
                 System.out.println("Atom " + atom + " is valuable but evaluate to false.");
                 confidence -= atom.getWeight();
             }

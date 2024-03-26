@@ -30,6 +30,10 @@ public class DefaultWSWRLBuiltinInvoker implements WSWRLBuiltinInvoker {
 
     private SWRLBridge bridge;
 
+    /**
+     * Constructor.
+     * @param bridge The bridge used to invoke built-ins.
+     */
     private DefaultWSWRLBuiltinInvoker(SWRLBridge bridge) {
         this.bridge = bridge;
     }

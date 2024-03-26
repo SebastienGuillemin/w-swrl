@@ -18,28 +18,43 @@ import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLIVariable;
  */
 public class DefaultWSWRLSameIndividuals extends AbstractWSWRLProperty<WSWRLIVariable> implements WSWRLSameIndividualsAtom, SWRLSameIndividualAtom {
 
-    public DefaultWSWRLSameIndividuals(SWRLPredicate property, WSWRLIVariable firstArgument,
-            WSWRLIVariable secondArgument, Rank rank) {
-        super(property, firstArgument, secondArgument, rank);
+    /**
+     * Constructor.
+     * @param property The atom predicate.
+     * @param subject The property subject.
+     * @param object The property object.
+     * @param rank The atom rank.
+     */
+    public DefaultWSWRLSameIndividuals(SWRLPredicate property, WSWRLIVariable subject,
+            WSWRLIVariable object, Rank rank) {
+        super(property, subject, object, rank);
     }
 
-    public DefaultWSWRLSameIndividuals(SWRLPredicate property, WSWRLIVariable firstArgument, WSWRLIVariable secondArgument) {
-        this(property, firstArgument, secondArgument, null);
+    /**
+     * Constructor without rank (set to {@code null}).
+     * 
+     * @param property The atom predicate. TODO : maybe remove this parameter.
+     *                 represnting the property.
+     * @param subject  The property subject.
+     * @param object   Th eproperty object.
+     */
+    public DefaultWSWRLSameIndividuals(SWRLPredicate property, WSWRLIVariable subject, WSWRLIVariable object) {
+        this(property, subject, object, null);
     }
 
     @Override
     public boolean isValuable() {
-        return this.firstArgument.getValue() != null && this.secondArgument.getValue() != null;
+        return this.subject.getValue() != null && this.object.getValue() != null;
     }
 
     @Override
     public boolean evaluate() {
-        return this.firstArgument.getValue().equals(this.secondArgument.getValue());
+        return this.subject.getValue().equals(this.object.getValue());
     }
 
     @Override
     public SWRLIArgument getSecondArgument() {
-        return (SWRLIArgument) this.secondArgument;
+        return (SWRLIArgument) this.object;
     }
 
     @Override

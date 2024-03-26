@@ -8,8 +8,6 @@ import org.swrlapi.core.IRIResolver;
 import org.swrlapi.core.SWRLRuleEngineManager;
 import org.swrlapi.drools.core.DroolsSWRLRuleEngineCreator;
 import org.swrlapi.exceptions.NoRegisteredSWRLRuleEnginesException;
-import org.swrlapi.factory.SWRLAPIInternalFactory;
-import org.swrlapi.owl2rl.OWL2RLPersistenceLayer;
 
 import com.sebastienguillemin.wswrl.core.engine.TargetWSWRLRuleEngine;
 import com.sebastienguillemin.wswrl.core.engine.WSWRLRuleEngine;
@@ -28,6 +26,9 @@ public class DefaultWSWRLRuleEngineFactory implements WSWRLRuleEngineFactory {
     private SWRLRuleEngineManager swrlRuleEngineManager;
     private WSWRLRuleEngineManager wswrlRuleEngineManager;
 
+    /**
+     * Default constructor.
+     */
     public DefaultWSWRLRuleEngineFactory() {
         this.swrlRuleEngineManager = WSWRLInternalFactory.createSWRLRuleEngineManager();
         this.registerSWRLRuleEngine(new DroolsSWRLRuleEngineCreator());
@@ -77,9 +78,7 @@ public class DefaultWSWRLRuleEngineFactory implements WSWRLRuleEngineFactory {
         try {
             WSWRLOntology WSWRLOntology = WSWRLInternalFactory.createWSWRLAPIOntology(OWLOntology, iriResolver);
 
-            OWL2RLPersistenceLayer owl2RLPersistenceLayer = WSWRLInternalFactory.createOWL2RLPersistenceLayer(OWLOntology);
-
-            SWRLBridge bridge = SWRLAPIInternalFactory.createSWRLBridge(WSWRLOntology, owl2RLPersistenceLayer);
+            SWRLBridge bridge = WSWRLInternalFactory.getBridge(WSWRLOntology);
             
             TargetSWRLRuleEngineCreator targetSWRLRuleEngineCreator = this.swrlRuleEngineManager.getRegisteredRuleEngineCreator(swrlRuleEngineName).get();
             TargetWSWRLRuleEngineCreator targetWSWRLRuleEngineCreator = this.wswrlRuleEngineManager.getRegisteredRuleEngineCreator(wswrlRuleEngineName);

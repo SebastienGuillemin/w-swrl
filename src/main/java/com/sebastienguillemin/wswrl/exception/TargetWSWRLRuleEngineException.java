@@ -4,6 +4,9 @@ import org.checkerframework.checker.nullness.qual.NonNull;
 import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
 
 public class TargetWSWRLRuleEngineException extends TargetSWRLRuleEngineException {
+    /**
+     * Default constructor.
+     */
     public TargetWSWRLRuleEngineException() {
         super();
     }

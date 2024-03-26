@@ -7,6 +7,8 @@ import java.util.Optional;
 import java.util.Set;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
+import org.swrlapi.core.SWRLAPIOWLOntology;
+import org.swrlapi.parser.SWRLParser;
 
 import com.sebastienguillemin.wswrl.core.Rank;
 import com.sebastienguillemin.wswrl.core.ontology.WSWRLOntology;
@@ -28,7 +30,12 @@ import com.sebastienguillemin.wswrl.exception.WSWRLParseException;
 import com.sebastienguillemin.wswrl.rank.DefaultRank;
 
 
-public class WSWRLParser {
+/**
+ * A WSWRL parser that extends the SWRL API Parser.
+ * 
+ * @see org.swrlapi.parser.SWRLParser
+ */
+public class WSWRLParser extends SWRLParser {
     public final static char CONJUNCTION_CHAR = '^';
     public final static String IMP_COMBINATION = "->";
     public final static char RING_CHAR = '\u02da'; // .
@@ -51,6 +58,7 @@ public class WSWRLParser {
     private final Hashtable<Integer, Rank> ranks;
 
     public WSWRLParser(@NonNull WSWRLOntology wswrlOntology) {
+        super((SWRLAPIOWLOntology) wswrlOntology);
         this.wswrlParserSupport = new WSWRLParserSupport(wswrlOntology);
         this.ranks = new Hashtable<>();
     }

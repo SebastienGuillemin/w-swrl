@@ -13,6 +13,9 @@ import com.sebastienguillemin.wswrl.core.factory.TargetWSWRLRuleEngineCreator;
 public class DefaultWSWRLRuleEngineManager implements WSWRLRuleEngineManager {
     private Map<String, TargetWSWRLRuleEngineCreator> registeredSWRLRuleEngines;
 
+    /**
+     * Default constructor.
+     */
     public DefaultWSWRLRuleEngineManager() {
         this.registeredSWRLRuleEngines = new HashMap<>();
     }
@@ -54,7 +57,6 @@ public class DefaultWSWRLRuleEngineManager implements WSWRLRuleEngineManager {
             return null;
     }
 
-    
     @Override
     public Set<String> getRegisteredRuleEngineNames() {
         return this.registeredSWRLRuleEngines.keySet();

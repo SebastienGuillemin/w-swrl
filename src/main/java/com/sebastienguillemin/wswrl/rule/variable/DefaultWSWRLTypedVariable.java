@@ -8,7 +8,6 @@ import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLVariableDomain;
 import lombok.Getter;
 import lombok.Setter;
 
-
 /**
  * {@inheritDoc}
  */
@@ -17,11 +16,11 @@ public abstract class DefaultWSWRLTypedVariable<T> extends DefaultWSWRLVariable 
     @Setter
     protected T value;
 
-    public DefaultWSWRLTypedVariable(IRI iri, WSWRLVariableDomain domain) {
+    protected DefaultWSWRLTypedVariable(IRI iri, WSWRLVariableDomain domain) {
         super(iri, domain);
     }
 
-    public DefaultWSWRLTypedVariable(IRI iri, WSWRLVariableDomain domain, T value) {
+    protected DefaultWSWRLTypedVariable(IRI iri, WSWRLVariableDomain domain, T value) {
         this(iri, WSWRLVariableDomain.DATA);
         this.value = value;
     }

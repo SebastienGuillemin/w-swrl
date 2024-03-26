@@ -43,9 +43,20 @@ public class DefaultWSWRLBuiltInAtom implements WSWRLBuiltInAtom {
     @Setter
     private float weight;
 
-    
+    /**
+     * Constructor.
+     * 
+     * @param ruleName            The rule name of the built-in atom.
+     * @param builtInIRI          Buit-in IRI.
+     * @param builtInPrefixedName The built-in prefixed name (eg. swrlb:contains).
+     * @param variables           List of
+     *                            {@link com.sebastienguillemin.wswrl.core.rule.variable.WSWRLLiteralBuiltInVariable}
+     *                            representing the atom variables.s
+     * @param builtinInvoker      The built-in invoker used to invoke this built-in.
+     * @param rank                The atom rank.
+     */
     public DefaultWSWRLBuiltInAtom(String ruleName, IRI builtInIRI, String builtInPrefixedName,
-            List<WSWRLLiteralBuiltInVariable> variables, WSWRLBuiltinInvoker builtinInvoker, 
+            List<WSWRLLiteralBuiltInVariable> variables, WSWRLBuiltinInvoker builtinInvoker,
             Rank rank) {
         this.ruleName = ruleName;
         this.IRI = builtInIRI;
@@ -54,9 +65,9 @@ public class DefaultWSWRLBuiltInAtom implements WSWRLBuiltInAtom {
         this.variables = variables;
         this.builtinInvoker = builtinInvoker;
     }
-    
+
     public DefaultWSWRLBuiltInAtom(String ruleName, IRI builtInIRI, String builtInPrefixedName,
-    List<WSWRLLiteralBuiltInVariable> variables, WSWRLBuiltinInvoker builtinInvoker) {
+            List<WSWRLLiteralBuiltInVariable> variables, WSWRLBuiltinInvoker builtinInvoker) {
         this(ruleName, builtInIRI, builtInPrefixedName, variables, builtinInvoker, null);
     }
 

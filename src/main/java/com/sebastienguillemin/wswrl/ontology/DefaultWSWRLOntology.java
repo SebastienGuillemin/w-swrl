@@ -24,6 +24,11 @@ public class DefaultWSWRLOntology extends DefaultSWRLAPIOWLOntology implements W
     private final Map<String, WSWRLRule> wswrlRules;
     private WSWRLDataFactory wswrlDataFactory;
 
+    /**
+     * Constructor.
+     * @param ontology An OWL ontology (used by the super class {@link DefaultSWRLAPIOWLOntology}).
+     * @param iriResolver An IRI resolver (used by the super class {@link DefaultSWRLAPIOWLOntology}).
+     */
     public DefaultWSWRLOntology(OWLOntology ontology, IRIResolver iriResolver) {
         super(ontology, iriResolver);
         this.wswrlRules = new HashMap<>();

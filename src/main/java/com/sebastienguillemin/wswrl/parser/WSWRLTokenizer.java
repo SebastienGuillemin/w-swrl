@@ -17,23 +17,14 @@ import com.sebastienguillemin.wswrl.exception.WSWRLIncompleteRuleException;
 import com.sebastienguillemin.wswrl.exception.WSWRLParseException;
 
 /**
- * Tokenizer generates a
- * {@link com.sebastienguillemin.wswrl.exception.WSWRLParseException}
- * for
- * invalid input and a
- * {@link org.swrlapi.parser.SWRLIncompleteRuleException} (which is a subclass
- * of
- * {@link com.sebastienguillemin.wswrl.exception.WSWRLParseException})
- * for valid but incomplete
- * input.
- *
- * ***Note :* a part of the code of this class is directly taken from the
- * open-source class: {@link org.swrlapi.parser.SWRLTokenizer}.**
+ * A used by the WSWRL parser to parse WSWRL rules. This tokenizer relies WSWRL tokens.
  * 
- * @see org.swrlapi.parser.WSWRLToken
- * @see org.swrlapi.parser.SWRLParser
- * @see com.sebastienguillemin.wswrl.exception.WSWRLParseException
- * @see org.swrlapi.parser.SWRLIncompleteRuleException
+ * <br><br>
+ * 
+ * This code is adapted for the SWRL API.
+ * 
+ * @see com.sebastienguillemin.wswrl.parser.WSWRLParser
+ * @see com.sebastienguillemin.wswrl.parser.WSWRLToken
  */
 class WSWRLTokenizer {
     @NonNull

@@ -53,6 +53,18 @@ public class DefaultSWRLRuleEngine implements SWRLRuleEngine {
     @NonNull
     private final SWRLRuleEngineBridgeController ruleEngineBridgeController;
 
+    /**
+     * Constructor.
+     * 
+     * @param swrlapiOWLOntology         The ontology to use to create the rule
+     *                                   engine.
+     * @param targetSWRLRuleEngine       The inner target rule engine.
+     * @param ruleEngineBridgeController Bridge controller used by the inner SWRL
+     *                                   rule engine.
+     * @param builtInBridgeController    Built-in bridge controller used by the
+     *                                   inner SWRl rule engine.
+     * @throws SWRLRuleEngineException
+     */
     public DefaultSWRLRuleEngine(@NonNull SWRLAPIOWLOntology swrlapiOWLOntology,
             @NonNull TargetSWRLRuleEngine targetSWRLRuleEngine,
             @NonNull SWRLRuleEngineBridgeController ruleEngineBridgeController,

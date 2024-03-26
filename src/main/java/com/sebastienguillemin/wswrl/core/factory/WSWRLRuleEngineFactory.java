@@ -15,7 +15,7 @@ import com.sebastienguillemin.wswrl.exception.WSWRLRuleEngineException;
 public interface WSWRLRuleEngineFactory {
     /**
      * Creates new WSWRL rule engine. Relies on
-     * {@link com.sebastienguillemin.wswrl.core.factory.WSWRLRuleEngineFactory#createWSWRLRuleEngine(String, String, OWLOntology, IRIResolver)}.
+     * {@link com.sebastienguillemin.wswrl.core.factory.WSWRLRuleEngineFactory#createWSWRLRuleEngine(String, String, OWLOntology, IRIResolver, OWLOntologyManager)}.
      * This methos find automatically available SWRL and WSWRL target rule
      * engines.
      * 
@@ -24,6 +24,7 @@ public interface WSWRLRuleEngineFactory {
      * 
      * @param ontology    The ontology for which the engine is created.
      * @param iriResolver The IRI resolver used by the rule engine.
+     * @param ontologyManager An ontology manager used by a WSWRL target rule engine to save inferred axioms.
      * @return A new rule engine instance.
      * @throws WSWRLRuleEngineException If an error occurs.
      */
@@ -36,6 +37,7 @@ public interface WSWRLRuleEngineFactory {
      * @param wswrlRuleEngineName The target WSWRL rule engine name.
      * @param ontology            The ontology for which the engine is created.
      * @param iriResolver         The IRI resolver used by the rule engine.
+     * @param ontologyManager An ontology manager used by a WSWRL target rule engine to save inferred axioms.
      * @return A new rule engine instance.
      * @throws WSWRLRuleEngineException If an error occurs.
      */

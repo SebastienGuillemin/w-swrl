@@ -21,12 +21,8 @@ mvn clean install exec:java
 ```
 
 # Implementation details
-## Class diagram
-The [following figure ](#class_diagram) presents the project class diagram. Further changes may be made to the diagram in the future.
-
-|<a name="class_diagram">[ ![Class diagram](doc/class_diagram.png) ](doc/class_diagram.png)</a>|
-|:--:| 
-| *Project class diagram. Click on the picture to access the enlarge version (you will be redirected to "/doc"*). |
+## JavaDoc
+The project JavaDoc is available <a href="https://sebastienguillemin.github.io/w-swrl/">here</a>.
 
 ## Dependencies
 This project depends on the following packages:

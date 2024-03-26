@@ -1,6 +1,7 @@
 package com.sebastienguillemin.wswrl.factory;
 
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.swrlapi.bridge.SWRLBridge;
 import org.swrlapi.bridge.TargetSWRLRuleEngine;
 import org.swrlapi.bridge.TargetSWRLRuleEngineCreator;
@@ -48,7 +49,7 @@ public class DefaultWSWRLRuleEngineFactory implements WSWRLRuleEngineFactory {
     }
 
     @Override
-    public WSWRLRuleEngine createWSWRLRuleEngine(OWLOntology ontology, IRIResolver iriResolver)
+    public WSWRLRuleEngine createWSWRLRuleEngine(OWLOntology ontology, IRIResolver iriResolver, OWLOntologyManager ontologyManager)
             throws WSWRLRuleEngineException {
 
         String swrlRuleEngineName, wswrlRuleEngineName;
@@ -66,14 +67,14 @@ public class DefaultWSWRLRuleEngineFactory implements WSWRLRuleEngineFactory {
             throw new NoRegisteredWSWRLRuleEnginesException();
 
         if (swrlRuleEngineName != null && wswrlRuleEngineName != null)
-            return createWSWRLRuleEngine(swrlRuleEngineName, wswrlRuleEngineName, ontology, iriResolver);
+            return createWSWRLRuleEngine(swrlRuleEngineName, wswrlRuleEngineName, ontology, iriResolver, ontologyManager);
         else
             throw new NoRegisteredWSWRLRuleEnginesException();
     }
 
     @Override
     public WSWRLRuleEngine createWSWRLRuleEngine(String swrlRuleEngineName, String wswrlRuleEngineName,
-            OWLOntology OWLOntology, IRIResolver iriResolver) throws WSWRLRuleEngineException {
+            OWLOntology OWLOntology, IRIResolver iriResolver, OWLOntologyManager ontologyManager) throws WSWRLRuleEngineException {
 
         try {
             WSWRLOntology WSWRLOntology = WSWRLInternalFactory.createWSWRLAPIOntology(OWLOntology, iriResolver);
@@ -88,7 +89,7 @@ public class DefaultWSWRLRuleEngineFactory implements WSWRLRuleEngineFactory {
                 TargetSWRLRuleEngine targetSWRLRuleEngine = targetSWRLRuleEngineCreator.create(bridge);
                 bridge.setTargetSWRLRuleEngine(targetSWRLRuleEngine);
 
-                TargetWSWRLRuleEngine targetWSWRLRuleEngine = targetWSWRLRuleEngineCreator.create(WSWRLOntology);
+                TargetWSWRLRuleEngine targetWSWRLRuleEngine = targetWSWRLRuleEngineCreator.create(WSWRLOntology, ontologyManager);
 
                 WSWRLRuleEngine ruleEngine = new DefaultWSWRLRuleEngine(WSWRLOntology, targetWSWRLRuleEngine, targetSWRLRuleEngine, bridge, bridge);
                 ruleEngine.importAssertedOWLAxioms();

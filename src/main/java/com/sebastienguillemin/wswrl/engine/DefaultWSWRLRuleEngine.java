@@ -33,8 +33,8 @@ public class DefaultWSWRLRuleEngine extends DefaultSWRLRuleEngine implements WSW
         super(ontology, targetSWRLRuleEngine, ruleEngineBridgeController, builtInBridgeController);
 
         this.wswrlOntology = ontology;
-        this.targetWSWRLRuleEngine = targetWSWRLRuleEngine;
         this.wswrlRules = new Hashtable<>();
+        this.targetWSWRLRuleEngine = targetWSWRLRuleEngine;
     }
 
     @Override

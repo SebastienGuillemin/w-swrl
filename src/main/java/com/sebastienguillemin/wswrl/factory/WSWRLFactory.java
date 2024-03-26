@@ -1,6 +1,7 @@
 package com.sebastienguillemin.wswrl.factory;
 
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.swrlapi.core.IRIResolver;
 import org.swrlapi.exceptions.SWRLBuiltInException;
 import org.swrlapi.exceptions.SWRLRuleEngineException;
@@ -26,9 +27,9 @@ public class WSWRLFactory extends SWRLAPIFactory {
      * @throws SWRLRuleEngineException If an error occurs during rule engine
      *                                 creation
      */
-    public static WSWRLRuleEngine createWSWRLRuleEngine(OWLOntology ontology) throws SWRLBuiltInException {
+    public static WSWRLRuleEngine createWSWRLRuleEngine(OWLOntology ontology, OWLOntologyManager ontologyManager) throws SWRLBuiltInException {
         IRIResolver iriResolver = createIRIResolver();
 
-        return WSWRL_RULE_ENGINE_FACTORY.createWSWRLRuleEngine(ontology, iriResolver);
+        return WSWRL_RULE_ENGINE_FACTORY.createWSWRLRuleEngine(ontology, iriResolver, ontologyManager);
     }
 }

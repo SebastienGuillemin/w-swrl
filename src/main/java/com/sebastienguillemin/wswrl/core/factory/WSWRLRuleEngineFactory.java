@@ -1,6 +1,7 @@
 package com.sebastienguillemin.wswrl.core.factory;
 
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.swrlapi.bridge.TargetSWRLRuleEngineCreator;
 import org.swrlapi.core.IRIResolver;
 
@@ -26,7 +27,7 @@ public interface WSWRLRuleEngineFactory {
      * @return A new rule engine instance.
      * @throws WSWRLRuleEngineException If an error occurs.
      */
-    public WSWRLRuleEngine createWSWRLRuleEngine(OWLOntology ontology, IRIResolver iriResolver)
+    public WSWRLRuleEngine createWSWRLRuleEngine(OWLOntology ontology, IRIResolver iriResolver, OWLOntologyManager ontologyManager)
             throws WSWRLRuleEngineException;
 
     /**
@@ -39,7 +40,7 @@ public interface WSWRLRuleEngineFactory {
      * @throws WSWRLRuleEngineException If an error occurs.
      */
     public WSWRLRuleEngine createWSWRLRuleEngine(String swrlRuleEngineName, String wswrlRuleEngineName,
-            OWLOntology ontology, IRIResolver iriResolver) throws WSWRLRuleEngineException;
+            OWLOntology ontology, IRIResolver iriResolver, OWLOntologyManager ontologyManager) throws WSWRLRuleEngineException;
 
     /**
      * Registers a

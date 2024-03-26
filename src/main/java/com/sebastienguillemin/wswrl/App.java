@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import org.semanticweb.owlapi.apibinding.OWLManager;
+import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 
@@ -22,9 +23,12 @@ public class App {
         OWLOntologyManager ontologyManager = OWLManager.createOWLOntologyManager();
         OWLOntology ontology = ontologyManager.loadOntologyFromOntologyDocument(inputStream);
 
-        WSWRLRuleEngine wswrlRuleEngine = WSWRLFactory.createWSWRLRuleEngine(ontology);
-        wswrlRuleEngine.createWSWRLRule("test", "dataprop(?x, ?d)^swrlb:contains(?d,\"rien\") -> concept1(?x)");
+        WSWRLRuleEngine wswrlRuleEngine = WSWRLFactory.createWSWRLRuleEngine(ontology, ontologyManager);
+        wswrlRuleEngine.createWSWRLRule("test", "concept1(?x)^concept1(?y)^differentFrom(?x,?y) -> linked(?x, ?y)");
         
         wswrlRuleEngine.infer();
+
+        for (OWLAxiom axiom: ontology.getAxioms())
+            System.out.println("---> " + axiom);
     }
 }

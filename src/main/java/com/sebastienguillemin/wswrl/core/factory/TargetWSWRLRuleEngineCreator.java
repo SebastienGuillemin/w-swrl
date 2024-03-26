@@ -1,5 +1,6 @@
 package com.sebastienguillemin.wswrl.core.factory;
 
+import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.swrlapi.exceptions.TargetSWRLRuleEngineException;
 
 import com.sebastienguillemin.wswrl.core.engine.TargetWSWRLRuleEngine;
@@ -21,10 +22,12 @@ public interface TargetWSWRLRuleEngineCreator {
      * Creates a {@link org.swrlapi.exceptions.TargetSWRLRuleEngineException} for a
      * given {@link com.sebastienguillemin.wswrl.core.ontology.WSWRLOntology}.
      * 
-     * @param WSWRLOntology An WSWRL ontology.
+     * @param WSWRLOntology   An WSWRL ontology.
+     * @param ontologyManager The ontology manager used by the target WSWRL rule
+     *                        engine to save results.
      * @return A target SWRL rule engine.
      * @throws TargetSWRLRuleEngineException If an exception occurs during creation.
      */
-    TargetWSWRLRuleEngine create(WSWRLOntology WSWRLOntology);
+    TargetWSWRLRuleEngine create(WSWRLOntology WSWRLOntology, OWLOntologyManager ontologyManager);
 
 }

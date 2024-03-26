@@ -256,7 +256,6 @@ public class DefaultWSWRLLiteralBuiltinVariable implements WSWRLLiteralBuiltInVa
 
     @Override
     public void setValue(OWLLiteral value) {
-        System.out.println("[DefaultWSWRLLiteralBuiltinVariable] Setting value : " + value);
         this.wswrldVariable.setValue(value);
     }
 

@@ -122,10 +122,8 @@ public class DefaultWSWRLRule implements WSWRLRule {
         while (bodyAtoms.hasNext() && confidence > 0) {
             atom = bodyAtoms.next();
             if (!atom.isValuable()) {
-                System.out.println("Atom " + atom + " is not valuable.");
                 confidence -= atom.getWeight();
             } else if (!atom.evaluate()) {
-                System.out.println("Atom " + atom + " is valuable but evaluate to false.");
                 confidence -= atom.getWeight();
             }
         }

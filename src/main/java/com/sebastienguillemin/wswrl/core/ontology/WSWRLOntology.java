@@ -2,10 +2,12 @@ package com.sebastienguillemin.wswrl.core.ontology;
 
 import java.util.Set;
 
+import org.semanticweb.owlapi.model.OWLAxiom;
 import org.swrlapi.core.SWRLAPIOWLOntology;
 
 import com.sebastienguillemin.wswrl.core.factory.WSWRLDataFactory;
 import com.sebastienguillemin.wswrl.core.rule.WSWRLRule;
+import com.sebastienguillemin.wswrl.core.rule.atom.WSWRLAtom;
 import com.sebastienguillemin.wswrl.exception.MissingRankException;
 import com.sebastienguillemin.wswrl.exception.WSWRLParseException;
 
@@ -55,13 +57,20 @@ public interface WSWRLOntology extends SWRLAPIOWLOntology {
 
     /**
      * Returns all the ontology WSWRL rules.
+     * 
      * @return All the WSWRL rules created for the current ontology.
      */
     public Set<WSWRLRule> getWSWRLRules();
 
     /**
      * Returns the ontology's data factory.
-     * @return A {@link com.sebastienguillemin.wswrl.core.factory.WSWRLDataFactory} instance.
+     * 
+     * @return A {@link com.sebastienguillemin.wswrl.core.factory.WSWRLDataFactory}
+     *         instance.
      */
     public WSWRLDataFactory getWSWRLDataFactory();
+
+    public void addInferredAxiom(Set<WSWRLAtom> atom, float confidence);
+    public Set<OWLAxiom> getInferredAxioms();
+    public void clearInferredAxioms();
 }

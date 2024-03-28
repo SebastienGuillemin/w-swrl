@@ -7,6 +7,7 @@ import com.sebastienguillemin.wswrl.core.engine.WSWRLRuleEngine;
 import com.sebastienguillemin.wswrl.core.ontology.WSWRLOntology;
 import com.sebastienguillemin.wswrl.core.ontology.WSWRLOntologyManager;
 import com.sebastienguillemin.wswrl.factory.WSWRLFactory;
+import com.sebastienguillemin.wswrl.storer.TurtlestarStorer;
 
 /**
  * *TO DO : delete when finish*
@@ -26,6 +27,9 @@ public class App {
         
         wswrlRuleEngine.infer();
 
-        ontologyManager.saveOntologyToTurtle(ontology, "result.ttl", 0.6f);
+        
+        TurtlestarStorer storer = new TurtlestarStorer();
+        storer.storeOntology(ontology);
+        // ontologyManager.saveOntologyToTurtle(ontology, "result.ttl", 0.6f);
     }
 }

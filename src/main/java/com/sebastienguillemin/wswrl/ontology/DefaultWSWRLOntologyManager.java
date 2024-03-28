@@ -39,7 +39,7 @@ public class DefaultWSWRLOntologyManager implements WSWRLOntologyManager {
     @Override
     public void writeInferredAxiomsToOntology(WSWRLOntology wswrlOntology) throws WSWRLBuiltInException {
         Set<OWLAxiom> axiomsToAdd = new HashSet<>();
-        for(OWLAxiom axiom : wswrlOntology.getWSWRLInferredAxioms()) {
+        for(OWLAxiom axiom : wswrlOntology.getWSWRLInferredAxiomsAsOWLAxiom()) {
             if(!wswrlOntology.getOWLAxioms().contains(axiom))
                 axiomsToAdd.add(axiom);
         }

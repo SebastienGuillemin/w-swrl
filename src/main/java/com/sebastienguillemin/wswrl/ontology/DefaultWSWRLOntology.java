@@ -7,9 +7,13 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
+import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
+import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.swrlapi.core.IRIResolver;
@@ -17,6 +21,7 @@ import org.swrlapi.exceptions.SWRLBuiltInException;
 
 import com.sebastienguillemin.wswrl.core.factory.WSWRLDataFactory;
 import com.sebastienguillemin.wswrl.core.ontology.WSWRLOntology;
+import com.sebastienguillemin.wswrl.core.rule.WSWRLAxiom;
 import com.sebastienguillemin.wswrl.core.rule.WSWRLRule;
 import com.sebastienguillemin.wswrl.core.rule.atom.WSWRLAtom;
 import com.sebastienguillemin.wswrl.core.rule.atom.WSWRLClassAtom;
@@ -28,8 +33,8 @@ import com.sebastienguillemin.wswrl.exception.WSWRLBuiltInException;
 import com.sebastienguillemin.wswrl.exception.WSWRLParseException;
 import com.sebastienguillemin.wswrl.factory.WSWRLInternalFactory;
 import com.sebastienguillemin.wswrl.parser.WSWRLParser;
+import com.sebastienguillemin.wswrl.rule.DefaultWSWRLAxiom;
 
-import lombok.Getter;
 import uk.ac.manchester.cs.owl.owlapi.OWLClassAssertionAxiomImpl;
 import uk.ac.manchester.cs.owl.owlapi.OWLDataPropertyAssertionAxiomImpl;
 import uk.ac.manchester.cs.owl.owlapi.OWLObjectPropertyAssertionAxiomImpl;
@@ -41,30 +46,9 @@ import uk.ac.manchester.cs.owl.owlapi.OWLObjectPropertyAssertionAxiomImpl;
  * {@inheritDoc}
  */
 public class DefaultWSWRLOntology extends DefaultSWRLAPIOWLOntology implements WSWRLOntology {
-    @Getter
-    private class InferredAxiom implements Comparable<InferredAxiom> {
-        private OWLAxiom axiom;
-        private float confidence;
-
-        public InferredAxiom(OWLAxiom axiom, float confidence) {
-            this.axiom = axiom;
-            this.confidence = confidence;
-        }
-
-        @Override
-        public String toString() {
-            return this.axiom.toString() + ", Confidence : " + this.confidence;
-        }
-
-        @Override
-        public int compareTo(InferredAxiom other) {
-            return this.axiom.compareTo(other.getAxiom());
-        }
-    }
-
     private final Map<String, WSWRLRule> wswrlRules;
     private WSWRLDataFactory wswrlDataFactory;
-    private Set<InferredAxiom> inferredAxiomsCache;
+    private Set<WSWRLAxiom> inferredAxiomsCache;
 
     /**
      * Constructor.
@@ -118,7 +102,7 @@ public class DefaultWSWRLOntology extends DefaultSWRLAPIOWLOntology implements W
 
     @Override
     public void addWSWRLInferredAxiom(Set<WSWRLAtom> atoms, float confidence) {
-        InferredAxiom inferredAxiom;
+        WSWRLAxiom inferredAxiom;
         OWLAxiom owlAxiom;
         for (WSWRLAtom atom : atoms) {
             inferredAxiom = null;
@@ -141,19 +125,24 @@ public class DefaultWSWRLOntology extends DefaultSWRLAPIOWLOntology implements W
             } // TODO : traiter le cas des built-in et des data ranges dans la tête de la
               // règle (?)
 
-            inferredAxiom = new InferredAxiom(owlAxiom, confidence);
+            inferredAxiom = new DefaultWSWRLAxiom(owlAxiom, confidence);
             this.inferredAxiomsCache.add(inferredAxiom);
         }
     }
 
     @Override
-    public Set<OWLAxiom> getWSWRLInferredAxioms() {
+    public Set<OWLAxiom> getWSWRLInferredAxiomsAsOWLAxiom() {
         Set<OWLAxiom> owlAxioms = new HashSet<>();
 
-        for (InferredAxiom inferredAxiom : this.inferredAxiomsCache)
+        for (WSWRLAxiom inferredAxiom : this.inferredAxiomsCache)
             owlAxioms.add(inferredAxiom.getAxiom());
 
         return owlAxioms;
+    }
+
+    @Override
+    public Set<WSWRLAxiom> getWSWRLInferredAxioms() {
+        return this.inferredAxiomsCache;
     }
 
     @Override
@@ -172,11 +161,25 @@ public class DefaultWSWRLOntology extends DefaultSWRLAPIOWLOntology implements W
 
     @Override
     public void filterInferredAxioms(float threshold) {
-        InferredAxiom inferredAxiom;
-        for (Iterator<InferredAxiom> i = this.inferredAxiomsCache.iterator(); i.hasNext();) {
+        WSWRLAxiom inferredAxiom;
+        for (Iterator<WSWRLAxiom> i = this.inferredAxiomsCache.iterator(); i.hasNext();) {
             inferredAxiom = i.next();
             if (inferredAxiom.getConfidence() < threshold)
                 i.remove();
         }
+    }
+
+    @Override
+    public IRI getBaseIRI() {
+        for (OWLAxiom axiom : this.getOWLAxioms()) {
+            if (axiom instanceof OWLClassAssertionAxiom) {
+                return IRI.create(((OWLClassAssertionAxiom) axiom).getClassExpression().asOWLClass().getIRI().getNamespace());
+            } else if (axiom instanceof OWLObjectPropertyAssertionAxiom) {
+                return IRI.create(((OWLObjectPropertyAssertionAxiom) axiom).getSubject().asOWLNamedIndividual().getIRI().getNamespace());
+            } else if (axiom instanceof OWLDataPropertyAssertionAxiom) {
+                return IRI.create(((OWLDataPropertyAssertionAxiom) axiom).getSubject().asOWLNamedIndividual().getIRI().getNamespace());
+            }
+        }
+        return null;
     }
 }

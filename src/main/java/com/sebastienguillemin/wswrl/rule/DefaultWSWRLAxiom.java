@@ -4,9 +4,6 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 
 import com.sebastienguillemin.wswrl.core.rule.WSWRLAxiom;
 
-import lombok.Getter;
-
-
 public class DefaultWSWRLAxiom implements Comparable<DefaultWSWRLAxiom>, WSWRLAxiom {
     private OWLAxiom axiom;
     private float confidence;

@@ -46,7 +46,7 @@ public class TurtlestarStorer {
         this.factory = SimpleValueFactory.getInstance();
     }
 
-    public void storeOntology(WSWRLOntology wswrlOntology)
+    public void storeOntology(WSWRLOntology wswrlOntology, String path)
             throws RDFHandlerException, UnsupportedRDFormatException, FileNotFoundException, URISyntaxException {
         org.semanticweb.owlapi.model.IRI baseIRI = wswrlOntology.getBaseIRI();
         String baseIRIString = (baseIRI == null) ? "" : baseIRI.toString();
@@ -62,7 +62,7 @@ public class TurtlestarStorer {
         this.addOWLAxioms(wswrlOntology.getOWLAxioms(), model);
         this.addWSWRLAxioms(wswrlOntology.getWSWRLInferredAxioms(), model);
 
-        Rio.write(model, new FileOutputStream(new File("test.ttls")), baseIRIString, RDFFormat.TURTLESTAR);
+        Rio.write(model, new FileOutputStream(new File(path)), baseIRIString, RDFFormat.TURTLESTAR);
     }
 
     private void addOWLAxioms(Set<OWLAxiom> owlAxioms, Model model) {

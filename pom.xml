@@ -7,7 +7,7 @@
 
     <groupId>com.sebastienguillemin</groupId>
     <artifactId>w-swrl</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0.0</version>
 
     <name>w-swrl</name>
     <!-- FIXME change it to the project's website -->
@@ -22,7 +22,7 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.30</version>
+            <version>1.18.32</version>
             <scope>provided</scope>
         </dependency>
 

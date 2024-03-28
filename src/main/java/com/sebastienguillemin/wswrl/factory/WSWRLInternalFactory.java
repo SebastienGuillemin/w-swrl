@@ -65,7 +65,6 @@ public class WSWRLInternalFactory extends SWRLAPIInternalFactory {
      * {@link org.swrlapi.core.SWRLAPIOWLOntology}.
      *
      * @param ontology    An OWLAPI-based ontology
-     * @param iriResolver An IRI resolver
      * @return A WSWRL-based wrapper of an OWL ontology
      * @throws SWRLBuiltInException If a SQWRL error occurs during ontology
      *                              processing

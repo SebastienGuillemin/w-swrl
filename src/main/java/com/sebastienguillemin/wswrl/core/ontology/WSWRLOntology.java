@@ -2,10 +2,12 @@ package com.sebastienguillemin.wswrl.core.ontology;
 
 import java.util.Set;
 
+import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.swrlapi.core.SWRLAPIOWLOntology;
 
 import com.sebastienguillemin.wswrl.core.factory.WSWRLDataFactory;
+import com.sebastienguillemin.wswrl.core.rule.WSWRLAxiom;
 import com.sebastienguillemin.wswrl.core.rule.WSWRLRule;
 import com.sebastienguillemin.wswrl.core.rule.atom.WSWRLAtom;
 import com.sebastienguillemin.wswrl.exception.MissingRankException;
@@ -86,11 +88,18 @@ public interface WSWRLOntology extends SWRLAPIOWLOntology {
     void addWSWRLInferredAxiom(Set<WSWRLAtom> atom, float confidence);
 
     /**
+     * Returns the inferred axioms by WSWRL rules as OWL axiom.
+     * 
+     * @return A set of OWL axiom.
+     */
+    Set<OWLAxiom> getWSWRLInferredAxiomsAsOWLAxiom();
+
+    /**
      * Returns the inferred axioms by WSWRL rules.
      * 
      * @return A set of OWL axiom.
      */
-    Set<OWLAxiom> getWSWRLInferredAxioms();
+    Set<WSWRLAxiom> getWSWRLInferredAxioms();
 
     /**
      * Clear the inferred axiom cache.
@@ -106,7 +115,14 @@ public interface WSWRLOntology extends SWRLAPIOWLOntology {
 
     /**
      * Remove all inferred axioms whose confidence is less than {@code threshold}.
+     * 
      * @param threshold The minimum required confidence to keep an inferred axiom.
      */
     void filterInferredAxioms(float threshold);
+
+    /**
+     * Return the base IRI of the ontology.
+     * @return The ontology's base IRI
+     */
+    IRI getBaseIRI();
 }

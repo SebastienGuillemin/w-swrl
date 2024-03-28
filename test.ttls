@@ -1,0 +1,31 @@
+@base <http://www.semanticweb.org/guillemin/ontologies/2024/2/untitled-ontology-103/> .
+@prefix : <http://www.semanticweb.org/guillemin/ontologies/2024/2/untitled-ontology-103/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+:linked a owl:SymmetricProperty, owl:ObjectProperty .
+
+:concept1 a owl:Class .
+
+:concept2 a owl:Class .
+
+:i1 a :concept1, owl:NamedIndividual;
+  :dataprop "Value !" .
+
+:i3 a owl:NamedIndividual, :concept1 .
+
+:i2 a owl:NamedIndividual, :concept2 .
+
+:dataprop a owl:DatatypeProperty;
+  rdfs:range xsd:string .
+
+<<:i1 :linked :i3>> :confidence "1.0"^^xsd:float .
+
+<<:i1 :linked :i2>> :confidence "0.505"^^xsd:float .
+
+<<:i3 :linked :i1>> :confidence "1.0"^^xsd:float .
+
+<<:i3 :linked :i2>> :confidence "0.505"^^xsd:float .

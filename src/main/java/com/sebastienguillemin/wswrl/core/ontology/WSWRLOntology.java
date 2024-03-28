@@ -9,6 +9,7 @@ import com.sebastienguillemin.wswrl.core.factory.WSWRLDataFactory;
 import com.sebastienguillemin.wswrl.core.rule.WSWRLRule;
 import com.sebastienguillemin.wswrl.core.rule.atom.WSWRLAtom;
 import com.sebastienguillemin.wswrl.exception.MissingRankException;
+import com.sebastienguillemin.wswrl.exception.WSWRLBuiltInException;
 import com.sebastienguillemin.wswrl.exception.WSWRLParseException;
 
 /**
@@ -32,7 +33,7 @@ public interface WSWRLOntology extends SWRLAPIOWLOntology {
      * @throws WSWRLParseException  If an error occurs when parsong the rule.
      * @throws MissingRankException When a rank is not used but an higher rank is.
      */
-    public WSWRLRule createWSWRLRule(String ruleName, String rule)
+    WSWRLRule createWSWRLRule(String ruleName, String rule)
             throws WSWRLParseException, MissingRankException;
 
     /**
@@ -52,7 +53,7 @@ public interface WSWRLOntology extends SWRLAPIOWLOntology {
      * @throws WSWRLParseException
      * @throws MissingRankException
      */
-    public WSWRLRule createWSWRLRule(String ruleName, String rule, String comment, boolean isActive)
+    WSWRLRule createWSWRLRule(String ruleName, String rule, String comment, boolean isActive)
             throws WSWRLParseException, MissingRankException;
 
     /**
@@ -60,7 +61,7 @@ public interface WSWRLOntology extends SWRLAPIOWLOntology {
      * 
      * @return All the WSWRL rules created for the current ontology.
      */
-    public Set<WSWRLRule> getWSWRLRules();
+    Set<WSWRLRule> getWSWRLRules();
 
     /**
      * Returns the ontology's data factory.
@@ -68,9 +69,44 @@ public interface WSWRLOntology extends SWRLAPIOWLOntology {
      * @return A {@link com.sebastienguillemin.wswrl.core.factory.WSWRLDataFactory}
      *         instance.
      */
-    public WSWRLDataFactory getWSWRLDataFactory();
+    WSWRLDataFactory getWSWRLDataFactory();
 
-    public void addInferredAxiom(Set<WSWRLAtom> atom, float confidence);
-    public Set<OWLAxiom> getInferredAxioms();
-    public void clearInferredAxioms();
+    /**
+     * Add an axiom inferred by a WSWRL rule. All the inferred axioms are stored
+     * in a cache. This cache can be clear by calling
+     * {@link #clearInferredAxiomsCache()}. The cached axioms can be added
+     * permanently to the ontology by calling the WSWRL ontology manager method :
+     * {@link com.sebastienguillemin.wswrl.core.ontology.WSWRLOntologyManager#writeInferredAxiomsToOntology(WSWRLOntology)}.
+     * 
+     * @see com.sebastienguillemin.wswrl.core.engine.TargetWSWRLRuleEngine
+     * 
+     * @param atom       The inferred axiom.
+     * @param confidence The axiom confidence .
+     */
+    void addWSWRLInferredAxiom(Set<WSWRLAtom> atom, float confidence);
+
+    /**
+     * Returns the inferred axioms by WSWRL rules.
+     * 
+     * @return A set of OWL axiom.
+     */
+    Set<OWLAxiom> getWSWRLInferredAxioms();
+
+    /**
+     * Clear the inferred axiom cache.
+     */
+    void clearInferredAxiomsCache();
+
+    /**
+     * Process the ontology axioms. Must be called once the ontology is created to
+     * retrieve OWLAxioms from the new ontology.
+     */
+    @Override
+    void processOntology() throws WSWRLBuiltInException;
+
+    /**
+     * Remove all inferred axioms whose confidence is less than {@code threshold}.
+     * @param threshold The minimum required confidence to keep an inferred axiom.
+     */
+    void filterInferredAxioms(float threshold);
 }

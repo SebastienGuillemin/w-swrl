@@ -70,9 +70,8 @@ public class WSWRLInternalFactory extends SWRLAPIInternalFactory {
      * @throws SWRLBuiltInException If a SQWRL error occurs during ontology
      *                              processing
      */
-    public static WSWRLOntology createWSWRLAPIOntology(OWLOntology ontology,
-            IRIResolver iriResolver) throws SWRLBuiltInException {
-        WSWRLOntology wswrlOntology = new DefaultWSWRLOntology(ontology, iriResolver);
+    public static WSWRLOntology createWSWRLAPIOntology(OWLOntology ontology) throws SWRLBuiltInException {
+        WSWRLOntology wswrlOntology = new DefaultWSWRLOntology(ontology, WSWRLFactory.createIRIResolver());
         wswrlOntology.processOntology();
 
         return wswrlOntology;

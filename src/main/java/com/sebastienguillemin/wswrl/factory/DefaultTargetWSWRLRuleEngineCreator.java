@@ -1,7 +1,5 @@
 package com.sebastienguillemin.wswrl.factory;
 
-import org.semanticweb.owlapi.model.OWLOntologyManager;
-
 import com.sebastienguillemin.wswrl.core.engine.TargetWSWRLRuleEngine;
 import com.sebastienguillemin.wswrl.core.factory.TargetWSWRLRuleEngineCreator;
 import com.sebastienguillemin.wswrl.core.ontology.WSWRLOntology;
@@ -18,7 +16,7 @@ public class DefaultTargetWSWRLRuleEngineCreator implements TargetWSWRLRuleEngin
     }
 
     @Override
-    public TargetWSWRLRuleEngine create(WSWRLOntology WSWRLOntology, OWLOntologyManager ontologyManager) {
-        return new DefaultTargetWSWRLRuleEngine(WSWRLOntology, ontologyManager);
+    public TargetWSWRLRuleEngine create(WSWRLOntology WSWRLOntology) {
+        return new DefaultTargetWSWRLRuleEngine(WSWRLOntology);
     }
 }

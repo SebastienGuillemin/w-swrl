@@ -3,12 +3,9 @@ package com.sebastienguillemin.wswrl;
 import java.io.IOException;
 import java.io.InputStream;
 
-import org.semanticweb.owlapi.apibinding.OWLManager;
-import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
-
 import com.sebastienguillemin.wswrl.core.engine.WSWRLRuleEngine;
+import com.sebastienguillemin.wswrl.core.ontology.WSWRLOntology;
+import com.sebastienguillemin.wswrl.core.ontology.WSWRLOntologyManager;
 import com.sebastienguillemin.wswrl.factory.WSWRLFactory;
 
 /**
@@ -20,15 +17,15 @@ public class App {
         ClassLoader classloader = Thread.currentThread().getContextClassLoader();
         InputStream inputStream = classloader.getResourceAsStream("testontology.ttl");
 
-        OWLOntologyManager ontologyManager = OWLManager.createOWLOntologyManager();
-        OWLOntology ontology = ontologyManager.loadOntologyFromOntologyDocument(inputStream);
-
-        WSWRLRuleEngine wswrlRuleEngine = WSWRLFactory.createWSWRLRuleEngine(ontology, ontologyManager);
-        wswrlRuleEngine.createWSWRLRule("test", "concept1(?x)^concept1(?y)^differentFrom(?x,?y) -> linked(?x, ?y)");
+        WSWRLOntologyManager ontologyManager = WSWRLFactory.createWSWRLOntologyManager();
+        WSWRLOntology ontology = ontologyManager.loadWSWRLOntologyFromOntologyDocument(inputStream);
+        inputStream.close();
+        
+        WSWRLRuleEngine wswrlRuleEngine = WSWRLFactory.createWSWRLRuleEngine(ontology);
+        wswrlRuleEngine.createWSWRLRule("test", "concept1(?x)^1*concept1(?y)^differentFrom(?x,?y) -> linked(?x, ?y)");
         
         wswrlRuleEngine.infer();
 
-        for (OWLAxiom axiom: ontology.getAxioms())
-            System.out.println("---> " + axiom);
+        ontologyManager.saveOntologyToTurtle(ontology, "result.ttl", 0.6f);
     }
 }

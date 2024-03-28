@@ -1,11 +1,8 @@
 package com.sebastienguillemin.wswrl.factory;
 
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.swrlapi.bridge.SWRLBridge;
 import org.swrlapi.bridge.TargetSWRLRuleEngine;
 import org.swrlapi.bridge.TargetSWRLRuleEngineCreator;
-import org.swrlapi.core.IRIResolver;
 import org.swrlapi.core.SWRLRuleEngineManager;
 import org.swrlapi.drools.core.DroolsSWRLRuleEngineCreator;
 import org.swrlapi.exceptions.NoRegisteredSWRLRuleEnginesException;
@@ -49,8 +46,7 @@ public class DefaultWSWRLRuleEngineFactory implements WSWRLRuleEngineFactory {
     }
 
     @Override
-    public WSWRLRuleEngine createWSWRLRuleEngine(OWLOntology ontology, IRIResolver iriResolver, OWLOntologyManager ontologyManager)
-            throws WSWRLRuleEngineException {
+    public WSWRLRuleEngine createWSWRLRuleEngine(WSWRLOntology ontology) throws WSWRLRuleEngineException {
 
         String swrlRuleEngineName, wswrlRuleEngineName;
 
@@ -67,36 +63,36 @@ public class DefaultWSWRLRuleEngineFactory implements WSWRLRuleEngineFactory {
             throw new NoRegisteredWSWRLRuleEnginesException();
 
         if (swrlRuleEngineName != null && wswrlRuleEngineName != null)
-            return createWSWRLRuleEngine(swrlRuleEngineName, wswrlRuleEngineName, ontology, iriResolver, ontologyManager);
+            return createWSWRLRuleEngine(swrlRuleEngineName, wswrlRuleEngineName, ontology);
         else
             throw new NoRegisteredWSWRLRuleEnginesException();
     }
 
     @Override
-    public WSWRLRuleEngine createWSWRLRuleEngine(String swrlRuleEngineName, String wswrlRuleEngineName,
-            OWLOntology OWLOntology, IRIResolver iriResolver, OWLOntologyManager ontologyManager) throws WSWRLRuleEngineException {
-
+    public WSWRLRuleEngine createWSWRLRuleEngine(String swrlRuleEngineName, String wswrlRuleEngineName, WSWRLOntology ontology) throws WSWRLRuleEngineException {
         try {
-            WSWRLOntology WSWRLOntology = WSWRLInternalFactory.createWSWRLAPIOntology(OWLOntology, iriResolver);
+            SWRLBridge bridge = WSWRLInternalFactory.getBridge(ontology);
 
-            SWRLBridge bridge = WSWRLInternalFactory.getBridge(WSWRLOntology);
-            
-            TargetSWRLRuleEngineCreator targetSWRLRuleEngineCreator = this.swrlRuleEngineManager.getRegisteredRuleEngineCreator(swrlRuleEngineName).get();
-            TargetWSWRLRuleEngineCreator targetWSWRLRuleEngineCreator = this.wswrlRuleEngineManager.getRegisteredRuleEngineCreator(wswrlRuleEngineName);
-            
+            TargetSWRLRuleEngineCreator targetSWRLRuleEngineCreator = this.swrlRuleEngineManager
+                    .getRegisteredRuleEngineCreator(swrlRuleEngineName).get();
+            TargetWSWRLRuleEngineCreator targetWSWRLRuleEngineCreator = this.wswrlRuleEngineManager
+                    .getRegisteredRuleEngineCreator(wswrlRuleEngineName);
+
             if (targetSWRLRuleEngineCreator != null && targetWSWRLRuleEngineCreator != null) {
 
                 TargetSWRLRuleEngine targetSWRLRuleEngine = targetSWRLRuleEngineCreator.create(bridge);
                 bridge.setTargetSWRLRuleEngine(targetSWRLRuleEngine);
 
-                TargetWSWRLRuleEngine targetWSWRLRuleEngine = targetWSWRLRuleEngineCreator.create(WSWRLOntology, ontologyManager);
+                TargetWSWRLRuleEngine targetWSWRLRuleEngine = targetWSWRLRuleEngineCreator.create(ontology);
 
-                WSWRLRuleEngine ruleEngine = new DefaultWSWRLRuleEngine(WSWRLOntology, targetWSWRLRuleEngine, targetSWRLRuleEngine, bridge, bridge);
+                WSWRLRuleEngine ruleEngine = new DefaultWSWRLRuleEngine(ontology, targetWSWRLRuleEngine,
+                        targetSWRLRuleEngine, bridge, bridge);
                 ruleEngine.importAssertedOWLAxioms();
 
                 return ruleEngine;
             } else
-                throw new WSWRLRuleEngineException("Error creating wswrl rule engine " + wswrlRuleEngineName + " swrl rule engine " + swrlRuleEngineName + ". Creator failed.");
+                throw new WSWRLRuleEngineException("Error creating wswrl rule engine " + wswrlRuleEngineName
+                        + " swrl rule engine " + swrlRuleEngineName + ". Creator failed.");
         } catch (Throwable e) {
             throw new WSWRLRuleEngineException("Error creating rule engine " + wswrlRuleEngineName + ". Exception: "
                     + e.getClass().getCanonicalName() + ". Message: " + (e.getMessage() != null ? e.getMessage() : ""),

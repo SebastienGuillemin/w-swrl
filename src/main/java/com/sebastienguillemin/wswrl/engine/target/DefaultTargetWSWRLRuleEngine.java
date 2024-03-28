@@ -16,7 +16,6 @@ import org.semanticweb.owlapi.model.OWLDeclarationAxiom;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
 
 import com.sebastienguillemin.wswrl.core.engine.TargetWSWRLRuleEngine;
 import com.sebastienguillemin.wswrl.core.ontology.WSWRLOntology;
@@ -37,16 +36,15 @@ import com.sebastienguillemin.wswrl.rule.variable.DefaultVariableBinding;
  */
 public class DefaultTargetWSWRLRuleEngine implements TargetWSWRLRuleEngine {
     private WSWRLOntology wswrlOntology;
-    private OWLOntologyManager ontologyManager;
     private Hashtable<IRI, WSWRLIndividual> individuals;
 
     /**
      * Constructor.
+     * 
      * @param WSWRLOntology The ontology to used to create the target rule engine.
      */
-    public DefaultTargetWSWRLRuleEngine(WSWRLOntology WSWRLOntology, OWLOntologyManager ontologyManager) {
+    public DefaultTargetWSWRLRuleEngine(WSWRLOntology WSWRLOntology) {
         this.wswrlOntology = WSWRLOntology;
-        this.ontologyManager = ontologyManager;
         this.individuals = new Hashtable<>();
     }
 
@@ -65,19 +63,18 @@ public class DefaultTargetWSWRLRuleEngine implements TargetWSWRLRuleEngine {
                 Set<WSWRLAtom> body = rule.getBody();
                 for (VariableBinding binding : this.generateBindings(body)) {
                     binding.bindVariables();
-                    
+
                     // Calculate rank weights
                     rule.calculateWeights();
-                    
+
                     // Evaluate
                     float confidence = rule.calculateConfidence();
-                    
+
                     // Store result
                     if (confidence > 0)
-                        wswrlOntology.addInferredAxiom(rule.getHead(), confidence);
+                        wswrlOntology.addWSWRLInferredAxiom(rule.getHead(), confidence);
                 }
             }
-            ontologyManager.addAxioms(this.wswrlOntology.getOWLOntology(), this.wswrlOntology.getInferredAxioms());
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -85,7 +82,7 @@ public class DefaultTargetWSWRLRuleEngine implements TargetWSWRLRuleEngine {
     }
 
     private void reset() {
-        this.individuals = new Hashtable<>();
+        this.individuals.clear();
     }
 
     private void processOntology() throws Exception {

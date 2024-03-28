@@ -57,7 +57,7 @@ public class DefaultWSWRLRuleEngine extends DefaultSWRLRuleEngine implements WSW
 
         return this.wswrlRules.get(ruleName);
     }
-
+    
     @Override
     public void infer() throws SWRLRuleEngineException {
         super.infer();

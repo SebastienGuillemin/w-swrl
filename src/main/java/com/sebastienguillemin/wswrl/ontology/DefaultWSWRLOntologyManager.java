@@ -59,8 +59,6 @@ public class DefaultWSWRLOntologyManager implements WSWRLOntologyManager {
         TurtleDocumentFormat turtleFormat = new TurtleDocumentFormat();
         turtleFormat.setDefaultPrefix(ontology.getOntologyID().getOntologyIRI().get().toString() + "/");
         this.owlOntologyManager.saveOntology(ontology, turtleFormat, fileIRI);
-
-        System.out.println("\nOntology saved, path : " + fileIRI);
     }
 
 }

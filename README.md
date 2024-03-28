@@ -20,7 +20,7 @@ An example is available in the *src/main/java/com/sebastienguillemin/wswrl/App.j
 mvn clean install exec:java
 ```
 
-This example will load the ontology described in *src/main/resources/exampleontology.ttl*, create the WSWRL rule *concept1(?x)^1*concept1(?y)^differentFrom(?x,?y) -> linked(?x, ?y)* and store the result in a classical turtle file and a [turtle-star file](https://w3c.github.io/rdf-star/cg-spec/editors_draft.html).
+This example will load the ontology described in *src/main/resources/exampleontology.ttl*, create the WSWRL rule $concept1(?x) \wedge 1 \ast concept1(?y) \wedge differentFrom(?x,?y) \rightarrow linked(?x, ?y)$ and save the result in a classical turtle file and a [turtle-star file](https://w3c.github.io/rdf-star/cg-spec/editors_draft.html).
 
 # Implementation details
 ## JavaDoc

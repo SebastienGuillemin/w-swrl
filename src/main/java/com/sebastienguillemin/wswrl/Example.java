@@ -28,9 +28,11 @@ public class Example {
 
         // Inferring new facts.
         wswrlRuleEngine.infer();
+        wswrlRuleEngine.infer();
 
         // Save ontology in a Turtle-star file.
         TurtlestarStorer storer = new TurtlestarStorer();
+        // storer.setMode(TurtlestarStorer.MODE.VERBOSE); // Uncomment this line to show information (unsupported OWL axioms etc.).
         storer.storeOntology(ontology, "result.ttls");
 
         // Save ontology in a Turtle file using a threshold (the cached inferred axioms will be deleted).

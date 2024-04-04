@@ -42,13 +42,26 @@ import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
 import com.sebastienguillemin.wswrl.core.ontology.WSWRLOntology;
 import com.sebastienguillemin.wswrl.core.rule.WSWRLAxiom;
 
+import lombok.Setter;
+
 public class TurtlestarStorer {
+    public enum MODE {
+        // Display information while serialising the ontology.
+        VERBOSE,
+        // Hide information.
+        SILENT
+    }
+
     private ModelFactory modelFactory;
     private ValueFactory factory;
+
+    @Setter
+    private MODE mode;
 
     public TurtlestarStorer() {
         this.modelFactory = new DynamicModelFactory();
         this.factory = SimpleValueFactory.getInstance();
+        this.mode = MODE.SILENT;
     }
 
     public void storeOntology(WSWRLOntology wswrlOntology, String path)
@@ -88,11 +101,11 @@ public class TurtlestarStorer {
                 statement = this.getDeclarationAxiom((OWLDeclarationAxiom) axiom);
 
                 if (statement == null) {
-                    System.out.println("[TurtleStorer Warning] Writing axiom : '" + axiom + "' is not supported yet (ignoring).");
+                    this.printMessage("Writing axiom : '" + axiom + "' is not supported yet (ignoring).", true);
                     continue;
                 }
             } else {
-                System.out.println("[TurtleStorer Warning] Writing axiom : '" + axiom + "' is not supported yet (ignoring).");
+                this.printMessage("Writing axiom : '" + axiom + "' is not supported yet (ignoring).", true);
                 continue;
             }
             model.add(statement);
@@ -186,5 +199,10 @@ public class TurtlestarStorer {
                             "http://www.semanticweb.org/guillemin/ontologies/2024/2/untitled-ontology-103/confidence"),
                     Values.literal(confidence), new Resource[0]);
         }
+    }
+
+    private void printMessage(String message, boolean warning) {
+        if (this.mode == MODE.VERBOSE)
+            System.out.println("[" + ((warning) ? "WARNING - " : "") + "TurtlestarStorer] " + message );
     }
 }

@@ -3,39 +3,83 @@ package com.sebastienguillemin.wswrl;
 import java.io.IOException;
 import java.io.InputStream;
 
+import org.semanticweb.owlapi.apibinding.OWLManager;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.swrlapi.core.SWRLRuleEngine;
+import org.swrlapi.factory.SWRLAPIFactory;
+
 import com.sebastienguillemin.wswrl.core.engine.WSWRLRuleEngine;
 import com.sebastienguillemin.wswrl.core.ontology.WSWRLOntology;
 import com.sebastienguillemin.wswrl.core.ontology.WSWRLOntologyManager;
 import com.sebastienguillemin.wswrl.factory.WSWRLFactory;
 import com.sebastienguillemin.wswrl.storer.TurtlestarStorer;
 
-public class Example {
-    public static void main(String[] args) throws IOException, Exception {
-        // Create an InputStream to the example ontology (placed in the /src/main/resources folder).
-        ClassLoader classloader = Thread.currentThread().getContextClassLoader();
-        InputStream inputStream = classloader.getResourceAsStream("exampleOntology.ttl");
+import me.tongfei.progressbar.ProgressBar;
+import me.tongfei.progressbar.ProgressBarBuilder;
 
-        // Create ontology manager and ontology.
-        WSWRLOntologyManager ontologyManager = WSWRLFactory.createWSWRLOntologyManager();
-        WSWRLOntology ontology = ontologyManager.loadWSWRLOntologyFromOntologyDocument(inputStream);
+public class Example {
+    private static final String ONTOLOGY_FILENAME = "exampleOntology.ttl";
+
+    private static void infer(SWRLRuleEngine engine, ProgressBarBuilder pbb) {
+        float inferringTime;
+        try (ProgressBar pb = pbb.build()) {
+            pb.step();
+            engine.infer();
+            pb.step();
+            inferringTime = (float) pb.getTotalElapsed().toMillis();
+        }
+        System.out.println(" |--> Inferring time : " + (inferringTime / 1000.0f) + " second(s).\n");
+    }
+
+    public static void main(String[] args) throws IOException, Exception {
+        System.out.println("Running example program.");
+        // Create an InputStream to the example ontology (placed in the
+        // /src/main/resources folder).
+        ClassLoader classloader = Thread.currentThread().getContextClassLoader();
+
+        // Create managers
+        OWLOntologyManager owlOntologyManager = OWLManager.createOWLOntologyManager();
+        WSWRLOntologyManager wswrlOntologyManager = WSWRLFactory.createWSWRLOntologyManager();
+
+        // Create ontologies (need to create two instances in order to ensure test
+        // independance)
+        System.out.println("--- Loading ontology from resource file: " + ONTOLOGY_FILENAME);
+        InputStream inputStream = classloader.getResourceAsStream(ONTOLOGY_FILENAME);
+        OWLOntology swrlapiowlOntology = owlOntologyManager.loadOntologyFromOntologyDocument(inputStream);
         inputStream.close();
 
-        // Create WSWRL rule engine.
-        WSWRLRuleEngine wswrlRuleEngine = WSWRLFactory.createWSWRLRuleEngine(ontology);
+        inputStream = classloader.getResourceAsStream(ONTOLOGY_FILENAME);
+        WSWRLOntology wswrlOntology = wswrlOntologyManager.loadWSWRLOntologyFromOntologyDocument(inputStream);
+        inputStream.close();
 
-        // Create WSWRL rule.
-        // wswrlRuleEngine.createWSWRLRule("test", "concept1(?x)^1*concept1(?y)^differentFrom(?x,?y) -> linked(?x, ?y)");
+        // Create rule engines.
+        SWRLRuleEngine swrlRuleEngine = SWRLAPIFactory.createSWRLRuleEngine(swrlapiowlOntology);
+        WSWRLRuleEngine wswrlRuleEngine = WSWRLFactory.createWSWRLRuleEngine(wswrlOntology);
 
-        // Inferring new facts.
-        wswrlRuleEngine.infer();
-        wswrlRuleEngine.infer();
+        // Inferring new facts using SWRLAPI engine.
+        ProgressBarBuilder pbb = ProgressBar.builder()
+                .setInitialMax(2)
+                .setTaskName("--- Inferring facts using SWRLAPI rule engine - Progress :")
+                .continuousUpdate()
+                .setUpdateIntervalMillis(1000);
+
+        infer(swrlRuleEngine, pbb);
+        
+        // Inferring new facts using W-SWRL engine.
+        pbb = pbb.setTaskName("--- Inferring facts using W-SWRL rule engine - Progress :");
+        infer(wswrlRuleEngine, pbb);
 
         // Save ontology in a Turtle-star file.
+        System.out.println("Saving W-SWRL ontology in a Turtle-star file.");
         TurtlestarStorer storer = new TurtlestarStorer();
-        // storer.setMode(TurtlestarStorer.MODE.VERBOSE); // Uncomment this line to show information (unsupported OWL axioms etc.).
-        storer.storeOntology(ontology, "result.ttls");
+        // Uncomment this line to show information (unsupported OWL axioms etc.).
+        storer.setMode(TurtlestarStorer.MODE.VERBOSE); 
+        storer.storeOntology(wswrlOntology, "result.ttls");
 
-        // Save ontology in a Turtle file using a threshold (the cached inferred axioms will be deleted).
-        ontologyManager.saveOntologyToTurtle(ontology, "result.ttl", 0.6f);
+        // Save ontology in a Turtle file using a threshold (the cached inferred axioms
+        // will be deleted).
+        System.out.println("\nSaving W-SWRL ontology in a Turtle file.");
+        wswrlOntologyManager.saveOntologyToTurtle(wswrlOntology, "result.ttl", 0.6f);
     }
 }

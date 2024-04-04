@@ -1,0 +1,1194 @@
+@prefix : <http://www.stups.fr/ontologies/2023/stups/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://www.stups.fr/ontologies/2023/stups/> .
+
+<http://www.stups.fr/ontologies/2023/stups/> rdf:type owl:Ontology .
+
+#################################################################
+#    Annotation properties
+#################################################################
+
+###  http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled
+<http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled> rdf:type owl:AnnotationProperty .
+
+
+###  http://www.stups.fr/ontologies/2023/stups/pic
+:pic rdf:type owl:AnnotationProperty .
+
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://www.stups.fr/ontologies/2023/stups/aAspectExterne
+:aAspectExterne rdf:type owl:ObjectProperty ;
+                rdfs:subPropertyOf owl:topObjectProperty ;
+                owl:inverseOf :estAspectExterneDe ;
+                rdf:type owl:FunctionalProperty ;
+                rdfs:domain :Echantillon ;
+                rdfs:range :Aspect .
+
+
+###  http://www.stups.fr/ontologies/2023/stups/aAspectInterne
+:aAspectInterne rdf:type owl:ObjectProperty ;
+                rdfs:subPropertyOf owl:topObjectProperty ;
+                owl:inverseOf :estAspectInterneDe ;
+                rdf:type owl:FunctionalProperty ;
+                rdfs:domain :Echantillon ;
+                rdfs:range :Aspect .
+
+
+###  http://www.stups.fr/ontologies/2023/stups/aDepartement
+:aDepartement rdf:type owl:ObjectProperty ;
+              rdfs:subPropertyOf owl:topObjectProperty ;
+              owl:inverseOf :estDansRegion ;
+              rdf:type owl:InverseFunctionalProperty .
+
+
+###  http://www.stups.fr/ontologies/2023/stups/aEchantillon
+:aEchantillon rdf:type owl:ObjectProperty ;
+              rdfs:subPropertyOf owl:topObjectProperty ;
+              owl:inverseOf :provientDe ;
+              rdf:type owl:InverseFunctionalProperty ;
+              rdfs:domain :Scelle ;
+              rdfs:range :Echantillon .
+
+
+###  http://www.stups.fr/ontologies/2023/stups/aFormeChimique
+:aFormeChimique rdf:type owl:ObjectProperty ;
+                rdfs:subPropertyOf owl:topObjectProperty ;
+                owl:inverseOf :estFormeChimiqueDe ;
+                rdf:type owl:FunctionalProperty ;
+                rdfs:domain :PrincipeActif ;
+                rdfs:range :FormeChimique .
+
+
+###  http://www.stups.fr/ontologies/2023/stups/aPaysDestination
+:aPaysDestination rdf:type owl:ObjectProperty ;
+                  rdfs:subPropertyOf owl:topObjectProperty ;
+                  owl:inverseOf :estPaysDestinationDe ;
+                  rdf:type owl:FunctionalProperty ;
+                  rdfs:domain :Saisine ;
+                  rdfs:range :Pays .
+
+
+###  http://www.stups.fr/ontologies/2023/stups/aPic
+:aPic rdf:type owl:ObjectProperty ;
+      rdfs:subPropertyOf owl:topObjectProperty ;
+      owl:inverseOf :estPicDe ;
+      rdf:type owl:InverseFunctionalProperty ;
+      rdfs:domain :ProfilChimique ;
+      rdfs:range :Pic .
+
+
+###  http://www.stups.fr/ontologies/2023/stups/aPrincipeActif
+:aPrincipeActif rdf:type owl:ObjectProperty ;
+                rdfs:subPropertyOf owl:topObjectProperty ;
+                owl:inverseOf :estPrincipeActifDe ;
+                rdf:type owl:FunctionalProperty ,
+                         owl:InverseFunctionalProperty ;
+                rdfs:domain :Echantillon ;
+                rdfs:range :PrincipeActif .
+
+
+###  http://www.stups.fr/ontologies/2023/stups/aProduitCoupage
+:aProduitCoupage rdf:type owl:ObjectProperty ;
+                 rdfs:subPropertyOf owl:topObjectProperty ;
+                 owl:inverseOf :estProduitCoupageDe ;
+                 rdf:type owl:InverseFunctionalProperty ;
+                 rdfs:domain :Echantillon ;
+                 rdfs:range :ProduitCoupage .
+
+
+###  http://www.stups.fr/ontologies/2023/stups/aProfilChimique
+:aProfilChimique rdf:type owl:ObjectProperty ;
+                 rdfs:subPropertyOf owl:topObjectProperty ;
+                 owl:inverseOf :estProfilChimiqueDe ;
+                 rdf:type owl:FunctionalProperty ,
+                          owl:InverseFunctionalProperty ;
+                 rdfs:domain :Echantillon ;
+                 rdfs:range :ProfilChimique .
+
+
+###  http://www.stups.fr/ontologies/2023/stups/aRegion
+:aRegion rdf:type owl:ObjectProperty ;
+         rdfs:subPropertyOf owl:topObjectProperty ;
+         owl:inverseOf :estDansPays ;
+         rdf:type owl:InverseFunctionalProperty .
+
+
+###  http://www.stups.fr/ontologies/2023/stups/aScelle
+:aScelle rdf:type owl:ObjectProperty ;
+         rdfs:subPropertyOf owl:topObjectProperty ;
+         owl:inverseOf :estDansSaisine ;
+         rdf:type owl:InverseFunctionalProperty ;
+         rdfs:domain :Saisine ;
+         rdfs:range :Scelle .
+
+
+###  http://www.stups.fr/ontologies/2023/stups/aServiceCapteur
+:aServiceCapteur rdf:type owl:ObjectProperty ;
+                 rdfs:subPropertyOf owl:topObjectProperty ;
+                 owl:inverseOf :estServiceCapteurDe ;
+                 rdf:type owl:FunctionalProperty ;
+                 rdfs:domain :Saisine ;
+                 rdfs:range :ServiceCapteur .
+
+
+###  http://www.stups.fr/ontologies/2023/stups/aServiceRequerant
+:aServiceRequerant rdf:type owl:ObjectProperty ;
+                   rdfs:subPropertyOf owl:topObjectProperty ;
+                   owl:inverseOf :estServiceRequerantDe ;
+                   rdf:type owl:FunctionalProperty ;
+                   rdfs:domain :Saisine ;
+                   rdfs:range :ServiceRequerant .
+
+
+###  http://www.stups.fr/ontologies/2023/stups/aSubstance
+:aSubstance rdf:type owl:ObjectProperty ;
+            rdfs:subPropertyOf owl:topObjectProperty ;
+            owl:inverseOf :estSubstanceDe ;
+            rdfs:domain :Composant ;
+            rdfs:range :Substance .
+
+
+###  http://www.stups.fr/ontologies/2023/stups/aUnite
+:aUnite rdf:type owl:ObjectProperty ;
+        rdfs:subPropertyOf owl:topObjectProperty ;
+        owl:inverseOf :estUniteDe .
+
+
+###  http://www.stups.fr/ontologies/2023/stups/aVille
+:aVille rdf:type owl:ObjectProperty ;
+        rdfs:subPropertyOf owl:topObjectProperty ;
+        owl:inverseOf :estDansDepartement ;
+        rdf:type owl:InverseFunctionalProperty .
+
+
+###  http://www.stups.fr/ontologies/2023/stups/estAspectExterneDe
+:estAspectExterneDe rdf:type owl:ObjectProperty ;
+                    rdfs:subPropertyOf owl:topObjectProperty ;
+                    rdf:type owl:InverseFunctionalProperty .
+
+
+###  http://www.stups.fr/ontologies/2023/stups/estAspectInterneDe
+:estAspectInterneDe rdf:type owl:ObjectProperty ;
+                    rdfs:subPropertyOf owl:topObjectProperty ;
+                    rdf:type owl:InverseFunctionalProperty .
+
+
+###  http://www.stups.fr/ontologies/2023/stups/estDansDepartement
+:estDansDepartement rdf:type owl:ObjectProperty ;
+                    rdfs:subPropertyOf owl:topObjectProperty ;
+                    rdf:type owl:FunctionalProperty .
+
+
+###  http://www.stups.fr/ontologies/2023/stups/estDansPays
+:estDansPays rdf:type owl:ObjectProperty ;
+             rdfs:subPropertyOf owl:topObjectProperty ;
+             rdf:type owl:FunctionalProperty .
+
+
+###  http://www.stups.fr/ontologies/2023/stups/estDansRegion
+:estDansRegion rdf:type owl:ObjectProperty ;
+               rdfs:subPropertyOf owl:topObjectProperty ;
+               rdf:type owl:FunctionalProperty .
+
+
+###  http://www.stups.fr/ontologies/2023/stups/estDansSaisine
+:estDansSaisine rdf:type owl:ObjectProperty ;
+                rdfs:subPropertyOf owl:topObjectProperty ;
+                rdf:type owl:FunctionalProperty .
+
+
+###  http://www.stups.fr/ontologies/2023/stups/estEloigneDe
+:estEloigneDe rdf:type owl:ObjectProperty ;
+              rdfs:subPropertyOf owl:topObjectProperty ;
+              rdf:type owl:SymmetricProperty ;
+              rdfs:domain :Echantillon ;
+              rdfs:range :Echantillon .
+
+
+###  http://www.stups.fr/ontologies/2023/stups/estFaitA
+:estFaitA rdf:type owl:ObjectProperty ;
+          rdfs:subPropertyOf owl:topObjectProperty ;
+          owl:inverseOf :estLieuSaisineDe ;
+          rdf:type owl:FunctionalProperty .
+
+
+###  http://www.stups.fr/ontologies/2023/stups/estFormeChimiqueDe
+:estFormeChimiqueDe rdf:type owl:ObjectProperty ;
+                    rdfs:subPropertyOf owl:topObjectProperty ;
+                    rdf:type owl:InverseFunctionalProperty .
+
+
+###  http://www.stups.fr/ontologies/2023/stups/estLieA
+:estLieA rdf:type owl:ObjectProperty ;
+         rdfs:subPropertyOf owl:topObjectProperty .
+
+
+###  http://www.stups.fr/ontologies/2023/stups/estLieuSaisineDe
+:estLieuSaisineDe rdf:type owl:ObjectProperty ;
+                  rdfs:subPropertyOf owl:topObjectProperty ;
+                  rdf:type owl:InverseFunctionalProperty .
+
+
+###  http://www.stups.fr/ontologies/2023/stups/estLotInterneDe
+:estLotInterneDe rdf:type owl:ObjectProperty ;
+                 rdfs:subPropertyOf owl:topObjectProperty ;
+                 rdf:type owl:IrreflexiveProperty .
+
+
+###  http://www.stups.fr/ontologies/2023/stups/estPaysDestinationDe
+:estPaysDestinationDe rdf:type owl:ObjectProperty ;
+                      rdfs:subPropertyOf owl:topObjectProperty ;
+                      rdf:type owl:InverseFunctionalProperty .
+
+
+###  http://www.stups.fr/ontologies/2023/stups/estPicDe
+:estPicDe rdf:type owl:ObjectProperty ;
+          rdfs:subPropertyOf owl:topObjectProperty ;
+          rdf:type owl:FunctionalProperty .
+
+
+###  http://www.stups.fr/ontologies/2023/stups/estPrincipeActifDe
+:estPrincipeActifDe rdf:type owl:ObjectProperty ;
+                    rdfs:subPropertyOf owl:topObjectProperty ;
+                    rdf:type owl:FunctionalProperty ,
+                             owl:InverseFunctionalProperty .
+
+
+###  http://www.stups.fr/ontologies/2023/stups/estProcheChimiquementDe
+:estProcheChimiquementDe rdf:type owl:ObjectProperty ;
+                         rdfs:subPropertyOf owl:topObjectProperty ;
+                         rdf:type owl:SymmetricProperty ,
+                                  owl:TransitiveProperty ,
+                                  owl:IrreflexiveProperty ;
+                         rdfs:domain :Echantillon ;
+                         rdfs:range :Echantillon .
+
+
+###  http://www.stups.fr/ontologies/2023/stups/estProcheDe
+:estProcheDe rdf:type owl:ObjectProperty ;
+             rdfs:subPropertyOf owl:topObjectProperty ;
+             rdf:type owl:SymmetricProperty ,
+                      owl:TransitiveProperty ,
+                      owl:IrreflexiveProperty ;
+             rdfs:domain :Echantillon ;
+             rdfs:range :Echantillon .
+
+
+###  http://www.stups.fr/ontologies/2023/stups/estProduitCoupageDe
+:estProduitCoupageDe rdf:type owl:ObjectProperty ;
+                     rdfs:subPropertyOf owl:topObjectProperty ;
+                     rdf:type owl:FunctionalProperty .
+
+
+###  http://www.stups.fr/ontologies/2023/stups/estProfilChimiqueDe
+:estProfilChimiqueDe rdf:type owl:ObjectProperty ;
+                     rdfs:subPropertyOf owl:topObjectProperty ;
+                     rdf:type owl:FunctionalProperty ,
+                              owl:InverseFunctionalProperty .
+
+
+###  http://www.stups.fr/ontologies/2023/stups/estRepresenteePar
+:estRepresenteePar rdf:type owl:ObjectProperty ;
+                   rdfs:subPropertyOf owl:topObjectProperty ;
+                   owl:inverseOf :representeSubstance ;
+                   rdf:type owl:InverseFunctionalProperty .
+
+
+###  http://www.stups.fr/ontologies/2023/stups/estServiceCapteurDe
+:estServiceCapteurDe rdf:type owl:ObjectProperty ;
+                     rdfs:subPropertyOf owl:topObjectProperty ;
+                     rdf:type owl:InverseFunctionalProperty .
+
+
+###  http://www.stups.fr/ontologies/2023/stups/estServiceRequerantDe
+:estServiceRequerantDe rdf:type owl:ObjectProperty ;
+                       rdfs:subPropertyOf owl:topObjectProperty ;
+                       rdf:type owl:InverseFunctionalProperty .
+
+
+###  http://www.stups.fr/ontologies/2023/stups/estSitueA
+:estSitueA rdf:type owl:ObjectProperty ;
+           rdfs:subPropertyOf owl:topObjectProperty ;
+           rdf:type owl:FunctionalProperty .
+
+
+###  http://www.stups.fr/ontologies/2023/stups/estSubstanceDe
+:estSubstanceDe rdf:type owl:ObjectProperty ;
+                rdfs:subPropertyOf owl:topObjectProperty .
+
+
+###  http://www.stups.fr/ontologies/2023/stups/estUniteDe
+:estUniteDe rdf:type owl:ObjectProperty ;
+            rdfs:subPropertyOf owl:topObjectProperty .
+
+
+###  http://www.stups.fr/ontologies/2023/stups/estVilleService
+:estVilleService rdf:type owl:ObjectProperty ;
+                 rdfs:subPropertyOf owl:topObjectProperty ;
+                 rdf:type owl:InverseFunctionalProperty .
+
+
+###  http://www.stups.fr/ontologies/2023/stups/provientDe
+:provientDe rdf:type owl:ObjectProperty ;
+            rdfs:subPropertyOf owl:topObjectProperty ;
+            rdf:type owl:FunctionalProperty .
+
+
+###  http://www.stups.fr/ontologies/2023/stups/representeSubstance
+:representeSubstance rdf:type owl:ObjectProperty ;
+                     rdfs:subPropertyOf owl:topObjectProperty .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  http://www.stups.fr/ontologies/2023/stups/abime
+:abime rdf:type owl:DatatypeProperty ,
+                owl:FunctionalProperty ;
+       rdfs:range xsd:boolean .
+
+
+###  http://www.stups.fr/ontologies/2023/stups/airPic
+:airPic rdf:type owl:DatatypeProperty ,
+                 owl:FunctionalProperty ;
+        rdfs:range xsd:decimal .
+
+
+###  http://www.stups.fr/ontologies/2023/stups/commentaire
+:commentaire rdf:type owl:DatatypeProperty ,
+                      owl:FunctionalProperty ;
+             rdfs:range xsd:string .
+
+
+###  http://www.stups.fr/ontologies/2023/stups/couleur
+:couleur rdf:type owl:DatatypeProperty ;
+         rdfs:range [ rdf:type rdfs:Datatype ;
+                      owl:oneOf [ rdf:type rdf:List ;
+                                  rdf:first "Autre" ;
+                                  rdf:rest [ rdf:type rdf:List ;
+                                             rdf:first "Beige" ;
+                                             rdf:rest [ rdf:type rdf:List ;
+                                                        rdf:first "Blanc Cassé" ;
+                                                        rdf:rest [ rdf:type rdf:List ;
+                                                                   rdf:first "Blanche" ;
+                                                                   rdf:rest [ rdf:type rdf:List ;
+                                                                              rdf:first "Bleue" ;
+                                                                              rdf:rest [ rdf:type rdf:List ;
+                                                                                         rdf:first "Grise" ;
+                                                                                         rdf:rest [ rdf:type rdf:List ;
+                                                                                                    rdf:first "Jaune" ;
+                                                                                                    rdf:rest [ rdf:type rdf:List ;
+                                                                                                               rdf:first "Marron" ;
+                                                                                                               rdf:rest [ rdf:type rdf:List ;
+                                                                                                                          rdf:first "Multicolore" ;
+                                                                                                                          rdf:rest [ rdf:type rdf:List ;
+                                                                                                                                     rdf:first "Noir" ;
+                                                                                                                                     rdf:rest [ rdf:type rdf:List ;
+                                                                                                                                                rdf:first "Orange" ;
+                                                                                                                                                rdf:rest [ rdf:type rdf:List ;
+                                                                                                                                                           rdf:first "Rose" ;
+                                                                                                                                                           rdf:rest [ rdf:type rdf:List ;
+                                                                                                                                                                      rdf:first "Rouge" ;
+                                                                                                                                                                      rdf:rest [ rdf:type rdf:List ;
+                                                                                                                                                                                 rdf:first "Translucide" ;
+                                                                                                                                                                                 rdf:rest [ rdf:type rdf:List ;
+                                                                                                                                                                                            rdf:first "Vert" ;
+                                                                                                                                                                                            rdf:rest [ rdf:type rdf:List ;
+                                                                                                                                                                                                       rdf:first "Violet" ;
+                                                                                                                                                                                                       rdf:rest rdf:nil
+                                                                                                                                                                                                     ]
+                                                                                                                                                                                          ]
+                                                                                                                                                                               ]
+                                                                                                                                                                    ]
+                                                                                                                                                         ]
+                                                                                                                                              ]
+                                                                                                                                   ]
+                                                                                                                        ]
+                                                                                                             ]
+                                                                                                  ]
+                                                                                       ]
+                                                                            ]
+                                                                 ]
+                                                      ]
+                                           ]
+                                ]
+                    ] .
+
+
+###  http://www.stups.fr/ontologies/2023/stups/couleurInterieure
+:couleurInterieure rdf:type owl:DatatypeProperty ;
+                   rdfs:range [ rdf:type rdfs:Datatype ;
+                                owl:oneOf [ rdf:type rdf:List ;
+                                            rdf:first "Autre" ;
+                                            rdf:rest [ rdf:type rdf:List ;
+                                                       rdf:first "Beige" ;
+                                                       rdf:rest [ rdf:type rdf:List ;
+                                                                  rdf:first "Blanc Cassé" ;
+                                                                  rdf:rest [ rdf:type rdf:List ;
+                                                                             rdf:first "Blanche" ;
+                                                                             rdf:rest [ rdf:type rdf:List ;
+                                                                                        rdf:first "Bleue" ;
+                                                                                        rdf:rest [ rdf:type rdf:List ;
+                                                                                                   rdf:first "Grise" ;
+                                                                                                   rdf:rest [ rdf:type rdf:List ;
+                                                                                                              rdf:first "Jaune" ;
+                                                                                                              rdf:rest [ rdf:type rdf:List ;
+                                                                                                                         rdf:first "Marron" ;
+                                                                                                                         rdf:rest [ rdf:type rdf:List ;
+                                                                                                                                    rdf:first "Multicolore" ;
+                                                                                                                                    rdf:rest [ rdf:type rdf:List ;
+                                                                                                                                               rdf:first "Noir" ;
+                                                                                                                                               rdf:rest [ rdf:type rdf:List ;
+                                                                                                                                                          rdf:first "Orange" ;
+                                                                                                                                                          rdf:rest [ rdf:type rdf:List ;
+                                                                                                                                                                     rdf:first "Rose" ;
+                                                                                                                                                                     rdf:rest [ rdf:type rdf:List ;
+                                                                                                                                                                                rdf:first "Rouge" ;
+                                                                                                                                                                                rdf:rest [ rdf:type rdf:List ;
+                                                                                                                                                                                           rdf:first "Translucide" ;
+                                                                                                                                                                                           rdf:rest [ rdf:type rdf:List ;
+                                                                                                                                                                                                      rdf:first "Vert" ;
+                                                                                                                                                                                                      rdf:rest [ rdf:type rdf:List ;
+                                                                                                                                                                                                                 rdf:first "Violet" ;
+                                                                                                                                                                                                                 rdf:rest rdf:nil
+                                                                                                                                                                                                               ]
+                                                                                                                                                                                                    ]
+                                                                                                                                                                                         ]
+                                                                                                                                                                              ]
+                                                                                                                                                                   ]
+                                                                                                                                                        ]
+                                                                                                                                             ]
+                                                                                                                                  ]
+                                                                                                                       ]
+                                                                                                            ]
+                                                                                                 ]
+                                                                                      ]
+                                                                           ]
+                                                                ]
+                                                     ]
+                                          ]
+                              ] .
+
+
+###  http://www.stups.fr/ontologies/2023/stups/date
+:date rdf:type owl:DatatypeProperty ,
+               owl:FunctionalProperty ;
+      rdfs:range xsd:dateTime .
+
+
+###  http://www.stups.fr/ontologies/2023/stups/description
+:description rdf:type owl:DatatypeProperty ,
+                      owl:FunctionalProperty ;
+             rdfs:range xsd:string .
+
+
+###  http://www.stups.fr/ontologies/2023/stups/diametre
+:diametre rdf:type owl:DatatypeProperty ,
+                   owl:FunctionalProperty ;
+          rdfs:range xsd:float .
+
+
+###  http://www.stups.fr/ontologies/2023/stups/dosage
+:dosage rdf:type owl:DatatypeProperty ,
+                 owl:FunctionalProperty ;
+        rdfs:range xsd:decimal .
+
+
+###  http://www.stups.fr/ontologies/2023/stups/empreinte
+:empreinte rdf:type owl:DatatypeProperty ,
+                    owl:FunctionalProperty ;
+           rdfs:range xsd:string .
+
+
+###  http://www.stups.fr/ontologies/2023/stups/epaisseur
+:epaisseur rdf:type owl:DatatypeProperty ,
+                    owl:FunctionalProperty ;
+           rdfs:range xsd:float .
+
+
+###  http://www.stups.fr/ontologies/2023/stups/forme
+:forme rdf:type owl:DatatypeProperty ,
+                owl:FunctionalProperty ;
+       rdfs:range [ rdf:type rdfs:Datatype ;
+                    owl:oneOf [ rdf:type rdf:List ;
+                                rdf:first "Autre" ;
+                                rdf:rest [ rdf:type rdf:List ;
+                                           rdf:first "Carré" ;
+                                           rdf:rest [ rdf:type rdf:List ;
+                                                      rdf:first "Circulaire" ;
+                                                      rdf:rest [ rdf:type rdf:List ;
+                                                                 rdf:first "Polygonale" ;
+                                                                 rdf:rest [ rdf:type rdf:List ;
+                                                                            rdf:first "Rectangulaire" ;
+                                                                            rdf:rest [ rdf:type rdf:List ;
+                                                                                       rdf:first "Triangulaire" ;
+                                                                                       rdf:rest rdf:nil
+                                                                                     ]
+                                                                          ]
+                                                               ]
+                                                    ]
+                                         ]
+                              ]
+                  ] .
+
+
+###  http://www.stups.fr/ontologies/2023/stups/hauteur
+:hauteur rdf:type owl:DatatypeProperty ,
+                  owl:FunctionalProperty ;
+         rdfs:range xsd:float .
+
+
+###  http://www.stups.fr/ontologies/2023/stups/id
+:id rdf:type owl:DatatypeProperty ,
+             owl:FunctionalProperty ;
+    rdfs:range xsd:string .
+
+
+###  http://www.stups.fr/ontologies/2023/stups/largeur
+:largeur rdf:type owl:DatatypeProperty ,
+                  owl:FunctionalProperty ;
+         rdfs:range xsd:float .
+
+
+###  http://www.stups.fr/ontologies/2023/stups/libelleAspect
+:libelleAspect rdf:type owl:DatatypeProperty ,
+                        owl:FunctionalProperty ;
+               rdfs:range [ rdf:type rdfs:Datatype ;
+                            owl:oneOf [ rdf:type rdf:List ;
+                                        rdf:first "Billes" ;
+                                        rdf:rest [ rdf:type rdf:List ;
+                                                   rdf:first "Cailloux" ;
+                                                   rdf:rest [ rdf:type rdf:List ;
+                                                              rdf:first "Comprimés" ;
+                                                              rdf:rest [ rdf:type rdf:List ;
+                                                                         rdf:first "Cristaux" ;
+                                                                         rdf:rest [ rdf:type rdf:List ;
+                                                                                    rdf:first "Gélules" ;
+                                                                                    rdf:rest [ rdf:type rdf:List ;
+                                                                                               rdf:first "Huiles" ;
+                                                                                               rdf:rest [ rdf:type rdf:List ;
+                                                                                                          rdf:first "Liquides" ;
+                                                                                                          rdf:rest [ rdf:type rdf:List ;
+                                                                                                                     rdf:first "Non renseignés" ;
+                                                                                                                     rdf:rest [ rdf:type rdf:List ;
+                                                                                                                                rdf:first "Poudres" ;
+                                                                                                                                rdf:rest [ rdf:type rdf:List ;
+                                                                                                                                           rdf:first "Pâtes" ;
+                                                                                                                                           rdf:rest [ rdf:type rdf:List ;
+                                                                                                                                                      rdf:first "Résines" ;
+                                                                                                                                                      rdf:rest [ rdf:type rdf:List ;
+                                                                                                                                                                 rdf:first "Substances Dissimulées" ;
+                                                                                                                                                                 rdf:rest [ rdf:type rdf:List ;
+                                                                                                                                                                            rdf:first "Timbres" ;
+                                                                                                                                                                            rdf:rest [ rdf:type rdf:List ;
+                                                                                                                                                                                       rdf:first "Végétaux" ;
+                                                                                                                                                                                       rdf:rest rdf:nil
+                                                                                                                                                                                     ]
+                                                                                                                                                                          ]
+                                                                                                                                                               ]
+                                                                                                                                                    ]
+                                                                                                                                         ]
+                                                                                                                              ]
+                                                                                                                   ]
+                                                                                                        ]
+                                                                                             ]
+                                                                                  ]
+                                                                       ]
+                                                            ]
+                                                 ]
+                                      ]
+                          ] .
+
+
+###  http://www.stups.fr/ontologies/2023/stups/libelleFormeChimique
+:libelleFormeChimique rdf:type owl:DatatypeProperty ,
+                               owl:FunctionalProperty ;
+                      rdfs:range [ rdf:type rdfs:Datatype ;
+                                   owl:oneOf [ rdf:type rdf:List ;
+                                               rdf:first "Base" ;
+                                               rdf:rest [ rdf:type rdf:List ;
+                                                          rdf:first "Base & HCl" ;
+                                                          rdf:rest [ rdf:type rdf:List ;
+                                                                     rdf:first "Chlorhydrate" ;
+                                                                     rdf:rest [ rdf:type rdf:List ;
+                                                                                rdf:first "HCL" ;
+                                                                                rdf:rest [ rdf:type rdf:List ;
+                                                                                           rdf:first "Indéterminée" ;
+                                                                                           rdf:rest [ rdf:type rdf:List ;
+                                                                                                      rdf:first "Phosphate" ;
+                                                                                                      rdf:rest [ rdf:type rdf:List ;
+                                                                                                                 rdf:first "Sulfate" ;
+                                                                                                                 rdf:rest rdf:nil
+                                                                                                               ]
+                                                                                                    ]
+                                                                                         ]
+                                                                              ]
+                                                                   ]
+                                                        ]
+                                             ]
+                                 ] .
+
+
+###  http://www.stups.fr/ontologies/2023/stups/libelleService
+:libelleService rdf:type owl:DatatypeProperty ,
+                         owl:FunctionalProperty ;
+                rdfs:range xsd:string .
+
+
+###  http://www.stups.fr/ontologies/2023/stups/logo
+:logo rdf:type owl:DatatypeProperty ,
+               owl:FunctionalProperty ;
+      rdfs:range xsd:boolean .
+
+
+###  http://www.stups.fr/ontologies/2023/stups/longueur
+:longueur rdf:type owl:DatatypeProperty ,
+                   owl:FunctionalProperty ;
+          rdfs:range xsd:float .
+
+
+###  http://www.stups.fr/ontologies/2023/stups/masse
+:masse rdf:type owl:DatatypeProperty ,
+                owl:FunctionalProperty ;
+       rdfs:range xsd:float .
+
+
+###  http://www.stups.fr/ontologies/2023/stups/nomLogo
+:nomLogo rdf:type owl:DatatypeProperty ,
+                  owl:FunctionalProperty ;
+         rdfs:range xsd:string .
+
+
+###  http://www.stups.fr/ontologies/2023/stups/nomService
+:nomService rdf:type owl:DatatypeProperty ,
+                     owl:FunctionalProperty ;
+            rdfs:range xsd:string .
+
+
+###  http://www.stups.fr/ontologies/2023/stups/nomSubstance
+:nomSubstance rdf:type owl:DatatypeProperty ,
+                       owl:FunctionalProperty ;
+              rdfs:range xsd:string .
+
+
+###  http://www.stups.fr/ontologies/2023/stups/numeroEchantillon
+:numeroEchantillon rdf:type owl:DatatypeProperty ,
+                            owl:FunctionalProperty ;
+                   rdfs:domain :Echantillon ;
+                   rdfs:range xsd:string .
+
+
+###  http://www.stups.fr/ontologies/2023/stups/numeroLot
+:numeroLot rdf:type owl:DatatypeProperty ,
+                    owl:FunctionalProperty ;
+           rdfs:range xsd:string .
+
+
+###  http://www.stups.fr/ontologies/2023/stups/numeroScelle
+:numeroScelle rdf:type owl:DatatypeProperty ,
+                       owl:FunctionalProperty ;
+              rdfs:range xsd:string .
+
+
+###  http://www.stups.fr/ontologies/2023/stups/ovule
+:ovule rdf:type owl:DatatypeProperty ,
+                owl:FunctionalProperty ;
+       rdfs:range xsd:boolean .
+
+
+###  http://www.stups.fr/ontologies/2023/stups/presentation
+:presentation rdf:type owl:DatatypeProperty ,
+                       owl:FunctionalProperty ;
+              rdfs:range [ rdf:type rdfs:Datatype ;
+                           owl:oneOf [ rdf:type rdf:List ;
+                                       rdf:first "Autre" ;
+                                       rdf:rest [ rdf:type rdf:List ;
+                                                  rdf:first "Cactus" ;
+                                                  rdf:rest [ rdf:type rdf:List ;
+                                                             rdf:first "Champignons" ;
+                                                             rdf:rest [ rdf:type rdf:List ;
+                                                                        rdf:first "Débrisvégétaux" ;
+                                                                        rdf:rest [ rdf:type rdf:List ;
+                                                                                   rdf:first "Graines" ;
+                                                                                   rdf:rest [ rdf:type rdf:List ;
+                                                                                              rdf:first "Liquide" ;
+                                                                                              rdf:rest [ rdf:type rdf:List ;
+                                                                                                         rdf:first "Morceaux" ;
+                                                                                                         rdf:rest [ rdf:type rdf:List ;
+                                                                                                                    rdf:first "ObjetSommités" ;
+                                                                                                                    rdf:rest [ rdf:type rdf:List ;
+                                                                                                                               rdf:first "Plantes" ;
+                                                                                                                               rdf:rest [ rdf:type rdf:List ;
+                                                                                                                                          rdf:first "Plaquette" ;
+                                                                                                                                          rdf:rest [ rdf:type rdf:List ;
+                                                                                                                                                     rdf:first "Pâte" ;
+                                                                                                                                                     rdf:rest [ rdf:type rdf:List ;
+                                                                                                                                                                rdf:first "Sommités" ;
+                                                                                                                                                                rdf:rest [ rdf:type rdf:List ;
+                                                                                                                                                                           rdf:first "ovule" ;
+                                                                                                                                                                           rdf:rest rdf:nil
+                                                                                                                                                                         ]
+                                                                                                                                                              ]
+                                                                                                                                                   ]
+                                                                                                                                        ]
+                                                                                                                             ]
+                                                                                                                  ]
+                                                                                                       ]
+                                                                                            ]
+                                                                                 ]
+                                                                      ]
+                                                           ]
+                                                ]
+                                     ]
+                         ] .
+
+
+###  http://www.stups.fr/ontologies/2023/stups/quantite
+:quantite rdf:type owl:DatatypeProperty ,
+                   owl:FunctionalProperty ;
+          rdfs:range xsd:float .
+
+
+###  http://www.stups.fr/ontologies/2023/stups/secabiliteRecto
+:secabiliteRecto rdf:type owl:DatatypeProperty ,
+                          owl:FunctionalProperty ;
+                 rdfs:range [ rdf:type rdfs:Datatype ;
+                              owl:oneOf [ rdf:type rdf:List ;
+                                          rdf:first "Aucune" ;
+                                          rdf:rest [ rdf:type rdf:List ;
+                                                     rdf:first "Autre" ;
+                                                     rdf:rest [ rdf:type rdf:List ;
+                                                                rdf:first "Demi" ;
+                                                                rdf:rest [ rdf:type rdf:List ;
+                                                                           rdf:first "Quart" ;
+                                                                           rdf:rest rdf:nil
+                                                                         ]
+                                                              ]
+                                                   ]
+                                        ]
+                            ] .
+
+
+###  http://www.stups.fr/ontologies/2023/stups/secabiliteVerso
+:secabiliteVerso rdf:type owl:DatatypeProperty ,
+                          owl:FunctionalProperty ;
+                 rdfs:range [ rdf:type rdfs:Datatype ;
+                              owl:oneOf [ rdf:type rdf:List ;
+                                          rdf:first "Aucune" ;
+                                          rdf:rest [ rdf:type rdf:List ;
+                                                     rdf:first "Autre" ;
+                                                     rdf:rest [ rdf:type rdf:List ;
+                                                                rdf:first "Demi" ;
+                                                                rdf:rest [ rdf:type rdf:List ;
+                                                                           rdf:first "Quart" ;
+                                                                           rdf:rest rdf:nil
+                                                                         ]
+                                                              ]
+                                                   ]
+                                        ]
+                            ] .
+
+
+###  http://www.stups.fr/ontologies/2023/stups/taux
+:taux rdf:type owl:DatatypeProperty ,
+               owl:FunctionalProperty ;
+      rdfs:range xsd:float .
+
+
+###  http://www.stups.fr/ontologies/2023/stups/tempsRetention
+:tempsRetention rdf:type owl:DatatypeProperty ,
+                         owl:FunctionalProperty ;
+                rdfs:range xsd:decimal .
+
+
+###  http://www.stups.fr/ontologies/2023/stups/trace
+:trace rdf:type owl:DatatypeProperty ,
+                owl:FunctionalProperty ;
+       rdfs:range xsd:boolean .
+
+
+###  http://www.stups.fr/ontologies/2023/stups/typeDrogue
+:typeDrogue rdf:type owl:DatatypeProperty ,
+                     owl:FunctionalProperty ;
+            rdfs:range [ rdf:type rdfs:Datatype ;
+                         owl:oneOf [ rdf:type rdf:List ;
+                                     rdf:first "Amphétamine et dérivés" ;
+                                     rdf:rest [ rdf:type rdf:List ;
+                                                rdf:first "Cannabis" ;
+                                                rdf:rest [ rdf:type rdf:List ;
+                                                           rdf:first "Cocaïne" ;
+                                                           rdf:rest [ rdf:type rdf:List ;
+                                                                      rdf:first "Divers" ;
+                                                                      rdf:rest [ rdf:type rdf:List ;
+                                                                                 rdf:first "Héroïne" ;
+                                                                                 rdf:rest rdf:nil
+                                                                               ]
+                                                                    ]
+                                                         ]
+                                              ]
+                                   ]
+                       ] .
+
+
+###  http://www.stups.fr/ontologies/2023/stups/unite
+:unite rdf:type owl:DatatypeProperty ,
+                owl:FunctionalProperty ;
+       rdfs:range [ rdf:type rdfs:Datatype ;
+                    owl:oneOf [ rdf:type rdf:List ;
+                                rdf:first "%" ;
+                                rdf:rest [ rdf:type rdf:List ;
+                                           rdf:first "g/L" ;
+                                           rdf:rest [ rdf:type rdf:List ;
+                                                      rdf:first "g/kg" ;
+                                                      rdf:rest [ rdf:type rdf:List ;
+                                                                 rdf:first "µg/g" ;
+                                                                 rdf:rest [ rdf:type rdf:List ;
+                                                                            rdf:first "µg/mL" ;
+                                                                            rdf:rest [ rdf:type rdf:List ;
+                                                                                       rdf:first "µg/timbre" ;
+                                                                                       rdf:rest rdf:nil
+                                                                                     ]
+                                                                          ]
+                                                               ]
+                                                    ]
+                                         ]
+                              ]
+                  ] .
+
+
+###  http://www.stups.fr/ontologies/2023/stups/visqueux
+:visqueux rdf:type owl:DatatypeProperty ,
+                   owl:FunctionalProperty ;
+          rdfs:range xsd:boolean .
+
+
+###  http://www.stups.fr/ontologies/2023/stups/volume
+:volume rdf:type owl:DatatypeProperty ,
+                 owl:FunctionalProperty ;
+        rdfs:range xsd:float .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://www.stups.fr/ontologies/2023/stups/Aspect
+:Aspect rdf:type owl:Class ;
+        owl:equivalentClass [ rdf:type owl:Class ;
+                              owl:unionOf ( [ rdf:type owl:Restriction ;
+                                              owl:onProperty :estAspectExterneDe ;
+                                              owl:someValuesFrom :Echantillon
+                                            ]
+                                            [ rdf:type owl:Restriction ;
+                                              owl:onProperty :estAspectInterneDe ;
+                                              owl:someValuesFrom :Echantillon
+                                            ]
+                                          )
+                            ] ;
+        rdfs:comment "Un aspect permet de d’écrire l’aspect interne ou l’aspect externe d’un échantillon." .
+
+
+###  http://www.stups.fr/ontologies/2023/stups/Composant
+:Composant rdf:type owl:Class ;
+           owl:equivalentClass [ rdf:type owl:Restriction ;
+                                 owl:onProperty :aSubstance ;
+                                 owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                 owl:onClass :Substance
+                               ] ;
+           rdfs:comment "Un composant est utilisé pour décrire ce qui compose un échantillon. Il en existe deux types : les principes actifs et les produits de coupages. Un composant est lié à une substance et éventuellement a un dosage (exprimé en pourcentage massique)." .
+
+
+###  http://www.stups.fr/ontologies/2023/stups/Departement
+:Departement rdf:type owl:Class ;
+             owl:equivalentClass [ owl:intersectionOf ( [ rdf:type owl:Restriction ;
+                                                          owl:onProperty :aVille ;
+                                                          owl:someValuesFrom :Ville
+                                                        ]
+                                                        [ rdf:type owl:Restriction ;
+                                                          owl:onProperty :estDansRegion ;
+                                                          owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                          owl:onClass :Region
+                                                        ]
+                                                      ) ;
+                                   rdf:type owl:Class
+                                 ] ;
+             rdfs:comment "Un département est dans une région et a une ou plusieurs villes." .
+
+
+###  http://www.stups.fr/ontologies/2023/stups/Echantillon
+:Echantillon rdf:type owl:Class ;
+             rdfs:subClassOf [ rdf:type owl:Restriction ;
+                               owl:onProperty :aProduitCoupage ;
+                               owl:someValuesFrom :ProduitCoupage
+                             ] ,
+                             [ rdf:type owl:Restriction ;
+                               owl:onProperty :estProcheDe ;
+                               owl:minQualifiedCardinality "0"^^xsd:nonNegativeInteger ;
+                               owl:onClass :Echantillon
+                             ] ,
+                             [ rdf:type owl:Restriction ;
+                               owl:onProperty :aAspectExterne ;
+                               owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                               owl:onClass :Aspect
+                             ] ,
+                             [ rdf:type owl:Restriction ;
+                               owl:onProperty :aPrincipeActif ;
+                               owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                               owl:onClass :PrincipeActif
+                             ] ,
+                             [ rdf:type owl:Restriction ;
+                               owl:onProperty :provientDe ;
+                               owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                               owl:onClass :Scelle
+                             ] ,
+                             [ rdf:type owl:Restriction ;
+                               owl:onProperty :aAspectInterne ;
+                               owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                               owl:onClass :Aspect
+                             ] ,
+                             [ rdf:type owl:Restriction ;
+                               owl:onProperty :aProfilChimique ;
+                               owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                               owl:onClass :ProfilChimique
+                             ] ,
+                             [ rdf:type owl:Restriction ;
+                               owl:onProperty :id ;
+                               owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                               owl:onDataRange xsd:string
+                             ] ,
+                             [ rdf:type owl:Restriction ;
+                               owl:onProperty :numeroEchantillon ;
+                               owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                               owl:onDataRange xsd:string
+                             ] ,
+                             [ rdf:type owl:Restriction ;
+                               owl:onProperty :typeDrogue ;
+                               owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                               owl:onDataRange xsd:string
+                             ] ;
+             rdfs:comment """Un échantillon de drogue est extrait à partir d’un prélèvement d’un scellé. Un échantillon est caractérisé par un numéro d’échantillon et son type de drogue ('cannabis', 'cocaïne', 'divers' ou 'amphétamine et dérivés'). Un échantillon a des caractéristiques macroscopiques (aspect internes et externes, couleurs etc.), un principe actif et des produits de coupage. Les experts peuvent aussi donner des commentaires sur l’échantillon. De plus, un échantillon peut être regroupé avec d’autres échantillon dans un lot.
+Dans le cas des stupéfiants sur lesquels une analyse de profilage chimique est réalisée, chaque échantillon est associé à un profil chimique.""" .
+
+
+###  http://www.stups.fr/ontologies/2023/stups/FormeChimique
+:FormeChimique rdf:type owl:Class ;
+               owl:equivalentClass [ rdf:type owl:Restriction ;
+                                     owl:onProperty :estFormeChimiqueDe ;
+                                     owl:someValuesFrom :PrincipeActif
+                                   ] ;
+               rdfs:comment "Une forme chimique (Base, HCL, Base et HCL, Sulfate, Chlorhydrate, Phosphate ou Indéterminée) est associée à un principe actif pour décrire sa forme chimique." .
+
+
+###  http://www.stups.fr/ontologies/2023/stups/Pays
+:Pays rdf:type owl:Class ;
+      owl:equivalentClass [ rdf:type owl:Restriction ;
+                            owl:onProperty :aRegion ;
+                            owl:someValuesFrom :Region
+                          ] ;
+      rdfs:comment "Un pays a une ou plusieurs régions" .
+
+
+###  http://www.stups.fr/ontologies/2023/stups/Pic
+:Pic rdf:type owl:Class ;
+     owl:equivalentClass [ rdf:type owl:Restriction ;
+                           owl:onProperty :representeSubstance ;
+                           owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                           owl:onClass :Substance
+                         ] ;
+     rdfs:comment "Un pic d’un profil chimique caractérise un composé chimique (molécule) présent dans l’échantillon. Chaque pic est caractérisé par un temps de rétention et une aire, correspondant à la quantité du composé cible dans l’échantillon." .
+
+
+###  http://www.stups.fr/ontologies/2023/stups/PrincipeActif
+:PrincipeActif rdf:type owl:Class ;
+               owl:equivalentClass [ owl:intersectionOf ( [ rdf:type owl:Restriction ;
+                                                            owl:onProperty :aFormeChimique ;
+                                                            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                            owl:onClass :FormeChimique
+                                                          ]
+                                                          [ rdf:type owl:Restriction ;
+                                                            owl:onProperty :estPrincipeActifDe ;
+                                                            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                            owl:onClass :Echantillon
+                                                          ]
+                                                        ) ;
+                                     rdf:type owl:Class
+                                   ] ;
+               rdfs:subClassOf :Composant ;
+               owl:disjointWith :ProduitCoupage ;
+               rdfs:comment "Un principe actif est la principale substance d’un échantillon. Tout principe actif a une forme chimique." .
+
+
+###  http://www.stups.fr/ontologies/2023/stups/ProduitCoupage
+:ProduitCoupage rdf:type owl:Class ;
+                owl:equivalentClass [ rdf:type owl:Restriction ;
+                                      owl:onProperty :estProduitCoupageDe ;
+                                      owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                      owl:onClass :Echantillon
+                                    ] ;
+                rdfs:subClassOf :Composant ;
+                rdfs:comment "Un produit de coupage est une substance composant un échantillon. Ce produit de coupage est en plus petite quantité que le principe actif." .
+
+
+###  http://www.stups.fr/ontologies/2023/stups/ProfilChimique
+:ProfilChimique rdf:type owl:Class ;
+                owl:equivalentClass [ owl:intersectionOf ( [ rdf:type owl:Restriction ;
+                                                             owl:onProperty :aPic ;
+                                                             owl:someValuesFrom :Pic
+                                                           ]
+                                                           [ rdf:type owl:Restriction ;
+                                                             owl:onProperty :estProfilChimiqueDe ;
+                                                             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                             owl:onClass :Echantillon
+                                                           ]
+                                                         ) ;
+                                      rdf:type owl:Class
+                                    ] ;
+                rdfs:comment "Un profil chimique est associé à un échantillon dans le but de faire du profilage (i.e. rapprocher automatique des échantillons selon leur profil et leurs caractéristiques). Un profil chimique représente chromatogramme constitué d’un ensemble de pics  permettent d’identifier la présence ou composés chimiques cible." .
+
+
+###  http://www.stups.fr/ontologies/2023/stups/ProfilChimiqueCocaine
+:ProfilChimiqueCocaine rdf:type owl:Class ;
+                       rdfs:subClassOf :ProfilChimique ;
+                       owl:disjointWith :ProfilChimiqueHeroine ;
+                       rdfs:comment "Un profil de cocaïne a 18 pics, correspondant à des solvants résiduels ayant servi dans la fabrication de la cocaïne, sont recherchés. Ils ne sont pas toujours tous présents, cela dépend du procédé de fabrication   (extraction)." .
+
+
+###  http://www.stups.fr/ontologies/2023/stups/ProfilChimiqueHeroine
+:ProfilChimiqueHeroine rdf:type owl:Class ;
+                       rdfs:subClassOf :ProfilChimique ;
+                       rdfs:comment "Pour l’héroïne, 6 pics correspondant à des impuretés   et dépendent du procédé de fabrication (synthèse). Elles sont toujours présentes mais les quantités peuvent être différentes." .
+
+
+###  http://www.stups.fr/ontologies/2023/stups/Region
+:Region rdf:type owl:Class ;
+        owl:equivalentClass [ owl:intersectionOf ( [ rdf:type owl:Restriction ;
+                                                     owl:onProperty :aDepartement ;
+                                                     owl:someValuesFrom :Departement
+                                                   ]
+                                                   [ rdf:type owl:Restriction ;
+                                                     owl:onProperty :estDansPays ;
+                                                     owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                     owl:onClass :Pays
+                                                   ]
+                                                 ) ;
+                              rdf:type owl:Class
+                            ] ;
+        rdfs:comment "Une région a un ou plusieurs département est dans un un pays." .
+
+
+###  http://www.stups.fr/ontologies/2023/stups/Saisine
+:Saisine rdf:type owl:Class ;
+         owl:equivalentClass [ owl:intersectionOf ( [ rdf:type owl:Restriction ;
+                                                      owl:onProperty :aScelle ;
+                                                      owl:someValuesFrom :Scelle
+                                                    ]
+                                                    [ rdf:type owl:Restriction ;
+                                                      owl:onProperty :aPaysDestination ;
+                                                      owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                      owl:onClass :Pays
+                                                    ]
+                                                    [ rdf:type owl:Restriction ;
+                                                      owl:onProperty :aServiceCapteur ;
+                                                      owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                      owl:onClass :ServiceCapteur
+                                                    ]
+                                                    [ rdf:type owl:Restriction ;
+                                                      owl:onProperty :aServiceRequerant ;
+                                                      owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                      owl:onClass :ServiceRequerant
+                                                    ]
+                                                    [ rdf:type owl:Restriction ;
+                                                      owl:onProperty :estFaitA ;
+                                                      owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                      owl:onClass :Ville
+                                                    ]
+                                                  ) ;
+                               rdf:type owl:Class
+                             ] ;
+         rdfs:comment "La saisine est un terme juridique utilisé en matière de procédure. Elle désigne l'action qu'accomplit un requérant lorsqu'il demande l'analyse d'une saisie de drogue. La fiche (i.e. l’ensemble des informations) d’une saisine d’un produit supposé illicite contient un service capteur, un service requérant, la ville où la saisine a été faite et le pays de destination du produit. Ces renseignements peuvent être complets ou partiels. De plus, une saisie contient un ensemble de scellés" .
+
+
+###  http://www.stups.fr/ontologies/2023/stups/Scelle
+:Scelle rdf:type owl:Class ;
+        owl:equivalentClass [ owl:intersectionOf ( [ rdf:type owl:Restriction ;
+                                                     owl:onProperty :aEchantillon ;
+                                                     owl:someValuesFrom :Echantillon
+                                                   ]
+                                                   [ rdf:type owl:Restriction ;
+                                                     owl:onProperty :estDansSaisine ;
+                                                     owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                     owl:onClass :Saisine
+                                                   ]
+                                                 ) ;
+                              rdf:type owl:Class
+                            ] ;
+        rdfs:comment "Les scellés sont contenus dans une saisine. Chaque scellé contient un ou plusieurs échantillons des produits à identifier et est identifié par un numéro unique. Un scellé est une mesure ordonnée, afin de conserver les pièces à conviction à la disposition de la justice.  Il peut désigner également le fait d'apposer un cachet de cire sur une pièce à conviction." .
+
+
+###  http://www.stups.fr/ontologies/2023/stups/Service
+:Service rdf:type owl:Class ;
+         owl:equivalentClass [ rdf:type owl:Restriction ;
+                               owl:onProperty :estSitueA ;
+                               owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                               owl:onClass :Ville
+                             ] ;
+         rdfs:comment "Il existe deux types de services : les services requérants et les services capteurs. Tous les services sont identifiés par un nom. De plus un service est localisé dans une ville et peut être associé à un certain nombre d’informations administratives (numéro de téléphone etc.)." .
+
+
+###  http://www.stups.fr/ontologies/2023/stups/ServiceCapteur
+:ServiceCapteur rdf:type owl:Class ;
+                owl:equivalentClass [ rdf:type owl:Restriction ;
+                                      owl:onProperty :estServiceCapteurDe ;
+                                      owl:someValuesFrom :Saisine
+                                    ] ;
+                rdfs:subClassOf :Service ;
+                owl:disjointWith :ServiceRequerant ;
+                rdfs:comment "Un service capteur est le service qui réalise la saisie de drogue." .
+
+
+###  http://www.stups.fr/ontologies/2023/stups/ServiceRequerant
+:ServiceRequerant rdf:type owl:Class ;
+                  owl:equivalentClass [ rdf:type owl:Restriction ;
+                                        owl:onProperty :estServiceRequerantDe ;
+                                        owl:someValuesFrom :Saisine
+                                      ] ;
+                  rdfs:subClassOf :Service ;
+                  rdfs:comment "Un service requérant est le service qui requiert l’analyse d’une saisie de drogue (i.e. celui à l’origine de la saisine)." .
+
+
+###  http://www.stups.fr/ontologies/2023/stups/Substance
+:Substance rdf:type owl:Class ;
+           owl:equivalentClass [ rdf:type owl:Class ;
+                                 owl:unionOf ( [ rdf:type owl:Restriction ;
+                                                 owl:onProperty :estRepresenteePar ;
+                                                 owl:someValuesFrom :Pic
+                                               ]
+                                               [ rdf:type owl:Restriction ;
+                                                 owl:onProperty :estSubstanceDe ;
+                                                 owl:someValuesFrom :Composant
+                                               ]
+                                             )
+                               ] ;
+           rdfs:comment "Le concept de substance est le même que celui de la chimie. Ici, il est utilisé pour représenter la substance à laquelle sont reliés les composants d’un échantillon (Principe actif et Produit de coupage) ainsi que les pics d’un profil. Une substance à un nom." .
+
+
+###  http://www.stups.fr/ontologies/2023/stups/Ville
+:Ville rdf:type owl:Class ;
+       owl:equivalentClass [ rdf:type owl:Restriction ;
+                             owl:onProperty :estDansDepartement ;
+                             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                             owl:onClass :Departement
+                           ] ;
+       rdfs:comment "Un ville est dans un département." .
+
+
+###  Generated by the OWL API (version 4.5.25.2023-02-15T19:15:49Z) https://github.com/owlcs/owlapi

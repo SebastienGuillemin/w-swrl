@@ -13,6 +13,7 @@ import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
+import org.semanticweb.owlapi.model.OWLDeclarationAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -49,6 +50,7 @@ public class DefaultWSWRLOntology extends DefaultSWRLAPIOWLOntology implements W
     private final Map<String, WSWRLRule> wswrlRules;
     private WSWRLDataFactory wswrlDataFactory;
     private Set<WSWRLAxiom> inferredAxiomsCache;
+    private IRI baseIRI;
 
     /**
      * Constructor.
@@ -171,15 +173,23 @@ public class DefaultWSWRLOntology extends DefaultSWRLAPIOWLOntology implements W
 
     @Override
     public IRI getBaseIRI() {
+        if (this.baseIRI != null)
+            return this.baseIRI;
+
+        String iri = "";
         for (OWLAxiom axiom : this.getOWLAxioms()) {
             if (axiom instanceof OWLClassAssertionAxiom) {
-                return IRI.create(((OWLClassAssertionAxiom) axiom).getClassExpression().asOWLClass().getIRI().getNamespace());
+                iri = ((OWLClassAssertionAxiom) axiom).getClassExpression().asOWLClass().getIRI().getNamespace();
             } else if (axiom instanceof OWLObjectPropertyAssertionAxiom) {
-                return IRI.create(((OWLObjectPropertyAssertionAxiom) axiom).getSubject().asOWLNamedIndividual().getIRI().getNamespace());
+                iri = ((OWLObjectPropertyAssertionAxiom) axiom).getSubject().asOWLNamedIndividual().getIRI().getNamespace();
             } else if (axiom instanceof OWLDataPropertyAssertionAxiom) {
-                return IRI.create(((OWLDataPropertyAssertionAxiom) axiom).getSubject().asOWLNamedIndividual().getIRI().getNamespace());
+                iri = ((OWLDataPropertyAssertionAxiom) axiom).getSubject().asOWLNamedIndividual().getIRI().getNamespace();
+            } else if (axiom instanceof OWLDeclarationAxiom) {
+                iri = ((OWLDeclarationAxiom) axiom).getEntity().getIRI().getNamespace();
             }
         }
-        return null;
+
+        this.baseIRI = IRI.create(iri);
+        return this.baseIRI;
     }
 }

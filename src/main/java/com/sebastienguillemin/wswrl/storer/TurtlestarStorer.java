@@ -5,7 +5,9 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.net.URISyntaxException;
 import java.util.Set;
+import java.util.stream.Collectors;
 
+import org.eclipse.rdf4j.model.BNode;
 import org.eclipse.rdf4j.model.IRI;
 import org.eclipse.rdf4j.model.Literal;
 import org.eclipse.rdf4j.model.Model;
@@ -16,6 +18,7 @@ import org.eclipse.rdf4j.model.ValueFactory;
 import org.eclipse.rdf4j.model.impl.DynamicModelFactory;
 import org.eclipse.rdf4j.model.impl.SimpleNamespace;
 import org.eclipse.rdf4j.model.impl.SimpleValueFactory;
+import org.eclipse.rdf4j.model.util.RDFCollections;
 import org.eclipse.rdf4j.model.util.Statements;
 import org.eclipse.rdf4j.model.util.Values;
 import org.eclipse.rdf4j.model.vocabulary.OWL;
@@ -27,8 +30,10 @@ import org.eclipse.rdf4j.rio.Rio;
 import org.eclipse.rdf4j.rio.UnsupportedRDFormatException;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLDataOneOf;
 import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLDataPropertyRangeAxiom;
+import org.semanticweb.owlapi.model.OWLDataRange;
 import org.semanticweb.owlapi.model.OWLDeclarationAxiom;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
@@ -50,7 +55,6 @@ public class TurtlestarStorer {
             throws RDFHandlerException, UnsupportedRDFormatException, FileNotFoundException, URISyntaxException {
         org.semanticweb.owlapi.model.IRI baseIRI = wswrlOntology.getBaseIRI();
         String baseIRIString = (baseIRI == null) ? "" : baseIRI.toString();
-
         Model model = this.modelFactory.createEmptyModel();
         model.setNamespace(new SimpleNamespace("", baseIRIString));
         model.setNamespace(new SimpleNamespace("owl", "http://www.w3.org/2002/07/owl#"));
@@ -68,7 +72,6 @@ public class TurtlestarStorer {
     private void addOWLAxioms(Set<OWLAxiom> owlAxioms, Model model) {
         Statement statement;
         for (OWLAxiom axiom : owlAxioms) {
-            // System.out.println(axiom);
             // TODO : gérer les autrs type d'assertions.
             statement = null;
             if (axiom instanceof OWLClassAssertionAxiom) {
@@ -80,16 +83,16 @@ public class TurtlestarStorer {
             } else if (axiom instanceof OWLSymmetricObjectPropertyAxiom) {
                 statement = this.getSymmetricObjectPropertyAxiom((OWLSymmetricObjectPropertyAxiom) axiom);
             } else if (axiom instanceof OWLDataPropertyRangeAxiom) {
-                statement = this.getDataPropertyRangeAxiom((OWLDataPropertyRangeAxiom) axiom);
+                statement = this.getDataPropertyRangeAxiom((OWLDataPropertyRangeAxiom) axiom, model);
             } else if(axiom instanceof OWLDeclarationAxiom) {
                 statement = this.getDeclarationAxiom((OWLDeclarationAxiom) axiom);
 
                 if (statement == null) {
-                    System.out.println("Writing axiom : '" + axiom + "' is not supported yet (ignoring).");
+                    System.out.println("[TurtleStorer Warning] Writing axiom : '" + axiom + "' is not supported yet (ignoring).");
                     continue;
                 }
             } else {
-                System.out.println("Writing axiom : '" + axiom + "' is not supported yet (ignoring).");
+                System.out.println("[TurtleStorer Warning] Writing axiom : '" + axiom + "' is not supported yet (ignoring).");
                 continue;
             }
             model.add(statement);
@@ -121,10 +124,21 @@ public class TurtlestarStorer {
         return Statements.statement(subject, RDF.TYPE, OWL.SYMMETRICPROPERTY, null);
     }
 
-    private Statement getDataPropertyRangeAxiom(OWLDataPropertyRangeAxiom axiom) {
-        Resource subject  = Values.iri(axiom.getProperty().asOWLDataProperty().getIRI().toString());
-        Resource object = Values.iri(axiom.getRange().asOWLDatatype().getIRI().toString());
-        return Statements.statement(subject, RDFS.RANGE, object, null);
+    private Statement getDataPropertyRangeAxiom(OWLDataPropertyRangeAxiom axiom, Model model) {
+        IRI subject  = Values.iri(axiom.getProperty().asOWLDataProperty().getIRI().toString());
+        OWLDataRange dataRange = axiom.getRange();
+        if (dataRange instanceof OWLDataOneOf) {
+            BNode bNode = Values.bnode(subject.getLocalName() + "Range");
+            this.OWLOneOfAsRDFList((OWLDataOneOf) dataRange, bNode, model);
+            return Statements.statement(subject, RDFS.RANGE, bNode, null);
+        }
+        else
+            return Statements.statement(subject, RDFS.RANGE, Values.iri(dataRange.asOWLDatatype().getIRI().toString()), null);
+    }
+
+    private void OWLOneOfAsRDFList(OWLDataOneOf owlDataOneOf, BNode head, Model model) {
+        Set<String> values =  owlDataOneOf.getValues().stream().map(v -> v.getLiteral()).collect(Collectors.toSet());
+        RDFCollections.asRDF(values, head, model, new Resource[0]);
     }
 
     private Statement getDeclarationAxiom(OWLDeclarationAxiom axiom) {

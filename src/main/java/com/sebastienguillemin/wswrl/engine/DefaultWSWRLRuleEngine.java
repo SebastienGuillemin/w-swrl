@@ -60,8 +60,21 @@ public class DefaultWSWRLRuleEngine extends DefaultSWRLRuleEngine implements WSW
     
     @Override
     public void infer() throws SWRLRuleEngineException {
-        super.infer();
+        System.out.println("Running inference engine.");
+        System.out.println("--- Processing ontology and SWRL rules.");
 
+        long start = System.currentTimeMillis();
+        super.infer();
+        long stop = System.currentTimeMillis();
+        
+        System.out.println("|---> Inferring time : " + ((float)(stop - start) / 1000.0f) + " seconds");
+
+        System.out.println("\n--- Processing W-SWRL rules.");
+
+        start = System.currentTimeMillis();
         this.targetWSWRLRuleEngine.runRuleEngine();
+        stop = System.currentTimeMillis();
+        System.out.println("|---> Inferring time : " + ((float)(stop - start) / 1000.0f) + " seconds");
+
     }
 }

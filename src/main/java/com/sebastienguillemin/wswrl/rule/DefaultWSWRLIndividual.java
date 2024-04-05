@@ -36,6 +36,7 @@ public class DefaultWSWRLIndividual extends OWLNamedIndividualImpl implements WS
 
     @Override
     public void addOWLClass(OWLClass classAtom) {
+        System.out.println("Adding class : " + classAtom);
         this.classes.add(classAtom);
     }
 

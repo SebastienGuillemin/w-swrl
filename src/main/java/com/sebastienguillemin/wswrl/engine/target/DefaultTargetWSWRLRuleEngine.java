@@ -21,6 +21,7 @@ import com.sebastienguillemin.wswrl.core.engine.TargetWSWRLRuleEngine;
 import com.sebastienguillemin.wswrl.core.ontology.WSWRLOntology;
 import com.sebastienguillemin.wswrl.core.rule.WSWRLRule;
 import com.sebastienguillemin.wswrl.core.rule.atom.WSWRLAtom;
+import com.sebastienguillemin.wswrl.core.rule.atom.WSWRLClassAtom;
 import com.sebastienguillemin.wswrl.core.rule.atom.WSWRLDataPropertyAtom;
 import com.sebastienguillemin.wswrl.core.rule.variable.VariableBinding;
 import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLDVariable;
@@ -105,11 +106,14 @@ public class DefaultTargetWSWRLRuleEngine implements TargetWSWRLRuleEngine {
                 WSWRLIndividual wswrlIndividual = this.getOrCreateIndividual(owlIndividual);
                 wswrlIndividual.addObjectProperty(assertionAxiom);
             } else if (axiom.isOfType(AxiomType.CLASS_ASSERTION)) {
+                System.out.println(axiom);
+
                 OWLClassAssertionAxiom classAssertionAxiom = (OWLClassAssertionAxiom) axiom;
                 OWLNamedIndividual owlIndividual = (OWLNamedIndividual) classAssertionAxiom.getIndividual();
 
                 WSWRLIndividual wswrlIndividual = this.getOrCreateIndividual(owlIndividual);
                 wswrlIndividual.addOWLClass(classAssertionAxiom.getClassExpression().asOWLClass());
+                System.out.println(wswrlIndividual);
             }
         }
     }
@@ -132,18 +136,16 @@ public class DefaultTargetWSWRLRuleEngine implements TargetWSWRLRuleEngine {
     }
 
     private List<VariableBinding> generateBindings(Set<WSWRLAtom> atoms) {
-        Set<WSWRLVariable> variables = this.getAllVariables(atoms);
-
         // Bind individual variables.
-        List<VariableBinding> individualBindings = this.generateIndividualBindings(variables);
+        List<VariableBinding> individualBindings = this.generateIndividualBindings(atoms);
 
         // Bind data variables.
-        List<VariableBinding> completeBindings = this.generateDataBindings(individualBindings, atoms, variables);
+        List<VariableBinding> completeBindings = this.generateDataBindings(individualBindings, atoms);
 
         return completeBindings;
     }
 
-    private Set<WSWRLVariable> getAllVariables(Set<WSWRLAtom> atoms) {
+    private Set<WSWRLVariable> getAllVariables(Set<? extends WSWRLAtom> atoms) {
         Set<WSWRLVariable> variables = new HashSet<>();
 
         for (WSWRLAtom atom : atoms)
@@ -152,48 +154,65 @@ public class DefaultTargetWSWRLRuleEngine implements TargetWSWRLRuleEngine {
         return variables;
     }
 
-    private List<VariableBinding> generateIndividualBindings(Set<WSWRLVariable> variables) {
+    private List<VariableBinding> generateIndividualBindings(Set<WSWRLAtom> atoms) {
         List<VariableBinding> bindings = new ArrayList<>();
 
-        List<WSWRLIVariable> individualVariables = variables.stream()
-                .filter(v -> v.getDomain() == WSWRLVariableDomain.INDIVIDUALS).map(v -> (WSWRLIVariable) v)
-                .collect(Collectors.toList());
-        List<WSWRLIndividual> boundableIndividual = new ArrayList<>(this.individuals.values());
-        int individualBindingPossiblities = (int) Math.pow(boundableIndividual.size(), individualVariables.size());
+        Set<WSWRLClassAtom> classAtoms = atoms.stream().filter(atom -> (atom instanceof WSWRLClassAtom))
+                .map(atom -> (WSWRLClassAtom) atom).collect(Collectors.toSet());
 
-        System.out.println("\nBoundable individuals count : " + boundableIndividual.size() + " => "
-                + individualBindingPossiblities + " individual binding possibilities.\n");
+        List<WSWRLIndividual> boundableIndividuals = new ArrayList<>(this.individuals.values());
+        System.out.println("\nBoundable individuals count : " + boundableIndividuals.size());
+        Set<WSWRLIndividual> individuals = new HashSet<>();
 
-        int individualPointer = 0;
-        int change, count;
-        for (int v = 0; v < individualVariables.size(); v++) {
-            change = (int) Math.pow(Math.max(boundableIndividual.size(), individualVariables.size()),
-                    individualVariables.size() - (v + 1));
+        for (WSWRLClassAtom classAtom : classAtoms)
+            individuals.addAll(boundableIndividuals.stream().filter(i -> i.getOWLClass(classAtom.getIRI()) != null)
+                    .collect(Collectors.toSet()));
 
-            count = 0;
-            for (int i = 0; i < individualBindingPossiblities; i++) {
-                VariableBinding binding;
-                if (v == 0) {
-                    binding = new DefaultVariableBinding();
-                    bindings.add(binding);
-                } else
-                    binding = bindings.get(i);
+        System.out.println("Individuals count : " + individuals.size());
+        // Set<WSWRLVariable> variables = this.getAllVariables(atoms);
+        // List<WSWRLIVariable> individualVariables = variables.stream()
+        // .filter(v -> v.getDomain() == WSWRLVariableDomain.INDIVIDUALS).map(v ->
+        // (WSWRLIVariable) v)
+        // .collect(Collectors.toList());
+        // List<WSWRLIndividual> boundableIndividual = new
+        // ArrayList<>(this.individuals.values());
+        // int individualBindingPossiblities = (int)
+        // Math.pow(boundableIndividual.size(), individualVariables.size());
 
-                WSWRLIVariable variableName = individualVariables.get(v);
-                binding.bindIndividual(variableName,
-                        boundableIndividual.get(individualPointer));
+        // System.out.println("\nBoundable individuals count : " +
+        // boundableIndividual.size() + " => "
+        // + individualBindingPossiblities + " individual binding possibilities.\n");
 
-                count = (++count) % change;
-                if (count == 0)
-                    individualPointer = (++individualPointer) % boundableIndividual.size();
-            }
-        }
+        // int individualPointer = 0;
+        // int change, count;
+        // for (int v = 0; v < individualVariables.size(); v++) {
+        // change = (int) Math.pow(Math.max(boundableIndividual.size(),
+        // individualVariables.size()),
+        // individualVariables.size() - (v + 1));
+
+        // count = 0;
+        // for (int i = 0; i < individualBindingPossiblities; i++) {
+        // VariableBinding binding;
+        // if (v == 0) {
+        // binding = new DefaultVariableBinding();
+        // bindings.add(binding);
+        // } else
+        // binding = bindings.get(i);
+
+        // WSWRLIVariable variableName = individualVariables.get(v);
+        // binding.bindIndividual(variableName,
+        // boundableIndividual.get(individualPointer));
+
+        // count = (++count) % change;
+        // if (count == 0)
+        // individualPointer = (++individualPointer) % boundableIndividual.size();
+        // }
+        // }
 
         return bindings;
     }
 
-    private List<VariableBinding> generateDataBindings(List<VariableBinding> individualBindings, Set<WSWRLAtom> atoms,
-            Set<WSWRLVariable> variables) {
+    private List<VariableBinding> generateDataBindings(List<VariableBinding> individualBindings, Set<WSWRLAtom> atoms) {
 
         List<WSWRLDataPropertyAtom> dataPropertyAtoms = atoms.stream().filter(a -> a instanceof WSWRLDataPropertyAtom)
                 .map(a -> (WSWRLDataPropertyAtom) a)

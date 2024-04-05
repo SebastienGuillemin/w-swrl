@@ -16,7 +16,7 @@
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-        <exec.cleanupDaemonThreads>false</exec.cleanupDaemonThreads>
+        <!-- <exec.cleanupDaemonThreads>false</exec.cleanupDaemonThreads> -->
     </properties>
 
     <dependencies>
@@ -40,7 +40,7 @@
             <version>2.0.12</version>
         </dependency>
 
-        
+
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-simple</artifactId>
@@ -51,7 +51,7 @@
             <groupId>me.tongfei</groupId>
             <artifactId>progressbar</artifactId>
             <version>0.10.1</version>
-        </dependency>        
+        </dependency>
     </dependencies>
 
     <build>
@@ -61,7 +61,7 @@
                 <artifactId>exec-maven-plugin</artifactId>
                 <version>3.2.0</version>
                 <configuration>
-                    <mainClass>com.sebastienguillemin.wswrl.Example</mainClass>
+                    <mainClass>com.sebastienguillemin.wswrl.Evaluation</mainClass>
                 </configuration>
             </plugin>
 

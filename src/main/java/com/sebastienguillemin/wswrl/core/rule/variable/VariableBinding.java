@@ -1,8 +1,5 @@
 package com.sebastienguillemin.wswrl.core.rule.variable;
 
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLLiteral;
-
 /**
  * Represents a binding for the rule variables.
  * A binding associates a value to each variable.
@@ -29,44 +26,46 @@ import org.semanticweb.owlapi.model.OWLLiteral;
  * been called.
  */
 public interface VariableBinding {
-    /**
-     * Binds an {@link org.semanticweb.owlapi.model.OWLLiteral} string
-     * representation
-     * to a variable.
-     * 
-     * @param variable The considered variable.
-     * @param value    The value to bind.
-     */
-    public void bindLiteral(WSWRLDVariable variable, OWLLiteral value);
+    // /**
+    //  * Binds an {@link org.semanticweb.owlapi.model.OWLLiteral} string
+    //  * representation
+    //  * to a variable.
+    //  * 
+    //  * @param variable The considered variable.
+    //  * @param value    The value to bind.
+    //  */
+    // public void bindLiteral(WSWRLDVariable variable, OWLLiteral value);
 
-    /**
-     * Binds a
-     * {@link com.sebastienguillemin.wswrl.core.rule.variable.WSWRLIndividual} IRI.
-     * to a
-     * variable.
-     * 
-     * @param variable The considered variable.
-     * @param value    The individual IRI to bind.
-     */
-    public void bindIndividual(WSWRLIVariable variable, WSWRLIndividual value);
+    // /**
+    //  * Binds a
+    //  * {@link com.sebastienguillemin.wswrl.core.rule.variable.WSWRLIndividual} IRI.
+    //  * to a
+    //  * variable.
+    //  * 
+    //  * @param variable The considered variable.
+    //  * @param value    The individual IRI to bind.
+    //  */
+    // public void bindIndividual(WSWRLIVariable variable, WSWRLIndividual value);
 
-    /**
-     * Return the OWL literal of the variable corresponding to an IRI.
-     * @param variableIRI The variable IRI.
-     * @return The variable value (null if the variable does not exist).
-     */
-    public OWLLiteral getLiteralValue(IRI variableIRI);
+    // /**
+    //  * Return the OWL literal of the variable corresponding to an IRI.
+    //  * @param variableIRI The variable IRI.
+    //  * @return The variable value (null if the variable does not exist).
+    //  */
+    // public OWLLiteral getLiteralValue(IRI variableIRI);
 
-    /**
-     * Return the WSWRLIndividual of the variable corresponding to an IRI.
-     * @param variableIRI
-     * @return The variable value (null if the variable does not exist).
-     */
-    public WSWRLIndividual getIndividualValue(IRI variableIRI);
+    // /**
+    //  * Return the WSWRLIndividual of the variable corresponding to an IRI.
+    //  * @param variableIRI
+    //  * @return The variable value (null if the variable does not exist).
+    //  */
+    // public WSWRLIndividual getIndividualValue(IRI variableIRI);
 
     /**
      * Changes the inner state of variables by setting their values according to
      * this binding.
      */
-    public void bindVariables();
+    public void nextBinding();
+
+    public boolean hasNext();
 }

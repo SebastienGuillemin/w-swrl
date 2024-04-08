@@ -1,15 +1,13 @@
 package com.sebastienguillemin.wswrl.engine.target;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Hashtable;
-import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLDeclarationAxiom;
@@ -21,14 +19,8 @@ import com.sebastienguillemin.wswrl.core.engine.TargetWSWRLRuleEngine;
 import com.sebastienguillemin.wswrl.core.ontology.WSWRLOntology;
 import com.sebastienguillemin.wswrl.core.rule.WSWRLRule;
 import com.sebastienguillemin.wswrl.core.rule.atom.WSWRLAtom;
-import com.sebastienguillemin.wswrl.core.rule.atom.WSWRLClassAtom;
-import com.sebastienguillemin.wswrl.core.rule.atom.WSWRLDataPropertyAtom;
 import com.sebastienguillemin.wswrl.core.rule.variable.VariableBinding;
-import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLDVariable;
-import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLIVariable;
 import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLIndividual;
-import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLVariable;
-import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLVariableDomain;
 import com.sebastienguillemin.wswrl.rule.DefaultWSWRLIndividual;
 import com.sebastienguillemin.wswrl.rule.variable.DefaultVariableBinding;
 
@@ -37,7 +29,8 @@ import com.sebastienguillemin.wswrl.rule.variable.DefaultVariableBinding;
  */
 public class DefaultTargetWSWRLRuleEngine implements TargetWSWRLRuleEngine {
     private WSWRLOntology wswrlOntology;
-    private Hashtable<IRI, WSWRLIndividual> individuals;
+    private Hashtable<IRI, WSWRLIndividual> individuals; // Individual IRI -> individual.
+    private Hashtable<IRI, Set<WSWRLIndividual>> classToIndividuals; // Class IRI -> individuals.
 
     /**
      * Constructor.
@@ -47,6 +40,7 @@ public class DefaultTargetWSWRLRuleEngine implements TargetWSWRLRuleEngine {
     public DefaultTargetWSWRLRuleEngine(WSWRLOntology WSWRLOntology) {
         this.wswrlOntology = WSWRLOntology;
         this.individuals = new Hashtable<>();
+        this.classToIndividuals = new Hashtable<>();
     }
 
     @Override
@@ -57,20 +51,22 @@ public class DefaultTargetWSWRLRuleEngine implements TargetWSWRLRuleEngine {
 
             // Processing WSWRL rules.
             Set<WSWRLRule> wswrlRules = wswrlOntology.getWSWRLRules();
+            VariableBinding binding;
             for (WSWRLRule rule : wswrlRules) {
                 if (!rule.isEnabled())
                     continue;
 
                 Set<WSWRLAtom> body = rule.getBody();
-                for (VariableBinding binding : this.generateBindings(body)) {
-                    binding.bindVariables();
-
+                binding = new DefaultVariableBinding(body, this.classToIndividuals);
+                while (binding.hasNext()) {
+                    binding.nextBinding();
+                    
                     // Calculate rank weights
                     rule.calculateWeights();
 
                     // Evaluate
                     float confidence = rule.calculateConfidence();
-
+                
                     // Store result
                     if (confidence > 0)
                         wswrlOntology.addWSWRLInferredAxiom(rule.getHead(), confidence);
@@ -106,14 +102,13 @@ public class DefaultTargetWSWRLRuleEngine implements TargetWSWRLRuleEngine {
                 WSWRLIndividual wswrlIndividual = this.getOrCreateIndividual(owlIndividual);
                 wswrlIndividual.addObjectProperty(assertionAxiom);
             } else if (axiom.isOfType(AxiomType.CLASS_ASSERTION)) {
-                System.out.println(axiom);
-
                 OWLClassAssertionAxiom classAssertionAxiom = (OWLClassAssertionAxiom) axiom;
                 OWLNamedIndividual owlIndividual = (OWLNamedIndividual) classAssertionAxiom.getIndividual();
 
                 WSWRLIndividual wswrlIndividual = this.getOrCreateIndividual(owlIndividual);
                 wswrlIndividual.addOWLClass(classAssertionAxiom.getClassExpression().asOWLClass());
-                System.out.println(wswrlIndividual);
+                this.addIndividual(wswrlIndividual);
+                this.addindividualToClass(wswrlIndividual);
             }
         }
     }
@@ -131,127 +126,23 @@ public class DefaultTargetWSWRLRuleEngine implements TargetWSWRLRuleEngine {
 
     private void addIndividual(WSWRLIndividual individual) {
         IRI iri = individual.getIRI();
-        if (!this.individuals.containsKey(iri))
+        if (!this.individuals.containsKey(iri)) {
             this.individuals.put(iri, individual);
+        }
     }
 
-    private List<VariableBinding> generateBindings(Set<WSWRLAtom> atoms) {
-        // Bind individual variables.
-        List<VariableBinding> individualBindings = this.generateIndividualBindings(atoms);
+    private void addindividualToClass(WSWRLIndividual individual) {
+        Set<WSWRLIndividual> classIndividuals;
+        IRI classIRI;
+        for (OWLClass owlClass : individual.getOWLClasses()) {
+            classIRI = owlClass.getIRI();
+            if (!this.classToIndividuals.containsKey(classIRI)) {
+                classIndividuals = new HashSet<>();
+                this.classToIndividuals.put(classIRI, classIndividuals);
+            } else
+                classIndividuals = this.classToIndividuals.get(classIRI);
 
-        // Bind data variables.
-        List<VariableBinding> completeBindings = this.generateDataBindings(individualBindings, atoms);
-
-        return completeBindings;
-    }
-
-    private Set<WSWRLVariable> getAllVariables(Set<? extends WSWRLAtom> atoms) {
-        Set<WSWRLVariable> variables = new HashSet<>();
-
-        for (WSWRLAtom atom : atoms)
-            for (WSWRLVariable variable : atom.getVariables())
-                variables.add(variable);
-        return variables;
-    }
-
-    private List<VariableBinding> generateIndividualBindings(Set<WSWRLAtom> atoms) {
-        List<VariableBinding> bindings = new ArrayList<>();
-
-        Set<WSWRLClassAtom> classAtoms = atoms.stream().filter(atom -> (atom instanceof WSWRLClassAtom))
-                .map(atom -> (WSWRLClassAtom) atom).collect(Collectors.toSet());
-
-        List<WSWRLIndividual> boundableIndividuals = new ArrayList<>(this.individuals.values());
-        System.out.println("\nBoundable individuals count : " + boundableIndividuals.size());
-        Set<WSWRLIndividual> individuals = new HashSet<>();
-
-        for (WSWRLClassAtom classAtom : classAtoms)
-            individuals.addAll(boundableIndividuals.stream().filter(i -> i.getOWLClass(classAtom.getIRI()) != null)
-                    .collect(Collectors.toSet()));
-
-        System.out.println("Individuals count : " + individuals.size());
-        // Set<WSWRLVariable> variables = this.getAllVariables(atoms);
-        // List<WSWRLIVariable> individualVariables = variables.stream()
-        // .filter(v -> v.getDomain() == WSWRLVariableDomain.INDIVIDUALS).map(v ->
-        // (WSWRLIVariable) v)
-        // .collect(Collectors.toList());
-        // List<WSWRLIndividual> boundableIndividual = new
-        // ArrayList<>(this.individuals.values());
-        // int individualBindingPossiblities = (int)
-        // Math.pow(boundableIndividual.size(), individualVariables.size());
-
-        // System.out.println("\nBoundable individuals count : " +
-        // boundableIndividual.size() + " => "
-        // + individualBindingPossiblities + " individual binding possibilities.\n");
-
-        // int individualPointer = 0;
-        // int change, count;
-        // for (int v = 0; v < individualVariables.size(); v++) {
-        // change = (int) Math.pow(Math.max(boundableIndividual.size(),
-        // individualVariables.size()),
-        // individualVariables.size() - (v + 1));
-
-        // count = 0;
-        // for (int i = 0; i < individualBindingPossiblities; i++) {
-        // VariableBinding binding;
-        // if (v == 0) {
-        // binding = new DefaultVariableBinding();
-        // bindings.add(binding);
-        // } else
-        // binding = bindings.get(i);
-
-        // WSWRLIVariable variableName = individualVariables.get(v);
-        // binding.bindIndividual(variableName,
-        // boundableIndividual.get(individualPointer));
-
-        // count = (++count) % change;
-        // if (count == 0)
-        // individualPointer = (++individualPointer) % boundableIndividual.size();
-        // }
-        // }
-
-        return bindings;
-    }
-
-    private List<VariableBinding> generateDataBindings(List<VariableBinding> individualBindings, Set<WSWRLAtom> atoms) {
-
-        List<WSWRLDataPropertyAtom> dataPropertyAtoms = atoms.stream().filter(a -> a instanceof WSWRLDataPropertyAtom)
-                .map(a -> (WSWRLDataPropertyAtom) a)
-                .collect(Collectors.toList());
-
-        List<VariableBinding> newBindings = new ArrayList<>();
-
-        if (dataPropertyAtoms.size() == 0)
-            return individualBindings;
-        else {
-            System.out.println(dataPropertyAtoms.size() + " data property atoms found\n");
-
-            WSWRLIndividual individual;
-            VariableBinding newBinding;
-            boolean boundValue;
-            for (WSWRLDataPropertyAtom atom : dataPropertyAtoms) {
-                WSWRLIVariable atomSubject = atom.getSubject();
-                WSWRLDVariable atomObject = atom.getObject();
-
-                for (VariableBinding binding : individualBindings) {
-                    individual = binding.getIndividualValue(atomSubject.getIRI());
-
-                    boundValue = false;
-                    for (OWLDataPropertyAssertionAxiom axiom : individual.getDataProperties(atom.getIRI())) {
-                        // Copy of binding
-                        newBinding = new DefaultVariableBinding((DefaultVariableBinding) binding);
-                        newBinding.bindLiteral(atomObject, axiom.getObject());
-                        newBindings.add(newBinding);
-                        boundValue = true;
-                    }
-
-                    if (!boundValue) {
-                        newBinding = new DefaultVariableBinding((DefaultVariableBinding) binding);
-                        newBinding.bindLiteral(atomObject, null);
-                        newBindings.add(newBinding);
-                    }
-                }
-            }
-            return newBindings;
+            classIndividuals.add(individual);
         }
 
     }

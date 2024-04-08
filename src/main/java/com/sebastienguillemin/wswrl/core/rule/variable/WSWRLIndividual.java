@@ -1,5 +1,6 @@
 package com.sebastienguillemin.wswrl.core.rule.variable;
 
+import java.util.List;
 import java.util.Set;
 
 import org.semanticweb.owlapi.model.HasIRI;
@@ -29,6 +30,8 @@ public interface WSWRLIndividual extends OWLIndividual, HasIRI {
      * @return The {@link org.semanticweb.owlapi.model.OWLClass} (possibly null).
      */
     public OWLClass getOWLClass(IRI iri);
+
+    public List<OWLClass> getOWLClasses();
 
     /**
      * Remove a class from the indvidual.

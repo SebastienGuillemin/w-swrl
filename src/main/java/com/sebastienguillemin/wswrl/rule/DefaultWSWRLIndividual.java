@@ -1,6 +1,8 @@
 package com.sebastienguillemin.wswrl.rule;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.semanticweb.owlapi.model.IRI;
@@ -36,7 +38,6 @@ public class DefaultWSWRLIndividual extends OWLNamedIndividualImpl implements WS
 
     @Override
     public void addOWLClass(OWLClass classAtom) {
-        System.out.println("Adding class : " + classAtom);
         this.classes.add(classAtom);
     }
 
@@ -47,6 +48,11 @@ public class DefaultWSWRLIndividual extends OWLNamedIndividualImpl implements WS
                 return atom;
 
         return null;
+    }
+
+    @Override
+    public List<OWLClass> getOWLClasses() {
+        return new ArrayList<>(this.classes);
     }
 
     @Override

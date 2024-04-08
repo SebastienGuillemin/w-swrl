@@ -55,6 +55,7 @@ public class DefaultTargetWSWRLRuleEngine implements TargetWSWRLRuleEngine {
             Set<WSWRLRule> wswrlRules = wswrlOntology.getWSWRLRules();
             VariableBinding binding;
             int newFactsCounter = 0;
+            int skipped = 0;
             for (WSWRLRule rule : wswrlRules) {
                 if (!rule.isEnabled())
                     continue;
@@ -67,8 +68,14 @@ public class DefaultTargetWSWRLRuleEngine implements TargetWSWRLRuleEngine {
                     check1 = System.currentTimeMillis();
                     
                     // Calculate rank weights
-                    rule.calculateWeights();
+                    boolean skip = rule.calculateWeights();
                     check2 = System.currentTimeMillis();
+                    if (skip) {
+                        skipped++;
+                        continue;
+                    }
+                    else
+                        System.out.println("okok");
 
                     // Evaluate
                     float confidence = rule.calculateConfidence();
@@ -81,16 +88,22 @@ public class DefaultTargetWSWRLRuleEngine implements TargetWSWRLRuleEngine {
                     }
                     check4 = System.currentTimeMillis();
 
-                    cumulativeNewBindingCalculationTime += check1 - start;
-                    cumulativeWeightCalculationTime += check2 - check1;
-                    cumulativeConfidenceCalculationTime += check3 - check2;
-                    cumulativeAxiomsInsertionTime += check4 - check3;
+                    cumulativeNewBindingCalculationTime += (check1 - start);
+                    cumulativeWeightCalculationTime += (check2 - check1);
+                    cumulativeConfidenceCalculationTime += (check3 - check2);
+                    cumulativeAxiomsInsertionTime += (check4 - check3);
                 }
 
                 System.out.println("New facts count: " + newFactsCounter);
+                System.out.println("Skipped: " + skipped);
                 System.out.println(
                     "cumulative New Binding Calculation Time = " + ((float) cumulativeNewBindingCalculationTime / 1000.0f) +
-                    "\ncumulative Weight Calculation Time = " + ((float) cumulativeWeightCalculationTime / 1000.0f) +
+                    "\n ---> nextIndividualsBinding: " + ((float) DefaultVariableBinding.nextIndividualsBinding / 1000.0f) +
+                    "\n ---> bindIndividuals: " + ((float) DefaultVariableBinding.bindIndividuals / 1000.0f) +
+                    "\n ---> processDataProperties: " + ((float) DefaultVariableBinding.processDataProperties / 1000.0f) +
+                    "\n ---> nextDataBinding: " + ((float) DefaultVariableBinding.nextDataBinding / 1000.0f) +
+                    "\n ---> bindDataVariables: " + ((float) DefaultVariableBinding.bindDataVariables / 1000.0f) +
+                    "\n\ncumulative Weight Calculation Time = " + ((float) cumulativeWeightCalculationTime / 1000.0f) +
                     "\ncumulative Confidence Calculation Time = " + ((float) cumulativeConfidenceCalculationTime/ 1000.0f)  +
                     "\ncumulative Axioms Insertion Time = " +  ((float) cumulativeAxiomsInsertionTime / 1000.0f)
                 );

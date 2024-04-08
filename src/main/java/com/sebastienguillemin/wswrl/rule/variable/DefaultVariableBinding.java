@@ -25,6 +25,9 @@ import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLVariable;
  * {@inheritDoc}
  */
 public class DefaultVariableBinding implements VariableBinding {
+    public static long nextIndividualsBinding = 0, bindIndividuals = 0, processDataProperties = 0, nextDataBinding = 0,
+            bindDataVariables = 0;
+
     private Set<WSWRLAtom> atoms;
 
     // TODO : utiliser WSWRLIVariable ?
@@ -37,6 +40,8 @@ public class DefaultVariableBinding implements VariableBinding {
     public boolean dataLock;
     private int bindingPossibilities;
     private int processedBindings;
+    private Set<WSWRLDataPropertyAtom> dataPropertyAtoms;
+    private Set<WSWRLClassAtom> classAtoms;
 
     public DefaultVariableBinding(Set<WSWRLAtom> atoms, Hashtable<IRI, Set<WSWRLIndividual>> classToIndividuals) {
         this.atoms = atoms;
@@ -46,6 +51,9 @@ public class DefaultVariableBinding implements VariableBinding {
         this.dataLock = false;
         this.individialPointers = new HashMap<>();
         this.bindingPossibilities = 1;
+        this.dataPropertyAtoms = this.atoms.stream()
+                .filter(a -> a instanceof WSWRLDataPropertyAtom).map(a -> (WSWRLDataPropertyAtom) a)
+                .collect(Collectors.toSet());
 
         this.init(classToIndividuals);
     }
@@ -60,7 +68,7 @@ public class DefaultVariableBinding implements VariableBinding {
 
     private void processIndividualBindings(Hashtable<IRI, Set<WSWRLIndividual>> classToIndividuals) {
         // Finding all class atom
-        Set<WSWRLClassAtom> classAtoms = this.atoms.stream().filter(atom -> (atom instanceof WSWRLClassAtom))
+        this.classAtoms = this.atoms.stream().filter(atom -> (atom instanceof WSWRLClassAtom))
                 .map(atom -> (WSWRLClassAtom) atom).collect(Collectors.toSet());
 
         // Filtering individuals.
@@ -76,11 +84,13 @@ public class DefaultVariableBinding implements VariableBinding {
                 else
                     this.individualBindings.put(variable, new ArrayList<>());
 
-                // individualBindingPossiblities *= this.individualBindings.get(variable).size();
+                // individualBindingPossiblities *=
+                // this.individualBindings.get(variable).size();
             }
         }
 
-        // System.out.println("\nIndividuals binding possibilities: " + individualBindingPossiblities);
+        // System.out.println("\nIndividuals binding possibilities: " +
+        // individualBindingPossiblities);
     }
 
     private void initIndividiualsPointers() {
@@ -98,37 +108,62 @@ public class DefaultVariableBinding implements VariableBinding {
     @Override
     public boolean hasNext() {
         return this.processedBindings < this.bindingPossibilities;
-    } 
+    }
 
     @Override
     public void nextBinding() {
+        long start = System.currentTimeMillis();
+        long check1, check2, check3, check4, check5;
         if (dataLock) {
             this.nextDataBinding();
+            check1 = System.currentTimeMillis();
+
             this.bindDataVariables();
-        }
-        else {
+            check2 = System.currentTimeMillis();
+
+            nextDataBinding += (check1 - start);
+            bindDataVariables += (check2 - check1);
+        } else {
             this.nextIndividualsBinding();
+            check1 = System.currentTimeMillis();
+
             this.bindIndividuals();
+            check2 = System.currentTimeMillis();
+
             this.processDataProperties();
+            check3 = System.currentTimeMillis();
+
             this.nextDataBinding();
+            check4 = System.currentTimeMillis();
+
             this.bindDataVariables();
+            check5 = System.currentTimeMillis();
+
+            nextIndividualsBinding += (check1 - start);
+            bindIndividuals += (check2 - check1);
+            processDataProperties += (check3 - check2);
+            nextDataBinding += (check4 - check3);
+            bindDataVariables += (check5 - check4);
         }
 
         // Print bindings
         // String bindings = "";
-        // for (Entry<WSWRLVariable, List<WSWRLIndividual>> entry : this.individualBindings.entrySet())
-        //     bindings += entry.getKey().getIRI().getFragment() + " <- "
-        //             + entry.getValue().get(this.individialPointers.get(entry.getKey().getIRI())).getIRI().getFragment()
-        //             + ", ";
+        // for (Entry<WSWRLVariable, List<WSWRLIndividual>> entry :
+        // this.individualBindings.entrySet())
+        // bindings += entry.getKey().getIRI().getFragment() + " <- "
+        // +
+        // entry.getValue().get(this.individialPointers.get(entry.getKey().getIRI())).getIRI().getFragment()
+        // + ", ";
 
-        // for (Entry<WSWRLDVariable, List<OWLLiteral>> entry : this.dataBindings.entrySet()) {
-        //     WSWRLDVariable variable = entry.getKey();
-        //     List<OWLLiteral> values = entry.getValue();
-        //     if (values == null || values.size() == 0)
-        //         bindings += variable.getIRI().getFragment() + " <- " + "'', ";
-        //     else
-        //         bindings += variable.getIRI().getFragment() + " <- "
-        //                 + values.get(this.dataPointers.get(variable.getIRI())).getLiteral() + ", ";
+        // for (Entry<WSWRLDVariable, List<OWLLiteral>> entry :
+        // this.dataBindings.entrySet()) {
+        // WSWRLDVariable variable = entry.getKey();
+        // List<OWLLiteral> values = entry.getValue();
+        // if (values == null || values.size() == 0)
+        // bindings += variable.getIRI().getFragment() + " <- " + "'', ";
+        // else
+        // bindings += variable.getIRI().getFragment() + " <- "
+        // + values.get(this.dataPointers.get(variable.getIRI())).getLiteral() + ", ";
         // }
 
         // System.out.println(bindings);
@@ -176,7 +211,7 @@ public class DefaultVariableBinding implements VariableBinding {
 
             if (pointer != 0)
                 break;
-        }       
+        }
     }
 
     private void nextDataBinding() {
@@ -186,7 +221,7 @@ public class DefaultVariableBinding implements VariableBinding {
         for (WSWRLDVariable variable : this.dataBindings.keySet()) {
             valuesCount = this.dataBindings.get(variable).size();
             if (valuesCount == 0)
-                continue; 
+                continue;
 
             variableIRI = variable.getIRI();
             pointer = this.dataPointers.get(variableIRI);
@@ -203,14 +238,11 @@ public class DefaultVariableBinding implements VariableBinding {
         this.dataBindings.clear();
         this.dataPointers.clear();
         // Get data properties
-        Set<WSWRLDataPropertyAtom> dataPropertyAtoms = this.atoms.stream()
-                .filter(a -> a instanceof WSWRLDataPropertyAtom).map(a -> (WSWRLDataPropertyAtom) a)
-                .collect(Collectors.toSet());
 
         // For each data property atoms
         List<OWLLiteral> literals;
         WSWRLIndividual subject;
-        for (WSWRLDataPropertyAtom atom : dataPropertyAtoms) {
+        for (WSWRLDataPropertyAtom atom : this.dataPropertyAtoms) {
             literals = new ArrayList<>();
             subject = atom.getSubject().getValue();
 

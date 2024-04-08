@@ -85,8 +85,12 @@ public class DefaultWSWRLRule implements WSWRLRule {
     }
 
     @Override
-    public void calculateWeights() throws WeightCalculationException {
+    public boolean calculateWeights() throws WeightCalculationException {
         try {
+            for (WSWRLAtom atom : this.atRank(0))
+                if (!atom.isValuable())
+                    return true;
+ 
             for (int index : this.rankIndexes) {
                 Set<WSWRLAtom> atoms = this.atRank(index);
                 int valuableAtomsCount = 0;
@@ -95,6 +99,8 @@ public class DefaultWSWRLRule implements WSWRLRule {
                 for (WSWRLAtom atom : atoms) {
                     if (atom.isValuable())
                         valuableAtomsCount++;
+                    else if (index == 0)
+                        return true;
                     else if (index != 0)
                         atom.setWeight(0);
                 }
@@ -106,6 +112,7 @@ public class DefaultWSWRLRule implements WSWRLRule {
                         atom.setWeight(atomsWeight);
                 }
             }
+            return false;
         } catch (RankDoesNotExistException e) {
             throw new WeightCalculationException(e);
         }
@@ -148,8 +155,6 @@ public class DefaultWSWRLRule implements WSWRLRule {
     }
 
     private void processRanks() throws MissingRankException {
-        // Rank 0 necessarily exists but can contain no atom (see below).
-        this.rankIndexes.add(0);
         int atomRankIndex;
         Set<WSWRLAtom> atoms;
         for (WSWRLAtom atom : this.body) {

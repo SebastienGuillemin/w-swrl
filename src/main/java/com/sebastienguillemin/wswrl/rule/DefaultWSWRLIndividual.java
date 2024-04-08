@@ -2,7 +2,9 @@ package com.sebastienguillemin.wswrl.rule;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Hashtable;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import org.semanticweb.owlapi.model.IRI;
@@ -19,9 +21,9 @@ import uk.ac.manchester.cs.owl.owlapi.OWLNamedIndividualImpl;
  * {@inheritDoc}
  */
 public class DefaultWSWRLIndividual extends OWLNamedIndividualImpl implements WSWRLIndividual {
-    private Set<OWLClass> classes;
-    private Set<OWLObjectPropertyAssertionAxiom> objectProperties;
-    private Set<OWLDataPropertyAssertionAxiom> dataProperties;
+    private Hashtable<IRI, OWLClass> owlClasses;
+    private Hashtable<IRI, Set<OWLDataPropertyAssertionAxiom>> dataProperties;
+    private Hashtable<IRI, Set<OWLObjectPropertyAssertionAxiom>> objectProperties;
 
     /**
      * Constructor.
@@ -31,80 +33,65 @@ public class DefaultWSWRLIndividual extends OWLNamedIndividualImpl implements WS
      */
     public DefaultWSWRLIndividual(OWLNamedIndividual owlNamedIndividual) {
         super(owlNamedIndividual.getIRI());
-        this.classes = new HashSet<>();
-        this.objectProperties = new HashSet<>();
-        this.dataProperties = new HashSet<>();
+        this.owlClasses = new Hashtable<>();
+        this.dataProperties = new Hashtable<>();
+        this.objectProperties = new Hashtable<>();
     }
 
     @Override
     public void addOWLClass(OWLClass classAtom) {
-        this.classes.add(classAtom);
+        this.owlClasses.put(classAtom.getIRI(), classAtom);
     }
 
     @Override
     public OWLClass getOWLClass(IRI iri) {
-        for (OWLClass atom : this.classes)
-            if (atom.getIRI().equals(iri))
-                return atom;
-
-        return null;
+        return this.owlClasses.get(iri);
     }
 
     @Override
     public List<OWLClass> getOWLClasses() {
-        return new ArrayList<>(this.classes);
-    }
-
-    @Override
-    public void removeOWLClass(OWLClass classAtom) {
-        this.classes.remove(classAtom);
+        return new ArrayList<>(this.owlClasses.values());
     }
 
     public void addObjectProperty(OWLObjectPropertyAssertionAxiom objectProperty) {
-        this.objectProperties.add(objectProperty);
+        IRI iri = objectProperty.getProperty().asOWLObjectProperty().getIRI();
+        Set<OWLObjectPropertyAssertionAxiom> objectPropertiesSet = this.objectProperties.get(iri);
+
+        if (objectPropertiesSet == null) {
+            objectPropertiesSet = new HashSet<>();
+            this.objectProperties.put(iri, objectPropertiesSet);
+        }
+
+        objectPropertiesSet.add(objectProperty);
     }
 
     @Override
     public Set<OWLObjectPropertyAssertionAxiom> getObjectProperties(IRI iri) {
-        Set<OWLObjectPropertyAssertionAxiom> properties = new HashSet<>();
-
-        for (OWLObjectPropertyAssertionAxiom axiom : this.objectProperties)
-            if (axiom.getProperty().asOWLObjectProperty().getIRI().equals(iri))
-                properties.add(axiom);
-
-        return properties;
-    }
-
-    @Override
-    public void removeObjectProperty(OWLObjectPropertyAssertionAxiom objectProperty) {
-        this.objectProperties.remove(objectProperty);
+        return Optional.ofNullable(this.objectProperties.get(iri)).orElse(new HashSet<>());
     }
 
     @Override
     public void addDataProperty(OWLDataPropertyAssertionAxiom dataProperty) {
-        this.dataProperties.add(dataProperty);
+        IRI iri = dataProperty.getProperty().asOWLDataProperty().getIRI();
+        Set<OWLDataPropertyAssertionAxiom> dataPropertiesSet = this.dataProperties.get(iri);
+
+        if (dataPropertiesSet == null) {
+            dataPropertiesSet = new HashSet<>();
+            this.dataProperties.put(iri, dataPropertiesSet);
+        }
+
+        dataPropertiesSet.add(dataProperty);
     }
 
     @Override
     public Set<OWLDataPropertyAssertionAxiom> getDataProperties(IRI iri) {
-        Set<OWLDataPropertyAssertionAxiom> properties = new HashSet<>();
-
-        for (OWLDataPropertyAssertionAxiom axiom : this.dataProperties)
-            if (axiom.getProperty().asOWLDataProperty().getIRI().equals(iri))
-                properties.add(axiom);
-
-        return properties;
-    }
-
-    @Override
-    public void removeDataProperty(OWLDataPropertyAssertionAxiom dataProperty) {
-        this.dataProperties.remove(dataProperty);
+        return Optional.ofNullable(this.dataProperties.get(iri)).orElse(new HashSet<>());
     }
 
     @Override
     public String toString() {
         return "Individual " + this.getIRI().toString()
-                + "\n  Classes : " + this.classes
+                + "\n  Classes : " + this.owlClasses.values()
                 + "\n  Object properties : " + this.objectProperties
                 + "\n  Data properties : " + this.dataProperties;
     }

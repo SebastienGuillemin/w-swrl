@@ -34,13 +34,6 @@ public interface WSWRLIndividual extends OWLIndividual, HasIRI {
     public List<OWLClass> getOWLClasses();
 
     /**
-     * Remove a class from the indvidual.
-     * 
-     * @param classAtom The class to remove.
-     */
-    public void removeOWLClass(OWLClass classAtom);
-
-    /**
      * Add an object property to the indvidual.
      * 
      * @param objectProperty The object porperty to add.
@@ -59,13 +52,6 @@ public interface WSWRLIndividual extends OWLIndividual, HasIRI {
     public Set<OWLObjectPropertyAssertionAxiom> getObjectProperties(IRI iri);
 
     /**
-     * Remove an object property to the indvidual.
-     * 
-     * @param objectProperty The object porperty to remove.
-     */
-    public void removeObjectProperty(OWLObjectPropertyAssertionAxiom objectProperty);
-
-    /**
      * Add a data property to the indvidual.
      * 
      * @param dataProperty The data porperty to add.
@@ -82,11 +68,4 @@ public interface WSWRLIndividual extends OWLIndividual, HasIRI {
      *         instances.
      */
     public Set<OWLDataPropertyAssertionAxiom> getDataProperties(IRI iri);
-
-    /**
-     * Remove a data property to the indvidual.
-     * 
-     * @param dataProperty The data porperty to remove.
-     */
-    public void removeDataProperty(OWLDataPropertyAssertionAxiom dataProperty);
 }

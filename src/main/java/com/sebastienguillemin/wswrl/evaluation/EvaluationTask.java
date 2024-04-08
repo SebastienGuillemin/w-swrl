@@ -1,5 +1,7 @@
 package com.sebastienguillemin.wswrl.evaluation;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -35,10 +37,12 @@ public class EvaluationTask extends Thread {
 
     @Override
     public void run() {
-        ClassLoader classloader = Thread.currentThread().getContextClassLoader();
-
-        InputStream inputStream = classloader.getResourceAsStream(ontologyFilename);
+        // ClassLoader classloader = Thread.currentThread().getContextClassLoader();
+        // InputStream inputStream = classloader.getResourceAsStream(ontologyFilename);
+        
+        InputStream inputStream = null;
         try {
+            inputStream = new FileInputStream(new File("/home/guillemin/Documents/these/code/etl/new_STUPS.ttl"));
             long start;
             switch (engineName) {
                 case SWRL:

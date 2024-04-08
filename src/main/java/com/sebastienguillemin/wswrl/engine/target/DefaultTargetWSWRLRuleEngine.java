@@ -45,6 +45,8 @@ public class DefaultTargetWSWRLRuleEngine implements TargetWSWRLRuleEngine {
 
     @Override
     public void runRuleEngine() {
+        long cumulativeNewBindingCalculationTime = 0, cumulativeConfidenceCalculationTime = 0, cumulativeWeightCalculationTime = 0, cumulativeAxiomsInsertionTime = 0;
+        long start, check1, check2, check3, check4;
         try {
             this.reset();
             this.processOntology();
@@ -52,6 +54,7 @@ public class DefaultTargetWSWRLRuleEngine implements TargetWSWRLRuleEngine {
             // Processing WSWRL rules.
             Set<WSWRLRule> wswrlRules = wswrlOntology.getWSWRLRules();
             VariableBinding binding;
+            int newFactsCounter = 0;
             for (WSWRLRule rule : wswrlRules) {
                 if (!rule.isEnabled())
                     continue;
@@ -59,18 +62,38 @@ public class DefaultTargetWSWRLRuleEngine implements TargetWSWRLRuleEngine {
                 Set<WSWRLAtom> body = rule.getBody();
                 binding = new DefaultVariableBinding(body, this.classToIndividuals);
                 while (binding.hasNext()) {
+                    start = System.currentTimeMillis();
                     binding.nextBinding();
+                    check1 = System.currentTimeMillis();
                     
                     // Calculate rank weights
                     rule.calculateWeights();
+                    check2 = System.currentTimeMillis();
 
                     // Evaluate
                     float confidence = rule.calculateConfidence();
-                
+                    check3 = System.currentTimeMillis();
+                    
                     // Store result
-                    if (confidence > 0)
+                    if (confidence > 0) {
+                        newFactsCounter++;
                         wswrlOntology.addWSWRLInferredAxiom(rule.getHead(), confidence);
+                    }
+                    check4 = System.currentTimeMillis();
+
+                    cumulativeNewBindingCalculationTime += check1 - start;
+                    cumulativeWeightCalculationTime += check2 - check1;
+                    cumulativeConfidenceCalculationTime += check3 - check2;
+                    cumulativeAxiomsInsertionTime += check4 - check3;
                 }
+
+                System.out.println("New facts count: " + newFactsCounter);
+                System.out.println(
+                    "cumulative New Binding Calculation Time = " + ((float) cumulativeNewBindingCalculationTime / 1000.0f) +
+                    "\ncumulative Weight Calculation Time = " + ((float) cumulativeWeightCalculationTime / 1000.0f) +
+                    "\ncumulative Confidence Calculation Time = " + ((float) cumulativeConfidenceCalculationTime/ 1000.0f)  +
+                    "\ncumulative Axioms Insertion Time = " +  ((float) cumulativeAxiomsInsertionTime / 1000.0f)
+                );
             }
 
         } catch (Exception e) {

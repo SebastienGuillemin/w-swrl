@@ -34,17 +34,17 @@ public class EvaluationManager {
             }
 
             EvaluationTask evaluationTask;
-            // for (int i = 0; i < this.tasksCount; i++) {
-            //     System.out.println(String.format("Running SWRL engines(%s/%s) - Active threads %s", (i + 1),
-            //             this.tasksCount, Thread.activeCount()));
+            for (int i = 0; i < this.tasksCount; i++) {
+                System.out.println(String.format("Running SWRL engines(%s/%s) - Active threads %s", (i + 1),
+                        this.tasksCount, Thread.activeCount()));
 
-            //     evaluationTask = new EvaluationTask(this.ontologyFilename, EngineName.SWRL);
-            //     evaluationTask.start();
-            //     evaluationTask.join();
-            //     this.swrlTimes[i] = evaluationTask.getExecutionTimeMilli();
-            //     Files.write(file.toPath(), String.format(System.lineSeparator() + "%s,%s", this.swrlTimes[i], "SWRL").getBytes(),
-            //             StandardOpenOption.APPEND);
-            // }
+                evaluationTask = new EvaluationTask(this.ontologyFilename, EngineName.SWRL);
+                evaluationTask.start();
+                evaluationTask.join();
+                this.swrlTimes[i] = evaluationTask.getExecutionTimeMilli();
+                Files.write(file.toPath(), String.format(System.lineSeparator() + "%s,%s", this.swrlTimes[i], "SWRL").getBytes(),
+                        StandardOpenOption.APPEND);
+            }
 
             System.out.println();
 

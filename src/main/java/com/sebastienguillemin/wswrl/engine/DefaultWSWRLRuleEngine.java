@@ -60,10 +60,7 @@ public class DefaultWSWRLRuleEngine extends DefaultSWRLRuleEngine implements WSW
     
     @Override
     public void infer() throws SWRLRuleEngineException {
-        System.out.println("Inferring explicit knowledge.");
         super.infer();
-        
-        System.out.println("Processing WSWRL rules");
         this.targetWSWRLRuleEngine.runRuleEngine();
     }
 }

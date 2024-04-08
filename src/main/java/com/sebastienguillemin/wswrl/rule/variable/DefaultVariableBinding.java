@@ -64,7 +64,7 @@ public class DefaultVariableBinding implements VariableBinding {
                 .map(atom -> (WSWRLClassAtom) atom).collect(Collectors.toSet());
 
         // Filtering individuals.
-        int individualBindingPossiblities = 1;
+        // int individualBindingPossiblities = 1;
 
         IRI classAtomIRI;
         for (WSWRLClassAtom classAtom : classAtoms) {
@@ -76,11 +76,11 @@ public class DefaultVariableBinding implements VariableBinding {
                 else
                     this.individualBindings.put(variable, new ArrayList<>());
 
-                individualBindingPossiblities *= this.individualBindings.get(variable).size();
+                // individualBindingPossiblities *= this.individualBindings.get(variable).size();
             }
         }
 
-        System.out.println("\nIndividuals binding possibilities: " + individualBindingPossiblities);
+        // System.out.println("\nIndividuals binding possibilities: " + individualBindingPossiblities);
     }
 
     private void initIndividiualsPointers() {

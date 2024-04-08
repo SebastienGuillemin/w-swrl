@@ -1,6 +1,7 @@
 package com.sebastienguillemin.wswrl.rule;
 
 import java.util.HashSet;
+import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.Set;
 import java.util.SortedSet;
@@ -38,6 +39,7 @@ public class DefaultWSWRLRule implements WSWRLRule {
 
     private SortedSet<Integer> rankIndexes;
     private float[] globalRankWeights;
+    private Hashtable<Integer, Set<WSWRLAtom>> atRankAtoms;
 
     /**
      * Constructor.
@@ -56,8 +58,9 @@ public class DefaultWSWRLRule implements WSWRLRule {
         this.enabled = enabled;
         this.rankIndexes = new TreeSet<>(); // See cheackRanks method.
 
+        this.atRankAtoms = new Hashtable<>();
         this.processRanks();
-
+        
         this.globalRankWeights = new float[rankIndexes.last() + 1];
         this.calculateGlobalWeights();
     }
@@ -129,14 +132,7 @@ public class DefaultWSWRLRule implements WSWRLRule {
 
     @Override
     public Set<WSWRLAtom> atRank(int rankIndex) {
-        Set<WSWRLAtom> atRankAtoms = new HashSet<>();
-
-        for (WSWRLAtom atom : this.body) {
-            if (atom.getRank().getIndex() == rankIndex)
-                atRankAtoms.add(atom);
-        }
-
-        return atRankAtoms;
+        return this.atRankAtoms.get(rankIndex);
     }
 
     @Override
@@ -154,8 +150,18 @@ public class DefaultWSWRLRule implements WSWRLRule {
     private void processRanks() throws MissingRankException {
         // Rank 0 necessarily exists but can contain no atom (see below).
         this.rankIndexes.add(0);
+        int atomRankIndex;
+        Set<WSWRLAtom> atoms;
         for (WSWRLAtom atom : this.body) {
-            this.rankIndexes.add(atom.getRank().getIndex());
+            atomRankIndex = atom.getRank().getIndex();
+            this.rankIndexes.add(atomRankIndex);
+
+            if (!this.atRankAtoms.containsKey(atomRankIndex)) {
+                atoms = new HashSet<>();
+                this.atRankAtoms.put(atomRankIndex, atoms);
+            } else
+                atoms = this.atRankAtoms.get(atomRankIndex);
+            atoms.add(atom);
         }
 
         // Rank 0 can be empty (i.e., no atom assigned to this rank).

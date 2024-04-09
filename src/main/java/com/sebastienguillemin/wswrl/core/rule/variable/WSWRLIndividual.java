@@ -1,7 +1,6 @@
 package com.sebastienguillemin.wswrl.core.rule.variable;
 
 import java.util.List;
-import java.util.Set;
 
 import org.semanticweb.owlapi.model.HasIRI;
 import org.semanticweb.owlapi.model.IRI;
@@ -45,11 +44,13 @@ public interface WSWRLIndividual extends OWLIndividual, HasIRI {
      * {@link org.semanticweb.owlapi.model.IRI}.
      * 
      * @param iri The property IRI.
-     * @return A set (possibly empty) containing
+     * @return A list (possibly empty) containing
      *         {@link org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom}
      *         instances.
      */
-    public Set<OWLObjectPropertyAssertionAxiom> getObjectProperties(IRI iri);
+    public List<OWLObjectPropertyAssertionAxiom> getObjectProperties(IRI iri);
+
+    // public List<WSWRLObjectPropertyAtom> getWSWRLObjectProperties(IRI iri);
 
     /**
      * Add a data property to the indvidual.
@@ -63,9 +64,9 @@ public interface WSWRLIndividual extends OWLIndividual, HasIRI {
      * org.semanticweb.owlapi.model.IRI}.
      * 
      * @param iri The property IRI.
-     * @return A set (possibly empty) containing
+     * @return A list (possibly empty) containing
      *         {@link org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom}
      *         instances.
      */
-    public Set<OWLDataPropertyAssertionAxiom> getDataProperties(IRI iri);
+    public List<OWLDataPropertyAssertionAxiom> getDataProperties(IRI iri);
 }

@@ -37,12 +37,12 @@ public class EvaluationTask extends Thread {
 
     @Override
     public void run() {
-        // ClassLoader classloader = Thread.currentThread().getContextClassLoader();
-        // InputStream inputStream = classloader.getResourceAsStream(ontologyFilename);
+        ClassLoader classloader = Thread.currentThread().getContextClassLoader();
+        InputStream inputStream = classloader.getResourceAsStream(ontologyFilename);
         
-        InputStream inputStream = null;
+        // InputStream inputStream = null;
         try {
-            inputStream = new FileInputStream(new File("/home/guillemin/Documents/these/code/etl/new_STUPS.ttl"));
+            // inputStream = new FileInputStream(new File("/home/guillemin/Documents/these/code/etl/new_STUPS.ttl"));
             long start;
             switch (engineName) {
                 case SWRL:
@@ -66,9 +66,9 @@ public class EvaluationTask extends Thread {
                     WSWRLOntology wswrlOntology = wswrlOntologyManager
                             .loadWSWRLOntologyFromOntologyDocument(inputStream);
                     WSWRLRuleEngine wswrlEngine = WSWRLFactory.createWSWRLRuleEngine(wswrlOntology);
-                    wswrlEngine.createWSWRLRule("WSWRL Evaluation Rule",
-                            "0*:Echantillon(?x)^0*:Echantillon(?y)^0*:aFormeChimique(?x,?cf)^0*:aFormeChimique(?y,?cf)^0*:typeDrogue(?x,?dt)^0*:typeDrogue(?y,?d)^1*:aProduitCoupage(?x,?cp)^1*:aProduitCoupage(?y,?c)^2*:logo(?x,?l)^2*:logo(?y,?l)->:estProcheDe(?x,?y)");
-                    // wswrlEngine.createWSWRLRule("test", "concept1(?x)^concept1(?y)^data(?x, ?z)->data(?x,?z)");
+                    // wswrlEngine.createWSWRLRule("WSWRL Evaluation Rule",
+                    //         "0*:Echantillon(?x)^0*:Echantillon(?y)^0*:aFormeChimique(?x,?cf)^0*:aFormeChimique(?y,?cf)^0*:typeDrogue(?x,?dt)^0*:typeDrogue(?y,?dt)^1*:aProduitCoupage(?x,?cp)^1*:aProduitCoupage(?y,?cp)^2*:logo(?x,?l)^2*:logo(?y,?l)->:estProcheDe(?x,?y)");
+                    wswrlEngine.createWSWRLRule("test", "concept1(?x)^data(?x, ?d)->data(?x, ?d)");
 
                     start = System.currentTimeMillis();
                     wswrlEngine.infer();

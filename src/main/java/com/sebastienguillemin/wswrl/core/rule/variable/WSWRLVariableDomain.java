@@ -3,7 +3,7 @@ package com.sebastienguillemin.wswrl.core.rule.variable;
 import lombok.Getter;
 
 /**
- * Represents the domain of a WSWRL domain.
+ * Represents the domain of a WSWRL variable.
  */
 public enum WSWRLVariableDomain {
     INDIVIDUALS("Individuals domain"),

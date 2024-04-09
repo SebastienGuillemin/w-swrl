@@ -1,11 +1,9 @@
 package com.sebastienguillemin.wswrl.rule;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLClass;
@@ -22,8 +20,8 @@ import uk.ac.manchester.cs.owl.owlapi.OWLNamedIndividualImpl;
  */
 public class DefaultWSWRLIndividual extends OWLNamedIndividualImpl implements WSWRLIndividual {
     private Hashtable<IRI, OWLClass> owlClasses;
-    private Hashtable<IRI, Set<OWLDataPropertyAssertionAxiom>> dataProperties;
-    private Hashtable<IRI, Set<OWLObjectPropertyAssertionAxiom>> objectProperties;
+    private Hashtable<IRI, List<OWLDataPropertyAssertionAxiom>> dataProperties;
+    private Hashtable<IRI, List<OWLObjectPropertyAssertionAxiom>> objectProperties;
 
     /**
      * Constructor.
@@ -55,37 +53,37 @@ public class DefaultWSWRLIndividual extends OWLNamedIndividualImpl implements WS
 
     public void addObjectProperty(OWLObjectPropertyAssertionAxiom objectProperty) {
         IRI iri = objectProperty.getProperty().asOWLObjectProperty().getIRI();
-        Set<OWLObjectPropertyAssertionAxiom> objectPropertiesSet = this.objectProperties.get(iri);
+        List<OWLObjectPropertyAssertionAxiom> objectPropertiesList = this.objectProperties.get(iri);
 
-        if (objectPropertiesSet == null) {
-            objectPropertiesSet = new HashSet<>();
-            this.objectProperties.put(iri, objectPropertiesSet);
+        if (objectPropertiesList == null) {
+            objectPropertiesList = new ArrayList<>();
+            this.objectProperties.put(iri, objectPropertiesList);
         }
 
-        objectPropertiesSet.add(objectProperty);
+        objectPropertiesList.add(objectProperty);
     }
 
     @Override
-    public Set<OWLObjectPropertyAssertionAxiom> getObjectProperties(IRI iri) {
-        return Optional.ofNullable(this.objectProperties.get(iri)).orElse(new HashSet<>());
+    public List<OWLObjectPropertyAssertionAxiom> getObjectProperties(IRI iri) {
+        return Optional.ofNullable(this.objectProperties.get(iri)).orElse(new ArrayList<>());
     }
 
     @Override
     public void addDataProperty(OWLDataPropertyAssertionAxiom dataProperty) {
         IRI iri = dataProperty.getProperty().asOWLDataProperty().getIRI();
-        Set<OWLDataPropertyAssertionAxiom> dataPropertiesSet = this.dataProperties.get(iri);
+        List<OWLDataPropertyAssertionAxiom> dataPropertiesList = this.dataProperties.get(iri);
 
-        if (dataPropertiesSet == null) {
-            dataPropertiesSet = new HashSet<>();
-            this.dataProperties.put(iri, dataPropertiesSet);
+        if (dataPropertiesList == null) {
+            dataPropertiesList = new ArrayList<>();
+            this.dataProperties.put(iri, dataPropertiesList);
         }
 
-        dataPropertiesSet.add(dataProperty);
+        dataPropertiesList.add(dataProperty);
     }
 
     @Override
-    public Set<OWLDataPropertyAssertionAxiom> getDataProperties(IRI iri) {
-        return Optional.ofNullable(this.dataProperties.get(iri)).orElse(new HashSet<>());
+    public List<OWLDataPropertyAssertionAxiom> getDataProperties(IRI iri) {
+        return Optional.ofNullable(this.dataProperties.get(iri)).orElse(new ArrayList<>());
     }
 
     @Override

@@ -1,4 +1,4 @@
-package com.sebastienguillemin.wswrl.core.rule.variable;
+package com.sebastienguillemin.wswrl.core.rule.variable.binding;
 
 /**
  * Represents a binding for the rule variables.

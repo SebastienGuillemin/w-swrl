@@ -1,5 +1,6 @@
 package com.sebastienguillemin.wswrl.core.ontology;
 
+import java.util.List;
 import java.util.Set;
 
 import org.semanticweb.owlapi.model.IRI;
@@ -9,7 +10,7 @@ import org.swrlapi.core.SWRLAPIOWLOntology;
 import com.sebastienguillemin.wswrl.core.factory.WSWRLDataFactory;
 import com.sebastienguillemin.wswrl.core.rule.WSWRLAxiom;
 import com.sebastienguillemin.wswrl.core.rule.WSWRLRule;
-import com.sebastienguillemin.wswrl.core.rule.atom.WSWRLAtom;
+import com.sebastienguillemin.wswrl.core.rule.WSWRLRuleResult;
 import com.sebastienguillemin.wswrl.exception.MissingRankException;
 import com.sebastienguillemin.wswrl.exception.WSWRLBuiltInException;
 import com.sebastienguillemin.wswrl.exception.WSWRLParseException;
@@ -82,10 +83,11 @@ public interface WSWRLOntology extends SWRLAPIOWLOntology {
      * 
      * @see com.sebastienguillemin.wswrl.core.engine.TargetWSWRLRuleEngine
      * 
-     * @param atom       The inferred axiom.
-     * @param confidence The axiom confidence .
+     * @param results A list of result.
+     * 
+     * @see com.sebastienguillemin.wswrl.core.rule.WSWRLRuleResult
      */
-    void addWSWRLInferredAxiom(Set<WSWRLAtom> atom, float confidence);
+    void addWSWRLInferredAxiom(List<WSWRLRuleResult> results);
 
     /**
      * Returns the inferred axioms by WSWRL rules as OWL axiom.
@@ -122,6 +124,7 @@ public interface WSWRLOntology extends SWRLAPIOWLOntology {
 
     /**
      * Return the base IRI of the ontology.
+     * 
      * @return The ontology's base IRI
      */
     IRI getBaseIRI();

@@ -49,12 +49,20 @@ import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLLiteralBuiltInVariab
 import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLVariableDomain;
 import com.sebastienguillemin.wswrl.exception.WSWRLBuiltInException;
 
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  * {@inheritDoc}
  * The code is taken from the SWRL API.
  */
 public class DefaultWSWRLLiteralBuiltinVariable implements WSWRLLiteralBuiltInVariable {
     private static final Comparator<OWLLiteral> owlLiteralComparator = OWLLiteralComparator.COMPARATOR;
+
+    @Getter
+    @Setter
+    private boolean unboundable;
+    
     private WSWRLDVariable wswrldVariable;
     private String boundVariableName = null;
 

@@ -39,26 +39,11 @@ public class DefaultBindingCache<V extends WSWRLVariable, T> implements BindingC
 
     public DefaultBindingCache(HashMap<V, List<T>> variablesValues) {
         this();
-        this.init(variablesValues);   
-    }
-
-    @Override
-    public void init(HashMap<V, List<T>> variablesValues) {
-        V variable;
-        IRI iri;
-        List<T> variableValues;
-        for (Entry<V, List<T>> entry : variablesValues.entrySet()) {
-            variable = entry.getKey();
-            iri = variable.getIRI();
-            variableValues = entry.getValue();
-
-            this.variables.put(iri, variable);
-            this.values.put(iri, entry.getValue());
-            this.pointers.put(iri, 0);
-            this.possibilities *= variableValues.size();
-        }
         
-        this.processedPossibilities = 0;
+        for (Entry<V, List<T>> entry : variablesValues.entrySet()) {
+            this.addValues(entry.getKey(), entry.getValue());
+        }
+        this.processedPossibilities = 0; 
     }
 
     @Override
@@ -71,7 +56,10 @@ public class DefaultBindingCache<V extends WSWRLVariable, T> implements BindingC
             this.variables.put(iri, variable);
             this.pointers.put(iri, 0);
         }
-        System.out.println("Adding : " + variable + " -> " + values);
+
+        if (values.size() == 0)
+            variable.setUnboundable(true);
+        // System.out.println("Adding : " + variable + " -> " + values);
     }
 
     @Override
@@ -93,16 +81,23 @@ public class DefaultBindingCache<V extends WSWRLVariable, T> implements BindingC
 
     @Override
     public void next() {
-        int pointer = 0;
-        for (IRI variableIRI : this.values.keySet()) {
-            pointer = this.pointers.get(variableIRI);
-            pointer = ++pointer % this.values.get(variableIRI).size();
-            this.pointers.put(variableIRI, pointer);
-
-            if (pointer != 0)
-                break;
+        if (this.processedPossibilities > 0) {
+            int pointer = 0;
+            for (IRI variableIRI : this.values.keySet()) {
+                pointer = this.pointers.get(variableIRI);
+                pointer = ++pointer % this.values.get(variableIRI).size();
+                this.pointers.put(variableIRI, pointer);
+    
+                if (pointer != 0)
+                    break;
+            }
         }
-        this.processedPossibilities++;
+        this.processedPossibilities++; 
+
+        if (!this.hasNext()) {
+            this.releaseLock();
+            return;
+        }
     }
 
     @Override
@@ -121,6 +116,7 @@ public class DefaultBindingCache<V extends WSWRLVariable, T> implements BindingC
             variableValues = this.values.get(iri);
             value =  (variableValues == null || variableValues.size() == 0) ? null : variableValues.get(pointer);
 
+            // TODO : optimiser en remontant 'setValue' dans l'interface WSWRLVariable ?
             if (variable instanceof WSWRLIVariable) {
                 iVariable = (WSWRLIVariable) variable;
                 iVariable.setValue((WSWRLIndividual) value);
@@ -138,6 +134,7 @@ public class DefaultBindingCache<V extends WSWRLVariable, T> implements BindingC
 
     @Override
     public void lock() {
+        this.computePossibilities();
         this.locked = true;
     }
 

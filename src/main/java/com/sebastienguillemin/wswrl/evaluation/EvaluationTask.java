@@ -68,7 +68,7 @@ public class EvaluationTask extends Thread {
                     WSWRLRuleEngine wswrlEngine = WSWRLFactory.createWSWRLRuleEngine(wswrlOntology);
                     // wswrlEngine.createWSWRLRule("WSWRL Evaluation Rule",
                     //         "0*:Echantillon(?x)^0*:Echantillon(?y)^0*:aFormeChimique(?x,?cf)^0*:aFormeChimique(?y,?cf)^0*:typeDrogue(?x,?dt)^0*:typeDrogue(?y,?dt)^1*:aProduitCoupage(?x,?cp)^1*:aProduitCoupage(?y,?cp)^2*:logo(?x,?l)^2*:logo(?y,?l)->:estProcheDe(?x,?y)");
-                    wswrlEngine.createWSWRLRule("test", "concept1(?x)^data(?x, ?d)->data(?x, ?d)");
+                    wswrlEngine.createWSWRLRule("test", "concept1(?x)^liee(?x,?y)^data(?y, ?d)->data(?x, ?d)");
 
                     start = System.currentTimeMillis();
                     wswrlEngine.infer();

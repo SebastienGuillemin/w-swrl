@@ -8,7 +8,6 @@ import org.semanticweb.owlapi.model.IRI;
 import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLVariable;
 
 public interface BindingCache<V extends WSWRLVariable, T> {
-    void init(HashMap<V, List<T>> variablesValues);
     void addValues(V variable, List<T> values);
     boolean hasNext();
     void next();

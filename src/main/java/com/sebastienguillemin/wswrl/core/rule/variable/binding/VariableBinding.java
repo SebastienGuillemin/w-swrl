@@ -31,12 +31,14 @@ public interface VariableBinding {
      * Changes the inner state of variables by setting their values according to
      * this binding.
      */
-    public void nextBinding();
+    void nextBinding();
 
     /**
      * Returns wether another binding is remaining.
      * 
      * @return True if another binding is remaining, false otherwise.
      */
-    public boolean hasNext();
+    boolean hasNext();
+
+    int getBindingPossibilities();
 }

@@ -83,6 +83,11 @@ public class DefaultVariableBinding implements VariableBinding {
                 || this.bindingCacheObject.isLocked();
     }
 
+    @Override
+    public int getBindingPossibilities() {
+        return this.bindingCacheSubject.getPossibilities();
+    }
+
     private void sortAtoms() {
         this.classAtoms = this.atoms.stream().filter(a -> a instanceof WSWRLClassAtom).map(a -> (WSWRLClassAtom) a)
                 .collect(Collectors.toSet());

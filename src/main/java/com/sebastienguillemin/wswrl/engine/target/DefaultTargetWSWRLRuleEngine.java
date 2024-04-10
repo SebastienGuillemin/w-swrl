@@ -25,7 +25,6 @@ import com.sebastienguillemin.wswrl.core.rule.atom.WSWRLAtom;
 import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLIndividual;
 import com.sebastienguillemin.wswrl.core.rule.variable.binding.VariableBinding;
 import com.sebastienguillemin.wswrl.rule.DefaultWSWRLIndividual;
-import com.sebastienguillemin.wswrl.rule.DefaultWSWRLRuleResult;
 import com.sebastienguillemin.wswrl.rule.variable.binding.DefaultVariableBinding;
 
 /**
@@ -68,40 +67,41 @@ public class DefaultTargetWSWRLRuleEngine implements TargetWSWRLRuleEngine {
                 Set<WSWRLAtom> body = rule.getBody();
                 binding = new DefaultVariableBinding(body, this.individuals, this.classToIndividuals);
                 while (binding.hasNext()) {
-                //     start = System.currentTimeMillis();
+                    start = System.currentTimeMillis();
                     binding.nextBinding();
-                //     check1 = System.currentTimeMillis();
+                    check1 = System.currentTimeMillis();
                     
-                //     // Calculate rank weights
-                //     boolean skip = rule.calculateWeights();
-                //     check2 = System.currentTimeMillis();
-                //     if (skip) {
-                //         skipped++;
-                //         continue;
-                //     }
+                    // Calculate rank weights
+                    boolean skip = rule.calculateWeights();
+                    check2 = System.currentTimeMillis();
+                    if (skip) {
+                        skipped++;
+                        continue;
+                    }
 
-                //     // Evaluate
-                //     float confidence = rule.calculateConfidence();
-                //     check3 = System.currentTimeMillis();
+                    // Evaluate
+                    float confidence = rule.calculateConfidence();
+                    check3 = System.currentTimeMillis();
                     
-                //     // Store result
-                //     if (confidence > 0) {
-                //         newFactsCounter++;
-                //         results.add(new DefaultWSWRLRuleResult(rule.getHead(), confidence));
-                //     }
+                    // Store result
+                    if (confidence > 0) {
+                        System.out.println("New fact for: " + binding + " confidence : " + confidence);
+                        newFactsCounter++;
+                        this.wswrlOntology.addWSWRLInferredAxiom(rule.getHead(), confidence);
+                    }
 
-                //     cumulativeNewBindingCalculationTime += (check1 - start);
-                //     cumulativeWeightCalculationTime += (check2 - check1);
-                //     cumulativeConfidenceCalculationTime += (check3 - check2);
+                    cumulativeNewBindingCalculationTime += (check1 - start);
+                    cumulativeWeightCalculationTime += (check2 - check1);
+                    cumulativeConfidenceCalculationTime += (check3 - check2);
                     
                 }
             }
             
             // Adding resulsts
-            check3 = System.currentTimeMillis();
-            this.wswrlOntology.addWSWRLInferredAxiom(results);
-            check4 = System.currentTimeMillis();
-            cumulativeAxiomsInsertionTime += (check4 - check3);
+            // check3 = System.currentTimeMillis();
+            // this.wswrlOntology.addWSWRLInferredAxiom(results);
+            // check4 = System.currentTimeMillis();
+            // cumulativeAxiomsInsertionTime += (check4 - check3);
 
             // System.out.println("New facts count: " + newFactsCounter);
             //     System.out.println("Skipped: " + skipped);

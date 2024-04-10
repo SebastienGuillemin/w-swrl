@@ -61,7 +61,7 @@ public class DefaultWSWRLRuleEngine extends DefaultSWRLRuleEngine implements WSW
     @Override
     public void infer() throws SWRLRuleEngineException {
         long start = System.currentTimeMillis();
-        // super.infer();
+        super.infer();
         System.out.println("Axiom inferring time: " + ((float)(System.currentTimeMillis() - start) / 1000.0f));
 
         this.targetWSWRLRuleEngine.runRuleEngine();

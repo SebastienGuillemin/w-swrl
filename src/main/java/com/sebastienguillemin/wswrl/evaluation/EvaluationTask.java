@@ -1,7 +1,5 @@
 package com.sebastienguillemin.wswrl.evaluation;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -39,10 +37,8 @@ public class EvaluationTask extends Thread {
     public void run() {
         ClassLoader classloader = Thread.currentThread().getContextClassLoader();
         InputStream inputStream = classloader.getResourceAsStream(ontologyFilename);
-        
-        // InputStream inputStream = null;
+
         try {
-            // inputStream = new FileInputStream(new File("/home/guillemin/Documents/these/code/etl/new_STUPS.ttl"));
             long start;
             switch (engineName) {
                 case SWRL:
@@ -67,7 +63,7 @@ public class EvaluationTask extends Thread {
                             .loadWSWRLOntologyFromOntologyDocument(inputStream);
                     WSWRLRuleEngine wswrlEngine = WSWRLFactory.createWSWRLRuleEngine(wswrlOntology);
                     // wswrlEngine.createWSWRLRule("WSWRL Evaluation Rule",
-                    //         "0*:Echantillon(?x)^0*:Echantillon(?y)^0*:aFormeChimique(?x,?cf)^0*:aFormeChimique(?y,?cf)^0*:typeDrogue(?x,?dt)^0*:typeDrogue(?y,?dt)^1*:aProduitCoupage(?x,?cp)^1*:aProduitCoupage(?y,?cp)^2*:logo(?x,?l)^2*:logo(?y,?l)->:estProcheDe(?x,?y)");
+                    // "0*:Echantillon(?x)^0*:Echantillon(?y)^0*:aFormeChimique(?x,?cf)^0*:aFormeChimique(?y,?cf)^0*:typeDrogue(?x,?dt)^0*:typeDrogue(?y,?dt)^1*:aProduitCoupage(?x,?cp)^1*:aProduitCoupage(?y,?cp)^2*:logo(?x,?l)^2*:logo(?y,?l)->:estProcheDe(?x,?y)");
                     wswrlEngine.createWSWRLRule("test", "concept1(?x)^liee(?x,?y)^data(?y, ?d)->data(?x, ?d)");
 
                     start = System.currentTimeMillis();

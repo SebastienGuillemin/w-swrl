@@ -12,7 +12,6 @@ import java.util.stream.Collectors;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLLiteral;
 
-import com.sebastienguillemin.wswrl.core.factory.WSWRLDataFactory;
 import com.sebastienguillemin.wswrl.core.rule.atom.WSWRLAtom;
 import com.sebastienguillemin.wswrl.core.rule.atom.WSWRLClassAtom;
 import com.sebastienguillemin.wswrl.core.rule.atom.WSWRLDataPropertyAtom;
@@ -56,20 +55,6 @@ public class DefaultVariableBinding implements VariableBinding {
 
         this.sortAtoms();
         this.sortVariables();
-
-        // System.out.println("--> [DefaultVariableBinding] classAtoms: " + classAtoms);
-        // System.out.println("--> [DefaultVariableBinding] objectPropertyAtoms: " +
-        // objectPropertyAtoms);
-        // System.out.println("--> [DefaultVariableBinding] dataPropertyAtoms: " +
-        // dataPropertyAtoms);
-
-        // System.out.println("\n--> [DefaultVariableBinding] classAtomVariables: " +
-        // classAtomVariables);
-        // System.out.println("--> [DefaultVariableBinding] subjectVariables: " +
-        // subjectVariables);
-        // System.out.println("--> [DefaultVariableBinding] objectVariables: " +
-        // objectVariables);
-
         this.initCaches();
     }
 
@@ -89,23 +74,6 @@ public class DefaultVariableBinding implements VariableBinding {
             this.bindObject();
             this.bindData();
         }
-        this.printBinding();
-    }
-
-    // TODO : à supprimer
-    private void printBinding() {
-        String bindings = "";
-        for (WSWRLIVariable iVariable : this.iVariables) {
-            bindings += iVariable.getIRI().getFragment() + " -> "
-                    + ((iVariable.getValue() == null) ? "null" : iVariable.getValue().getIRI().getFragment()) + ", ";
-        }
-
-        for (WSWRLDVariable dVariable : this.dVariables) {
-            bindings += dVariable.getIRI().getFragment() + " -> "
-                    + ((dVariable.getValue() == null) ? "null" : dVariable.getValue().getLiteral()) + ", ";
-        }
-
-        System.out.println(bindings);
     }
 
     @Override
@@ -294,11 +262,6 @@ public class DefaultVariableBinding implements VariableBinding {
             if (subjectIndividual != null) {
                 values = subjectIndividual.getDataProperties(atom.getIRI()).stream().map(a -> a.getObject())
                         .collect(Collectors.toList());
-
-                // System.out.println("Data values for '" + atom.getIRI().getFragment() + "' and
-                // subject:" + subject.getValue().getIRI().getFragment() + ": " +
-                // (values.stream().map(l -> l.getLiteral()).collect(Collectors.toList())));
-
                 this.bindingCacheData.addValues(object, values);
             } else if (subject.isUnboundable())
                 this.bindingCacheData.addValues(object, new ArrayList<>());
@@ -307,5 +270,21 @@ public class DefaultVariableBinding implements VariableBinding {
         }
 
         return remainingAtoms;
+    }
+
+    @Override
+    public String toString() {
+            String bindings = "";
+            for (WSWRLIVariable iVariable : this.iVariables) {
+                bindings += iVariable.getIRI().getFragment() + " -> "
+                        + ((iVariable.getValue() == null) ? "null" : iVariable.getValue().getIRI().getFragment()) + ", ";
+            }
+    
+            for (WSWRLDVariable dVariable : this.dVariables) {
+                bindings += dVariable.getIRI().getFragment() + " -> "
+                        + ((dVariable.getValue() == null) ? "null" : dVariable.getValue().getLiteral()) + ", ";
+            }
+    
+            return bindings;
     }
 }

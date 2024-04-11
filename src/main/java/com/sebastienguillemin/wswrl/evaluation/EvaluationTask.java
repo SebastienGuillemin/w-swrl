@@ -70,6 +70,7 @@ public class EvaluationTask extends Thread {
                     WSWRLRuleEngine wswrlEngine = WSWRLFactory.createWSWRLRuleEngine(wswrlOntology);
                     wswrlEngine.createWSWRLRule("WSWRL Evaluation Rule", WSWRL_RULE);
 
+
                     start = System.currentTimeMillis();
                     wswrlEngine.infer();
                     this.executionTimeMilli = System.currentTimeMillis() - start;

@@ -12,6 +12,7 @@ public class EvaluationManager {
     private long[] times;
 
     public EvaluationManager(int tasksCount, String taskType, File ontologyFile) {
+        System.out.println(ontologyFile.toURI());
         this.tasksCount = tasksCount;
         this.taskType = taskType;
         this.ontologyFile = ontologyFile;
@@ -44,7 +45,7 @@ public class EvaluationManager {
                 this.times[i] = evaluationTask.getExecutionTimeMilli();
                 Files.write(
                     file.toPath(),
-                    String.format(System.lineSeparator() + "%s,%s,%s,%s", this.times[i], this.taskType,evaluationTask.getInferredAxiomsCount(), this.ontologyFile.toPath().getFileName()).getBytes(),
+                    String.format(System.lineSeparator() + "%s,%s,%s,%s", this.times[i], this.taskType,evaluationTask.getInferredAxiomsCount(), this.ontologyFile.getAbsolutePath()).getBytes(),
                     StandardOpenOption.APPEND);
             }
         } catch (Exception e) {

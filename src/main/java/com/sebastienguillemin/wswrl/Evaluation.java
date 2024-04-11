@@ -1,28 +1,27 @@
 package com.sebastienguillemin.wswrl;
 
 import java.io.File;
-import java.io.IOException;
 import java.nio.file.Files;
 
 import com.sebastienguillemin.wswrl.evaluation.EvaluationManager;
 
 public class Evaluation {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws Exception {
         if (args.length != 3) {
-            System.out.println("Need 3 arguments:" +
+            System.out.println(
+                    "Need 3 arguments:" +
                     "\n - Number of evaluation task (greater than 0)." +
                     "\n - Type of task ('SWRL' or 'WSWRL')." +
-                    "\n - The path to the ontology to proceed (a .ttl file).");
+                    "\n - The path to the ontology filename to proceed (a .ttl file in the resource folder).");
             System.exit(0);
         }
-        
+
         int tasksCount = processTasksCount(args);
         String taskType = processTaskType(args);
         File ontologyFile = processOntologyPath(args);
 
         EvaluationManager evaluationManager = new EvaluationManager(tasksCount, taskType, ontologyFile);
         evaluationManager.startEvaluation();
-        System.exit(1);
     }
 
     private static int processTasksCount(String[] args) {
@@ -50,10 +49,14 @@ public class Evaluation {
         return taskType;
     }
 
-    private static File processOntologyPath(String[] args) throws IOException {
+    private static File processOntologyPath(String[] args) throws Exception {
         String ontologyPath = args[2];
 
         File ontologyFile = new File(ontologyPath);
+
+        System.out.println(ontologyFile.getAbsolutePath());
+
+        // File ontologyFile = new File(classLoader.getResource(ontologyPath).toURI());
         if (!ontologyFile.exists() || ontologyFile.isDirectory()) {
             System.out.println(ontologyPath + " does not exist.");
             System.exit(1);

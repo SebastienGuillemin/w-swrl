@@ -1,9 +1,7 @@
 package com.sebastienguillemin.wswrl.engine.target;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Hashtable;
-import java.util.List;
 import java.util.Set;
 
 import org.semanticweb.owlapi.model.AxiomType;
@@ -20,16 +18,11 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
 import com.sebastienguillemin.wswrl.core.engine.TargetWSWRLRuleEngine;
 import com.sebastienguillemin.wswrl.core.ontology.WSWRLOntology;
 import com.sebastienguillemin.wswrl.core.rule.WSWRLRule;
-import com.sebastienguillemin.wswrl.core.rule.WSWRLRuleResult;
 import com.sebastienguillemin.wswrl.core.rule.atom.WSWRLAtom;
 import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLIndividual;
 import com.sebastienguillemin.wswrl.core.rule.variable.binding.VariableBinding;
 import com.sebastienguillemin.wswrl.rule.DefaultWSWRLIndividual;
 import com.sebastienguillemin.wswrl.rule.variable.binding.DefaultVariableBinding;
-
-import me.tongfei.progressbar.ProgressBar;
-import me.tongfei.progressbar.ProgressBarBuilder;
-import me.tongfei.progressbar.ProgressBarStyle;
 
 /**
  * {@inheritDoc}
@@ -64,12 +57,6 @@ public class DefaultTargetWSWRLRuleEngine implements TargetWSWRLRuleEngine {
             VariableBinding binding;
             int newFactsCounter = 0;
             int skipped = 0;
-            List<WSWRLRuleResult> results = new ArrayList<>();
-
-            ProgressBarBuilder pbb = new ProgressBarBuilder()
-                    .setTaskName("Testing binding possibilities.")
-                    .hideEta()
-                    .setStyle(ProgressBarStyle.UNICODE_BLOCK);
 
             for (WSWRLRule rule : wswrlRules) {
                 if (!rule.isEnabled())
@@ -77,39 +64,36 @@ public class DefaultTargetWSWRLRuleEngine implements TargetWSWRLRuleEngine {
 
                 Set<WSWRLAtom> body = rule.getBody();
                 binding = new DefaultVariableBinding(body, this.individuals, this.classToIndividuals);
+                while (binding.hasNext()) {
+                    start = System.currentTimeMillis();
+                    binding.nextBinding();
+                    check1 = System.currentTimeMillis();
 
-                try (ProgressBar pb2 = pbb.setInitialMax(binding.getBindingPossibilities()).build()) {
-                    while (binding.hasNext()) {
-                        pb2.step();
-                        start = System.currentTimeMillis();
-                        binding.nextBinding();
-                        check1 = System.currentTimeMillis();
+                    // Calculate rank weights
+                    boolean skip = rule.calculateWeights();
+                    check2 = System.currentTimeMillis();
 
-                        // Calculate rank weights
-                        boolean skip = rule.calculateWeights();
-                        check2 = System.currentTimeMillis();
-                        if (skip) {
-                            skipped++;
-                            continue;
-                        }
-
-                        // Evaluate
-                        float confidence = rule.calculateConfidence();
-                        check3 = System.currentTimeMillis();
-
-                        // Store result
-                        if (confidence > 0) {
-                            // System.out.println("New fact for: " + binding + " confidence : " +
-                            // confidence);
-                            newFactsCounter++;
-                            // this.wswrlOntology.addWSWRLInferredAxiom(rule.getHead(), confidence);
-                        }
-
-                        cumulativeNewBindingCalculationTime += (check1 - start);
-                        cumulativeWeightCalculationTime += (check2 - check1);
-                        cumulativeConfidenceCalculationTime += (check3 - check2);
-
+                    cumulativeNewBindingCalculationTime += (check1 - start);
+                    cumulativeWeightCalculationTime += (check2 - check1);
+                    if (skip) {
+                        skipped++;
+                        continue;
                     }
+
+                    // Evaluate
+                    float confidence = rule.calculateConfidence();
+                    check3 = System.currentTimeMillis();
+
+                    // Store result
+                    if (confidence > 0) {
+                        System.out.println("New fact for: " + binding + " confidence : " + confidence);
+                        newFactsCounter++;
+                        this.wswrlOntology.addWSWRLInferredAxiom(rule.getHead(), confidence);
+                    }
+                    check4 = System.currentTimeMillis();
+
+                    cumulativeConfidenceCalculationTime += (check3 - check2);
+                    cumulativeAxiomsInsertionTime += (check4 - check3);
                 }
             }
             System.out.println(newFactsCounter + " new facts inferred with WSWRL rules.");
@@ -122,8 +106,7 @@ public class DefaultTargetWSWRLRuleEngine implements TargetWSWRLRuleEngine {
             System.out.println("New facts count: " + newFactsCounter);
             System.out.println("Skipped: " + skipped);
             System.out.println(
-                    "cumulative New Binding Calculation Time = "
-                            + ((float) cumulativeNewBindingCalculationTime / 1000.0f) +
+                    "cumulative New Binding Calculation Time = " + ((float) cumulativeNewBindingCalculationTime / 1000.0f) +
                             // "\n ---> nextIndividualsBinding: " + ((float)
                             // DefaultVariableBinding.nextIndividualsBinding / 1000.0f) +
                             // "\n ---> bindIndividuals: " + ((float) DefaultVariableBinding.bindIndividuals
@@ -134,12 +117,9 @@ public class DefaultTargetWSWRLRuleEngine implements TargetWSWRLRuleEngine {
                             // / 1000.0f) +
                             // "\n ---> bindDataVariables: " + ((float)
                             // DefaultVariableBinding.bindDataVariables / 1000.0f) +
-                            "\n\ncumulative Weight Calculation Time = "
-                            + ((float) cumulativeWeightCalculationTime / 1000.0f) +
-                            "\ncumulative Confidence Calculation Time = "
-                            + ((float) cumulativeConfidenceCalculationTime / 1000.0f)
-            // "\ncumulative Axioms Insertion Time = " + ((float)
-            // cumulativeAxiomsInsertionTime / 1000.0f)
+                    "\n\ncumulative Weight Calculation Time = " + ((float) cumulativeWeightCalculationTime / 1000.0f) +
+                    "\ncumulative Confidence Calculation Time = " + ((float) cumulativeConfidenceCalculationTime / 1000.0f) +
+                    "\ncumulative Axioms Insertion Time = " + ((float) cumulativeAxiomsInsertionTime / 1000.0f)
             );
 
         } catch (Exception e) {

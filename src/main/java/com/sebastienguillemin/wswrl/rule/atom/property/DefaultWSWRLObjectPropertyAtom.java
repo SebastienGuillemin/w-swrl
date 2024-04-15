@@ -101,9 +101,7 @@ public class DefaultWSWRLObjectPropertyAtom extends AbstractWSWRLProperty<WSWRLI
         if(this.getSubject().getValue() == null || this.getObject().getValue() == null)
             return false;
 
-        boolean res = !this.getSubject().getValue().getObjectProperties(this.iri).isEmpty();
-        return res;
-
+        return !this.getSubject().getValue().getObjectProperties(this.iri).isEmpty();
     }
 
     @Override

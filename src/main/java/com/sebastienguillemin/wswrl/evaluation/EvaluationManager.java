@@ -23,7 +23,7 @@ public class EvaluationManager {
         System.out.println(String.format("Running evaluation with %s tasks for each engine.", this.tasksCount));
 
         try {
-            File file = new File("executionTimes.csv");
+            File file = new File("evaluationResults.csv");
 
             if (file.createNewFile()) {
                 System.out.println("File created: " + file.getName() + ".\n");
@@ -45,7 +45,7 @@ public class EvaluationManager {
                 this.times[i] = evaluationTask.getExecutionTimeMilli();
                 Files.write(
                     file.toPath(),
-                    String.format(System.lineSeparator() + "%s,%s,%s,%s", this.times[i], this.taskType,evaluationTask.getInferredAxiomsCount(), this.ontologyFile.getAbsolutePath()).getBytes(),
+                    String.format(System.lineSeparator() + "%s,%s,%s,%s", this.times[i], this.taskType, evaluationTask.getInferredAxiomsCount(), this.ontologyFile.getAbsolutePath()).getBytes(),
                     StandardOpenOption.APPEND);
             }
         } catch (Exception e) {

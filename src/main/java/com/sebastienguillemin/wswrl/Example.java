@@ -27,7 +27,7 @@ public class Example {
         WSWRLOntology wswrlOntology = wswrlOntologyManager.loadWSWRLOntologyFromOntologyDocument(inputStream);
         inputStream.close();
 
-        // Create rule engine.
+        // Create W-SWRL rule engine and example rule.
         WSWRLRuleEngine wswrlRuleEngine = WSWRLFactory.createWSWRLRuleEngine(wswrlOntology);
         wswrlRuleEngine.createWSWRLRule("Example rule", ":Echantillon(?x)^:Echantillon(?y)^differentFrom(?x, ?y)^:typeDrogue(?x,?dt)^:typeDrogue(?y,?dt)^:aPrincipeActif(?x,?pax)^:aPrincipeActif(?y,?pay)^:aFormeChimique(?pax,?cf)^:aFormeChimique(?pay,?cf)^1*:aProduitCoupage(?x,?cp)^1*:aProduitCoupage(?y,?cp)^2*:logo(?x,?l)^2*:logo(?y,?l)->:estProcheDe(?x,?y)");
 
@@ -36,7 +36,7 @@ public class Example {
         wswrlRuleEngine.infer();
 
         // Save ontology in a Turtle-star file.
-        System.out.println("\n--- Saving W-SWRL ontology in a Turtle-star file.");
+        System.out.println("--- Saving W-SWRL ontology in a Turtle-star file.");
         TurtlestarStorer storer = new TurtlestarStorer();
         // Uncomment the next line to show information (unsupported OWL axioms etc.).
         // storer.setMode(TurtlestarStorer.MODE.VERBOSE);
@@ -44,7 +44,7 @@ public class Example {
 
         // Save ontology in a Turtle file using a threshold (the cached inferred axioms
         // will be deleted).
-        System.out.println("\n--- Saving W-SWRL ontology in a Turtle file.");
+        System.out.println("--- Saving W-SWRL ontology in a Turtle file.");
         wswrlOntologyManager.saveOntologyToTurtle(wswrlOntology, "result.ttl", 0.8f);
     }
 }

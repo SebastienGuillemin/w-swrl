@@ -21,6 +21,9 @@ import com.sebastienguillemin.wswrl.factory.WSWRLFactory;
 
 import lombok.Getter;
 
+/**
+ * A task taht performs an evaluation.
+ */
 public class EvaluationTask extends Thread {
     private static final String SWRL_RULE = ":Echantillon(?x)^:Echantillon(?y)^differentFrom(?x, ?y)^:typeDrogue(?x,?dt)^:typeDrogue(?y,?dt)^:aPrincipeActif(?x,?pax)^:aPrincipeActif(?y,?pay)^:aFormeChimique(?pax,?cf)^:aFormeChimique(?pay,?cf)^:aProduitCoupage(?x,?cp)^:aProduitCoupage(?y,?cp)^:logo(?x,?l)^:logo(?y,?l)->:estProcheDe(?x,?y)";
     private static final String WSWRL_RULE = ":Echantillon(?x)^:Echantillon(?y)^differentFrom(?x, ?y)^:typeDrogue(?x,?dt)^:typeDrogue(?y,?dt)^:aPrincipeActif(?x,?pax)^:aPrincipeActif(?y,?pay)^:aFormeChimique(?pax,?cf)^:aFormeChimique(?pay,?cf)^1*:aProduitCoupage(?x,?cp)^1*:aProduitCoupage(?y,?cp)^2*:logo(?x,?l)^2*:logo(?y,?l)->:estProcheDe(?x,?y)";
@@ -33,12 +36,20 @@ public class EvaluationTask extends Thread {
     @Getter
     private int inferredAxiomsCount;
 
+    /**
+     * 
+     * @param ontologyFile The ontology file to use for the evaluation.
+     * @param engineName   The engine name.
+     */
     public EvaluationTask(File ontologyFile, EngineName engineName) {
         this.ontologyFile = ontologyFile;
         this.engineName = engineName;
 
     }
 
+    /**
+     * Runs the evaluation task.
+     */
     @Override
     public void run() {
         InputStream inputStream = null;
@@ -59,14 +70,17 @@ public class EvaluationTask extends Thread {
                     swrlEngine.infer();
                     this.executionTimeMilli = System.currentTimeMillis() - start;
 
-                    this.inferredAxiomsCount = this.countEstProcheDeAxioms(owlOntology) - estProcheDeAxiomsBeforeInferring;
+                    this.inferredAxiomsCount = this.countEstProcheDeAxioms(owlOntology)
+                            - estProcheDeAxiomsBeforeInferring;
 
-                    System.out.println(String.format("---> Done: %s second(s), %s inferred axioms.", (float) this.executionTimeMilli / 1000f, this.inferredAxiomsCount));
+                    System.out.println(String.format("---> Done: %s second(s), %s inferred axioms.",
+                            (float) this.executionTimeMilli / 1000f, this.inferredAxiomsCount));
                     break;
 
                 case WSWRL:
                     WSWRLOntologyManager wswrlOntologyManager = WSWRLFactory.createWSWRLOntologyManager();
-                    WSWRLOntology wswrlOntology = wswrlOntologyManager.loadWSWRLOntologyFromOntologyDocument(inputStream);
+                    WSWRLOntology wswrlOntology = wswrlOntologyManager
+                            .loadWSWRLOntologyFromOntologyDocument(inputStream);
 
                     estProcheDeAxiomsBeforeInferring = this.countEstProcheDeAxioms(wswrlOntology.getOWLOntology());
 
@@ -78,10 +92,11 @@ public class EvaluationTask extends Thread {
                     this.executionTimeMilli = System.currentTimeMillis() - start;
                     wswrlOntologyManager.writeInferredAxiomsToOntology(wswrlOntology);
 
+                    this.inferredAxiomsCount = this.countEstProcheDeAxioms(wswrlOntology.getOWLOntology())
+                            - estProcheDeAxiomsBeforeInferring;
 
-                    this.inferredAxiomsCount = this.countEstProcheDeAxioms(wswrlOntology.getOWLOntology()) - estProcheDeAxiomsBeforeInferring;
-
-                    System.out.println(String.format("---> Done: %s second(s), %s inferred axioms.", (float) this.executionTimeMilli / 1000f, this.inferredAxiomsCount));
+                    System.out.println(String.format("---> Done: %s second(s), %s inferred axioms.",
+                            (float) this.executionTimeMilli / 1000f, this.inferredAxiomsCount));
                     break;
             }
         } catch (Exception e) {
@@ -101,7 +116,8 @@ public class EvaluationTask extends Thread {
         IRI estProcheDeIRI = IRI.create("http://www.stups.fr/ontologies/2023/stups/estProcheDe");
 
         for (OWLAxiom axiom : ontology.getAxioms())
-            if (axiom instanceof OWLObjectPropertyAssertionAxiom && ((OWLObjectPropertyAssertionAxiom)axiom).getProperty().getNamedProperty().getIRI().equals(estProcheDeIRI))
+            if (axiom instanceof OWLObjectPropertyAssertionAxiom && ((OWLObjectPropertyAssertionAxiom) axiom)
+                    .getProperty().getNamedProperty().getIRI().equals(estProcheDeIRI))
                 count++;
 
         return count;

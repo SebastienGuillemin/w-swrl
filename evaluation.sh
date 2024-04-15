@@ -10,7 +10,7 @@ do
     for i in $(seq 1 $1);
     do
         echo "  Running SWRL" $i
-        mvn exec:java -Dexec.mainClass="com.sebastienguillemin.wswrl.Evaluation" -Dexec.args="1 SWRL $file" > /dev/null
+        mvn exec:java -Dexec.mainClass="com.sebastienguillemin.wswrl.evaluation.Evaluation" -Dexec.args="1 SWRL $file" > /dev/null
     done
 
     echo ""
@@ -18,8 +18,6 @@ do
     for i in $(seq 1 $1);
     do
     echo "  Running WSWRL" $i
-        mvn exec:java -Dexec.mainClass="com.sebastienguillemin.wswrl.Evaluation" -Dexec.args="1 WSWRL $file" > /dev/null
+        mvn exec:java -Dexec.mainClass="com.sebastienguillemin.wswrl.evaluation.Evaluation" -Dexec.args="1 WSWRL $file" > /dev/null
     done
-
-    echo ""
 done

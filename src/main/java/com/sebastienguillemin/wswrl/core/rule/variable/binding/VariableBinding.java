@@ -1,5 +1,6 @@
 package com.sebastienguillemin.wswrl.core.rule.variable.binding;
 
+import com.sebastienguillemin.wswrl.core.rule.WSWRLRule;
 import com.sebastienguillemin.wswrl.core.rule.atom.WSWRLAtom;
 
 /**
@@ -24,7 +25,7 @@ import com.sebastienguillemin.wswrl.core.rule.atom.WSWRLAtom;
  * 
  * The internal
  * {@link com.sebastienguillemin.wswrl.core.rule.variable.WSWRLVariable}
- * of a variable is not modified until the {@link #bindVariables} function has
+ * of a variable is not modified until the {@link #nextBinding()} function has
  * been called.
  */
 public interface VariableBinding {
@@ -42,9 +43,25 @@ public interface VariableBinding {
      */
     boolean hasNext();
 
+    /**
+     * Returns the number of possibilities i.e., the cardinality of the Cartesian
+     * product of individuals who can be subjects of predicates
+     * 
+     * @return The binding possiblities
+     */
     int getBindingPossibilities();
 
+    /**
+     * Skip one or several binding according to an atom.
+     * 
+     * @see WSWRLRule#getAtomCausedSkip()
+     * 
+     * @param atomCausedSkip The atom that caused the skip.
+     */
     void skipByCause(WSWRLAtom atomCausedSkip);
 
+    /**
+     * Skip the current binding to the next subject individuals binding.
+     */
     void skipBinding();
 }

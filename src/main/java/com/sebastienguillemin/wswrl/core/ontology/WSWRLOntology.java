@@ -80,7 +80,7 @@ public interface WSWRLOntology extends SWRLAPIOWLOntology {
      * permanently to the ontology by calling the WSWRL ontology manager method :
      * {@link com.sebastienguillemin.wswrl.core.ontology.WSWRLOntologyManager#writeInferredAxiomsToOntology(WSWRLOntology)}.
      * 
-     * @param atom       A set of Atoms to add to the ontology.
+     * @param atoms       A set of Atoms to add to the ontology.
      * @param confidence The confidence associated to the new atoms.
      * 
      * @see com.sebastienguillemin.wswrl.core.engine.TargetWSWRLRuleEngine

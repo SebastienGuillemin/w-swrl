@@ -6,8 +6,10 @@ com.sebastienguillemin.wswrl.core.ontology
 com.sebastienguillemin.wswrl.core.rule
 com.sebastienguillemin.wswrl.core.rule.atom
 com.sebastienguillemin.wswrl.core.rule.variable
+com.sebastienguillemin.wswrl.core.rule.variable.binding
 com.sebastienguillemin.wswrl.engine
 com.sebastienguillemin.wswrl.engine.target
+com.sebastienguillemin.wswrl.evaluation
 com.sebastienguillemin.wswrl.exception
 com.sebastienguillemin.wswrl.factory
 com.sebastienguillemin.wswrl.ontology
@@ -19,4 +21,5 @@ com.sebastienguillemin.wswrl.rule.atom.builtin
 com.sebastienguillemin.wswrl.rule.atom.property
 com.sebastienguillemin.wswrl.rule.atom.unary
 com.sebastienguillemin.wswrl.rule.variable
+com.sebastienguillemin.wswrl.rule.variable.binding
 com.sebastienguillemin.wswrl.storer

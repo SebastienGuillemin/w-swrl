@@ -45,6 +45,6 @@ public class Example {
         // Save ontology in a Turtle file using a threshold (the cached inferred axioms
         // will be deleted).
         System.out.println("\n--- Saving W-SWRL ontology in a Turtle file.");
-        wswrlOntologyManager.saveOntologyToTurtle(wswrlOntology, "result.ttl", 0.6f);
+        wswrlOntologyManager.saveOntologyToTurtle(wswrlOntology, "result.ttl", 0.8f);
     }
 }

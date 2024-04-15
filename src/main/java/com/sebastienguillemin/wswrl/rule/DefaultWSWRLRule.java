@@ -41,6 +41,9 @@ public class DefaultWSWRLRule implements WSWRLRule {
     private float[] globalRankWeights;
     private Hashtable<Integer, Set<WSWRLAtom>> atRankAtoms;
 
+    @Getter
+    private WSWRLAtom atomCausedSkip;
+
     /**
      * Constructor.
      * 
@@ -85,8 +88,20 @@ public class DefaultWSWRLRule implements WSWRLRule {
     }
 
     @Override
-    public void calculateWeights() throws WeightCalculationException {
+    // TODO:  to optimise (?)
+    public boolean calculateWeights() throws WeightCalculationException {
+        this.atomCausedSkip = null;
+
         try {
+            for (WSWRLAtom atom : this.atRank(0))
+                if (!atom.isValuable()) {
+                    this.atomCausedSkip = atom;
+                    return true;
+                }
+                // else
+                //     // Atoms of rank 0 have a weight = 1.
+                //     atom.setWeight(1.0f);
+ 
             for (int index : this.rankIndexes) {
                 Set<WSWRLAtom> atoms = this.atRank(index);
                 int valuableAtomsCount = 0;
@@ -106,6 +121,7 @@ public class DefaultWSWRLRule implements WSWRLRule {
                         atom.setWeight(atomsWeight);
                 }
             }
+            return false;
         } catch (RankDoesNotExistException e) {
             throw new WeightCalculationException(e);
         }
@@ -113,6 +129,7 @@ public class DefaultWSWRLRule implements WSWRLRule {
 
     @Override
     public float calculateConfidence() {
+        this.atomCausedSkip = null;
         // for (WSWRLAtom headAtom : this.head)
         // if ((headAtom instanceof WSWRLDataPropertyAtom || headAtom instanceof
         // WSWRLDataRangeAtom) && !headAtom.isValuable()) {
@@ -124,8 +141,12 @@ public class DefaultWSWRLRule implements WSWRLRule {
         WSWRLAtom atom;
         while (bodyAtoms.hasNext() && confidence > 0) {
             atom = bodyAtoms.next();
-            if (!atom.isValuable() || !atom.evaluate())
+            if (!atom.isValuable() || !atom.evaluate()) {
                 confidence -= atom.getWeight();
+                if (atom.getRank().getIndex() == 0)   
+                    this.atomCausedSkip = atom;
+            }
+
         }
         return confidence;
     }
@@ -148,8 +169,6 @@ public class DefaultWSWRLRule implements WSWRLRule {
     }
 
     private void processRanks() throws MissingRankException {
-        // Rank 0 necessarily exists but can contain no atom (see below).
-        this.rankIndexes.add(0);
         int atomRankIndex;
         Set<WSWRLAtom> atoms;
         for (WSWRLAtom atom : this.body) {

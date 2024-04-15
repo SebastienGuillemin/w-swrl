@@ -98,8 +98,10 @@ public class DefaultWSWRLObjectPropertyAtom extends AbstractWSWRLProperty<WSWRLI
 
     @Override
     public boolean isValuable() {
-        return !this.getSubject().getValue().getObjectProperties(this.iri).isEmpty();
+        if(this.getSubject().getValue() == null || this.getObject().getValue() == null)
+            return false;
 
+        return !this.getSubject().getValue().getObjectProperties(this.iri).isEmpty();
     }
 
     @Override
@@ -107,9 +109,10 @@ public class DefaultWSWRLObjectPropertyAtom extends AbstractWSWRLProperty<WSWRLI
         WSWRLIVariable firstVariable = this.getSubject();
         WSWRLIVariable secondVariable = this.getObject();
 
-        for (OWLObjectPropertyAssertionAxiom propertyAxiom : firstVariable.getValue().getObjectProperties(this.iri))
+        for (OWLObjectPropertyAssertionAxiom propertyAxiom : firstVariable.getValue().getObjectProperties(this.iri)) {
             if (propertyAxiom.getObject().asOWLNamedIndividual().getIRI().equals(secondVariable.getValue().getIRI()))
                 return true;
+        }
 
         return false;
     }

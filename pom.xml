@@ -8,15 +8,15 @@
     <groupId>com.sebastienguillemin</groupId>
     <artifactId>w-swrl</artifactId>
     <version>1.0.0</version>
+    <packaging>jar</packaging>
 
     <name>w-swrl</name>
-    <!-- FIXME change it to the project's website -->
     <url>https://github.com/SebastienGuillemin/w-swrl</url>
 
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-        <!-- <exec.cleanupDaemonThreads>false</exec.cleanupDaemonThreads> -->
+        <exec.cleanupDaemonThreads>false</exec.cleanupDaemonThreads>
     </properties>
 
     <dependencies>
@@ -56,14 +56,14 @@
 
     <build>
         <plugins>
-            <plugin>
+            <!-- <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
                 <version>3.2.0</version>
                 <configuration>
-                    <mainClass>com.sebastienguillemin.wswrl.Evaluation</mainClass>
+                    <mainClass>com.sebastienguillemin.wswrl.Example</mainClass>
                 </configuration>
-            </plugin>
+            </plugin> -->
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -71,7 +71,7 @@
                 <version>3.6.3</version>
                 <configuration>
                     <reportOutputDirectory>${basedir}</reportOutputDirectory>
-                    <destDir>javadoc</destDir>
+                    <destDir>docs</destDir>
                 </configuration>
             </plugin>
         </plugins>

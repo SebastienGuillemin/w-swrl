@@ -2,6 +2,7 @@ package com.sebastienguillemin.wswrl.rule.atom.property;
 
 import javax.annotation.Nonnull;
 
+import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
@@ -98,12 +99,23 @@ public class DefaultWSWRLDataPropertyAtom extends AbstractWSWRLProperty<WSWRLDVa
 
     @Override
     public boolean isValuable() {
-        return this.evaluate();
+        if(this.getSubject().getValue() == null || this.getObject().getValue() == null)
+            return false;
+
+        return !this.getSubject().getValue().getDataProperties(this.iri).isEmpty();
     }
 
     @Override
     public boolean evaluate() {
-        return this.getObject().getValue() != null;
+        WSWRLIVariable firstVariable = this.getSubject();
+        WSWRLDVariable secondVariable = this.getObject();
+
+        for (OWLDataPropertyAssertionAxiom propertyAxiom : firstVariable.getValue().getDataProperties(this.iri)) {
+            if (propertyAxiom.getObject().equals(secondVariable.getValue()))
+                return true;
+        }
+
+        return false;
     }
 
     @Override

@@ -51,11 +51,14 @@ public interface WSWRLRule {
      * Calculates the rule WSWRL atom weights.
      * 
      * @see com.sebastienguillemin.wswrl.core.rule.atom.WSWRLAtom
+     * 
+     * @return If the current binding must be skipped.
      */
-    public void calculateWeights() throws WeightCalculationException;
+    public boolean calculateWeights() throws WeightCalculationException;
 
     /**
-     * Calculates the rule confidence. Must be called after binding the variables and
+     * Calculates the rule confidence. Must be called after binding the variables
+     * and
      * calling the calculateWeights function.
      */
     public float calculateConfidence();
@@ -79,4 +82,14 @@ public interface WSWRLRule {
      * @return the set of valuable atoms.
      */
     public Set<WSWRLAtom> valuable(Set<WSWRLAtom> atoms);
+
+    /**
+     * Returns the cause of a skip. A skip occurs when a rank 0 atom is not valuable
+     * or evaluated to {@code false}. In this case, this atom will by used by
+     * {@link com.sebastienguillemin.wswrl.core.rule.variable.binding.VariableBinding#skipByCause(WSWRLAtom)}
+     * to ignore some useless binding.
+     * 
+     * @return A rank 0atom which is not valuable or evaluated to {@code false}.
+     */
+    public WSWRLAtom getAtomCausedSkip();
 }

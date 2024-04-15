@@ -2,3 +2,4 @@
 target/*
 result.ttl
 result.ttls
+evaluationResults.csv

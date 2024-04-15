@@ -6,6 +6,9 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import org.semanticweb.owlapi.apibinding.OWLManager;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.swrlapi.core.SWRLRuleEngine;
@@ -18,65 +21,82 @@ import com.sebastienguillemin.wswrl.factory.WSWRLFactory;
 
 import lombok.Getter;
 
+/**
+ * A task taht performs an evaluation.
+ */
 public class EvaluationTask extends Thread {
-    public enum EngineName {
-        SWRL, WSWRL
-    }
+    private static final String SWRL_RULE = ":Echantillon(?x)^:Echantillon(?y)^differentFrom(?x, ?y)^:typeDrogue(?x,?dt)^:typeDrogue(?y,?dt)^:aPrincipeActif(?x,?pax)^:aPrincipeActif(?y,?pay)^:aFormeChimique(?pax,?cf)^:aFormeChimique(?pay,?cf)^:aProduitCoupage(?x,?cp)^:aProduitCoupage(?y,?cp)^:logo(?x,?l)^:logo(?y,?l)->:estProcheDe(?x,?y)";
+    private static final String WSWRL_RULE = ":Echantillon(?x)^:Echantillon(?y)^differentFrom(?x, ?y)^:typeDrogue(?x,?dt)^:typeDrogue(?y,?dt)^:aPrincipeActif(?x,?pax)^:aPrincipeActif(?y,?pay)^:aFormeChimique(?pax,?cf)^:aFormeChimique(?pay,?cf)^1*:aProduitCoupage(?x,?cp)^1*:aProduitCoupage(?y,?cp)^2*:logo(?x,?l)^2*:logo(?y,?l)->:estProcheDe(?x,?y)";
+
+    private File ontologyFile;
+    private EngineName engineName;
 
     @Getter
     private long executionTimeMilli;
+    @Getter
+    private int inferredAxiomsCount;
 
-    private String ontologyFilename;
-    private EngineName engineName;
-
-    public EvaluationTask(String ontologyFilename, EngineName engineName) {
-        this.ontologyFilename = ontologyFilename;
+    /**
+     * 
+     * @param ontologyFile The ontology file to use for the evaluation.
+     * @param engineName   The engine name.
+     */
+    public EvaluationTask(File ontologyFile, EngineName engineName) {
+        this.ontologyFile = ontologyFile;
         this.engineName = engineName;
 
     }
 
+    /**
+     * Runs the evaluation task.
+     */
     @Override
     public void run() {
-        // ClassLoader classloader = Thread.currentThread().getContextClassLoader();
-        // InputStream inputStream = classloader.getResourceAsStream(ontologyFilename);
-        
         InputStream inputStream = null;
+
         try {
-            inputStream = new FileInputStream(new File("/home/guillemin/Documents/these/code/etl/new_STUPS.ttl"));
+            inputStream = new FileInputStream(this.ontologyFile);
+            int estProcheDeAxiomsBeforeInferring = 0;
             long start;
             switch (engineName) {
                 case SWRL:
                     OWLOntologyManager owlOntologyManager = OWLManager.createOWLOntologyManager();
                     OWLOntology owlOntology = owlOntologyManager.loadOntologyFromOntologyDocument(inputStream);
+                    estProcheDeAxiomsBeforeInferring = this.countEstProcheDeAxioms(owlOntology);
                     SWRLRuleEngine swrlEngine = SWRLAPIFactory.createSWRLRuleEngine(owlOntology);
-                    swrlEngine.createSWRLRule("SWRL Evaluation Rule",
-                            ":Echantillon(?x)^:Echantillon(?y)^:aFormeChimique(?x,?cf)^:aFormeChimique(?y,?cf)^:typeDrogue(?x,?dt)^:typeDrogue(?y,?dt)^:aProduitCoupage(?x,?cp)^:aProduitCoupage(?y,?cp)^:logo(?x,?l)^:logo(?y,?l)->:estProcheDe(?x,?y)");
+                    swrlEngine.createSWRLRule("SWRL Evaluation Rule", SWRL_RULE);
 
                     start = System.currentTimeMillis();
                     swrlEngine.infer();
                     this.executionTimeMilli = System.currentTimeMillis() - start;
-                    System.out.println(String.format("---> Done: %s second(s), %s inferred axioms (%s in total).",
-                            (float) this.executionTimeMilli / 1000f,
-                            swrlEngine.getNumberOfInferredOWLAxioms(),
-                            swrlEngine.getNumberOfAssertedOWLAxioms() + swrlEngine.getNumberOfInferredOWLAxioms()));
+
+                    this.inferredAxiomsCount = this.countEstProcheDeAxioms(owlOntology)
+                            - estProcheDeAxiomsBeforeInferring;
+
+                    System.out.println(String.format("---> Done: %s second(s), %s inferred axioms.",
+                            (float) this.executionTimeMilli / 1000f, this.inferredAxiomsCount));
                     break;
 
                 case WSWRL:
                     WSWRLOntologyManager wswrlOntologyManager = WSWRLFactory.createWSWRLOntologyManager();
                     WSWRLOntology wswrlOntology = wswrlOntologyManager
                             .loadWSWRLOntologyFromOntologyDocument(inputStream);
+
+                    estProcheDeAxiomsBeforeInferring = this.countEstProcheDeAxioms(wswrlOntology.getOWLOntology());
+
                     WSWRLRuleEngine wswrlEngine = WSWRLFactory.createWSWRLRuleEngine(wswrlOntology);
-                    wswrlEngine.createWSWRLRule("WSWRL Evaluation Rule",
-                            "0*:Echantillon(?x)^0*:Echantillon(?y)^0*:aFormeChimique(?x,?cf)^0*:aFormeChimique(?y,?cf)^0*:typeDrogue(?x,?dt)^0*:typeDrogue(?y,?d)^1*:aProduitCoupage(?x,?cp)^1*:aProduitCoupage(?y,?c)^2*:logo(?x,?l)^2*:logo(?y,?l)->:estProcheDe(?x,?y)");
-                    // wswrlEngine.createWSWRLRule("test", "concept1(?x)^concept1(?y)^data(?x, ?z)->data(?x,?z)");
+                    wswrlEngine.createWSWRLRule("WSWRL Evaluation Rule", WSWRL_RULE);
 
                     start = System.currentTimeMillis();
                     wswrlEngine.infer();
                     this.executionTimeMilli = System.currentTimeMillis() - start;
-                    System.out.println(String.format("---> Done: %s second(s), %s inferred axioms (%s in total).",
-                            (float) this.executionTimeMilli / 1000f,
-                            wswrlEngine.getNumberOfInferredOWLAxioms(),
-                            wswrlEngine.getNumberOfAssertedOWLAxioms() + wswrlEngine.getNumberOfInferredOWLAxioms()));
+                    wswrlOntologyManager.writeInferredAxiomsToOntology(wswrlOntology);
+
+                    this.inferredAxiomsCount = this.countEstProcheDeAxioms(wswrlOntology.getOWLOntology())
+                            - estProcheDeAxiomsBeforeInferring;
+
+                    System.out.println(String.format("---> Done: %s second(s), %s inferred axioms.",
+                            (float) this.executionTimeMilli / 1000f, this.inferredAxiomsCount));
                     break;
             }
         } catch (Exception e) {
@@ -89,6 +109,17 @@ public class EvaluationTask extends Thread {
                     e.printStackTrace();
                 }
         }
+    }
 
+    private int countEstProcheDeAxioms(OWLOntology ontology) {
+        int count = 0;
+        IRI estProcheDeIRI = IRI.create("http://www.stups.fr/ontologies/2023/stups/estProcheDe");
+
+        for (OWLAxiom axiom : ontology.getAxioms())
+            if (axiom instanceof OWLObjectPropertyAssertionAxiom && ((OWLObjectPropertyAssertionAxiom) axiom)
+                    .getProperty().getNamedProperty().getIRI().equals(estProcheDeIRI))
+                count++;
+
+        return count;
     }
 }

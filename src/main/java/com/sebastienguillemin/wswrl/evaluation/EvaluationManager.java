@@ -5,58 +5,63 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.StandardOpenOption;
 
-import com.sebastienguillemin.wswrl.evaluation.EvaluationTask.EngineName;
-
+/**
+ * Create an manage {@link EvaluationTask}s.
+ */
 public class EvaluationManager {
     private int tasksCount;
-    private String ontologyFilename;
-    private long[] swrlTimes;
-    private long[] wswrlTimes;
+    private String taskType;
+    private File ontologyFile;
+    private long[] times;
 
-    public EvaluationManager(int tasksCount, String ontologyFilename) {
-        this.ontologyFilename = ontologyFilename;
+    /**
+     * 
+     * @param tasksCount   The number of task to create.
+     * @param taskType     The type of tasks.
+     * @param ontologyFile The ontology file to use when evaluating.
+     */
+    public EvaluationManager(int tasksCount, String taskType, File ontologyFile) {
         this.tasksCount = tasksCount;
-        this.swrlTimes = new long[tasksCount];
-        this.wswrlTimes = new long[tasksCount];
+        this.taskType = taskType;
+        this.ontologyFile = ontologyFile;
+        this.times = new long[tasksCount];
     }
 
+    /**
+     *  Run the tasks sequentially. The result of each task is added to the 'evaluationResults.csv' file at the root of the project (this file is created if needed).
+     * 
+     * @throws IOException If an exception occurs.
+     */
     public void startEvaluation() throws IOException {
         System.out.println(String.format("Running evaluation with %s tasks for each engine.", this.tasksCount));
 
         try {
-            File file = new File("executionTimes.csv");
+            File file = new File("evaluationResults.csv");
 
             if (file.createNewFile()) {
-                System.out.println("File created: " + file.getName() + ".\n");
-                Files.write(file.toPath(), ("Time (ms),Engine").getBytes());
+                System.out.println("Result file created: " + file.getName());
+                Files.write(file.toPath(), ("Time (ms),Engine,Inferred Axioms,Ontology").getBytes());
             } else {
-                System.out.println("File already exists, keeping previous content.\n");
+                System.out.println("Result file already exists, keeping previous content");
             }
-
-            EvaluationTask evaluationTask;
-            for (int i = 0; i < this.tasksCount; i++) {
-                System.out.println(String.format("Running SWRL engines(%s/%s) - Active threads %s", (i + 1),
-                        this.tasksCount, Thread.activeCount()));
-
-                evaluationTask = new EvaluationTask(this.ontologyFilename, EngineName.SWRL);
-                evaluationTask.start();
-                evaluationTask.join();
-                this.swrlTimes[i] = evaluationTask.getExecutionTimeMilli();
-                Files.write(file.toPath(), String.format(System.lineSeparator() + "%s,%s", this.swrlTimes[i], "SWRL").getBytes(),
-                        StandardOpenOption.APPEND);
-            }
-
             System.out.println();
 
-            for (int i = 0; i < this.tasksCount; i++) {
-                System.out.println(String.format("Running W-SWRL engines(%s/%s) - Active threads %s", (i + 1),
-                        this.tasksCount, Thread.activeCount()));
+            EvaluationTask evaluationTask;
+            EngineName engineName = EngineName.valueOf(this.taskType);
 
-                evaluationTask = new EvaluationTask(this.ontologyFilename, EngineName.WSWRL);
+            for (int i = 0; i < this.tasksCount; i++) {
+                System.out.println(String.format("Running %s engines(%s/%s) - Active threads %s", this.taskType,
+                        (i + 1), this.tasksCount, Thread.activeCount()));
+
+                evaluationTask = new EvaluationTask(this.ontologyFile, engineName);
                 evaluationTask.start();
                 evaluationTask.join();
-                this.wswrlTimes[i] = evaluationTask.getExecutionTimeMilli();
-                Files.write(file.toPath(), String.format(System.lineSeparator() + "%s,%s", this.swrlTimes[i], "WSWRL").getBytes(),
+                this.times[i] = evaluationTask.getExecutionTimeMilli();
+                Files.write(
+                        file.toPath(),
+                        String.format(System.lineSeparator() + "%s,%s,%s,%s", this.times[i], this.taskType,
+                                evaluationTask.getInferredAxiomsCount(), this.ontologyFile.getAbsolutePath())
+                                .getBytes(),
                         StandardOpenOption.APPEND);
             }
         } catch (Exception e) {

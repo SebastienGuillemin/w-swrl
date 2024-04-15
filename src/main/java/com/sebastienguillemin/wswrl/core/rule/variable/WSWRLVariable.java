@@ -13,6 +13,9 @@ public interface WSWRLVariable extends HasIRI, SWRLArgument {
      * @see com.sebastienguillemin.wswrl.core.rule.variable.WSWRLVariableDomain
      * @return the variable domain (INDIVIDUAL or DATA).
      */
-    public WSWRLVariableDomain getDomain();
+    WSWRLVariableDomain getDomain();
+
+    void setUnboundable(boolean boundable);
+    boolean isUnboundable();
 }
 

@@ -106,6 +106,7 @@ public class DefaultWSWRLOntology extends DefaultSWRLAPIOWLOntology implements W
     public void addWSWRLInferredAxiom(Set<WSWRLAtom> atoms, float confidence) {
         WSWRLAxiom inferredAxiom;
         OWLAxiom owlAxiom;
+
         for (WSWRLAtom atom : atoms) {
             inferredAxiom = null;
             owlAxiom = null;
@@ -181,9 +182,11 @@ public class DefaultWSWRLOntology extends DefaultSWRLAPIOWLOntology implements W
             if (axiom instanceof OWLClassAssertionAxiom) {
                 iri = ((OWLClassAssertionAxiom) axiom).getClassExpression().asOWLClass().getIRI().getNamespace();
             } else if (axiom instanceof OWLObjectPropertyAssertionAxiom) {
-                iri = ((OWLObjectPropertyAssertionAxiom) axiom).getSubject().asOWLNamedIndividual().getIRI().getNamespace();
+                iri = ((OWLObjectPropertyAssertionAxiom) axiom).getSubject().asOWLNamedIndividual().getIRI()
+                        .getNamespace();
             } else if (axiom instanceof OWLDataPropertyAssertionAxiom) {
-                iri = ((OWLDataPropertyAssertionAxiom) axiom).getSubject().asOWLNamedIndividual().getIRI().getNamespace();
+                iri = ((OWLDataPropertyAssertionAxiom) axiom).getSubject().asOWLNamedIndividual().getIRI()
+                        .getNamespace();
             } else if (axiom instanceof OWLDeclarationAxiom) {
                 iri = ((OWLDeclarationAxiom) axiom).getEntity().getIRI().getNamespace();
             }

@@ -80,12 +80,13 @@ public interface WSWRLOntology extends SWRLAPIOWLOntology {
      * permanently to the ontology by calling the WSWRL ontology manager method :
      * {@link com.sebastienguillemin.wswrl.core.ontology.WSWRLOntologyManager#writeInferredAxiomsToOntology(WSWRLOntology)}.
      * 
-     * @see com.sebastienguillemin.wswrl.core.engine.TargetWSWRLRuleEngine
+     * @param atoms       A set of Atoms to add to the ontology.
+     * @param confidence The confidence associated to the new atoms.
      * 
-     * @param atom       The inferred axiom.
-     * @param confidence The axiom confidence .
+     * @see com.sebastienguillemin.wswrl.core.engine.TargetWSWRLRuleEngine
+     * @see com.sebastienguillemin.wswrl.core.rule.WSWRLRuleResult
      */
-    void addWSWRLInferredAxiom(Set<WSWRLAtom> atom, float confidence);
+    void addWSWRLInferredAxiom(Set<WSWRLAtom> atoms, float confidence);
 
     /**
      * Returns the inferred axioms by WSWRL rules as OWL axiom.
@@ -122,6 +123,7 @@ public interface WSWRLOntology extends SWRLAPIOWLOntology {
 
     /**
      * Return the base IRI of the ontology.
+     * 
      * @return The ontology's base IRI
      */
     IRI getBaseIRI();

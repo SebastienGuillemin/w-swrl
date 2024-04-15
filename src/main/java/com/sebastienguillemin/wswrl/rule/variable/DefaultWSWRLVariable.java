@@ -6,6 +6,7 @@ import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLVariable;
 import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLVariableDomain;
 
 import lombok.Getter;
+import lombok.Setter;
 import uk.ac.manchester.cs.owl.owlapi.SWRLVariableImpl;
 
 /**
@@ -14,6 +15,10 @@ import uk.ac.manchester.cs.owl.owlapi.SWRLVariableImpl;
 public abstract class DefaultWSWRLVariable extends SWRLVariableImpl implements WSWRLVariable {
     @Getter
     private WSWRLVariableDomain domain;
+
+    @Getter
+    @Setter
+    private boolean unboundable;
 
     protected DefaultWSWRLVariable(IRI iri, WSWRLVariableDomain domain) {
         super(iri);
@@ -24,5 +29,4 @@ public abstract class DefaultWSWRLVariable extends SWRLVariableImpl implements W
     public String toString() {
         return String.format("WSWRLVariable(%s, %s)", this.getIRI(), this.domain);
     }
-
 }

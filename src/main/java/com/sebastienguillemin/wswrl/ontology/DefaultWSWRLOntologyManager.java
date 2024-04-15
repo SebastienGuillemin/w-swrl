@@ -29,7 +29,7 @@ public class DefaultWSWRLOntologyManager implements WSWRLOntologyManager {
     public WSWRLOntology loadWSWRLOntologyFromOntologyDocument(InputStream inputStream)
             throws OWLOntologyCreationException, WSWRLBuiltInException {
         OWLOntology owlOntology = this.owlOntologyManager.loadOntologyFromOntologyDocument(inputStream);
-
+        
         WSWRLOntology wswrlOntology = new DefaultWSWRLOntology(owlOntology, WSWRLFactory.createIRIResolver());
         wswrlOntology.processOntology();
 
@@ -39,12 +39,14 @@ public class DefaultWSWRLOntologyManager implements WSWRLOntologyManager {
     @Override
     public void writeInferredAxiomsToOntology(WSWRLOntology wswrlOntology) throws WSWRLBuiltInException {
         Set<OWLAxiom> axiomsToAdd = new HashSet<>();
+        
         for(OWLAxiom axiom : wswrlOntology.getWSWRLInferredAxiomsAsOWLAxiom()) {
             if(!wswrlOntology.getOWLAxioms().contains(axiom))
                 axiomsToAdd.add(axiom);
         }
-        wswrlOntology.processOntology();
         this.owlOntologyManager.addAxioms(wswrlOntology.getOWLOntology(), axiomsToAdd);
+        wswrlOntology.processOntology();
+
         wswrlOntology.clearInferredAxiomsCache();
     }
 

@@ -54,9 +54,6 @@ public class Evaluation {
 
         File ontologyFile = new File(ontologyPath);
 
-        System.out.println(ontologyFile.getAbsolutePath());
-
-        // File ontologyFile = new File(classLoader.getResource(ontologyPath).toURI());
         if (!ontologyFile.exists() || ontologyFile.isDirectory()) {
             System.out.println(ontologyPath + " does not exist.");
             System.exit(1);

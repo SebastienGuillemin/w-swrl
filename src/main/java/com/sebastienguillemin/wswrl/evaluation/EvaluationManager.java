@@ -12,7 +12,6 @@ public class EvaluationManager {
     private long[] times;
 
     public EvaluationManager(int tasksCount, String taskType, File ontologyFile) {
-        System.out.println(ontologyFile.toURI());
         this.tasksCount = tasksCount;
         this.taskType = taskType;
         this.ontologyFile = ontologyFile;
@@ -26,10 +25,10 @@ public class EvaluationManager {
             File file = new File("evaluationResults.csv");
 
             if (file.createNewFile()) {
-                System.out.println("File created: " + file.getName() + ".\n");
+                System.out.println("Result file created: " + file.getName());
                 Files.write(file.toPath(), ("Time (ms),Engine,Inferred Axioms,Ontology").getBytes());
             } else {
-                System.out.println("File already exists, keeping previous content.\n");
+                System.out.println("Result file already exists, keeping previous content");
             }
             System.out.println();
 

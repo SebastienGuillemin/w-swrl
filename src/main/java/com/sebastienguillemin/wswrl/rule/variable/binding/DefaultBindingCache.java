@@ -40,26 +40,33 @@ public class DefaultBindingCache<V extends WSWRLVariable, T> implements BindingC
     public DefaultBindingCache(HashMap<V, List<T>> variablesValues) {
         this();
         
-        for (Entry<V, List<T>> entry : variablesValues.entrySet()) {
+        for (Entry<V, List<T>> entry : variablesValues.entrySet()) 
             this.addValues(entry.getKey(), entry.getValue());
-        }
         this.processedPossibilities = 0; 
     }
 
     @Override
     public void addValues(V variable, List<T> values) {
+        if (values.size() == 0) {
+            variable.setUnboundable(true);
+            return;
+        }
+            
         IRI iri = variable.getIRI();
-        if (this.values.containsKey(iri))
-            this.values.get(iri).addAll(values);
+        if (this.values.containsKey(iri)) {
+            List<T> currentValues = this.values.get(iri);
+
+            for (T value : values)
+                if (!currentValues.contains(value))
+                    currentValues.add(value);
+        }
         else {
             this.values.put(iri, values);
             this.variables.put(iri, variable);
             this.pointers.put(iri, 0);
         }
 
-        if (values.size() == 0)
-            variable.setUnboundable(true);
-        // System.out.println("Adding : " + variable + " -> " + values);
+        
     }
 
     @Override

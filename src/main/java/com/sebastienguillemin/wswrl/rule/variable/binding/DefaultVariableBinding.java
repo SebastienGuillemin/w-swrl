@@ -88,6 +88,21 @@ public class DefaultVariableBinding implements VariableBinding {
         return this.bindingCacheSubject.getPossibilities();
     }
 
+    @Override
+    public void skipByCause(WSWRLAtom atomCausedSkip) {
+        if (atomCausedSkip instanceof WSWRLDataPropertyAtom && !this.bindingCacheData.hasNext())
+            this.bindingCacheData.releaseLock();
+        else if (atomCausedSkip instanceof WSWRLObjectPropertyAtom) {
+            this.bindingCacheData.releaseLock();
+        }
+    }
+
+    @Override
+    public void skipBinding() {
+        this.bindingCacheData.releaseLock();
+        this.bindingCacheObject.releaseLock();
+    }
+
     private void sortAtoms() {
         this.classAtoms = this.atoms.stream().filter(a -> a instanceof WSWRLClassAtom).map(a -> (WSWRLClassAtom) a)
                 .collect(Collectors.toSet());

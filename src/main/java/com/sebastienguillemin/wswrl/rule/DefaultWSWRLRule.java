@@ -41,6 +41,9 @@ public class DefaultWSWRLRule implements WSWRLRule {
     private float[] globalRankWeights;
     private Hashtable<Integer, Set<WSWRLAtom>> atRankAtoms;
 
+    @Getter
+    private WSWRLAtom atomCausedSkip;
+
     /**
      * Constructor.
      * 
@@ -85,11 +88,19 @@ public class DefaultWSWRLRule implements WSWRLRule {
     }
 
     @Override
+    // TODO:  to optimise (?)
     public boolean calculateWeights() throws WeightCalculationException {
+        this.atomCausedSkip = null;
+
         try {
             for (WSWRLAtom atom : this.atRank(0))
-                if (!atom.isValuable())
+                if (!atom.isValuable()) {
+                    this.atomCausedSkip = atom;
                     return true;
+                }
+                // else
+                //     // Atoms of rank 0 have a weight = 1.
+                //     atom.setWeight(1.0f);
  
             for (int index : this.rankIndexes) {
                 Set<WSWRLAtom> atoms = this.atRank(index);
@@ -99,8 +110,6 @@ public class DefaultWSWRLRule implements WSWRLRule {
                 for (WSWRLAtom atom : atoms) {
                     if (atom.isValuable())
                         valuableAtomsCount++;
-                    else if (index == 0)
-                        return true;
                     else if (index != 0)
                         atom.setWeight(0);
                 }
@@ -120,6 +129,7 @@ public class DefaultWSWRLRule implements WSWRLRule {
 
     @Override
     public float calculateConfidence() {
+        this.atomCausedSkip = null;
         // for (WSWRLAtom headAtom : this.head)
         // if ((headAtom instanceof WSWRLDataPropertyAtom || headAtom instanceof
         // WSWRLDataRangeAtom) && !headAtom.isValuable()) {
@@ -131,10 +141,11 @@ public class DefaultWSWRLRule implements WSWRLRule {
         WSWRLAtom atom;
         while (bodyAtoms.hasNext() && confidence > 0) {
             atom = bodyAtoms.next();
-            if (!atom.isValuable())
+            if (!atom.isValuable() || !atom.evaluate()) {
                 confidence -= atom.getWeight();
-            else if (!atom.evaluate())
-                confidence -= atom.getWeight();
+                if (atom.getRank().getIndex() == 0)   
+                    this.atomCausedSkip = atom;
+            }
 
         }
         return confidence;

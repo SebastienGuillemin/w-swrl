@@ -81,4 +81,6 @@ public interface WSWRLRule {
      * @return the set of valuable atoms.
      */
     public Set<WSWRLAtom> valuable(Set<WSWRLAtom> atoms);
+
+    public WSWRLAtom getAtomCausedSkip();
 }

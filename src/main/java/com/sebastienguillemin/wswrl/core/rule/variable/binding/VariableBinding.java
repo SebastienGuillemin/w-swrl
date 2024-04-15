@@ -1,5 +1,7 @@
 package com.sebastienguillemin.wswrl.core.rule.variable.binding;
 
+import com.sebastienguillemin.wswrl.core.rule.atom.WSWRLAtom;
+
 /**
  * Represents a binding for the rule variables.
  * A binding associates a value to each variable.
@@ -41,4 +43,8 @@ public interface VariableBinding {
     boolean hasNext();
 
     int getBindingPossibilities();
+
+    void skipByCause(WSWRLAtom atomCausedSkip);
+
+    void skipBinding();
 }

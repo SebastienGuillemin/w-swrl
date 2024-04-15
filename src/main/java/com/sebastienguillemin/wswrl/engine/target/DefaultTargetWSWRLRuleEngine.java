@@ -52,6 +52,8 @@ public class DefaultTargetWSWRLRuleEngine implements TargetWSWRLRuleEngine {
             // Processing WSWRL rules.
             Set<WSWRLRule> wswrlRules = wswrlOntology.getWSWRLRules();
             VariableBinding binding;
+            float confidence;
+            WSWRLAtom atomCausedSkip;
             for (WSWRLRule rule : wswrlRules) {
                 if (!rule.isEnabled())
                     continue;
@@ -62,17 +64,24 @@ public class DefaultTargetWSWRLRuleEngine implements TargetWSWRLRuleEngine {
                     binding.nextBinding();
 
                     // Calculate rank weights
-                    boolean skip = rule.calculateWeights();
+                    if (rule.calculateWeights()) {
+                        binding.skipByCause(rule.getAtomCausedSkip());
+                    } else {
+                        // Evaluate
+                        confidence = rule.calculateConfidence();
+    
+                        // Store result
+                        if (confidence > 0) {
+                            this.wswrlOntology.addWSWRLInferredAxiom(rule.getHead(), confidence);
+                            binding.skipBinding();
+                        }
+                        else {
+                            atomCausedSkip = rule.getAtomCausedSkip();
+                            if (atomCausedSkip != null)
+                                binding.skipByCause(atomCausedSkip);
+                        }
+                    }
 
-                    if (skip)
-                        continue;
-
-                    // Evaluate
-                    float confidence = rule.calculateConfidence();
-
-                    // Store result
-                    if (confidence > 0)
-                        this.wswrlOntology.addWSWRLInferredAxiom(rule.getHead(), confidence);
                 }
             }
 

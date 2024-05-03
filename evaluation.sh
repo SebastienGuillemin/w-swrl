@@ -3,7 +3,7 @@ echo "Compiling program"
 
 mvn clean install
 
-for file in ./evaluation_ontologies/*.ttl;
+for file in ./evaluation_kb/*.ttl;
 do
     echo "Processing $file"
 

@@ -51,10 +51,8 @@ public interface WSWRLRule {
      * Calculates the rule WSWRL atom weights.
      * 
      * @see com.sebastienguillemin.wswrl.core.rule.atom.WSWRLAtom
-     * 
-     * @return If the current binding must be skipped.
      */
-    public boolean calculateWeights() throws WeightCalculationException;
+    public void calculateWeights() throws WeightCalculationException;
 
     /**
      * Calculates the rule confidence. Must be called after binding the variables

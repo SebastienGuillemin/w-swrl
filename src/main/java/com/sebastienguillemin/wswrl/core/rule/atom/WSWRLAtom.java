@@ -53,7 +53,7 @@ public interface WSWRLAtom extends HasIRI {
     public Rank getRank();
 
     /**
-     * Return weither the current atom is valuable.
+     * Return wether the current atom is valuable.
      * 
      * @return {@code True} if the atom is valuable {@code False} otherwise.
      */

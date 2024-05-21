@@ -53,34 +53,36 @@ public class DefaultTargetWSWRLRuleEngine implements TargetWSWRLRuleEngine {
             Set<WSWRLRule> wswrlRules = wswrlOntology.getWSWRLRules();
             VariableBinding binding;
             float confidence;
-            WSWRLAtom atomCausedSkip;
+            // WSWRLAtom atomCausedSkip;
             for (WSWRLRule rule : wswrlRules) {
                 if (!rule.isEnabled())
                     continue;
 
+                // Calculate rank weights
+                rule.calculateWeights();
+
                 Set<WSWRLAtom> body = rule.getBody();
+
+                // Generate bindings
                 binding = new DefaultVariableBinding(body, this.individuals, this.classToIndividuals);
                 while (binding.hasNext()) {
                     binding.nextBinding();
 
-                    // Calculate rank weights
-                    if (rule.calculateWeights()) {
-                        binding.skipByCause(rule.getAtomCausedSkip());
-                    } else {
-                        // Evaluate
-                        confidence = rule.calculateConfidence();
-    
-                        // Store result
-                        if (confidence > 0) {
-                            this.wswrlOntology.addWSWRLInferredAxiom(rule.getHead(), confidence);
-                            binding.skipBinding();
-                        }
-                        else {
-                            atomCausedSkip = rule.getAtomCausedSkip();
-                            if (atomCausedSkip != null)
-                                binding.skipByCause(atomCausedSkip);
-                        }
+                    if (this.wswrlOntology.getWSWRLInferredAxioms().contains(rule.getHead().toArray()[0]))  // Check if the rule head axiom has already been inferred.
+                        continue;
+
+                    // Evaluate
+                    confidence = rule.calculateConfidence();
+                    // Store result
+                    if (confidence > 0.5) {
+                        this.wswrlOntology.addWSWRLInferredAxiom(rule.getHead(), confidence);
+                        binding.skipBinding();
                     }
+                    // else {
+                    //     atomCausedSkip = rule.getAtomCausedSkip();
+                    //     if (atomCausedSkip != null)
+                    //         binding.skipByCause(atomCausedSkip);
+                    // }
 
                 }
             }

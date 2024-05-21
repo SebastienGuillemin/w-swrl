@@ -11,7 +11,6 @@ import com.sebastienguillemin.wswrl.core.rule.WSWRLRule;
 import com.sebastienguillemin.wswrl.core.rule.atom.WSWRLAtom;
 import com.sebastienguillemin.wswrl.exception.MissingRankException;
 import com.sebastienguillemin.wswrl.exception.RankDoesNotExistException;
-import com.sebastienguillemin.wswrl.exception.WeightCalculationException;
 
 import lombok.Getter;
 
@@ -88,67 +87,51 @@ public class DefaultWSWRLRule implements WSWRLRule {
     }
 
     @Override
-    // TODO:  to optimise (?)
-    public boolean calculateWeights() throws WeightCalculationException {
-        this.atomCausedSkip = null;
-
-        try {
-            for (WSWRLAtom atom : this.atRank(0))
-                if (!atom.isValuable()) {
-                    this.atomCausedSkip = atom;
-                    return true;
-                }
-                // else
-                //     // Atoms of rank 0 have a weight = 1.
-                //     atom.setWeight(1.0f);
- 
-            for (int index : this.rankIndexes) {
-                Set<WSWRLAtom> atoms = this.atRank(index);
-                int valuableAtomsCount = 0;
-                float atomsWeight = 0;
-
-                for (WSWRLAtom atom : atoms) {
-                    if (atom.isValuable())
-                        valuableAtomsCount++;
-                    else if (index != 0)
-                        atom.setWeight(0);
-                }
-
-                atomsWeight = this.calculateAtomsWeight(index, atoms.size(), valuableAtomsCount);
-
-                for (WSWRLAtom atom : atoms) {
-                    if (atom.isValuable() || index == 0)
-                        atom.setWeight(atomsWeight);
-                }
+    public void calculateWeights() {
+        float numberOfAtomsSQRT = (float) Math.sqrt(this.body.size());
+        float rankWeight, atomWeight;
+        
+        for (int index : this.rankIndexes)  {
+            rankWeight = this.calculateRankWeight(index);
+            atomWeight = rankWeight / numberOfAtomsSQRT;
+            
+            for (WSWRLAtom atom : this.atRankAtoms.get(index)) {
+                atom.setWeight(atomWeight);
+                // System.out.println(atom + ", weight : " + atomWeight);
             }
-            return false;
-        } catch (RankDoesNotExistException e) {
-            throw new WeightCalculationException(e);
         }
     }
 
     @Override
     public float calculateConfidence() {
         this.atomCausedSkip = null;
-        // for (WSWRLAtom headAtom : this.head)
-        // if ((headAtom instanceof WSWRLDataPropertyAtom || headAtom instanceof
-        // WSWRLDataRangeAtom) && !headAtom.isValuable()) {
-        // return 0;
-        // }
 
-        float confidence = 1;
+        float truthWeight = 0;
+        float falseWeight = 0;
+        float epsilon = 0;
+
         Iterator<WSWRLAtom> bodyAtoms = this.body.iterator();
         WSWRLAtom atom;
-        while (bodyAtoms.hasNext() && confidence > 0) {
+        while (bodyAtoms.hasNext()) {
             atom = bodyAtoms.next();
-            if (!atom.isValuable() || !atom.evaluate()) {
-                confidence -= atom.getWeight();
-                if (atom.getRank().getIndex() == 0)   
-                    this.atomCausedSkip = atom;
-            }
 
+            if (atom.getRank().getIndex() == 0 && (!atom.isValuable() || !atom.evaluate())) {
+                this.atomCausedSkip = atom;
+                truthWeight = 0;
+                falseWeight = 1;
+                break;
+            }
+            else if(!atom.evaluate()) {
+                falseWeight += atom.getWeight();
+            }
+            else if (!atom.isValuable()) {
+                truthWeight += (1 - epsilon) * atom.getWeight();
+                falseWeight += epsilon * atom.getWeight();
+            }
+            else if(atom.evaluate())
+                truthWeight += truthWeight;
         }
-        return confidence;
+        return truthWeight / (truthWeight + falseWeight);
     }
 
     @Override
@@ -166,6 +149,10 @@ public class DefaultWSWRLRule implements WSWRLRule {
         }
 
         return valuableAtoms;
+    }
+
+    private float calculateRankWeight(int rankIndex) {
+        return 1.f / (float) (rankIndex + Math.exp((double) -rankIndex));
     }
 
     private void processRanks() throws MissingRankException {

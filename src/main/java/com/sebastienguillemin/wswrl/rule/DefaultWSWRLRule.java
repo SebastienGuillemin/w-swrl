@@ -10,7 +10,6 @@ import java.util.TreeSet;
 import com.sebastienguillemin.wswrl.core.rule.WSWRLRule;
 import com.sebastienguillemin.wswrl.core.rule.atom.WSWRLAtom;
 import com.sebastienguillemin.wswrl.exception.MissingRankException;
-import com.sebastienguillemin.wswrl.exception.RankDoesNotExistException;
 
 import lombok.Getter;
 
@@ -88,17 +87,12 @@ public class DefaultWSWRLRule implements WSWRLRule {
 
     @Override
     public void calculateWeights() {
-        float numberOfAtomsSQRT = (float) Math.sqrt(this.body.size());
-        float rankWeight, atomWeight;
-        
+        float atomWeight;        
         for (int index : this.rankIndexes)  {
-            rankWeight = this.calculateRankWeight(index);
-            atomWeight = rankWeight / numberOfAtomsSQRT;
+            atomWeight = this.calculateAtomsWeight(index);
             
-            for (WSWRLAtom atom : this.atRankAtoms.get(index)) {
+            for (WSWRLAtom atom : this.atRankAtoms.get(index))
                 atom.setWeight(atomWeight);
-                // System.out.println(atom + ", weight : " + atomWeight);
-            }
         }
     }
 
@@ -129,7 +123,7 @@ public class DefaultWSWRLRule implements WSWRLRule {
                 falseWeight += epsilon * atom.getWeight();
             }
             else if(atom.evaluate())
-                truthWeight += truthWeight;
+                truthWeight += atom.getWeight();
         }
         return truthWeight / (truthWeight + falseWeight);
     }
@@ -149,10 +143,6 @@ public class DefaultWSWRLRule implements WSWRLRule {
         }
 
         return valuableAtoms;
-    }
-
-    private float calculateRankWeight(int rankIndex) {
-        return 1.f / (float) (rankIndex + Math.exp((double) -rankIndex));
     }
 
     private void processRanks() throws MissingRankException {
@@ -177,23 +167,7 @@ public class DefaultWSWRLRule implements WSWRLRule {
         }
     }
 
-    private float calculateAtomsWeight(int rankIndex, int atomsRankCount, int valuableAtomsCount)
-            throws RankDoesNotExistException {
-        if (rankIndex == 0)
-            return 1;
-        else if (IGNORE_UNVALUABLE_ATOMS) {
-            // Weight calculation policy 1
-            return this.getRankGlobalWeight(rankIndex) / ((float) valuableAtomsCount);
-        } else {
-            // Weight calculation policy 2
-            return this.getRankGlobalWeight(rankIndex) / ((float) atomsRankCount);
-        }
-    }
-
-    private float getRankGlobalWeight(int rankIndex) throws RankDoesNotExistException {
-        if (!this.rankIndexes.contains(rankIndex))
-            throw new RankDoesNotExistException(rankIndex);
-
-        return this.globalRankWeights[rankIndex];
+    private float calculateAtomsWeight(int rankIndex) {
+        return 1.f / (float) (rankIndex + Math.exp((double) -rankIndex));
     }
 }

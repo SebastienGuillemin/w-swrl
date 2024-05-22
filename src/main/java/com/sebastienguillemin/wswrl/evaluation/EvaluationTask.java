@@ -85,6 +85,7 @@ public class EvaluationTask extends Thread {
                     estProcheDeAxiomsBeforeInferring = this.countEstProcheDeAxioms(wswrlOntology.getOWLOntology());
 
                     WSWRLRuleEngine wswrlEngine = WSWRLFactory.createWSWRLRuleEngine(wswrlOntology);
+                    System.out.println("W-SWRL rule : " + WSWRL_RULE);
                     wswrlEngine.createWSWRLRule("WSWRL Evaluation Rule", WSWRL_RULE);
 
                     start = System.currentTimeMillis();

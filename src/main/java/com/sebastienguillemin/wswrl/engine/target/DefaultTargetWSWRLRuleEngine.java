@@ -53,7 +53,7 @@ public class DefaultTargetWSWRLRuleEngine implements TargetWSWRLRuleEngine {
             Set<WSWRLRule> wswrlRules = wswrlOntology.getWSWRLRules();
             VariableBinding binding;
             float confidence;
-            // WSWRLAtom atomCausedSkip;
+            WSWRLAtom atomCausedSkip;
             for (WSWRLRule rule : wswrlRules) {
                 if (!rule.isEnabled())
                     continue;
@@ -68,21 +68,23 @@ public class DefaultTargetWSWRLRuleEngine implements TargetWSWRLRuleEngine {
                 while (binding.hasNext()) {
                     binding.nextBinding();
 
-                    if (this.wswrlOntology.getWSWRLInferredAxioms().contains(rule.getHead().toArray()[0]))  // Check if the rule head axiom has already been inferred.
-                        continue;
+                    // if (this.wswrlOntology.getWSWRLInferredAxioms().contains(rule.getHead().toArray()[0])) { // Check if the rule head axiom has already been inferred.
+                    //     System.out.println("Continue");
+                    //     continue;
+                    // }
 
                     // Evaluate
                     confidence = rule.calculateConfidence();
                     // Store result
-                    if (confidence > 0.5) {
+                    if (confidence > 0.9) {
                         this.wswrlOntology.addWSWRLInferredAxiom(rule.getHead(), confidence);
                         binding.skipBinding();
                     }
-                    // else {
-                    //     atomCausedSkip = rule.getAtomCausedSkip();
-                    //     if (atomCausedSkip != null)
-                    //         binding.skipByCause(atomCausedSkip);
-                    // }
+                    else {
+                        atomCausedSkip = rule.getAtomCausedSkip();
+                        if (atomCausedSkip != null)
+                            binding.skipByCause(atomCausedSkip);
+                    }
 
                 }
             }

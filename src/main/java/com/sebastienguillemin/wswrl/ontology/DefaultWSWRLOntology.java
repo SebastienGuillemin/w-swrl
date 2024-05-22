@@ -29,6 +29,7 @@ import com.sebastienguillemin.wswrl.core.rule.atom.WSWRLClassAtom;
 import com.sebastienguillemin.wswrl.core.rule.atom.WSWRLDataPropertyAtom;
 import com.sebastienguillemin.wswrl.core.rule.atom.WSWRLObjectPropertyAtom;
 import com.sebastienguillemin.wswrl.core.rule.atom.WSWRLUnaryAtom;
+import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLIndividual;
 import com.sebastienguillemin.wswrl.exception.MissingRankException;
 import com.sebastienguillemin.wswrl.exception.WSWRLBuiltInException;
 import com.sebastienguillemin.wswrl.exception.WSWRLParseException;
@@ -51,6 +52,8 @@ public class DefaultWSWRLOntology extends DefaultSWRLAPIOWLOntology implements W
     private WSWRLDataFactory wswrlDataFactory;
     private Set<WSWRLAxiom> inferredAxiomsCache;
     private IRI baseIRI;
+
+    public static int added = 0;
 
     /**
      * Constructor.
@@ -103,33 +106,39 @@ public class DefaultWSWRLOntology extends DefaultSWRLAPIOWLOntology implements W
     }
 
     @Override
-    public void addWSWRLInferredAxiom(Set<WSWRLAtom> atoms, float confidence) {
-        WSWRLAxiom inferredAxiom;
-        OWLAxiom owlAxiom;
+    public void addWSWRLInferredAxiom(WSWRLAtom atom, float confidence, boolean mirror) {
+        WSWRLAxiom inferredAxiom = null;
+        OWLAxiom owlAxiom, mirrorOwlAxiom;
+        owlAxiom = mirrorOwlAxiom = null;
+        if (atom instanceof WSWRLObjectPropertyAtom) {
+            WSWRLObjectPropertyAtom opAtom = (WSWRLObjectPropertyAtom) atom;
+            WSWRLIndividual subject = opAtom.getSubject().getValue();
+            WSWRLIndividual object = opAtom.getObject().getValue();            
+            OWLObjectPropertyExpression predicate = (OWLObjectPropertyExpression) opAtom.getPredicate();
 
-        for (WSWRLAtom atom : atoms) {
-            inferredAxiom = null;
-            owlAxiom = null;
+            owlAxiom = new OWLObjectPropertyAssertionAxiomImpl(subject, predicate, object, new HashSet<>());            
+            if (mirror)
+                mirrorOwlAxiom = new OWLObjectPropertyAssertionAxiomImpl(object, predicate, subject, new HashSet<>());
+        } else if (atom instanceof WSWRLDataPropertyAtom) {
+            WSWRLDataPropertyAtom dpAtom = (WSWRLDataPropertyAtom) atom;
+            owlAxiom = new OWLDataPropertyAssertionAxiomImpl(dpAtom.getSubject().getValue(),
+                    (OWLDataPropertyExpression) dpAtom.getPredicate(), dpAtom.getObject().getValue(),
+                    new HashSet<>());
+        } else if (atom instanceof WSWRLUnaryAtom) {
+            WSWRLClassAtom cAtom = (WSWRLClassAtom) atom;
+            owlAxiom = new OWLClassAssertionAxiomImpl(cAtom.getWSWRLArgument().getValue(),
+                    (OWLClassExpression) cAtom.getPredicate(), new HashSet<>());
+        } // TODO : traiter le cas des built-in et des data ranges dans la tête de la
+          // règle (?)
 
-            if (atom instanceof WSWRLObjectPropertyAtom) {
-                WSWRLObjectPropertyAtom opAtom = (WSWRLObjectPropertyAtom) atom;
-                owlAxiom = new OWLObjectPropertyAssertionAxiomImpl(opAtom.getSubject().getValue(),
-                        (OWLObjectPropertyExpression) opAtom.getPredicate(), opAtom.getObject().getValue(),
-                        new HashSet<>());
-            } else if (atom instanceof WSWRLDataPropertyAtom) {
-                WSWRLDataPropertyAtom dpAtom = (WSWRLDataPropertyAtom) atom;
-                owlAxiom = new OWLDataPropertyAssertionAxiomImpl(dpAtom.getSubject().getValue(),
-                        (OWLDataPropertyExpression) dpAtom.getPredicate(), dpAtom.getObject().getValue(),
-                        new HashSet<>());
-            } else if (atom instanceof WSWRLUnaryAtom) {
-                WSWRLClassAtom cAtom = (WSWRLClassAtom) atom;
-                owlAxiom = new OWLClassAssertionAxiomImpl(cAtom.getWSWRLArgument().getValue(),
-                        (OWLClassExpression) cAtom.getPredicate(), new HashSet<>());
-            } // TODO : traiter le cas des built-in et des data ranges dans la tête de la
-              // règle (?)
+        inferredAxiom = new DefaultWSWRLAxiom(owlAxiom, confidence);
+        this.inferredAxiomsCache.add(inferredAxiom);
+        added++;
 
-            inferredAxiom = new DefaultWSWRLAxiom(owlAxiom, confidence);
+        if (mirror) {
+            inferredAxiom = new DefaultWSWRLAxiom(mirrorOwlAxiom, confidence);
             this.inferredAxiomsCache.add(inferredAxiom);
+            added++;
         }
     }
 

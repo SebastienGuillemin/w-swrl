@@ -1,5 +1,10 @@
 package com.sebastienguillemin.wswrl.core.rule.variable.binding;
 
+import java.util.Hashtable;
+import java.util.List;
+
+import org.semanticweb.owlapi.model.IRI;
+
 import com.sebastienguillemin.wswrl.core.rule.WSWRLRule;
 import com.sebastienguillemin.wswrl.core.rule.atom.WSWRLAtom;
 
@@ -64,4 +69,7 @@ public interface VariableBinding {
      * Skip the current binding to the next subject individuals binding.
      */
     void skipBinding();
+
+    Hashtable<IRI, String> getSnapshot(List<IRI> iris);
+
 }

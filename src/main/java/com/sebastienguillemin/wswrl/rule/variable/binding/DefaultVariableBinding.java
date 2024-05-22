@@ -294,17 +294,34 @@ public class DefaultVariableBinding implements VariableBinding {
 
     @Override
     public String toString() {
-            String bindings = "";
-            for (WSWRLIVariable iVariable : this.iVariables) {
-                bindings += iVariable.getIRI().getFragment() + " -> "
-                        + ((iVariable.getValue() == null) ? "null" : iVariable.getValue().getIRI().getFragment()) + ", ";
-            }
-    
-            for (WSWRLDVariable dVariable : this.dVariables) {
-                bindings += dVariable.getIRI().getFragment() + " -> "
-                        + ((dVariable.getValue() == null) ? "null" : dVariable.getValue().getLiteral()) + ", ";
-            }
-    
-            return bindings;
+        String bindings = "";
+        for (WSWRLIVariable iVariable : this.iVariables) {
+            bindings += iVariable.getIRI().getFragment() + " -> "
+                    + ((iVariable.getValue() == null) ? "null" : iVariable.getValue().getIRI().getFragment()) + ", ";
+        }
+
+        for (WSWRLDVariable dVariable : this.dVariables) {
+            bindings += dVariable.getIRI().getFragment() + " -> "
+                    + ((dVariable.getValue() == null) ? "null" : dVariable.getValue().getLiteral()) + ", ";
+        }
+
+        return bindings;
+    }
+
+    @Override
+    public Hashtable<IRI, String> getSnapshot(List<IRI> iris) {
+        Hashtable<IRI, String> snapshot = new Hashtable<>();
+
+        snapshot.putAll(this.iVariables.stream().filter(v -> iris.contains(v.getIRI())).collect(
+                Collectors.toMap(
+                        v -> v.getIRI(),
+                        v -> (v.getValue() == null) ? null : v.getValue().getIRI().toString())));
+
+        snapshot.putAll(this.dVariables.stream().filter(v -> iris.contains(v.getIRI())).collect(
+                Collectors.toMap(
+                        v -> v.getIRI(),
+                        v -> (v.getValue() == null) ? null : v.getValue().getLiteral())));
+
+        return snapshot;
     }
 }

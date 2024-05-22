@@ -1,8 +1,10 @@
 package com.sebastienguillemin.wswrl.engine.target;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Hashtable;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.IRI;
@@ -14,13 +16,16 @@ import org.semanticweb.owlapi.model.OWLDeclarationAxiom;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
 
 import com.sebastienguillemin.wswrl.core.engine.TargetWSWRLRuleEngine;
 import com.sebastienguillemin.wswrl.core.ontology.WSWRLOntology;
 import com.sebastienguillemin.wswrl.core.rule.WSWRLRule;
 import com.sebastienguillemin.wswrl.core.rule.atom.WSWRLAtom;
+import com.sebastienguillemin.wswrl.core.rule.atom.WSWRLObjectPropertyAtom;
 import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLIndividual;
 import com.sebastienguillemin.wswrl.core.rule.variable.binding.VariableBinding;
+import com.sebastienguillemin.wswrl.ontology.DefaultWSWRLOntology;
 import com.sebastienguillemin.wswrl.rule.DefaultWSWRLIndividual;
 import com.sebastienguillemin.wswrl.rule.variable.binding.DefaultVariableBinding;
 
@@ -54,39 +59,90 @@ public class DefaultTargetWSWRLRuleEngine implements TargetWSWRLRuleEngine {
             VariableBinding binding;
             float confidence;
             WSWRLAtom atomCausedSkip;
+
+            Set<IRI> symmetricProperties = this.wswrlOntology.getOWLAxioms().stream()
+                    .filter(a -> a instanceof OWLSymmetricObjectPropertyAxiom)
+                    .map(a -> ((OWLSymmetricObjectPropertyAxiom) a).getProperty().getNamedProperty().getIRI())
+                    .collect(Collectors.toSet());
+
+            Set<WSWRLAtom> body;
+            WSWRLAtom ruleHead;
+            boolean headSymmetric;
+
+            Hashtable<Integer, Hashtable<IRI, String>> snapshots = new Hashtable<>();
+            Hashtable<IRI, String> bindingSnapshot = new Hashtable<>();
+            IRI subject, object;
+            subject = object = null;
             for (WSWRLRule rule : wswrlRules) {
+                snapshots.clear();
+                bindingSnapshot.clear();
+
+                // If rule not enable, skip to next rule.
                 if (!rule.isEnabled())
                     continue;
 
-                // Calculate rank weights
+                // Calculate rank weights.
                 rule.calculateWeights();
 
-                Set<WSWRLAtom> body = rule.getBody();
+                // Retrieve body and head. Also check whether the head is symmetric.
+                body = rule.getBody();
+                ruleHead = rule.getHead();
+                headSymmetric = symmetricProperties.contains(ruleHead.getIRI());
 
-                // Generate bindings
+                // If head is symmetric, retrieve subject and object
+                if (headSymmetric) {
+                    subject = ((WSWRLObjectPropertyAtom) ruleHead).getSubject().getIRI();
+                    object = ((WSWRLObjectPropertyAtom) ruleHead).getObject().getIRI();
+                }
+
+                // Generate bindings and iterate over them..
                 binding = new DefaultVariableBinding(body, this.individuals, this.classToIndividuals);
+
+                // TODO : supprimer
+                int added = 0, skipped = 0;
                 while (binding.hasNext()) {
+                    // Bind variables to next values.
                     binding.nextBinding();
 
-                    // if (this.wswrlOntology.getWSWRLInferredAxioms().contains(rule.getHead().toArray()[0])) { // Check if the rule head axiom has already been inferred.
-                    //     System.out.println("Continue");
-                    //     continue;
-                    // }
+                    if (headSymmetric) {
+                        bindingSnapshot = binding.getSnapshot(Arrays.asList(subject, object));
 
-                    // Evaluate
-                    confidence = rule.calculateConfidence();
-                    // Store result
-                    if (confidence > 0.9) {
-                        this.wswrlOntology.addWSWRLInferredAxiom(rule.getHead(), confidence);
-                        binding.skipBinding();
+                        if (snapshots.containsKey(bindingSnapshot.hashCode())) {
+                            skipped++;
+                            // Skip the current binding (see method "skipBinding").
+                            binding.skipBinding();
+                            continue;
+                        }
                     }
-                    else {
+
+                    // calculate confidence
+                    confidence = rule.calculateConfidence();
+                    // If the confidence is high enough.
+                    if (confidence > 0.9) {
+                        // Add inferred atoms to the ontology.
+                        this.wswrlOntology.addWSWRLInferredAxiom(ruleHead, confidence, headSymmetric);
+
+                        if (headSymmetric) {
+                            Hashtable<IRI, String> mirror = new Hashtable<>(bindingSnapshot);
+                            String objectValue = bindingSnapshot.get(object);
+                            mirror.put(object, bindingSnapshot.get(subject));
+                            mirror.put(subject, objectValue);
+                            snapshots.put(bindingSnapshot.hashCode(), bindingSnapshot);
+                            snapshots.put(mirror.hashCode(), mirror);
+                            added++;
+                        }
+
+                        // Skip the current binding (see method "skipBinding").
+                        binding.skipBinding();
+                    } else {
+                        // If not enough confidence, skip the binding using the atom cause if one exists
+                        // (see methods "getAtomCausedSkip" and "calculateConfidence").
                         atomCausedSkip = rule.getAtomCausedSkip();
                         if (atomCausedSkip != null)
                             binding.skipByCause(atomCausedSkip);
                     }
-
                 }
+                System.out.println(String.format("Added : %s, Skipped : %s, Ontology added : %s", added, skipped, DefaultWSWRLOntology.added));
             }
 
         } catch (Exception e) {

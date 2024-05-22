@@ -93,5 +93,5 @@ public class DefaultWSWRLSameIndividuals extends AbstractWSWRLProperty<WSWRLIVar
         }
         SWRLDifferentIndividualsAtom other = (SWRLDifferentIndividualsAtom) obj;
         return other.getAllArguments().equals(getAllArguments());
-    }    
+    }
 }

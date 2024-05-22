@@ -53,10 +53,6 @@ public class WSWRLParserSupport {
         this.wswrlOntology = wswrlOntology;
     }
 
-    public Set<WSWRLAtom> createWSWRLHeadAtomList() {
-        return new LinkedHashSet<>();
-    }
-
     public Set<WSWRLAtom> createWSWRLBodyAtomList() {
         return new LinkedHashSet<>();
     }
@@ -66,7 +62,7 @@ public class WSWRLParserSupport {
         throw new UnsupportedOperationException("Unimplemented method 'getShortNameFromIRI'");
     }
 
-    public WSWRLRule createWSWRLRule(String ruleName, Set<WSWRLAtom> head, Set<WSWRLAtom> body, boolean isEnabled)
+    public WSWRLRule createWSWRLRule(String ruleName, WSWRLAtom head, Set<WSWRLAtom> body, boolean isEnabled)
             throws MissingRankException {
         // TODO : gérer le cas d'ajout d'une annotation.
         return this.getDataFactory().getWSWRLRule(ruleName, head, body, isEnabled);

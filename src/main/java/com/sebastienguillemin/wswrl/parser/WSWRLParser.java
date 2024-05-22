@@ -76,9 +76,7 @@ public class WSWRLParser extends SWRLParser {
             throws WSWRLParseException, MissingRankException {
 
         WSWRLTokenizer tokenizer = new WSWRLTokenizer(ruleText.trim(), interactiveParseOnly);
-        Optional<Set<WSWRLAtom>> head = !tokenizer.isInteractiveParseOnly()
-                ? Optional.of(this.wswrlParserSupport.createWSWRLHeadAtomList())
-                : Optional.<Set<WSWRLAtom>>empty();
+        WSWRLAtom head = null;
         Optional<Set<WSWRLAtom>> body = !tokenizer.isInteractiveParseOnly()
                 ? Optional.of(this.wswrlParserSupport.createWSWRLBodyAtomList())
                 : Optional.<Set<WSWRLAtom>>empty();
@@ -133,7 +131,7 @@ public class WSWRLParser extends SWRLParser {
                 atLeastOneAtom = true;
                 if (!tokenizer.isInteractiveParseOnly())
                     if (isInHead)
-                        head.get().add(atom);
+                        head = atom;
                     else
                         body.get().add(atom);
                 rankIndex = 0;
@@ -147,7 +145,7 @@ public class WSWRLParser extends SWRLParser {
                 atLeastOneAtom = true;
                 if (!tokenizer.isInteractiveParseOnly())
                     if (isInHead)
-                        head.get().add(atom);
+                        head = atom;
                     else
                         body.get().add(atom);
                 rankIndex = 0;
@@ -164,7 +162,7 @@ public class WSWRLParser extends SWRLParser {
             if (!atLeastOneAtom)
                 throw new WSWRLParseException("Incomplete - no antecedent or consequent");
             return Optional
-                    .of(this.wswrlParserSupport.createWSWRLRule(ruleName, head.get(), body.get(), true));
+                    .of(this.wswrlParserSupport.createWSWRLRule(ruleName, head, body.get(), true));
         } else
             return Optional.<com.sebastienguillemin.wswrl.core.rule.WSWRLRule>empty();
     }

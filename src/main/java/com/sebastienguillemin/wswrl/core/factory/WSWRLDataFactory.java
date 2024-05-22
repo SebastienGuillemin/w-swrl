@@ -52,7 +52,7 @@ public interface WSWRLDataFactory extends SWRLAPIOWLDataFactory {
      * @return A new {@link com.sebastienguillemin.wswrl.core.rule.WSWRLRule}.
      * @throws MissingRankException
      */
-    public WSWRLRule getWSWRLRule(String ruleName, Set<WSWRLAtom> head, Set<WSWRLAtom> body, boolean enabled)
+    public WSWRLRule getWSWRLRule(String ruleName, WSWRLAtom head, Set<WSWRLAtom> body, boolean enabled)
             throws MissingRankException;
 
     /**

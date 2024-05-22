@@ -13,8 +13,8 @@ import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLVariable;
 import com.sebastienguillemin.wswrl.exception.VariableNotFoundException;
 
 /**
- * A {@link com.sebastienguillemin.wswrl.core.rule.WSWRLRule} atom associated with a
- * weight ranging in [0; 1].
+ * A {@link com.sebastienguillemin.wswrl.core.rule.WSWRLRule} atom associated
+ * with a weight ranging in R+*.
  * 
  * @see org.semanticweb.owlapi.model.SWRLAtom
  */
@@ -60,7 +60,9 @@ public interface WSWRLAtom extends HasIRI {
     public boolean isValuable();
 
     /**
-     * Returns the {@link com.sebastienguillemin.wswrl.core.rule.variable.WSWRLVariable} corresponding to an IRI.
+     * Returns the
+     * {@link com.sebastienguillemin.wswrl.core.rule.variable.WSWRLVariable}
+     * corresponding to an IRI.
      * 
      * @param variableIRI the variable IRI.
      * @return the variable.
@@ -69,7 +71,9 @@ public interface WSWRLAtom extends HasIRI {
     public WSWRLVariable getVariable(IRI variableIRI) throws VariableNotFoundException;
 
     /**
-     * Returns the {@link com.sebastienguillemin.wswrl.core.rule.variable.WSWRLVariable} corresponding to a name.
+     * Returns the
+     * {@link com.sebastienguillemin.wswrl.core.rule.variable.WSWRLVariable}
+     * corresponding to a name.
      * 
      * @param variableName the variable name.
      * @return the variable.
@@ -79,6 +83,7 @@ public interface WSWRLAtom extends HasIRI {
 
     /**
      * Returns all the atom variables.
+     * 
      * @return the set of variable (possibly empty).
      */
     public Set<WSWRLVariable> getVariables();

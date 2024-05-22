@@ -17,8 +17,7 @@ import lombok.Getter;
  * {@inheritDoc}
  */
 public class DefaultWSWRLRule implements WSWRLRule {
-    private static final boolean IGNORE_UNVALUABLE_ATOMS = true;
-    private static final float EPSILON = 0.01f;
+    private static final float EPSILON = 0.5f;
 
     @Getter
     private String ruleName;
@@ -30,13 +29,12 @@ public class DefaultWSWRLRule implements WSWRLRule {
     private boolean enabled;
 
     @Getter
-    private Set<WSWRLAtom> head;
+    private WSWRLAtom head;
 
     @Getter
     private Set<WSWRLAtom> body;
 
     private SortedSet<Integer> rankIndexes;
-    private float[] globalRankWeights;
     private Hashtable<Integer, Set<WSWRLAtom>> atRankAtoms;
 
     @Getter
@@ -51,7 +49,7 @@ public class DefaultWSWRLRule implements WSWRLRule {
      * @param enabled  Whether the rule is enable or not.
      * @throws MissingRankException
      */
-    public DefaultWSWRLRule(String ruleName, Set<WSWRLAtom> head, Set<WSWRLAtom> body, boolean enabled)
+    public DefaultWSWRLRule(String ruleName, WSWRLAtom head, Set<WSWRLAtom> body, boolean enabled)
             throws MissingRankException {
         this.ruleName = ruleName;
         this.head = head;
@@ -61,28 +59,6 @@ public class DefaultWSWRLRule implements WSWRLRule {
 
         this.atRankAtoms = new Hashtable<>();
         this.processRanks();
-        
-        this.globalRankWeights = new float[rankIndexes.last() + 1];
-        this.calculateGlobalWeights();
-    }
-
-    private void calculateGlobalWeights() {
-        float globalRankWeight;
-
-        int numberOfRanks = this.globalRankWeights.length;
-        // Number of ranks whith an index greater than 0.
-        int numberOfRanksGT0 = numberOfRanks - 1;
-
-        for (int i = 0; i < numberOfRanks; i++) {
-            if (i == 0)
-                globalRankWeight = 1;
-            else if (i == 1)
-                globalRankWeight = numberOfRanksGT0 * (1.0f - EPSILON) / numberOfRanks;
-            else
-                globalRankWeight = numberOfRanksGT0 * (1.0f - EPSILON - globalRankWeights[i - 1]) / numberOfRanks;
-
-            this.globalRankWeights[i] = globalRankWeight;
-        }
     }
 
     @Override
@@ -102,8 +78,6 @@ public class DefaultWSWRLRule implements WSWRLRule {
 
         float truthWeight = 0;
         float falseWeight = 0;
-        float epsilon = 0;
-
         Iterator<WSWRLAtom> bodyAtoms = this.body.iterator();
         WSWRLAtom atom;
         while (bodyAtoms.hasNext()) {
@@ -119,8 +93,8 @@ public class DefaultWSWRLRule implements WSWRLRule {
                 falseWeight += atom.getWeight();
             }
             else if (!atom.isValuable()) {
-                truthWeight += (1 - epsilon) * atom.getWeight();
-                falseWeight += epsilon * atom.getWeight();
+                truthWeight += (1 - EPSILON) * atom.getWeight();
+                falseWeight += EPSILON * atom.getWeight();
             }
             else if(atom.evaluate())
                 truthWeight += atom.getWeight();

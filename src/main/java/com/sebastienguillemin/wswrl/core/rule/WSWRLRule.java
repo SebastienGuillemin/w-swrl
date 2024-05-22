@@ -38,7 +38,7 @@ public interface WSWRLRule {
      * 
      * @return The head of the current rule.
      */
-    public Set<WSWRLAtom> getHead();
+    public WSWRLAtom getHead();
 
     /**
      * Returns the WSWRL atoms composing the rule body.

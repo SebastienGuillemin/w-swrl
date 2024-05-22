@@ -74,19 +74,23 @@ public interface WSWRLOntology extends SWRLAPIOWLOntology {
     WSWRLDataFactory getWSWRLDataFactory();
 
     /**
-     * Add an axiom inferred by a WSWRL rule. All the inferred axioms are stored
+     * Add an axiom represented by the WSWRLAtom (parameter {@code atom}) inferred
+     * by a WSWRL rule. All the inferred axioms are stored
      * in a cache. This cache can be clear by calling
      * {@link #clearInferredAxiomsCache()}. The cached axioms can be added
      * permanently to the ontology by calling the WSWRL ontology manager method :
      * {@link com.sebastienguillemin.wswrl.core.ontology.WSWRLOntologyManager#writeInferredAxiomsToOntology(WSWRLOntology)}.
      * 
-     * @param atoms       A set of Atoms to add to the ontology.
+     * @param atom       Atom to add to the ontology.
      * @param confidence The confidence associated to the new atoms.
+     * @param mirror     If true, also add the mirror of the atom {@code atom}. Eg.
+     *                   if pred(x, y) is the atom its mirror is
+     *                   {@code pred(y, x)}. <string>The mirror is added only for object properties</strong>
      * 
      * @see com.sebastienguillemin.wswrl.core.engine.TargetWSWRLRuleEngine
      * @see com.sebastienguillemin.wswrl.core.rule.WSWRLRuleResult
      */
-    void addWSWRLInferredAxiom(Set<WSWRLAtom> atoms, float confidence);
+    void addWSWRLInferredAxiom(WSWRLAtom atom, float confidence, boolean mirror);
 
     /**
      * Returns the inferred axioms by WSWRL rules as OWL axiom.

@@ -80,7 +80,7 @@ public class DefaultWSWRLDataFactory extends DefaultSWRLAPIOWLDataFactory implem
     }
 
     @Override
-    public WSWRLRule getWSWRLRule(String ruleName, Set<WSWRLAtom> head, Set<WSWRLAtom> body, boolean enabled)
+    public WSWRLRule getWSWRLRule(String ruleName, WSWRLAtom head, Set<WSWRLAtom> body, boolean enabled)
             throws MissingRankException {
         return new DefaultWSWRLRule(ruleName, head, body, enabled);
     }

@@ -15,8 +15,10 @@ import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLDeclarationAxiom;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
+import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.SWRLPredicate;
 
 import com.sebastienguillemin.wswrl.core.engine.TargetWSWRLRuleEngine;
 import com.sebastienguillemin.wswrl.core.ontology.WSWRLOntology;
@@ -72,14 +74,13 @@ public class DefaultTargetWSWRLRuleEngine implements TargetWSWRLRuleEngine {
             Hashtable<Integer, Hashtable<IRI, String>> snapshots = new Hashtable<>();
             Hashtable<IRI, String> bindingSnapshot = new Hashtable<>();
             IRI subject, object;
-            subject = object = null;
             for (WSWRLRule rule : wswrlRules) {
-                snapshots.clear();
-                bindingSnapshot.clear();
-
                 // If rule not enable, skip to next rule.
                 if (!rule.isEnabled())
                     continue;
+
+                snapshots.clear();
+                bindingSnapshot.clear();
 
                 // Calculate rank weights.
                 rule.calculateWeights();
@@ -89,14 +90,13 @@ public class DefaultTargetWSWRLRuleEngine implements TargetWSWRLRuleEngine {
                 ruleHead = rule.getHead();
                 headSymmetric = symmetricProperties.contains(ruleHead.getIRI());
 
-                // If head is symmetric, retrieve subject and object
-                if (headSymmetric) {
-                    subject = ((WSWRLObjectPropertyAtom) ruleHead).getSubject().getIRI();
-                    object = ((WSWRLObjectPropertyAtom) ruleHead).getObject().getIRI();
-                }
+                subject = ((WSWRLObjectPropertyAtom) ruleHead).getSubject().getIRI();
+                object = ((WSWRLObjectPropertyAtom) ruleHead).getObject().getIRI();
+
+                Hashtable<IRI, IRI> currentKnowledge = this.getCurrentKnowlege(ruleHead.getPredicate(), subject, object);
 
                 // Generate bindings and iterate over them..
-                binding = new DefaultVariableBinding(body, this.individuals, this.classToIndividuals);
+                binding = new DefaultVariableBinding(body, this.individuals, this.classToIndividuals, currentKnowledge, subject, object);
 
                 // TODO : supprimer
                 int added = 0, skipped = 0;
@@ -142,7 +142,8 @@ public class DefaultTargetWSWRLRuleEngine implements TargetWSWRLRuleEngine {
                             binding.skipByCause(atomCausedSkip);
                     }
                 }
-                System.out.println(String.format("Added : %s, Skipped : %s, Ontology added : %s", added, skipped, DefaultWSWRLOntology.added));
+                System.out.println(String.format("Added : %s, Skipped : %s, Ontology added : %s", added, skipped,
+                        DefaultWSWRLOntology.added));
             }
 
         } catch (Exception e) {
@@ -218,5 +219,22 @@ public class DefaultTargetWSWRLRuleEngine implements TargetWSWRLRuleEngine {
             classIndividuals.add(individual);
         }
 
+    }
+
+    private Hashtable<IRI, IRI> getCurrentKnowlege(SWRLPredicate predicate, IRI subject, IRI object) {
+        Hashtable<IRI, IRI> currentKnowledge = new Hashtable<>();
+        
+        Set<OWLObjectPropertyAssertionAxiom> assertions = this.wswrlOntology.getOWLAxioms().stream()
+                .filter(a -> a instanceof OWLObjectPropertyAssertionAxiom)
+                .map(a -> (OWLObjectPropertyAssertionAxiom) a)
+                .filter(a -> a.getProperty().getNamedProperty().getIRI()
+                        .equals(((OWLObjectProperty) predicate).getIRI()))
+                .collect(Collectors.toSet());
+
+        for (OWLObjectPropertyAssertionAxiom assertion : assertions) {
+            currentKnowledge.put(assertion.getSubject().asOWLNamedIndividual().getIRI(), assertion.getObject().asOWLNamedIndividual().getIRI());
+        }
+
+        return currentKnowledge;
     }
 }

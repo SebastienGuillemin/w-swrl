@@ -30,6 +30,9 @@ public class DefaultVariableBinding implements VariableBinding {
     private Set<WSWRLAtom> atoms;
     private Hashtable<IRI, WSWRLIndividual> individuals;
     private Hashtable<IRI, Set<WSWRLIndividual>> classToIndividuals;
+    private IRI knownSubject;
+    private IRI knownObject;
+    private Hashtable<IRI, IRI> currentKnowledge;
 
     private Set<WSWRLClassAtom> classAtoms;
     private Set<WSWRLObjectPropertyAtom> objectPropertyAtoms;
@@ -40,6 +43,9 @@ public class DefaultVariableBinding implements VariableBinding {
     private Set<WSWRLVariable> objectVariables;
     private Set<WSWRLVariable> allVariables;
 
+    private Hashtable<IRI, WSWRLIVariable> iriToIVariables;
+    private Hashtable<IRI, WSWRLDVariable> iriToDVariables;
+
     private Set<WSWRLIVariable> iVariables;
     private Set<WSWRLDVariable> dVariables;
 
@@ -48,10 +54,14 @@ public class DefaultVariableBinding implements VariableBinding {
     private BindingCache<WSWRLDVariable, OWLLiteral> bindingCacheData;
 
     public DefaultVariableBinding(Set<WSWRLAtom> atoms, Hashtable<IRI, WSWRLIndividual> individuals,
-            Hashtable<IRI, Set<WSWRLIndividual>> classToIndividuals) {
+            Hashtable<IRI, Set<WSWRLIndividual>> classToIndividuals, Hashtable<IRI, IRI> currentKnowledge,
+            IRI knownSubject, IRI knownObject) {
         this.atoms = atoms;
         this.individuals = individuals;
         this.classToIndividuals = classToIndividuals;
+        this.knownSubject = knownSubject;
+        this.knownObject = knownObject;
+        this.currentKnowledge = currentKnowledge;
 
         this.sortAtoms();
         this.sortVariables();
@@ -74,6 +84,19 @@ public class DefaultVariableBinding implements VariableBinding {
             this.bindObject();
             this.bindData();
         }
+
+        WSWRLIVariable subjectVar = this.iriToIVariables.get(this.knownSubject);
+        WSWRLIVariable objectVar = this.iriToIVariables.get(this.knownObject);
+
+        if (subjectVar.getValue() == null ||
+                objectVar.getValue() == null ||
+                (this.currentKnowledge.get(subjectVar.getValue().getIRI()) != null &&
+                        this.currentKnowledge.get(subjectVar.getValue().getIRI())
+                                .equals(objectVar.getValue().getIRI()))) {
+            this.skipBinding();
+            this.nextBinding();
+        }
+
     }
 
     @Override
@@ -129,10 +152,16 @@ public class DefaultVariableBinding implements VariableBinding {
         this.allVariables.addAll(this.subjectVariables);
         this.allVariables.addAll(this.objectVariables);
 
+        this.iriToIVariables = new Hashtable<>();
+        this.iriToDVariables = new Hashtable<>();
+
         this.iVariables = this.allVariables.stream().filter(v -> v instanceof WSWRLIVariable)
                 .map(v -> (WSWRLIVariable) v).collect(Collectors.toSet());
+        this.iVariables.forEach(v -> this.iriToIVariables.put(v.getIRI(), v));
+
         this.dVariables = this.allVariables.stream().filter(v -> v instanceof WSWRLDVariable)
                 .map(v -> (WSWRLDVariable) v).collect(Collectors.toSet());
+        this.dVariables.forEach(v -> this.iriToDVariables.put(v.getIRI(), v));
     }
 
     private void initCaches() {

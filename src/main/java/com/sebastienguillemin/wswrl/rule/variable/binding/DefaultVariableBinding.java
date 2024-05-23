@@ -76,13 +76,15 @@ public class DefaultVariableBinding implements VariableBinding {
         } else if (this.bindingCacheObject.isLocked()) {
             this.bindingCacheObject.next();
             this.bindingCacheObject.bind();
-            this.bindData();
+
+            this.findAndBindData();
         } else if (this.bindingCacheSubject.isLocked()) {
             this.clearVariableBindings();
             this.bindingCacheSubject.next();
             this.bindingCacheSubject.bind();
-            this.bindObject();
-            this.bindData();
+
+            this.findAndBindObject();
+            this.findAndBindData();
         }
 
         WSWRLIVariable subjectVar = this.iriToIVariables.get(this.knownSubject);
@@ -220,7 +222,7 @@ public class DefaultVariableBinding implements VariableBinding {
                 ((WSWRLDVariable) variable).setValue(null);
     }
 
-    private void bindObject() {
+    private void findAndBindObject() {
         // Clear object cache.
         this.bindingCacheObject.clear();
 
@@ -236,37 +238,13 @@ public class DefaultVariableBinding implements VariableBinding {
             this.bindingCacheObject.bind();
         } while (objectPropertyAtomsToProcess.size() > 0);
 
+
         // If at least one atom was processed -> lock.
         if (update) {
             this.bindingCacheObject.lock();
 
             // Call 'next' because 'bind' was called previously.
             this.bindingCacheObject.next();
-        }
-    }
-
-    private void bindData() {
-        // Clear data cache.
-        this.bindingCacheData.clear();
-
-        // Retrieve data properties atoms whose the object is not set.
-        Set<WSWRLDataPropertyAtom> dataPropertyAtomsToProcess = this.dataPropertyAtoms.stream()
-                .filter(dt -> dt.getObject().getValue() == null)
-                .collect(Collectors.toSet());
-        boolean update = dataPropertyAtomsToProcess.size() > 0;
-
-        // Process atoms.
-        do {
-            dataPropertyAtomsToProcess = this.bindVariablesInDataProperties(dataPropertyAtomsToProcess);
-            this.bindingCacheData.bind();
-        } while (dataPropertyAtomsToProcess.size() > 0);
-
-        // If at least one atom was processed -> lock.
-        if (update) {
-            this.bindingCacheData.lock();
-
-            // Call 'next' because 'bind' was called previously.
-            this.bindingCacheData.next();
         }
     }
 
@@ -294,6 +272,31 @@ public class DefaultVariableBinding implements VariableBinding {
         }
 
         return remainingAtoms;
+    }
+
+    private void findAndBindData() {
+        // Clear data cache.
+        this.bindingCacheData.clear();
+
+        // Retrieve data properties atoms whose the object is not set.
+        Set<WSWRLDataPropertyAtom> dataPropertyAtomsToProcess = this.dataPropertyAtoms.stream()
+                .filter(dt -> dt.getObject().getValue() == null)
+                .collect(Collectors.toSet());
+        boolean update = dataPropertyAtomsToProcess.size() > 0;
+
+        // Process atoms.
+        do {
+            dataPropertyAtomsToProcess = this.bindVariablesInDataProperties(dataPropertyAtomsToProcess);
+            this.bindingCacheData.bind();
+        } while (dataPropertyAtomsToProcess.size() > 0);
+
+        // If at least one atom was processed -> lock.
+        if (update) {
+            this.bindingCacheData.lock();
+
+            // Call 'next' because 'bind' was called previously.
+            this.bindingCacheData.next();
+        }
     }
 
     private Set<WSWRLDataPropertyAtom> bindVariablesInDataProperties(Set<WSWRLDataPropertyAtom> dataPropertyAtoms) {

@@ -27,7 +27,6 @@ import com.sebastienguillemin.wswrl.core.rule.atom.WSWRLAtom;
 import com.sebastienguillemin.wswrl.core.rule.atom.WSWRLObjectPropertyAtom;
 import com.sebastienguillemin.wswrl.core.rule.variable.WSWRLIndividual;
 import com.sebastienguillemin.wswrl.core.rule.variable.binding.VariableBinding;
-import com.sebastienguillemin.wswrl.ontology.DefaultWSWRLOntology;
 import com.sebastienguillemin.wswrl.rule.DefaultWSWRLIndividual;
 import com.sebastienguillemin.wswrl.rule.variable.binding.DefaultVariableBinding;
 
@@ -67,13 +66,13 @@ public class DefaultTargetWSWRLRuleEngine implements TargetWSWRLRuleEngine {
                     .map(a -> ((OWLSymmetricObjectPropertyAxiom) a).getProperty().getNamedProperty().getIRI())
                     .collect(Collectors.toSet());
 
-            Set<WSWRLAtom> body;
             WSWRLAtom ruleHead;
             boolean headSymmetric;
 
             Hashtable<Integer, Hashtable<IRI, String>> snapshots = new Hashtable<>();
             Hashtable<IRI, String> bindingSnapshot = new Hashtable<>();
             IRI subject, object;
+
             for (WSWRLRule rule : wswrlRules) {
                 // If rule not enable, skip to next rule.
                 if (!rule.isEnabled())
@@ -85,8 +84,7 @@ public class DefaultTargetWSWRLRuleEngine implements TargetWSWRLRuleEngine {
                 // Calculate rank weights.
                 rule.calculateWeights();
 
-                // Retrieve body and head. Also check whether the head is symmetric.
-                body = rule.getBody();
+                // Retrieve head and check whether the head is symmetric.
                 ruleHead = rule.getHead();
                 headSymmetric = symmetricProperties.contains(ruleHead.getIRI());
 
@@ -96,19 +94,18 @@ public class DefaultTargetWSWRLRuleEngine implements TargetWSWRLRuleEngine {
                 Hashtable<IRI, IRI> currentKnowledge = this.getCurrentKnowlege(ruleHead.getPredicate(), subject, object);
 
                 // Generate bindings and iterate over them..
-                binding = new DefaultVariableBinding(body, this.individuals, this.classToIndividuals, currentKnowledge, subject, object);
+                binding = new DefaultVariableBinding(rule.getBody(), this.individuals, this.classToIndividuals, currentKnowledge, subject, object);
+                // binding = new DefaultVariableBinding(rule, new HashSet<>(this.individuals.values()));
 
-                // TODO : supprimer
-                int added = 0, skipped = 0;
+                // System.exit(1);
+
                 while (binding.hasNext()) {
                     // Bind variables to next values.
                     binding.nextBinding();
 
                     if (headSymmetric) {
                         bindingSnapshot = binding.getSnapshot(Arrays.asList(subject, object));
-
                         if (snapshots.containsKey(bindingSnapshot.hashCode())) {
-                            skipped++;
                             // Skip the current binding (see method "skipBinding").
                             binding.skipBinding();
                             continue;
@@ -117,6 +114,7 @@ public class DefaultTargetWSWRLRuleEngine implements TargetWSWRLRuleEngine {
 
                     // calculate confidence
                     confidence = rule.calculateConfidence();
+
                     // If the confidence is high enough.
                     if (confidence > 0.9) {
                         // Add inferred atoms to the ontology.
@@ -129,7 +127,6 @@ public class DefaultTargetWSWRLRuleEngine implements TargetWSWRLRuleEngine {
                             mirror.put(subject, objectValue);
                             snapshots.put(bindingSnapshot.hashCode(), bindingSnapshot);
                             snapshots.put(mirror.hashCode(), mirror);
-                            added++;
                         }
 
                         // Skip the current binding (see method "skipBinding").
@@ -142,8 +139,6 @@ public class DefaultTargetWSWRLRuleEngine implements TargetWSWRLRuleEngine {
                             binding.skipByCause(atomCausedSkip);
                     }
                 }
-                System.out.println(String.format("Added : %s, Skipped : %s, Ontology added : %s", added, skipped,
-                        DefaultWSWRLOntology.added));
             }
 
         } catch (Exception e) {
@@ -223,7 +218,7 @@ public class DefaultTargetWSWRLRuleEngine implements TargetWSWRLRuleEngine {
 
     private Hashtable<IRI, IRI> getCurrentKnowlege(SWRLPredicate predicate, IRI subject, IRI object) {
         Hashtable<IRI, IRI> currentKnowledge = new Hashtable<>();
-        
+
         Set<OWLObjectPropertyAssertionAxiom> assertions = this.wswrlOntology.getOWLAxioms().stream()
                 .filter(a -> a instanceof OWLObjectPropertyAssertionAxiom)
                 .map(a -> (OWLObjectPropertyAssertionAxiom) a)
@@ -232,7 +227,8 @@ public class DefaultTargetWSWRLRuleEngine implements TargetWSWRLRuleEngine {
                 .collect(Collectors.toSet());
 
         for (OWLObjectPropertyAssertionAxiom assertion : assertions) {
-            currentKnowledge.put(assertion.getSubject().asOWLNamedIndividual().getIRI(), assertion.getObject().asOWLNamedIndividual().getIRI());
+            currentKnowledge.put(assertion.getSubject().asOWLNamedIndividual().getIRI(),
+                    assertion.getObject().asOWLNamedIndividual().getIRI());
         }
 
         return currentKnowledge;

@@ -51,11 +51,12 @@ public class DefaultBindingCache<V extends WSWRLVariable, T> implements BindingC
             variable.setUnboundable(true);
             return;
         }
-            
+
         IRI iri = variable.getIRI();
         if (this.values.containsKey(iri)) {
             List<T> currentValues = this.values.get(iri);
 
+            // TODO : to optimize. Using a set ?
             for (T value : values)
                 if (!currentValues.contains(value))
                     currentValues.add(value);
@@ -65,8 +66,6 @@ public class DefaultBindingCache<V extends WSWRLVariable, T> implements BindingC
             this.variables.put(iri, variable);
             this.pointers.put(iri, 0);
         }
-
-        
     }
 
     @Override

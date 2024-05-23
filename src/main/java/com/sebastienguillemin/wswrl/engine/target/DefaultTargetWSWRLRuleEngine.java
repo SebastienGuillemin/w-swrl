@@ -91,11 +91,14 @@ public class DefaultTargetWSWRLRuleEngine implements TargetWSWRLRuleEngine {
                 subject = ((WSWRLObjectPropertyAtom) ruleHead).getSubject().getIRI();
                 object = ((WSWRLObjectPropertyAtom) ruleHead).getObject().getIRI();
 
-                Hashtable<IRI, IRI> currentKnowledge = this.getCurrentKnowlege(ruleHead.getPredicate(), subject, object);
+                Hashtable<IRI, IRI> currentKnowledge = this.getCurrentKnowlege(ruleHead.getPredicate(), subject,
+                        object);
 
                 // Generate bindings and iterate over them..
-                binding = new DefaultVariableBinding(rule.getBody(), this.individuals, this.classToIndividuals, currentKnowledge, subject, object);
-                // binding = new DefaultVariableBinding(rule, new HashSet<>(this.individuals.values()));
+                binding = new DefaultVariableBinding(rule.getBody(), this.individuals, this.classToIndividuals,
+                        currentKnowledge, subject, object);
+                // binding = new DefaultVariableBinding(rule, new
+                // HashSet<>(this.individuals.values()));
 
                 // System.exit(1);
 
@@ -103,12 +106,21 @@ public class DefaultTargetWSWRLRuleEngine implements TargetWSWRLRuleEngine {
                     // Bind variables to next values.
                     binding.nextBinding();
 
+                    // If head symmetric skip the current binding has been processed or, create the
+                    // mirror to skip it next time.
                     if (headSymmetric) {
                         bindingSnapshot = binding.getSnapshot(Arrays.asList(subject, object));
                         if (snapshots.containsKey(bindingSnapshot.hashCode())) {
                             // Skip the current binding (see method "skipBinding").
                             binding.skipBinding();
                             continue;
+                        } else {
+                            Hashtable<IRI, String> mirror = new Hashtable<>(bindingSnapshot);
+                            String objectValue = bindingSnapshot.get(object);
+                            mirror.put(object, bindingSnapshot.get(subject));
+                            mirror.put(subject, objectValue);
+                            snapshots.put(bindingSnapshot.hashCode(), bindingSnapshot);
+                            snapshots.put(mirror.hashCode(), mirror);
                         }
                     }
 
@@ -119,16 +131,6 @@ public class DefaultTargetWSWRLRuleEngine implements TargetWSWRLRuleEngine {
                     if (confidence > 0.9) {
                         // Add inferred atoms to the ontology.
                         this.wswrlOntology.addWSWRLInferredAxiom(ruleHead, confidence, headSymmetric);
-
-                        if (headSymmetric) {
-                            Hashtable<IRI, String> mirror = new Hashtable<>(bindingSnapshot);
-                            String objectValue = bindingSnapshot.get(object);
-                            mirror.put(object, bindingSnapshot.get(subject));
-                            mirror.put(subject, objectValue);
-                            snapshots.put(bindingSnapshot.hashCode(), bindingSnapshot);
-                            snapshots.put(mirror.hashCode(), mirror);
-                        }
-
                         // Skip the current binding (see method "skipBinding").
                         binding.skipBinding();
                     } else {

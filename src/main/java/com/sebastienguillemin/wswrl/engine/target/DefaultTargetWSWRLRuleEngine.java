@@ -128,7 +128,7 @@ public class DefaultTargetWSWRLRuleEngine implements TargetWSWRLRuleEngine {
                     confidence = rule.calculateConfidence();
 
                     // If the confidence is high enough.
-                    if (confidence > 0.9) {
+                    if (confidence >= 0.96) {
                         // Add inferred atoms to the ontology.
                         this.wswrlOntology.addWSWRLInferredAxiom(ruleHead, confidence, headSymmetric);
                         // Skip the current binding (see method "skipBinding").

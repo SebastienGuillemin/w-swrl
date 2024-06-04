@@ -60,7 +60,7 @@ public class EvaluationManager {
                 Files.write(
                         file.toPath(),
                         String.format(System.lineSeparator() + "%s,%s,%s,%s", this.times[i], this.taskType,
-                                evaluationTask.getInferredAxiomsCount(), this.ontologyFile.getAbsolutePath())
+                                evaluationTask.getInferredMatches(), this.ontologyFile.getAbsolutePath())
                                 .getBytes(),
                         StandardOpenOption.APPEND);
             }

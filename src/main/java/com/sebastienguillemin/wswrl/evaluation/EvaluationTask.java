@@ -25,8 +25,27 @@ import lombok.Getter;
  * A task taht performs an evaluation.
  */
 public class EvaluationTask extends Thread {
-    private static final String SWRL_RULE = ":Echantillon(?x)^:Echantillon(?y)^differentFrom(?x, ?y)^:typeDrogue(?x,?dt)^:typeDrogue(?y,?dt)^:aPrincipeActif(?x,?pax)^:aPrincipeActif(?y,?pay)^:aFormeChimique(?pax,?cf)^:aFormeChimique(?pay,?cf)^:aProduitCoupage(?x,?cp)^:aProduitCoupage(?y,?cp)^:logo(?x,?l)^:logo(?y,?l)->:estProcheDe(?x,?y)";
-    private static final String WSWRL_RULE = ":Echantillon(?x)^:Echantillon(?y)^differentFrom(?x, ?y)^:typeDrogue(?x,?dt)^:typeDrogue(?y,?dt)^:aPrincipeActif(?x,?pax)^:aPrincipeActif(?y,?pay)^:aFormeChimique(?pax,?cf)^:aFormeChimique(?pay,?cf)^1*:aProduitCoupage(?x,?cp)^1*:aProduitCoupage(?y,?cp)^2*:logo(?x,?l)^2*:logo(?y,?l)->:estProcheDe(?x,?y)";
+    private static final String SWRL_RULE = 
+        ":Echantillon(?x)^:Echantillon(?y)^differentFrom(?x,?y)^\n" +
+        ":typeDrogue(?x,?dt)^:typeDrogue(?y,?dt)^\n" +
+        ":aPrincipeActif(?x,?pax)^:aPrincipeActif(?y,?pay)^\n" +
+        ":aFormeChimique(?pax,?cf)^:aFormeChimique(?pay,?cf)^\n" +
+        ":aSubstance(?pax, ?spax)^:aSubstance(?pay, ?spay)^\n" +
+        ":nomSubstance(?spax, ?nomS)^:nomSubstance(?spay, ?nomS)^\n" +
+        ":aProduitCoupage(?x,?cp)^:aProduitCoupage(?y,?cp)^\n" +
+        ":logo(?x,?l)^:logo(?y,?l)\n" +
+        "->:estProcheDe(?x,?y)";
+    
+    private static final String WSWRL_RULE = 
+        ":Echantillon(?x)^:Echantillon(?y)^differentFrom(?x,?y)^\n" +
+        ":typeDrogue(?x,?dt)^:typeDrogue(?y,?dt)^\n" +
+        ":aPrincipeActif(?x,?pax)^:aPrincipeActif(?y,?pay)^\n" +
+        ":aFormeChimique(?pax,?cf)^:aFormeChimique(?pay,?cf)^\n" +
+        ":aSubstance(?pax, ?spax)^:aSubstance(?pay, ?spay)^\n" +
+        ":nomSubstance(?spax, ?nomS)^:nomSubstance(?spay, ?nomS)^\n" +
+        "1*:aProduitCoupage(?x,?cp)^1*:aProduitCoupage(?y,?cp)^\n" +
+        "2*:logo(?x,?l)^2*:logo(?y,?l)\n" +
+        "->:estProcheDe(?x,?y)";
 
     private File ontologyFile;
     private EngineName engineName;
@@ -34,7 +53,7 @@ public class EvaluationTask extends Thread {
     @Getter
     private long executionTimeMilli;
     @Getter
-    private int inferredAxiomsCount;
+    private int inferredMatches;
 
     /**
      * 
@@ -70,11 +89,11 @@ public class EvaluationTask extends Thread {
                     swrlEngine.infer();
                     this.executionTimeMilli = System.currentTimeMillis() - start;
 
-                    this.inferredAxiomsCount = this.countEstProcheDeAxioms(owlOntology)
-                            - estProcheDeAxiomsBeforeInferring;
+                    this.inferredMatches = (this.countEstProcheDeAxioms(owlOntology)
+                            - estProcheDeAxiomsBeforeInferring) / 2;
 
                     System.out.println(String.format("---> Done: %s second(s), %s inferred axioms.",
-                            (float) this.executionTimeMilli / 1000f, this.inferredAxiomsCount));
+                            (float) this.executionTimeMilli / 1000f, this.inferredMatches));
                     break;
 
                 case WSWRL:
@@ -92,11 +111,12 @@ public class EvaluationTask extends Thread {
                     this.executionTimeMilli = System.currentTimeMillis() - start;
                     wswrlOntologyManager.writeInferredAxiomsToOntology(wswrlOntology);
 
-                    this.inferredAxiomsCount = this.countEstProcheDeAxioms(wswrlOntology.getOWLOntology())
-                            - estProcheDeAxiomsBeforeInferring;
+                    this.inferredMatches = (this.countEstProcheDeAxioms(wswrlOntology.getOWLOntology())
+                            - estProcheDeAxiomsBeforeInferring) / 2;
+
 
                     System.out.println(String.format("---> Done: %s second(s), %s inferred axioms.",
-                            (float) this.executionTimeMilli / 1000f, this.inferredAxiomsCount));
+                            (float) this.executionTimeMilli / 1000f, this.inferredMatches));
                     break;
             }
         } catch (Exception e) {

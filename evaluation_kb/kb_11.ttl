@@ -1,0 +1,3626 @@
+@prefix :     <http://www.stups.fr/ontologies/2023/stups/> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml:  <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+
+:echantillon_12639  rdf:type  :Echantillon;
+        :aAspectExterne     :aspect_poudres;
+        :aPrincipeActif     :principe_actif_58401;
+        :aProduitCoupage    :produit_coupage_72837 , :produit_coupage_72855;
+        :couleur            "Blanche";
+        :id                 "12639";
+        :logo               "Non";
+        :numeroEchantillon  "K1";
+        :ovule              "1";
+        :provientDe         :scelle_65972;
+        :typeDrogue         "Cocaïne" .
+
+:principe_actif_58481
+        rdf:type         :PrincipeActif , :Composant;
+        :aFormeChimique  :forme_chimique_chlorhydrate;
+        :aSubstance      :substance_263;
+        :dosage          "81.2"^^xsd:float .
+
+:produit_coupage_73535
+        rdf:type     :ProduitCoupage , :Composant;
+        :aSubstance  :substance_287;
+        :dosage      "0.0"^^xsd:float .
+
+:principe_actif_59663
+        rdf:type         :PrincipeActif , :Composant;
+        :aFormeChimique  :forme_chimique_indeterminee;
+        :aSubstance      :substance_267;
+        :dosage          "23.0"^^xsd:float .
+
+:principe_actif_59197
+        rdf:type         :PrincipeActif , :Composant;
+        :aFormeChimique  :forme_chimique_indeterminee;
+        :aSubstance      :substance_263;
+        :dosage          "0.0"^^xsd:float .
+
+:echantillon_12741  rdf:type  :Echantillon;
+        :aAspectExterne     :aspect_substances_dissimulees;
+        :aPrincipeActif     :principe_actif_58486;
+        :id                 "12741";
+        :logo               "Oui";
+        :nomLogo            "THE BARBERIA";
+        :numeroEchantillon  "2-6";
+        :presentation       "Pâte";
+        :provientDe         :scelle_66033;
+        :typeDrogue         "Cocaïne" .
+
+:produit_coupage_72883
+        rdf:type     :ProduitCoupage , :Composant;
+        :aSubstance  :substance_347;
+        :dosage      "4.1"^^xsd:float .
+
+:principe_actif_58712
+        rdf:type         :PrincipeActif , :Composant;
+        :aFormeChimique  :forme_chimique_indeterminee;
+        :aSubstance      :substance_267;
+        :dosage          "20.8"^^xsd:float .
+
+:produit_coupage_72837
+        rdf:type     :ProduitCoupage , :Composant;
+        :aSubstance  :substance_104;
+        :dosage      "0.0"^^xsd:float .
+
+:principe_actif_59474
+        rdf:type         :PrincipeActif , :Composant;
+        :aFormeChimique  :forme_chimique_indeterminee;
+        :aSubstance      :substance_267;
+        :dosage          "33.0"^^xsd:float .
+
+:scelle_67240  rdf:type  :Scelle;
+        :estDansSaisine  :saisine_28549;
+        :id              "67240" .
+
+:echantillon_12552  rdf:type  :Echantillon;
+        :aAspectExterne     :aspect_comprimes;
+        :aPrincipeActif     :principe_actif_58327;
+        :abime              "Non";
+        :couleur            "Rose";
+        :couleurInterieur   "Rose";
+        :epaisseur          "4,47";
+        :forme              "Autre";
+        :hauteur            "9,12";
+        :id                 "12552";
+        :largeur            "16,21";
+        :logo               "Oui";
+        :masse              "500";
+        :nomLogo            "SOUND CLOUD nuage";
+        :numeroEchantillon  "2";
+        :provientDe         :scelle_65883;
+        :secabiliteRecto    "Aucune";
+        :secabiliteVerso    "Demi";
+        :typeDrogue         "Amphétamine et dérivés" .
+
+:scelle_66044  rdf:type  :Scelle;
+        :estDansSaisine  :saisine_28072;
+        :id              "66044" .
+
+:echantillon_12759  rdf:type  :Echantillon;
+        :aAspectExterne     :aspect_poudres;
+        :aPrincipeActif     :principe_actif_58504;
+        :aProduitCoupage    :produit_coupage_72905 , :produit_coupage_72901 , :produit_coupage_72903 , :produit_coupage_72902 , :produit_coupage_72904;
+        :couleur            "Beige";
+        :id                 "12759";
+        :logo               "Non";
+        :numeroEchantillon  "H4";
+        :ovule              "0";
+        :provientDe         :scelle_66046;
+        :typeDrogue         "Héroïne" .
+
+:secabiliteRecto  rdf:type  owl:FunctionalProperty , owl:DatatypeProperty;
+        rdfs:range  [ rdf:type   rdfs:Datatype;
+                      owl:oneOf  [ rdf:type   rdf:List;
+                                   rdf:first  "Aucune";
+                                   rdf:rest   [ rdf:type   rdf:List;
+                                                rdf:first  "Autre";
+                                                rdf:rest   [ rdf:type   rdf:List;
+                                                             rdf:first  "Demi";
+                                                             rdf:rest   [ rdf:type   rdf:List;
+                                                                          rdf:first  "Quart";
+                                                                          rdf:rest   ()
+                                                                        ]
+                                                           ]
+                                              ]
+                                 ]
+                    ] .
+
+:largeur  rdf:type  owl:FunctionalProperty , owl:DatatypeProperty;
+        rdfs:range  xsd:float .
+
+:substance_310  rdf:type  :Substance;
+        :nomSubstance  "Lévamisole" .
+
+:saisine_28510  rdf:type  :Saisine;
+        :date     "2022-02-16T23:00:00Z"^^xsd:dateTime , "2022-03-14T23:00:00Z"^^xsd:dateTime;
+        :id       "28510" .
+
+:estProcheDe  rdf:type      owl:IrreflexiveProperty , owl:TransitiveProperty , owl:SymmetricProperty , owl:ObjectProperty;
+        rdfs:domain         :Echantillon;
+        rdfs:range          :Echantillon;
+        rdfs:subPropertyOf  owl:topObjectProperty .
+
+:echantillon_12640  rdf:type  :Echantillon;
+        :aAspectExterne     :aspect_poudres;
+        :aPrincipeActif     :principe_actif_58402;
+        :aProduitCoupage    :produit_coupage_72838 , :produit_coupage_72856;
+        :couleur            "Blanche";
+        :id                 "12640";
+        :logo               "Non";
+        :numeroEchantillon  "N1";
+        :ovule              "1";
+        :provientDe         :scelle_65973;
+        :typeDrogue         "Cocaïne" .
+
+:principe_actif_59594
+        rdf:type         :PrincipeActif , :Composant;
+        :aFormeChimique  :forme_chimique_indeterminee;
+        :aSubstance      :substance_267;
+        :dosage          "34.0"^^xsd:float .
+
+:echantillon_14008  rdf:type  :Echantillon;
+        :aAspectExterne     :aspect_resines;
+        :aPrincipeActif     :principe_actif_59474;
+        :epaisseur          "27.8";
+        :etiquette          "Oui";
+        :id                 "14008";
+        :largeur            "56.5";
+        :logo               "Oui";
+        :longueur           "97";
+        :masse              "96.3";
+        :nomLogo            "m & m";
+        :numeroEchantillon  "22_100466";
+        :presentation       "Plaquette";
+        :provientDe         :scelle_67094;
+        :typeDrogue         "Cannabis" .
+
+:epaisseur  rdf:type  owl:FunctionalProperty , owl:DatatypeProperty;
+        rdfs:range  xsd:float .
+
+:principe_actif_58422
+        rdf:type         :PrincipeActif , :Composant;
+        :aFormeChimique  :forme_chimique_chlorhydrate;
+        :aSubstance      :substance_263;
+        :dosage          "86.3"^^xsd:float .
+
+:forme_chimique_indeterminee
+        rdf:type               :FormeChimique;
+        :libelleFormeChimique  "Indéterminée" .
+
+:echantillon_14142  rdf:type  :Echantillon;
+        :aAspectExterne     :aspect_resines;
+        :aPrincipeActif     :principe_actif_59598;
+        :id                 "14142";
+        :logo               "Non";
+        :numeroEchantillon  "B1-1";
+        :presentation       "Morceaux";
+        :provientDe         :scelle_67242;
+        :typeDrogue         "Cannabis" .
+
+:Scelle  rdf:type            owl:Class;
+        rdfs:comment         "Les scellés sont contenus dans une saisine. Chaque scellé contient un ou plusieurs échantillons des produits à identifier et est identifié par un numéro unique. Un scellé est une mesure ordonnée, afin de conserver les pièces à conviction à la disposition de la justice.  Il peut désigner également le fait d'apposer un cachet de cire sur une pièce à conviction.";
+        owl:equivalentClass  [ rdf:type            owl:Class;
+                               owl:intersectionOf  ( [ rdf:type            owl:Restriction;
+                                                       owl:onProperty      :aEchantillon;
+                                                       owl:someValuesFrom  :Echantillon
+                                                     ]
+                                                     [ rdf:type                  owl:Restriction;
+                                                       owl:onClass               :Saisine;
+                                                       owl:onProperty            :estDansSaisine;
+                                                       owl:qualifiedCardinality  "1"^^xsd:nonNegativeInteger
+                                                     ]
+                                                   )
+                             ] .
+
+:principe_actif_58408
+        rdf:type         :PrincipeActif , :Composant;
+        :aFormeChimique  :forme_chimique_chlorhydrate;
+        :aSubstance      :substance_263;
+        :dosage          "95.6"^^xsd:float .
+
+:echantillon_13619  rdf:type  :Echantillon;
+        :aAspectExterne     :aspect_cristaux;
+        :aPrincipeActif     :principe_actif_59134;
+        :couleur            "Beige";
+        :id                 "13619";
+        :logo               "Non";
+        :numeroEchantillon  "1-5";
+        :ovule              "0";
+        :provientDe         :scelle_66741;
+        :typeDrogue         "Amphétamine et dérivés" .
+
+:principe_actif_58486
+        rdf:type         :PrincipeActif , :Composant;
+        :aFormeChimique  :forme_chimique_chlorhydrate;
+        :aSubstance      :substance_263;
+        :dosage          "85.4"^^xsd:float .
+
+:produit_coupage_72856
+        rdf:type     :ProduitCoupage , :Composant;
+        :aSubstance  :substance_287;
+        :dosage      "0.0"^^xsd:float .
+
+:Composant  rdf:type         owl:Class;
+        rdfs:comment         "Un composant est utilisé pour décrire ce qui compose un échantillon. Il en existe deux types : les principes actifs et les produits de coupages. Un composant est lié à une substance et éventuellement a un dosage (exprimé en pourcentage massique).";
+        owl:equivalentClass  [ rdf:type                  owl:Restriction;
+                               owl:onClass               :Substance;
+                               owl:onProperty            :aSubstance;
+                               owl:qualifiedCardinality  "1"^^xsd:nonNegativeInteger
+                             ] .
+
+:scelle_66031  rdf:type  :Scelle;
+        :estDansSaisine  :saisine_28064;
+        :id              "66031" .
+
+:echantillon_12746  rdf:type  :Echantillon;
+        :aAspectExterne     :aspect_substances_dissimulees;
+        :aPrincipeActif     :principe_actif_58491;
+        :id                 "12746";
+        :logo               "Non";
+        :numeroEchantillon  "2-11";
+        :presentation       "Pâte";
+        :provientDe         :scelle_66033;
+        :typeDrogue         "Cocaïne" .
+
+:produit_coupage_72888
+        rdf:type     :ProduitCoupage , :Composant;
+        :aSubstance  :substance_70;
+        :dosage      "0.0"^^xsd:float .
+
+:echantillon_12999  rdf:type  :Echantillon;
+        :aAspectExterne     :aspect_poudres;
+        :aPrincipeActif     :principe_actif_58687;
+        :aProduitCoupage    :produit_coupage_73009;
+        :couleur            "Blanche";
+        :id                 "12999";
+        :logo               "Non";
+        :numeroEchantillon  "A";
+        :ovule              "0";
+        :provientDe         :scelle_66239;
+        :typeDrogue         "Divers" .
+
+:echantillon_13721  rdf:type  :Echantillon;
+        :aAspectExterne     :aspect_vegetaux;
+        :aPrincipeActif     :principe_actif_59219;
+        :id                 "13721";
+        :logo               "Non";
+        :numeroEchantillon  "6B/TIC";
+        :presentation       "Plantes";
+        :provientDe         :scelle_66825;
+        :typeDrogue         "Cannabis" .
+
+:provientDe  rdf:type       owl:FunctionalProperty , owl:ObjectProperty;
+        rdfs:subPropertyOf  owl:topObjectProperty .
+
+:scelle_67245  rdf:type  :Scelle;
+        :estDansSaisine  :saisine_28549;
+        :id              "67245" .
+
+:scelle_66824  rdf:type  :Scelle;
+        :estDansSaisine  :saisine_28370;
+        :id              "66824" .
+
+:substance_347  rdf:type  :Substance;
+        :nomSubstance  "Noscapine" .
+
+:echantillon_13620  rdf:type  :Echantillon;
+        :aAspectExterne     :aspect_cristaux;
+        :aPrincipeActif     :principe_actif_59135;
+        :couleur            "Beige";
+        :id                 "13620";
+        :logo               "Non";
+        :numeroEchantillon  "1-6";
+        :ovule              "0";
+        :provientDe         :scelle_66741;
+        :typeDrogue         "Amphétamine et dérivés" .
+
+:echantillon_12470  rdf:type  :Echantillon;
+        :aAspectExterne     :aspect_resines;
+        :aPrincipeActif     :principe_actif_58263;
+        :epaisseur          "25,16";
+        :etiquette          "Oui";
+        :id                 "12470";
+        :largeur            "57,06";
+        :logo               "Oui";
+        :longueur           "99,99";
+        :masse              "97,9";
+        :nomLogo            "Un personnage du dessin animé Les Simpson";
+        :numeroEchantillon  "1/STUP/ANALYSE";
+        :presentation       "Plaquette";
+        :provientDe         :scelle_65818;
+        :typeDrogue         "Cannabis" .
+
+:principe_actif_59599
+        rdf:type         :PrincipeActif , :Composant;
+        :aFormeChimique  :forme_chimique_indeterminee;
+        :aSubstance      :substance_267;
+        :dosage          "19.0"^^xsd:float .
+
+:produit_coupage_73541
+        rdf:type     :ProduitCoupage , :Composant;
+        :aSubstance  :substance_309;
+        :dosage      "0.0"^^xsd:float .
+
+:principe_actif_58694
+        rdf:type         :PrincipeActif , :Composant;
+        :aFormeChimique  :forme_chimique_chlorhydrate;
+        :aSubstance      :substance_359;
+        :dosage          "22.8"^^xsd:float .
+
+:aSubstance  rdf:type       owl:ObjectProperty;
+        rdfs:domain         :Composant;
+        rdfs:range          :Substance;
+        rdfs:subPropertyOf  owl:topObjectProperty;
+        owl:inverseOf       :estSubstanceDe .
+
+:saisine_28358  rdf:type  :Saisine;
+        :date     "2022-02-24T23:00:00Z"^^xsd:dateTime , "2022-02-27T23:00:00Z"^^xsd:dateTime;
+        :id       "28358" .
+
+:echantillon_12456  rdf:type  :Echantillon;
+        :aAspectExterne     :aspect_resines;
+        :aPrincipeActif     :principe_actif_58244;
+        :epaisseur          "26";
+        :etiquette          "Oui";
+        :id                 "12456";
+        :largeur            "51";
+        :logo               "Oui";
+        :longueur           "99";
+        :masse              "99.9";
+        :nomLogo            "2022 Lemon Kush NEW CBD THC free citrons feuilles cannabis sommités";
+        :numeroEchantillon  "1";
+        :presentation       "Plaquette";
+        :provientDe         :scelle_65806;
+        :typeDrogue         "Cannabis" .
+
+:produit_coupage_73573
+        rdf:type     :ProduitCoupage , :Composant;
+        :aSubstance  :substance_347;
+        :dosage      "29.0"^^xsd:float .
+
+:scelle_65983  rdf:type  :Scelle;
+        :estDansSaisine  :saisine_28032;
+        :id              "65983" .
+
+:produit_coupage_73527
+        rdf:type     :ProduitCoupage , :Composant;
+        :aSubstance  :substance_240;
+        :dosage      "0.0"^^xsd:float .
+
+:estProfilChimiqueDe  rdf:type  owl:InverseFunctionalProperty , owl:FunctionalProperty , owl:ObjectProperty;
+        rdfs:subPropertyOf  owl:topObjectProperty .
+
+:echantillon_14147  rdf:type  :Echantillon;
+        :aAspectExterne     :aspect_poudres;
+        :aPrincipeActif     :principe_actif_59600;
+        :aProduitCoupage    :produit_coupage_73529 , :produit_coupage_73527 , :produit_coupage_73528 , :produit_coupage_73530 , :produit_coupage_73531;
+        :couleur            "Blanche";
+        :id                 "14147";
+        :logo               "Non";
+        :numeroEchantillon  "C1";
+        :ovule              "0";
+        :provientDe         :scelle_67245;
+        :typeDrogue         "Cocaïne" .
+
+:aspect_resines  rdf:type  :Aspect;
+        :libelleAspect  "Résines" .
+
+:echantillon_14179  rdf:type  :Echantillon;
+        :aAspectExterne     :aspect_poudres;
+        :aPrincipeActif     :principe_actif_59641;
+        :aProduitCoupage    :produit_coupage_73572 , :produit_coupage_73576 , :produit_coupage_73575 , :produit_coupage_73574 , :produit_coupage_73573;
+        :couleur            "Beige";
+        :id                 "14179";
+        :logo               "Non";
+        :numeroEchantillon  "16719";
+        :ovule              "0";
+        :provientDe         :scelle_67293;
+        :typeDrogue         "Héroïne" .
+
+:echantillon_12544  rdf:type  :Echantillon;
+        :aAspectExterne     :aspect_poudres;
+        :aPrincipeActif     :principe_actif_58317;
+        :couleur            "Blanche";
+        :id                 "12544";
+        :logo               "Non";
+        :numeroEchantillon  "22_100268";
+        :ovule              "1";
+        :provientDe         :scelle_65870;
+        :typeDrogue         "Cocaïne" .
+
+<http://www.stups.fr/ontologies/2023/stups/forme_chimique_base_&_hcl>
+        rdf:type               :FormeChimique;
+        :libelleFormeChimique  "Base & HCl" .
+
+:diametre  rdf:type  owl:FunctionalProperty , owl:DatatypeProperty;
+        rdfs:range  xsd:float .
+
+:echantillon_13007  rdf:type  :Echantillon;
+        :aAspectExterne     :aspect_comprimes;
+        :aPrincipeActif     :principe_actif_58694;
+        :abime              "Non";
+        :couleur            "Vert";
+        :couleurInterieur   "Vert";
+        :epaisseur          "5,15";
+        :forme              "Rectangulaire / Carré";
+        :hauteur            "8,05";
+        :id                 "13007";
+        :largeur            "12,48";
+        :logo               "Oui";
+        :masse              "494";
+        :nomLogo            "Heineken";
+        :numeroEchantillon  "2-1";
+        :provientDe         :scelle_66245;
+        :secabiliteRecto    "Aucune";
+        :secabiliteVerso    "Demi";
+        :typeDrogue         "Amphétamine et dérivés" .
+
+:estLieuSaisineDe  rdf:type  owl:InverseFunctionalProperty , owl:ObjectProperty;
+        rdfs:subPropertyOf  owl:topObjectProperty .
+
+:saisine_28036  rdf:type  :Saisine;
+        :date     "2022-02-20T23:00:00Z"^^xsd:dateTime , "2022-02-22T23:00:00Z"^^xsd:dateTime;
+        :id       "28036" .
+
+:substance_334  rdf:type  :Substance;
+        :nomSubstance  "Morphine" .
+
+:scelle_65868  rdf:type  :Scelle;
+        :estDansSaisine  :saisine_27997;
+        :id              "65868" .
+
+:produit_coupage_73283
+        rdf:type     :ProduitCoupage , :Composant;
+        :aSubstance  :substance_309;
+        :dosage      "0.0"^^xsd:float .
+
+:echantillon_13394  rdf:type  :Echantillon;
+        :aAspectExterne     :aspect_poudres;
+        :aPrincipeActif     :principe_actif_58975;
+        :commentaire        "3-CMC confirmée en infrarouge";
+        :couleur            "Blanche";
+        :id                 "13394";
+        :logo               "Non";
+        :numeroEchantillon  "6279";
+        :ovule              "0";
+        :provientDe         :scelle_66582;
+        :typeDrogue         "Divers" .
+
+:echantillon_12664  rdf:type  :Echantillon;
+        :aAspectExterne     :aspect_poudres;
+        :aPrincipeActif     :principe_actif_58422;
+        :couleur            "Blanche";
+        :id                 "12664";
+        :logo               "Non";
+        :numeroEchantillon  "1";
+        :ovule              "1";
+        :provientDe         :scelle_65989;
+        :typeDrogue         "Cocaïne" .
+
+:echantillon_14180  rdf:type  :Echantillon;
+        :aAspectExterne     :aspect_poudres;
+        :aPrincipeActif     :principe_actif_59641;
+        :aProduitCoupage    :produit_coupage_73574 , :produit_coupage_73573 , :produit_coupage_73576 , :produit_coupage_73575 , :produit_coupage_73572;
+        :couleur            "Beige";
+        :id                 "14180";
+        :logo               "Non";
+        :numeroEchantillon  "16720";
+        :ovule              "0";
+        :provientDe         :scelle_67293;
+        :typeDrogue         "Héroïne" .
+
+:echantillon_13625  rdf:type  :Echantillon;
+        :aAspectExterne     :aspect_comprimes;
+        :aPrincipeActif     :principe_actif_59137;
+        :aProduitCoupage    :produit_coupage_73284;
+        :abime              "Non";
+        :couleur            "Blanche";
+        :diametre           "8,17";
+        :epaisseur          "3,32";
+        :forme              "Circulaire";
+        :id                 "13625";
+        :logo               "Oui";
+        :masse              "245";
+        :nomLogo            "LETAP";
+        :numeroEchantillon  "3-2";
+        :provientDe         :scelle_66743;
+        :secabiliteRecto    "Aucune";
+        :secabiliteVerso    "Demi";
+        :typeDrogue         "Divers" .
+
+:produit_coupage_72894
+        rdf:type     :ProduitCoupage , :Composant;
+        :aSubstance  :substance_69;
+        :dosage      "0.0"^^xsd:float .
+
+:logo   rdf:type    owl:FunctionalProperty , owl:DatatypeProperty;
+        rdfs:range  xsd:boolean .
+
+:Ville  rdf:type             owl:Class;
+        rdfs:comment         "Un ville est dans un département.";
+        owl:equivalentClass  [ rdf:type                  owl:Restriction;
+                               owl:onClass               :Departement;
+                               owl:onProperty            :estDansDepartement;
+                               owl:qualifiedCardinality  "1"^^xsd:nonNegativeInteger
+                             ] .
+
+:scelle_65988  rdf:type  :Scelle;
+        :estDansSaisine  :saisine_28035;
+        :id              "65988" .
+
+:produit_coupage_73578
+        rdf:type     :ProduitCoupage , :Composant;
+        :aSubstance  :substance_265;
+        :dosage      "0.0"^^xsd:float .
+
+:scelle_66244  rdf:type  :Scelle;
+        :estDansSaisine  :saisine_28162;
+        :id              "66244" .
+
+:principe_actif_58976
+        rdf:type         :PrincipeActif , :Composant;
+        :aFormeChimique  :forme_chimique_indeterminee;
+        :aSubstance      :substance_513;
+        :dosage          "0.0"^^xsd:float .
+
+:scelle_66742  rdf:type  :Scelle;
+        :estDansSaisine  :saisine_28332;
+        :id              "66742" .
+
+:substance_265  rdf:type  :Substance;
+        :nomSubstance  "Créatine" .
+
+:principe_actif_58502
+        rdf:type         :PrincipeActif , :Composant;
+        :aFormeChimique  :forme_chimique_chlorhydrate;
+        :aSubstance      :substance_296;
+        :dosage          "39.7"^^xsd:float .
+
+:echantillon_12738  rdf:type  :Echantillon;
+        :aAspectExterne     :aspect_substances_dissimulees;
+        :aPrincipeActif     :principe_actif_58484;
+        :id                 "12738";
+        :logo               "Oui";
+        :nomLogo            "SCOTT";
+        :numeroEchantillon  "2-2";
+        :presentation       "Pâte";
+        :provientDe         :scelle_66033;
+        :typeDrogue         "Cocaïne" .
+
+:aspect_comprimes  rdf:type  :Aspect;
+        :libelleAspect  "Comprimés" .
+
+:aProduitCoupage  rdf:type  owl:InverseFunctionalProperty , owl:ObjectProperty;
+        rdfs:domain         :Echantillon;
+        rdfs:range          :ProduitCoupage;
+        rdfs:subPropertyOf  owl:topObjectProperty;
+        owl:inverseOf       :estProduitCoupageDe .
+
+:saisine_28497  rdf:type  :Saisine;
+        :date     "2022-02-18T23:00:00Z"^^xsd:dateTime , "2022-02-21T23:00:00Z"^^xsd:dateTime;
+        :id       "28497" .
+
+:produit_coupage_72904
+        rdf:type     :ProduitCoupage , :Composant;
+        :aSubstance  :substance_347;
+        :dosage      "0.0"^^xsd:float .
+
+:ProduitCoupage  rdf:type    owl:Class;
+        rdfs:comment         "Un produit de coupage est une substance composant un échantillon. Ce produit de coupage est en plus petite quantité que le principe actif.";
+        rdfs:subClassOf      :Composant;
+        owl:equivalentClass  [ rdf:type                  owl:Restriction;
+                               owl:onClass               :Echantillon;
+                               owl:onProperty            :estProduitCoupageDe;
+                               owl:qualifiedCardinality  "1"^^xsd:nonNegativeInteger
+                             ] .
+
+:estRepresenteePar  rdf:type  owl:InverseFunctionalProperty , owl:ObjectProperty;
+        rdfs:subPropertyOf  owl:topObjectProperty;
+        owl:inverseOf       :representeSubstance .
+
+:scelle_67094  rdf:type  :Scelle;
+        :estDansSaisine  :saisine_28501;
+        :id              "67094" .
+
+:echantillon_12651  rdf:type  :Echantillon;
+        :aAspectExterne     :aspect_poudres;
+        :aPrincipeActif     :principe_actif_58409;
+        :couleur            "Blanche";
+        :id                 "12651";
+        :logo               "Non";
+        :numeroEchantillon  "L";
+        :ovule              "0";
+        :provientDe         :scelle_65981;
+        :typeDrogue         "Cocaïne" .
+
+:saisine_28332  rdf:type  :Saisine;
+        :date     "2022-02-19T23:00:00Z"^^xsd:dateTime , "2022-02-20T23:00:00Z"^^xsd:dateTime;
+        :id       "28332" .
+
+:principe_actif_59131
+        rdf:type         :PrincipeActif , :Composant;
+        :aFormeChimique  :forme_chimique_chlorhydrate;
+        :aSubstance      :substance_359;
+        :dosage          "96.0"^^xsd:float .
+
+:principe_actif_58401
+        rdf:type         :PrincipeActif , :Composant;
+        :aFormeChimique  :forme_chimique_chlorhydrate;
+        :aSubstance      :substance_263;
+        :dosage          "82.3"^^xsd:float .
+
+:echantillon_23737  rdf:type  :Echantillon;
+        :aAspectExterne     :aspect_poudres;
+        :aPrincipeActif     :principe_actif_59600;
+        :aProduitCoupage    :produit_coupage_73527 , :produit_coupage_73530 , :produit_coupage_73531 , :produit_coupage_73528 , :produit_coupage_73529;
+        :couleur            "Blanche";
+        :id                 "23737";
+        :logo               "Non";
+        :numeroEchantillon  "Profilage moyen 1";
+        :ovule              "0";
+        :provientDe         :scelle_67245;
+        :typeDrogue         "Cocaïne" .
+
+:produit_coupage_73533
+        rdf:type     :ProduitCoupage , :Composant;
+        :aSubstance  :substance_310;
+        :dosage      "0.0"^^xsd:float .
+
+:Departement  rdf:type       owl:Class;
+        rdfs:comment         "Un département est dans une région et a une ou plusieurs villes.";
+        owl:equivalentClass  [ rdf:type            owl:Class;
+                               owl:intersectionOf  ( [ rdf:type            owl:Restriction;
+                                                       owl:onProperty      :aVille;
+                                                       owl:someValuesFrom  :Ville
+                                                     ]
+                                                     [ rdf:type                  owl:Restriction;
+                                                       owl:onClass               :Region;
+                                                       owl:onProperty            :estDansRegion;
+                                                       owl:qualifiedCardinality  "1"^^xsd:nonNegativeInteger
+                                                     ]
+                                                   )
+                             ] .
+
+:produit_coupage_72881
+        rdf:type     :ProduitCoupage , :Composant;
+        :aSubstance  :substance_69;
+        :dosage      "0.0"^^xsd:float .
+
+:typeDrogue  rdf:type  owl:FunctionalProperty , owl:DatatypeProperty;
+        rdfs:range  [ rdf:type   rdfs:Datatype;
+                      owl:oneOf  [ rdf:type   rdf:List;
+                                   rdf:first  "Amphétamine et dérivés";
+                                   rdf:rest   [ rdf:type   rdf:List;
+                                                rdf:first  "Cannabis";
+                                                rdf:rest   [ rdf:type   rdf:List;
+                                                             rdf:first  "Cocaïne";
+                                                             rdf:rest   [ rdf:type   rdf:List;
+                                                                          rdf:first  "Divers";
+                                                                          rdf:rest   [ rdf:type   rdf:List;
+                                                                                       rdf:first  "Héroïne";
+                                                                                       rdf:rest   ()
+                                                                                     ]
+                                                                        ]
+                                                           ]
+                                              ]
+                                 ]
+                    ] .
+
+:principe_actif_58244
+        rdf:type         :PrincipeActif , :Composant;
+        :aFormeChimique  :forme_chimique_indeterminee;
+        :aSubstance      :substance_267;
+        :dosage          "31.0"^^xsd:float .
+
+:echantillon_14139  rdf:type  :Echantillon;
+        :aAspectExterne     :aspect_resines;
+        :aPrincipeActif     :principe_actif_59595;
+        :id                 "14139";
+        :logo               "Non";
+        :numeroEchantillon  "SB6-2";
+        :presentation       "Morceaux";
+        :provientDe         :scelle_67244;
+        :typeDrogue         "Cannabis" .
+
+:taux   rdf:type    owl:FunctionalProperty , owl:DatatypeProperty;
+        rdfs:range  xsd:float .
+
+:saisine_27975  rdf:type  :Saisine;
+        :date     "2022-02-18T23:00:00Z"^^xsd:dateTime;
+        :id       "27975" .
+
+:produit_coupage_72899
+        rdf:type     :ProduitCoupage , :Composant;
+        :aSubstance  :substance_150;
+        :dosage      "0.0"^^xsd:float .
+
+:echantillon_12757  rdf:type  :Echantillon;
+        :aAspectExterne     :aspect_poudres;
+        :aPrincipeActif     :principe_actif_58502;
+        :aProduitCoupage    :produit_coupage_72889 , :produit_coupage_72892 , :produit_coupage_72888 , :produit_coupage_72887 , :produit_coupage_72890 , :produit_coupage_72891;
+        :couleur            "Beige";
+        :id                 "12757";
+        :logo               "Non";
+        :numeroEchantillon  "H2";
+        :ovule              "0";
+        :provientDe         :scelle_66044;
+        :typeDrogue         "Héroïne" .
+
+:scelle_66793  rdf:type  :Scelle;
+        :estDansSaisine  :saisine_28358;
+        :id              "66793" .
+
+:echantillon_13718  rdf:type  :Echantillon;
+        :aAspectExterne     :aspect_vegetaux;
+        :aPrincipeActif     :principe_actif_59219;
+        :id                 "13718";
+        :logo               "Non";
+        :numeroEchantillon  "3A/TIC";
+        :presentation       "Plantes";
+        :provientDe         :scelle_66822;
+        :typeDrogue         "Cannabis" .
+
+:estSitueA  rdf:type        owl:FunctionalProperty , owl:ObjectProperty;
+        rdfs:subPropertyOf  owl:topObjectProperty .
+
+:libelleService  rdf:type  owl:FunctionalProperty , owl:DatatypeProperty;
+        rdfs:range  xsd:string .
+
+:saisine_28028  rdf:type  :Saisine;
+        :date     "2022-02-20T23:00:00Z"^^xsd:dateTime , "2022-02-21T23:00:00Z"^^xsd:dateTime;
+        :id       "28028" .
+
+:Aspect  rdf:type            owl:Class;
+        rdfs:comment         "Un aspect permet de d’écrire l’aspect interne ou l’aspect externe d’un échantillon.";
+        owl:equivalentClass  [ rdf:type     owl:Class;
+                               owl:unionOf  ( [ rdf:type            owl:Restriction;
+                                                owl:onProperty      :estAspectExterneDe;
+                                                owl:someValuesFrom  :Echantillon
+                                              ]
+                                              [ rdf:type            owl:Restriction;
+                                                owl:onProperty      :estAspectInterneDe;
+                                                owl:someValuesFrom  :Echantillon
+                                              ]
+                                            )
+                             ] .
+
+:estAspectInterneDe  rdf:type  owl:InverseFunctionalProperty , owl:ObjectProperty;
+        rdfs:subPropertyOf  owl:topObjectProperty .
+
+:scelle_67099  rdf:type  :Scelle;
+        :estDansSaisine  :saisine_28501;
+        :id              "67099" .
+
+:echantillon_14140  rdf:type  :Echantillon;
+        :aAspectExterne     :aspect_resines;
+        :aPrincipeActif     :principe_actif_59596;
+        :id                 "14140";
+        :logo               "Non";
+        :numeroEchantillon  "SZB1-2";
+        :presentation       "Morceaux";
+        :provientDe         :scelle_67240;
+        :typeDrogue         "Cannabis" .
+
+:principe_actif_59602
+        rdf:type         :PrincipeActif , :Composant;
+        :aFormeChimique  :forme_chimique_chlorhydrate;
+        :aSubstance      :substance_263;
+        :dosage          "57.7"^^xsd:float .
+
+:principe_actif_59136
+        rdf:type         :PrincipeActif , :Composant;
+        :aFormeChimique  :forme_chimique_chlorhydrate;
+        :aSubstance      :substance_551;
+        :dosage          "0.0"^^xsd:float .
+
+:saisine_28162  rdf:type  :Saisine;
+        :date     "2022-02-23T23:00:00Z"^^xsd:dateTime , "2022-02-28T23:00:00Z"^^xsd:dateTime;
+        :id       "28162" .
+
+:echantillon_13617  rdf:type  :Echantillon;
+        :aAspectExterne     :aspect_cristaux;
+        :aPrincipeActif     :principe_actif_59132;
+        :couleur            "Beige";
+        :id                 "13617";
+        :logo               "Non";
+        :numeroEchantillon  "1-3";
+        :ovule              "0";
+        :provientDe         :scelle_66741;
+        :typeDrogue         "Amphétamine et dérivés" .
+
+:principe_actif_58484
+        rdf:type         :PrincipeActif , :Composant;
+        :aFormeChimique  :forme_chimique_chlorhydrate;
+        :aSubstance      :substance_263;
+        :dosage          "84.9"^^xsd:float .
+
+:aRegion  rdf:type          owl:InverseFunctionalProperty , owl:ObjectProperty;
+        rdfs:subPropertyOf  owl:topObjectProperty;
+        owl:inverseOf       :estDansPays .
+
+:produit_coupage_73538
+        rdf:type     :ProduitCoupage , :Composant;
+        :aSubstance  :substance_310;
+        :dosage      "0.0"^^xsd:float .
+
+:principe_actif_58263
+        rdf:type         :PrincipeActif , :Composant;
+        :aFormeChimique  :forme_chimique_indeterminee;
+        :aSubstance      :substance_267;
+        :dosage          "0.0"^^xsd:float .
+
+:produit_coupage_72886
+        rdf:type     :ProduitCoupage , :Composant;
+        :aSubstance  :substance_104;
+        :dosage      "0.0"^^xsd:float .
+
+:echantillon_12744  rdf:type  :Echantillon;
+        :aAspectExterne     :aspect_substances_dissimulees;
+        :aPrincipeActif     :principe_actif_58489;
+        :id                 "12744";
+        :logo               "Oui";
+        :nomLogo            "MADRE SELVA";
+        :numeroEchantillon  "2-9";
+        :presentation       "Pâte";
+        :provientDe         :scelle_66033;
+        :typeDrogue         "Cocaïne" .
+
+:principe_actif_58715
+        rdf:type         :PrincipeActif , :Composant;
+        :aFormeChimique  :forme_chimique_indeterminee;
+        :aSubstance      :substance_267;
+        :dosage          "40.5"^^xsd:float .
+
+:ServiceRequerant  rdf:type  owl:Class;
+        rdfs:comment         "Un service requérant est le service qui requiert l’analyse d’une saisie de drogue (i.e. celui à l’origine de la saisine).";
+        rdfs:subClassOf      :Service;
+        owl:equivalentClass  [ rdf:type            owl:Restriction;
+                               owl:onProperty      :estServiceRequerantDe;
+                               owl:someValuesFrom  :Saisine
+                             ] .
+
+:echantillon_13032  rdf:type  :Echantillon;
+        :aAspectExterne     :aspect_resines;
+        :aPrincipeActif     :principe_actif_58716;
+        :commentaire        "Echantillon identifié \"I3/S\".";
+        :epaisseur          "21";
+        :id                 "13032";
+        :largeur            "66";
+        :logo               "Non";
+        :longueur           "86";
+        :masse              "98.4";
+        :numeroEchantillon  "16639";
+        :presentation       "Plaquette";
+        :provientDe         :scelle_66262;
+        :typeDrogue         "Cannabis" .
+
+:echantillon_13705  rdf:type  :Echantillon;
+        :aAspectExterne     :aspect_poudres;
+        :aPrincipeActif     :principe_actif_58976;
+        :commentaire        "3-CMC confirmée en infrarouge";
+        :couleur            "Blanche";
+        :id                 "13705";
+        :logo               "Non";
+        :numeroEchantillon  "6350";
+        :ovule              "0";
+        :provientDe         :scelle_66583;
+        :typeDrogue         "Divers" .
+
+:scelle_67243  rdf:type  :Scelle;
+        :estDansSaisine  :saisine_28549;
+        :id              "67243" .
+
+:saisine_28268  rdf:type  :Saisine;
+        :date     "2022-02-24T23:00:00Z"^^xsd:dateTime , "2022-03-06T23:00:00Z"^^xsd:dateTime;
+        :id       "28268" .
+
+:scelle_66822  rdf:type  :Scelle;
+        :estDansSaisine  :saisine_28370;
+        :id              "66822" .
+
+:forme  rdf:type    owl:FunctionalProperty , owl:DatatypeProperty;
+        rdfs:range  [ rdf:type   rdfs:Datatype;
+                      owl:oneOf  [ rdf:type   rdf:List;
+                                   rdf:first  "Autre";
+                                   rdf:rest   [ rdf:type   rdf:List;
+                                                rdf:first  "Carré";
+                                                rdf:rest   [ rdf:type   rdf:List;
+                                                             rdf:first  "Circulaire";
+                                                             rdf:rest   [ rdf:type   rdf:List;
+                                                                          rdf:first  "Polygonale";
+                                                                          rdf:rest   [ rdf:type   rdf:List;
+                                                                                       rdf:first  "Rectangulaire";
+                                                                                       rdf:rest   [ rdf:type   rdf:List;
+                                                                                                    rdf:first  "Triangulaire";
+                                                                                                    rdf:rest   ()
+                                                                                                  ]
+                                                                                     ]
+                                                                        ]
+                                                           ]
+                                              ]
+                                 ]
+                    ] .
+
+:saisine_28370  rdf:type  :Saisine;
+        :date     "2022-02-17T23:00:00Z"^^xsd:dateTime , "2022-03-13T23:00:00Z"^^xsd:dateTime;
+        :id       "28370" .
+
+:principe_actif_59597
+        rdf:type         :PrincipeActif , :Composant;
+        :aFormeChimique  :forme_chimique_indeterminee;
+        :aSubstance      :substance_267;
+        :dosage          "33.0"^^xsd:float .
+
+:aServiceRequerant  rdf:type  owl:FunctionalProperty , owl:ObjectProperty;
+        rdfs:domain         :Saisine;
+        rdfs:range          :ServiceRequerant;
+        rdfs:subPropertyOf  owl:topObjectProperty;
+        owl:inverseOf       :estServiceRequerantDe .
+
+:scelle_65903  rdf:type  :Scelle;
+        :estDansSaisine  :saisine_28007;
+        :id              "65903" .
+
+:scelle_65981  rdf:type  :Scelle;
+        :estDansSaisine  :saisine_28030;
+        :id              "65981" .
+
+:echantillon_14145  rdf:type  :Echantillon;
+        :aAspectExterne     :aspect_resines;
+        :aPrincipeActif     :principe_actif_59598;
+        :id                 "14145";
+        :logo               "Non";
+        :numeroEchantillon  "SB6-1";
+        :presentation       "Morceaux";
+        :provientDe         :scelle_67244;
+        :typeDrogue         "Cannabis" .
+
+:echantillon_14177  rdf:type  :Echantillon;
+        :aAspectExterne     :aspect_poudres;
+        :aPrincipeActif     :principe_actif_59640;
+        :couleur            "Blanche";
+        :id                 "14177";
+        :logo               "Non";
+        :numeroEchantillon  "16717";
+        :ovule              "0";
+        :provientDe         :scelle_67292;
+        :typeDrogue         "Cocaïne" .
+
+:principe_actif_58489
+        rdf:type         :PrincipeActif , :Composant;
+        :aFormeChimique  :forme_chimique_chlorhydrate;
+        :aSubstance      :substance_263;
+        :dosage          "88.2"^^xsd:float .
+
+:echantillon_12542  rdf:type  :Echantillon;
+        :aAspectExterne     :aspect_poudres;
+        :aPrincipeActif     :principe_actif_58316;
+        :couleur            "Blanche";
+        :id                 "12542";
+        :logo               "Non";
+        :numeroEchantillon  "22_100267";
+        :ovule              "1";
+        :provientDe         :scelle_65869;
+        :typeDrogue         "Cocaïne" .
+
+:presentation  rdf:type  owl:FunctionalProperty , owl:DatatypeProperty;
+        rdfs:range  [ rdf:type   rdfs:Datatype;
+                      owl:oneOf  [ rdf:type   rdf:List;
+                                   rdf:first  "Autre";
+                                   rdf:rest   [ rdf:type   rdf:List;
+                                                rdf:first  "Cactus";
+                                                rdf:rest   [ rdf:type   rdf:List;
+                                                             rdf:first  "Champignons";
+                                                             rdf:rest   [ rdf:type   rdf:List;
+                                                                          rdf:first  "Débrisvégétaux";
+                                                                          rdf:rest   [ rdf:type   rdf:List;
+                                                                                       rdf:first  "Graines";
+                                                                                       rdf:rest   [ rdf:type   rdf:List;
+                                                                                                    rdf:first  "Liquide";
+                                                                                                    rdf:rest   [ rdf:type   rdf:List;
+                                                                                                                 rdf:first  "Morceaux";
+                                                                                                                 rdf:rest   [ rdf:type   rdf:List;
+                                                                                                                              rdf:first  "ObjetSommités";
+                                                                                                                              rdf:rest   [ rdf:type   rdf:List;
+                                                                                                                                           rdf:first  "Plantes";
+                                                                                                                                           rdf:rest   [ rdf:type   rdf:List;
+                                                                                                                                                        rdf:first  "Plaquette";
+                                                                                                                                                        rdf:rest   [ rdf:type   rdf:List;
+                                                                                                                                                                     rdf:first  "Pâte";
+                                                                                                                                                                     rdf:rest   [ rdf:type   rdf:List;
+                                                                                                                                                                                  rdf:first  "Sommités";
+                                                                                                                                                                                  rdf:rest   [ rdf:type   rdf:List;
+                                                                                                                                                                                               rdf:first  "ovule";
+                                                                                                                                                                                               rdf:rest   ()
+                                                                                                                                                                                             ]
+                                                                                                                                                                                ]
+                                                                                                                                                                   ]
+                                                                                                                                                      ]
+                                                                                                                                         ]
+                                                                                                                            ]
+                                                                                                               ]
+                                                                                                  ]
+                                                                                     ]
+                                                                        ]
+                                                           ]
+                                              ]
+                                 ]
+                    ] .
+
+:principe_actif_59496
+        rdf:type         :PrincipeActif , :Composant;
+        :aFormeChimique  :forme_chimique_chlorhydrate;
+        :aSubstance      :substance_263;
+        :dosage          "90.0"^^xsd:float .
+
+:estAspectExterneDe  rdf:type  owl:InverseFunctionalProperty , owl:ObjectProperty;
+        rdfs:subPropertyOf  owl:topObjectProperty .
+
+:echantillon_13005  rdf:type  :Echantillon;
+        :aAspectExterne     :aspect_comprimes;
+        :aPrincipeActif     :principe_actif_58694;
+        :abime              "Non";
+        :couleur            "Vert";
+        :couleurInterieur   "Vert";
+        :epaisseur          "5,15";
+        :forme              "Rectangulaire / Carré";
+        :hauteur            "8,05";
+        :id                 "13005";
+        :largeur            "12,48";
+        :logo               "Oui";
+        :masse              "494";
+        :nomLogo            "Heineken";
+        :numeroEchantillon  "1-2";
+        :provientDe         :scelle_66244;
+        :secabiliteRecto    "Aucune";
+        :secabiliteVerso    "Demi";
+        :typeDrogue         "Amphétamine et dérivés" .
+
+:saisine_28002  rdf:type  :Saisine;
+        :date     "2022-02-19T23:00:00Z"^^xsd:dateTime , "2022-02-20T23:00:00Z"^^xsd:dateTime;
+        :id       "28002" .
+
+:echantillon_14012  rdf:type  :Echantillon;
+        :aAspectExterne     :aspect_resines;
+        :aPrincipeActif     :principe_actif_59474;
+        :epaisseur          "27.8";
+        :etiquette          "Oui";
+        :id                 "14012";
+        :largeur            "56.5";
+        :logo               "Oui";
+        :longueur           "97";
+        :masse              "96.3";
+        :nomLogo            "m & m";
+        :numeroEchantillon  "22_100470";
+        :presentation       "Plaquette";
+        :provientDe         :scelle_67098;
+        :typeDrogue         "Cannabis" .
+
+:scelle_67248  rdf:type  :Scelle;
+        :estDansSaisine  :saisine_28549;
+        :id              "67248" .
+
+:couleurInterieure  rdf:type  owl:DatatypeProperty;
+        rdfs:range  [ rdf:type   rdfs:Datatype;
+                      owl:oneOf  [ rdf:type   rdf:List;
+                                   rdf:first  "Autre";
+                                   rdf:rest   [ rdf:type   rdf:List;
+                                                rdf:first  "Beige";
+                                                rdf:rest   [ rdf:type   rdf:List;
+                                                             rdf:first  "Blanc Cassé";
+                                                             rdf:rest   [ rdf:type   rdf:List;
+                                                                          rdf:first  "Blanche";
+                                                                          rdf:rest   [ rdf:type   rdf:List;
+                                                                                       rdf:first  "Bleue";
+                                                                                       rdf:rest   [ rdf:type   rdf:List;
+                                                                                                    rdf:first  "Grise";
+                                                                                                    rdf:rest   [ rdf:type   rdf:List;
+                                                                                                                 rdf:first  "Jaune";
+                                                                                                                 rdf:rest   [ rdf:type   rdf:List;
+                                                                                                                              rdf:first  "Marron";
+                                                                                                                              rdf:rest   [ rdf:type   rdf:List;
+                                                                                                                                           rdf:first  "Multicolore";
+                                                                                                                                           rdf:rest   [ rdf:type   rdf:List;
+                                                                                                                                                        rdf:first  "Noir";
+                                                                                                                                                        rdf:rest   [ rdf:type   rdf:List;
+                                                                                                                                                                     rdf:first  "Orange";
+                                                                                                                                                                     rdf:rest   [ rdf:type   rdf:List;
+                                                                                                                                                                                  rdf:first  "Rose";
+                                                                                                                                                                                  rdf:rest   [ rdf:type   rdf:List;
+                                                                                                                                                                                               rdf:first  "Rouge";
+                                                                                                                                                                                               rdf:rest   [ rdf:type   rdf:List;
+                                                                                                                                                                                                            rdf:first  "Translucide";
+                                                                                                                                                                                                            rdf:rest   [ rdf:type   rdf:List;
+                                                                                                                                                                                                                         rdf:first  "Vert";
+                                                                                                                                                                                                                         rdf:rest   [ rdf:type   rdf:List;
+                                                                                                                                                                                                                                      rdf:first  "Violet";
+                                                                                                                                                                                                                                      rdf:rest   ()
+                                                                                                                                                                                                                                    ]
+                                                                                                                                                                                                                       ]
+                                                                                                                                                                                                          ]
+                                                                                                                                                                                             ]
+                                                                                                                                                                                ]
+                                                                                                                                                                   ]
+                                                                                                                                                      ]
+                                                                                                                                         ]
+                                                                                                                            ]
+                                                                                                               ]
+                                                                                                  ]
+                                                                                     ]
+                                                                        ]
+                                                           ]
+                                              ]
+                                 ]
+                    ] .
+
+:estPrincipeActifDe  rdf:type  owl:InverseFunctionalProperty , owl:FunctionalProperty , owl:ObjectProperty;
+        rdfs:subPropertyOf  owl:topObjectProperty .
+
+:scelle_65866  rdf:type  :Scelle;
+        :estDansSaisine  :saisine_27997;
+        :id              "65866" .
+
+:substance_364  rdf:type  :Substance;
+        :nomSubstance  "Acétylthébaol" .
+
+:principe_actif_58388
+        rdf:type         :PrincipeActif , :Composant;
+        :aFormeChimique  :forme_chimique_indeterminee;
+        :aSubstance      :substance_267;
+        :dosage          "33.1"^^xsd:float .
+
+:ServiceCapteur  rdf:type    owl:Class;
+        rdfs:comment         "Un service capteur est le service qui réalise la saisie de drogue.";
+        rdfs:subClassOf      :Service;
+        owl:disjointWith     :ServiceRequerant;
+        owl:equivalentClass  [ rdf:type            owl:Restriction;
+                               owl:onProperty      :estServiceCapteurDe;
+                               owl:someValuesFrom  :Saisine
+                             ] .
+
+:scelle_66827  rdf:type  :Scelle;
+        :estDansSaisine  :saisine_28370;
+        :id              "66827" .
+
+:principe_actif_59640
+        rdf:type         :PrincipeActif , :Composant;
+        :aFormeChimique  :forme_chimique_chlorhydrate;
+        :aSubstance      :substance_263;
+        :dosage          "86.6"^^xsd:float .
+
+:echantillon_13623  rdf:type  :Echantillon;
+        :aAspectExterne     :aspect_comprimes;
+        :aPrincipeActif     :principe_actif_59136;
+        :aProduitCoupage    :produit_coupage_73283;
+        :abime              "Non";
+        :couleur            "Rouge";
+        :diametre           "7,19";
+        :epaisseur          "4,56";
+        :forme              "Circulaire";
+        :id                 "13623";
+        :logo               "Non";
+        :masse              "183";
+        :numeroEchantillon  "2-3";
+        :provientDe         :scelle_66742;
+        :secabiliteRecto    "Aucune";
+        :secabiliteVerso    "Aucune";
+        :typeDrogue         "Divers" .
+
+:principe_actif_58490
+        rdf:type         :PrincipeActif , :Composant;
+        :aFormeChimique  :forme_chimique_chlorhydrate;
+        :aSubstance      :substance_263;
+        :dosage          "87.6"^^xsd:float .
+
+:produit_coupage_73544
+        rdf:type     :ProduitCoupage , :Composant;
+        :aSubstance  :substance_312;
+        :dosage      "8.8"^^xsd:float .
+
+:produit_coupage_72892
+        rdf:type     :ProduitCoupage , :Composant;
+        :aSubstance  :substance_104;
+        :dosage      "0.0"^^xsd:float .
+
+:produit_coupage_73576
+        rdf:type     :ProduitCoupage , :Composant;
+        :aSubstance  :substance_75;
+        :dosage      "0.0"^^xsd:float .
+
+:substance_263  rdf:type  :Substance;
+        :nomSubstance  "Cocaïne" .
+
+:produit_coupage_73309
+        rdf:type     :ProduitCoupage , :Composant;
+        :aSubstance  :substance_287;
+        :dosage      "0.0"^^xsd:float .
+
+:echantillon_12736  rdf:type  :Echantillon;
+        :aAspectExterne     :aspect_substances_dissimulees;
+        :aPrincipeActif     :principe_actif_58483;
+        :id                 "12736";
+        :logo               "Oui";
+        :nomLogo            "SCOTT";
+        :numeroEchantillon  "2-1";
+        :presentation       "Pâte";
+        :provientDe         :scelle_66033;
+        :typeDrogue         "Cocaïne" .
+
+:estDansPays  rdf:type      owl:FunctionalProperty , owl:ObjectProperty;
+        rdfs:subPropertyOf  owl:topObjectProperty .
+
+:produit_coupage_72902
+        rdf:type     :ProduitCoupage , :Composant;
+        :aSubstance  :substance_70;
+        :dosage      "0.0"^^xsd:float .
+
+:saisine_28021  rdf:type  :Saisine;
+        :date     "2022-02-22T23:00:00Z"^^xsd:dateTime , "2022-02-23T23:00:00Z"^^xsd:dateTime;
+        :id       "28021" .
+
+:echantillon_14206  rdf:type  :Echantillon;
+        :aAspectExterne     :aspect_vegetaux;
+        :aPrincipeActif     :principe_actif_59664;
+        :id                 "14206";
+        :logo               "Non";
+        :numeroEchantillon  "PH";
+        :presentation       "Débris végétaux";
+        :provientDe         :scelle_67323;
+        :typeDrogue         "Cannabis" .
+
+:scelle_66583  rdf:type  :Scelle;
+        :estDansSaisine  :saisine_28268;
+        :id              "66583" .
+
+:nomService  rdf:type  owl:FunctionalProperty , owl:DatatypeProperty;
+        rdfs:range  xsd:string .
+
+:saisine_28007  rdf:type  :Saisine;
+        :date     "2022-02-19T23:00:00Z"^^xsd:dateTime , "2022-02-20T23:00:00Z"^^xsd:dateTime;
+        :id       "28007" .
+
+:scelle_67323  rdf:type  :Scelle;
+        :estDansSaisine  :saisine_28570;
+        :id              "67323" .
+
+:produit_coupage_73531
+        rdf:type     :ProduitCoupage , :Composant;
+        :aSubstance  :substance_309;
+        :dosage      "0.0"^^xsd:float .
+
+:substance_148  rdf:type  :Substance;
+        :nomSubstance  "Inositol" .
+
+:produit_coupage_73310
+        rdf:type     :ProduitCoupage , :Composant;
+        :aSubstance  :substance_309;
+        :dosage      "0.0"^^xsd:float .
+
+:unite  rdf:type    owl:FunctionalProperty , owl:DatatypeProperty;
+        rdfs:range  [ rdf:type   rdfs:Datatype;
+                      owl:oneOf  [ rdf:type   rdf:List;
+                                   rdf:first  "%";
+                                   rdf:rest   [ rdf:type   rdf:List;
+                                                rdf:first  "g/L";
+                                                rdf:rest   [ rdf:type   rdf:List;
+                                                             rdf:first  "g/kg";
+                                                             rdf:rest   [ rdf:type   rdf:List;
+                                                                          rdf:first  "µg/g";
+                                                                          rdf:rest   [ rdf:type   rdf:List;
+                                                                                       rdf:first  "µg/mL";
+                                                                                       rdf:rest   [ rdf:type   rdf:List;
+                                                                                                    rdf:first  "µg/timbre";
+                                                                                                    rdf:rest   ()
+                                                                                                  ]
+                                                                                     ]
+                                                                        ]
+                                                           ]
+                                              ]
+                                 ]
+                    ] .
+
+:scelle_65973  rdf:type  :Scelle;
+        :estDansSaisine  :saisine_28028;
+        :id              "65973" .
+
+:estUniteDe  rdf:type       owl:ObjectProperty;
+        rdfs:subPropertyOf  owl:topObjectProperty .
+
+:forme_chimique_chlorhydrate
+        rdf:type               :FormeChimique;
+        :libelleFormeChimique  "Chlorhydrate" .
+
+:libelleFormeChimique
+        rdf:type    owl:FunctionalProperty , owl:DatatypeProperty;
+        rdfs:range  [ rdf:type   rdfs:Datatype;
+                      owl:oneOf  [ rdf:type   rdf:List;
+                                   rdf:first  "Base";
+                                   rdf:rest   [ rdf:type   rdf:List;
+                                                rdf:first  "Base & HCl";
+                                                rdf:rest   [ rdf:type   rdf:List;
+                                                             rdf:first  "Chlorhydrate";
+                                                             rdf:rest   [ rdf:type   rdf:List;
+                                                                          rdf:first  "HCL";
+                                                                          rdf:rest   [ rdf:type   rdf:List;
+                                                                                       rdf:first  "Indéterminée";
+                                                                                       rdf:rest   [ rdf:type   rdf:List;
+                                                                                                    rdf:first  "Phosphate";
+                                                                                                    rdf:rest   [ rdf:type   rdf:List;
+                                                                                                                 rdf:first  "Sulfate";
+                                                                                                                 rdf:rest   ()
+                                                                                                               ]
+                                                                                                  ]
+                                                                                     ]
+                                                                        ]
+                                                           ]
+                                              ]
+                                 ]
+                    ] .
+
+:echantillon_14137  rdf:type  :Echantillon;
+        :aAspectExterne     :aspect_resines;
+        :aPrincipeActif     :principe_actif_59594;
+        :id                 "14137";
+        :logo               "Non";
+        :numeroEchantillon  "SZA1-1";
+        :presentation       "Morceaux";
+        :provientDe         :scelle_67239;
+        :typeDrogue         "Cannabis" .
+
+:scelle_66261  rdf:type  :Scelle;
+        :estDansSaisine  :saisine_28171;
+        :id              "66261" .
+
+:produit_coupage_72897
+        rdf:type     :ProduitCoupage , :Composant;
+        :aSubstance  :substance_347;
+        :dosage      "4.3"^^xsd:float .
+
+:quantite  rdf:type  owl:FunctionalProperty , owl:DatatypeProperty;
+        rdfs:range  xsd:float .
+
+:principe_actif_58726
+        rdf:type         :PrincipeActif , :Composant;
+        :aFormeChimique  :forme_chimique_indeterminee;
+        :aSubstance      :substance_267;
+        :dosage          "17.1"^^xsd:float .
+
+:echantillon_13716  rdf:type  :Echantillon;
+        :aAspectExterne     :aspect_vegetaux;
+        :aPrincipeActif     :principe_actif_59219;
+        :id                 "13716";
+        :logo               "Non";
+        :numeroEchantillon  "1A/TIC";
+        :presentation       "Plantes";
+        :provientDe         :scelle_66820;
+        :typeDrogue         "Cannabis" .
+
+:substance_513  rdf:type  :Substance;
+        :nomSubstance  "Chloromethcathinone (CMC)" .
+
+:estPicDe  rdf:type         owl:FunctionalProperty , owl:ObjectProperty;
+        rdfs:subPropertyOf  owl:topObjectProperty .
+
+:estLotInterneDe  rdf:type  owl:IrreflexiveProperty , owl:ObjectProperty;
+        rdfs:subPropertyOf  owl:topObjectProperty .
+
+:saisine_28072  rdf:type  :Saisine;
+        :date     "2022-02-22T23:00:00Z"^^xsd:dateTime;
+        :id       "28072" .
+
+:echantillon_13029  rdf:type  :Echantillon;
+        :aAspectExterne     :aspect_vegetaux;
+        :aPrincipeActif     :principe_actif_58713;
+        :id                 "13029";
+        :logo               "Non";
+        :numeroEchantillon  "16636";
+        :presentation       "Sommités";
+        :provientDe         :scelle_66261;
+        :typeDrogue         "Cannabis" .
+
+:principe_actif_58316
+        rdf:type         :PrincipeActif , :Composant;
+        :aFormeChimique  :forme_chimique_chlorhydrate;
+        :aSubstance      :substance_263;
+        :dosage          "82.0"^^xsd:float .
+
+:saisine_28570  rdf:type  :Saisine;
+        :date     "2022-02-22T23:00:00Z"^^xsd:dateTime , "2022-02-23T23:00:00Z"^^xsd:dateTime;
+        :id       "28570" .
+
+:echantillon_12622  rdf:type  :Echantillon;
+        :aAspectExterne     :aspect_resines;
+        :aPrincipeActif     :principe_actif_58388;
+        :id                 "12622";
+        :logo               "Non";
+        :numeroEchantillon  "1-2";
+        :presentation       "Morceaux";
+        :provientDe         :scelle_65960;
+        :typeDrogue         "Cannabis" .
+
+:scelle_67097  rdf:type  :Scelle;
+        :estDansSaisine  :saisine_28501;
+        :id              "67097" .
+
+:principe_actif_59600
+        rdf:type         :PrincipeActif , :Composant;
+        :aFormeChimique  :forme_chimique_chlorhydrate;
+        :aSubstance      :substance_263;
+        :dosage          "58.8"^^xsd:float .
+
+:principe_actif_59134
+        rdf:type         :PrincipeActif , :Composant;
+        :aFormeChimique  :forme_chimique_chlorhydrate;
+        :aSubstance      :substance_359;
+        :dosage          "97.0"^^xsd:float .
+
+:scelle_65960  rdf:type  :Scelle;
+        :estDansSaisine  :saisine_28021;
+        :id              "65960" .
+
+:masse  rdf:type    owl:FunctionalProperty , owl:DatatypeProperty;
+        rdfs:range  xsd:float .
+
+:echantillon_13615  rdf:type  :Echantillon;
+        :aAspectExterne     :aspect_cristaux;
+        :aPrincipeActif     :principe_actif_59130;
+        :couleur            "Beige";
+        :id                 "13615";
+        :logo               "Non";
+        :numeroEchantillon  "1-1";
+        :ovule              "0";
+        :provientDe         :scelle_66741;
+        :typeDrogue         "Amphétamine et dérivés" .
+
+:principe_actif_58482
+        rdf:type         :PrincipeActif , :Composant;
+        :aFormeChimique  :forme_chimique_chlorhydrate;
+        :aSubstance      :substance_263;
+        :dosage          "83.6"^^xsd:float .
+
+:echantillon_13693  rdf:type  :Echantillon;
+        :aAspectExterne     :aspect_liquides;
+        :aPrincipeActif     :principe_actif_59197 , :principe_actif_59196;
+        :aProduitCoupage    :produit_coupage_73308 , :produit_coupage_73309 , :produit_coupage_73310;
+        :commentaire        "volume : 80 µL";
+        :couleur            "Translucide";
+        :id                 "13693";
+        :logo               "Non";
+        :numeroEchantillon  "6385";
+        :ovule              "0";
+        :provientDe         :scelle_66793;
+        :typeDrogue         "Divers" , "Cocaïne";
+        :visqueux           "0" .
+
+:produit_coupage_73536
+        rdf:type     :ProduitCoupage , :Composant;
+        :aSubstance  :substance_309;
+        :dosage      "0.0"^^xsd:float .
+
+:principe_actif_59664
+        rdf:type         :PrincipeActif , :Composant;
+        :aFormeChimique  :forme_chimique_indeterminee;
+        :aSubstance      :substance_267;
+        :dosage          "11.0"^^xsd:float .
+
+:aProfilChimique  rdf:type  owl:InverseFunctionalProperty , owl:FunctionalProperty , owl:ObjectProperty;
+        rdfs:domain         :Echantillon;
+        rdfs:range          :ProfilChimique;
+        rdfs:subPropertyOf  owl:topObjectProperty;
+        owl:inverseOf       :estProfilChimiqueDe .
+
+:echantillon_12742  rdf:type  :Echantillon;
+        :aAspectExterne     :aspect_substances_dissimulees;
+        :aPrincipeActif     :principe_actif_58487;
+        :id                 "12742";
+        :logo               "Oui";
+        :numeroEchantillon  "2-7";
+        :presentation       "Pâte";
+        :provientDe         :scelle_66033;
+        :typeDrogue         "Cocaïne" .
+
+:produit_coupage_72884
+        rdf:type     :ProduitCoupage , :Composant;
+        :aSubstance  :substance_240;
+        :dosage      "6.8"^^xsd:float .
+
+:ProfilChimique  rdf:type    owl:Class;
+        rdfs:comment         "Un profil chimique est associé à un échantillon dans le but de faire du profilage (i.e. rapprocher automatique des échantillons selon leur profil et leurs caractéristiques). Un profil chimique représente chromatogramme constitué d’un ensemble de pics  permettent d’identifier la présence ou composés chimiques cible.";
+        owl:equivalentClass  [ rdf:type            owl:Class;
+                               owl:intersectionOf  ( [ rdf:type            owl:Restriction;
+                                                       owl:onProperty      :aPic;
+                                                       owl:someValuesFrom  :Pic
+                                                     ]
+                                                     [ rdf:type                  owl:Restriction;
+                                                       owl:onClass               :Echantillon;
+                                                       owl:onProperty            :estProfilChimiqueDe;
+                                                       owl:qualifiedCardinality  "1"^^xsd:nonNegativeInteger
+                                                     ]
+                                                   )
+                             ] .
+
+:produit_coupage_72838
+        rdf:type     :ProduitCoupage , :Composant;
+        :aSubstance  :substance_104;
+        :dosage      "0.0"^^xsd:float .
+
+:principe_actif_58713
+        rdf:type         :PrincipeActif , :Composant;
+        :aFormeChimique  :forme_chimique_indeterminee;
+        :aSubstance      :substance_267;
+        :dosage          "13.8"^^xsd:float .
+
+:echantillon_13030  rdf:type  :Echantillon;
+        :aAspectExterne     :aspect_vegetaux;
+        :aPrincipeActif     :principe_actif_58714;
+        :id                 "13030";
+        :logo               "Non";
+        :numeroEchantillon  "16637";
+        :presentation       "Sommités";
+        :provientDe         :scelle_66261;
+        :typeDrogue         "Cannabis" .
+
+:scelle_67241  rdf:type  :Scelle;
+        :estDansSaisine  :saisine_28549;
+        :id              "67241" .
+
+:echantillon_12553  rdf:type  :Echantillon;
+        :aAspectExterne     :aspect_comprimes;
+        :aPrincipeActif     :principe_actif_58327;
+        :abime              "Non";
+        :couleur            "Rose";
+        :couleurInterieur   "Rose";
+        :epaisseur          "4,47";
+        :forme              "Autre";
+        :hauteur            "9,12";
+        :id                 "12553";
+        :largeur            "16,21";
+        :logo               "Oui";
+        :masse              "500";
+        :nomLogo            "SOUND CLOUD nuage";
+        :numeroEchantillon  "3";
+        :provientDe         :scelle_65883;
+        :secabiliteRecto    "Aucune";
+        :secabiliteVerso    "Demi";
+        :typeDrogue         "Amphétamine et dérivés" .
+
+:substance_287  rdf:type  :Substance;
+        :nomSubstance  "Glucose" .
+
+:scelle_66045  rdf:type  :Scelle;
+        :estDansSaisine  :saisine_28072;
+        :id              "66045" .
+
+:ProfilChimiqueHeroine
+        rdf:type         owl:Class;
+        rdfs:comment     "Pour l’héroïne, 6 pics correspondant à des impuretés   et dépendent du procédé de fabrication (synthèse). Elles sont toujours présentes mais les quantités peuvent être différentes.";
+        rdfs:subClassOf  :ProfilChimique .
+
+:scelle_66820  rdf:type  :Scelle;
+        :estDansSaisine  :saisine_28370;
+        :id              "66820" .
+
+:ProfilChimiqueCocaine
+        rdf:type          owl:Class;
+        rdfs:comment      "Un profil de cocaïne a 18 pics, correspondant à des solvants résiduels ayant servi dans la fabrication de la cocaïne, sont recherchés. Ils ne sont pas toujours tous présents, cela dépend du procédé de fabrication   (extraction).";
+        rdfs:subClassOf   :ProfilChimique;
+        owl:disjointWith  :ProfilChimiqueHeroine .
+
+:principe_actif_59595
+        rdf:type         :PrincipeActif , :Composant;
+        :aFormeChimique  :forme_chimique_indeterminee;
+        :aSubstance      :substance_267;
+        :dosage          "28.0"^^xsd:float .
+
+:echantillon_14009  rdf:type  :Echantillon;
+        :aAspectExterne     :aspect_resines;
+        :aPrincipeActif     :principe_actif_59474;
+        :epaisseur          "27.8";
+        :etiquette          "Oui";
+        :id                 "14009";
+        :largeur            "56.5";
+        :logo               "Oui";
+        :longueur           "97";
+        :masse              "96.3";
+        :nomLogo            "m & m";
+        :numeroEchantillon  "22_100467";
+        :presentation       "Plaquette";
+        :provientDe         :scelle_67095;
+        :typeDrogue         "Cannabis" .
+
+:echantillon_14143  rdf:type  :Echantillon;
+        :aAspectExterne     :aspect_resines;
+        :aPrincipeActif     :principe_actif_59598;
+        :id                 "14143";
+        :logo               "Non";
+        :numeroEchantillon  "B1-2";
+        :presentation       "Morceaux";
+        :provientDe         :scelle_67242;
+        :typeDrogue         "Cannabis" .
+
+:principe_actif_58409
+        rdf:type         :PrincipeActif , :Composant;
+        :aFormeChimique  :forme_chimique_chlorhydrate;
+        :aSubstance      :substance_263;
+        :dosage          "94.7"^^xsd:float .
+
+:echantillon_14175  rdf:type  :Echantillon;
+        :aAspectExterne     :aspect_poudres;
+        :aPrincipeActif     :principe_actif_59640;
+        :couleur            "Blanche";
+        :id                 "14175";
+        :logo               "Non";
+        :numeroEchantillon  "16715";
+        :ovule              "0";
+        :provientDe         :scelle_67292;
+        :typeDrogue         "Cocaïne" .
+
+:principe_actif_58487
+        rdf:type         :PrincipeActif , :Composant;
+        :aFormeChimique  :forme_chimique_chlorhydrate;
+        :aSubstance      :substance_263;
+        :dosage          "86.5"^^xsd:float .
+
+:estSubstanceDe  rdf:type   owl:ObjectProperty;
+        rdfs:subPropertyOf  owl:topObjectProperty .
+
+:echantillon_12540  rdf:type  :Echantillon;
+        :aAspectExterne     :aspect_poudres;
+        :aPrincipeActif     :principe_actif_58316;
+        :couleur            "Blanche";
+        :id                 "12540";
+        :logo               "Non";
+        :numeroEchantillon  "22_100264";
+        :ovule              "1";
+        :provientDe         :scelle_65866;
+        :typeDrogue         "Cocaïne" .
+
+:scelle_66032  rdf:type  :Scelle;
+        :estDansSaisine  :saisine_28064;
+        :id              "66032" .
+
+:produit_coupage_72889
+        rdf:type     :ProduitCoupage , :Composant;
+        :aSubstance  :substance_347;
+        :dosage      "3.7"^^xsd:float .
+
+:echantillon_13722  rdf:type  :Echantillon;
+        :aAspectExterne     :aspect_vegetaux;
+        :aPrincipeActif     :principe_actif_59219;
+        :id                 "13722";
+        :logo               "Non";
+        :numeroEchantillon  "7A/TIC";
+        :presentation       "Plantes";
+        :provientDe         :scelle_66826;
+        :typeDrogue         "Cannabis" .
+
+:scelle_66239  rdf:type  :Scelle;
+        :estDansSaisine  :saisine_28157;
+        :id              "66239" .
+
+:saisine_27997  rdf:type  :Saisine;
+        :date     "2022-02-18T23:00:00Z"^^xsd:dateTime , "2022-02-20T23:00:00Z"^^xsd:dateTime;
+        :id       "27997" .
+
+:scelle_67292  rdf:type  :Scelle;
+        :estDansSaisine  :saisine_28563;
+        :id              "67292" .
+
+:substance_551  rdf:type  :Substance;
+        :nomSubstance  "Cyproheptadine" .
+
+:estDansDepartement  rdf:type  owl:FunctionalProperty , owl:ObjectProperty;
+        rdfs:subPropertyOf  owl:topObjectProperty .
+
+:echantillon_14010  rdf:type  :Echantillon;
+        :aAspectExterne     :aspect_resines;
+        :aPrincipeActif     :principe_actif_59474;
+        :epaisseur          "27.8";
+        :etiquette          "Oui";
+        :id                 "14010";
+        :largeur            "56.5";
+        :logo               "Oui";
+        :longueur           "97";
+        :masse              "96.3";
+        :nomLogo            "m & m";
+        :numeroEchantillon  "22_100468";
+        :presentation       "Plaquette";
+        :provientDe         :scelle_67096;
+        :typeDrogue         "Cannabis" .
+
+:scelle_67246  rdf:type  :Scelle;
+        :estDansSaisine  :saisine_28549;
+        :id              "67246" .
+
+:saisine_28032  rdf:type  :Saisine;
+        :date     "2022-02-23T23:00:00Z"^^xsd:dateTime , "2022-02-24T23:00:00Z"^^xsd:dateTime;
+        :id       "28032" .
+
+:aFormeChimique  rdf:type   owl:FunctionalProperty , owl:ObjectProperty;
+        rdfs:domain         :PrincipeActif;
+        rdfs:range          :FormeChimique;
+        rdfs:subPropertyOf  owl:topObjectProperty;
+        owl:inverseOf       :estFormeChimiqueDe .
+
+:estProduitCoupageDe  rdf:type  owl:FunctionalProperty , owl:ObjectProperty;
+        rdfs:subPropertyOf  owl:topObjectProperty .
+
+:estFormeChimiqueDe  rdf:type  owl:InverseFunctionalProperty , owl:ObjectProperty;
+        rdfs:subPropertyOf  owl:topObjectProperty .
+
+:Saisine  rdf:type           owl:Class;
+        rdfs:comment         "La saisine est un terme juridique utilisé en matière de procédure. Elle désigne l'action qu'accomplit un requérant lorsqu'il demande l'analyse d'une saisie de drogue. La fiche (i.e. l’ensemble des informations) d’une saisine d’un produit supposé illicite contient un service capteur, un service requérant, la ville où la saisine a été faite et le pays de destination du produit. Ces renseignements peuvent être complets ou partiels. De plus, une saisie contient un ensemble de scellés";
+        owl:equivalentClass  [ rdf:type            owl:Class;
+                               owl:intersectionOf  ( [ rdf:type            owl:Restriction;
+                                                       owl:onProperty      :aScelle;
+                                                       owl:someValuesFrom  :Scelle
+                                                     ]
+                                                     [ rdf:type                  owl:Restriction;
+                                                       owl:onClass               :Pays;
+                                                       owl:onProperty            :aPaysDestination;
+                                                       owl:qualifiedCardinality  "1"^^xsd:nonNegativeInteger
+                                                     ]
+                                                     [ rdf:type                  owl:Restriction;
+                                                       owl:onClass               :ServiceCapteur;
+                                                       owl:onProperty            :aServiceCapteur;
+                                                       owl:qualifiedCardinality  "1"^^xsd:nonNegativeInteger
+                                                     ]
+                                                     [ rdf:type                  owl:Restriction;
+                                                       owl:onClass               :ServiceRequerant;
+                                                       owl:onProperty            :aServiceRequerant;
+                                                       owl:qualifiedCardinality  "1"^^xsd:nonNegativeInteger
+                                                     ]
+                                                     [ rdf:type                  owl:Restriction;
+                                                       owl:onClass               :Ville;
+                                                       owl:onProperty            :estFaitA;
+                                                       owl:qualifiedCardinality  "1"^^xsd:nonNegativeInteger
+                                                     ]
+                                                   )
+                             ] .
+
+:saisine_28064  rdf:type  :Saisine;
+        :date     "2022-02-23T23:00:00Z"^^xsd:dateTime , "2022-02-27T23:00:00Z"^^xsd:dateTime;
+        :id       "28064" .
+
+:description  rdf:type  owl:FunctionalProperty , owl:DatatypeProperty;
+        rdfs:range  xsd:string .
+
+:scelle_65818  rdf:type  :Scelle;
+        :estDansSaisine  :saisine_27975;
+        :id              "65818" .
+
+:scelle_66825  rdf:type  :Scelle;
+        :estDansSaisine  :saisine_28370;
+        :id              "66825" .
+
+:principe_actif_58410
+        rdf:type         :PrincipeActif , :Composant;
+        :aFormeChimique  :forme_chimique_indeterminee;
+        :aSubstance      :substance_267;
+        :dosage          "22.0"^^xsd:float .
+
+:echantillon_13621  rdf:type  :Echantillon;
+        :aAspectExterne     :aspect_comprimes;
+        :aPrincipeActif     :principe_actif_59136;
+        :aProduitCoupage    :produit_coupage_73283;
+        :abime              "Non";
+        :couleur            "Rouge";
+        :diametre           "7,19";
+        :epaisseur          "4,56";
+        :forme              "Circulaire";
+        :id                 "13621";
+        :logo               "Non";
+        :masse              "183";
+        :numeroEchantillon  "2-1";
+        :provientDe         :scelle_66742;
+        :secabiliteRecto    "Aucune";
+        :secabiliteVerso    "Aucune";
+        :typeDrogue         "Divers" .
+
+:couleur  rdf:type  owl:DatatypeProperty;
+        rdfs:range  [ rdf:type   rdfs:Datatype;
+                      owl:oneOf  [ rdf:type   rdf:List;
+                                   rdf:first  "Autre";
+                                   rdf:rest   [ rdf:type   rdf:List;
+                                                rdf:first  "Beige";
+                                                rdf:rest   [ rdf:type   rdf:List;
+                                                             rdf:first  "Blanc Cassé";
+                                                             rdf:rest   [ rdf:type   rdf:List;
+                                                                          rdf:first  "Blanche";
+                                                                          rdf:rest   [ rdf:type   rdf:List;
+                                                                                       rdf:first  "Bleue";
+                                                                                       rdf:rest   [ rdf:type   rdf:List;
+                                                                                                    rdf:first  "Grise";
+                                                                                                    rdf:rest   [ rdf:type   rdf:List;
+                                                                                                                 rdf:first  "Jaune";
+                                                                                                                 rdf:rest   [ rdf:type   rdf:List;
+                                                                                                                              rdf:first  "Marron";
+                                                                                                                              rdf:rest   [ rdf:type   rdf:List;
+                                                                                                                                           rdf:first  "Multicolore";
+                                                                                                                                           rdf:rest   [ rdf:type   rdf:List;
+                                                                                                                                                        rdf:first  "Noir";
+                                                                                                                                                        rdf:rest   [ rdf:type   rdf:List;
+                                                                                                                                                                     rdf:first  "Orange";
+                                                                                                                                                                     rdf:rest   [ rdf:type   rdf:List;
+                                                                                                                                                                                  rdf:first  "Rose";
+                                                                                                                                                                                  rdf:rest   [ rdf:type   rdf:List;
+                                                                                                                                                                                               rdf:first  "Rouge";
+                                                                                                                                                                                               rdf:rest   [ rdf:type   rdf:List;
+                                                                                                                                                                                                            rdf:first  "Translucide";
+                                                                                                                                                                                                            rdf:rest   [ rdf:type   rdf:List;
+                                                                                                                                                                                                                         rdf:first  "Vert";
+                                                                                                                                                                                                                         rdf:rest   [ rdf:type   rdf:List;
+                                                                                                                                                                                                                                      rdf:first  "Violet";
+                                                                                                                                                                                                                                      rdf:rest   ()
+                                                                                                                                                                                                                                    ]
+                                                                                                                                                                                                                       ]
+                                                                                                                                                                                                          ]
+                                                                                                                                                                                             ]
+                                                                                                                                                                                ]
+                                                                                                                                                                   ]
+                                                                                                                                                      ]
+                                                                                                                                         ]
+                                                                                                                            ]
+                                                                                                               ]
+                                                                                                  ]
+                                                                                     ]
+                                                                        ]
+                                                           ]
+                                              ]
+                                 ]
+                    ] .
+
+:echantillon_12471  rdf:type  :Echantillon;
+        :aAspectExterne     :aspect_resines;
+        :aPrincipeActif     :principe_actif_58264;
+        :epaisseur          "23,64";
+        :etiquette          "Oui";
+        :id                 "12471";
+        :largeur            "59,26";
+        :logo               "Oui";
+        :longueur           "105,96";
+        :masse              "95,7";
+        :nomLogo            "Un taureau";
+        :numeroEchantillon  "2/STUP/ANALYSE";
+        :presentation       "Plaquette";
+        :provientDe         :scelle_65819;
+        :typeDrogue         "Cannabis" .
+
+:aspect_liquides  rdf:type  :Aspect;
+        :libelleAspect  "Liquides" .
+
+:numeroEchantillon  rdf:type  owl:FunctionalProperty , owl:DatatypeProperty;
+        rdfs:domain  :Echantillon;
+        rdfs:range   xsd:string .
+
+:produit_coupage_73542
+        rdf:type     :ProduitCoupage , :Composant;
+        :aSubstance  :substance_240;
+        :dosage      "3.9"^^xsd:float .
+
+:substance_450  rdf:type  :Substance;
+        :nomSubstance  "fluorométhylphénidate (F-MPH)" .
+
+:produit_coupage_72890
+        rdf:type     :ProduitCoupage , :Composant;
+        :aSubstance  :substance_240;
+        :dosage      "5.2"^^xsd:float .
+
+:produit_coupage_73574
+        rdf:type     :ProduitCoupage , :Composant;
+        :aSubstance  :substance_363;
+        :dosage      "0.0"^^xsd:float .
+
+:scelle_65984  rdf:type  :Scelle;
+        :estDansSaisine  :saisine_28032;
+        :id              "65984" .
+
+:produit_coupage_73528
+        rdf:type     :ProduitCoupage , :Composant;
+        :aSubstance  :substance_310;
+        :dosage      "0.0"^^xsd:float .
+
+:abime  rdf:type    owl:FunctionalProperty , owl:DatatypeProperty;
+        rdfs:range  xsd:boolean .
+
+:forme_chimique_base  rdf:type  :FormeChimique;
+        :libelleFormeChimique  "Base" .
+
+:echantillon_14148  rdf:type  :Echantillon;
+        :aAspectExterne     :aspect_poudres;
+        :aPrincipeActif     :principe_actif_59601;
+        :aProduitCoupage    :produit_coupage_73533 , :produit_coupage_73536 , :produit_coupage_73534 , :produit_coupage_73532 , :produit_coupage_73535;
+        :couleur            "Blanche";
+        :id                 "14148";
+        :logo               "Non";
+        :numeroEchantillon  "SB16-1";
+        :ovule              "0";
+        :provientDe         :scelle_67246;
+        :typeDrogue         "Cocaïne" .
+
+:produit_coupage_72876
+        rdf:type     :ProduitCoupage , :Composant;
+        :aSubstance  :substance_310;
+        :dosage      "4.2"^^xsd:float .
+
+:echantillon_12734  rdf:type  :Echantillon;
+        :aAspectExterne     :aspect_poudres;
+        :aPrincipeActif     :principe_actif_58481;
+        :aProduitCoupage    :produit_coupage_72876;
+        :couleur            "Blanche";
+        :id                 "12734";
+        :logo               "Non";
+        :numeroEchantillon  "1";
+        :ovule              "0";
+        :provientDe         :scelle_66031;
+        :typeDrogue         "Cocaïne" .
+
+:produit_coupage_72900
+        rdf:type     :ProduitCoupage , :Composant;
+        :aSubstance  :substance_104;
+        :dosage      "0.0"^^xsd:float .
+
+:estServiceRequerantDe
+        rdf:type            owl:InverseFunctionalProperty , owl:ObjectProperty;
+        rdfs:subPropertyOf  owl:topObjectProperty .
+
+:echantillon_12545  rdf:type  :Echantillon;
+        :aAspectExterne     :aspect_poudres;
+        :aPrincipeActif     :principe_actif_58317;
+        :couleur            "Blanche";
+        :id                 "12545";
+        :logo               "Non";
+        :numeroEchantillon  "22ç_100269";
+        :ovule              "1";
+        :provientDe         :scelle_65871;
+        :typeDrogue         "Cocaïne" .
+
+:echantillon_14204  rdf:type  :Echantillon;
+        :aAspectExterne     :aspect_poudres;
+        :aPrincipeActif     :principe_actif_59662;
+        :aProduitCoupage    :produit_coupage_73577 , :produit_coupage_73578;
+        :couleur            "Blanche";
+        :id                 "14204";
+        :logo               "Non";
+        :numeroEchantillon  "PC";
+        :ovule              "0";
+        :provientDe         :scelle_67321;
+        :typeDrogue         "Cocaïne" .
+
+:aAspectInterne  rdf:type   owl:FunctionalProperty , owl:ObjectProperty;
+        rdfs:domain         :Echantillon;
+        rdfs:range          :Aspect;
+        rdfs:subPropertyOf  owl:topObjectProperty;
+        owl:inverseOf       :estAspectInterneDe .
+
+:aspect_cristaux  rdf:type  :Aspect;
+        :libelleAspect  "Cristaux" .
+
+:echantillon_13008  rdf:type  :Echantillon;
+        :aAspectExterne     :aspect_comprimes;
+        :aPrincipeActif     :principe_actif_58694;
+        :abime              "Non";
+        :couleur            "Vert";
+        :couleurInterieur   "Vert";
+        :epaisseur          "5,15";
+        :forme              "Rectangulaire / Carré";
+        :hauteur            "8,05";
+        :id                 "13008";
+        :largeur            "12,48";
+        :logo               "Oui";
+        :masse              "494";
+        :nomLogo            "Heineken";
+        :numeroEchantillon  "2-2";
+        :provientDe         :scelle_66245;
+        :secabiliteRecto    "Aucune";
+        :secabiliteVerso    "Demi";
+        :typeDrogue         "Amphétamine et dérivés" .
+
+:estVilleService  rdf:type  owl:InverseFunctionalProperty , owl:ObjectProperty;
+        rdfs:subPropertyOf  owl:topObjectProperty .
+
+:numeroScelle  rdf:type  owl:FunctionalProperty , owl:DatatypeProperty;
+        rdfs:range  xsd:string .
+
+:scelle_65883  rdf:type  :Scelle;
+        :estDansSaisine  :saisine_28002;
+        :id              "65883" .
+
+:principe_actif_58327
+        rdf:type         :PrincipeActif , :Composant;
+        :aFormeChimique  :forme_chimique_chlorhydrate;
+        :aSubstance      :substance_359;
+        :dosage          "26.5"^^xsd:float .
+
+:scelle_67321  rdf:type  :Scelle;
+        :estDansSaisine  :saisine_28570;
+        :id              "67321" .
+
+:scelle_65869  rdf:type  :Scelle;
+        :estDansSaisine  :saisine_27997;
+        :id              "65869" .
+
+:produit_coupage_73284
+        rdf:type     :ProduitCoupage , :Composant;
+        :aSubstance  :substance_309;
+        :dosage      "0.0"^^xsd:float .
+
+:echantillon_13395  rdf:type  :Echantillon;
+        :aAspectExterne     :aspect_poudres;
+        :aPrincipeActif     :principe_actif_58977;
+        :commentaire        "4F-MPH confirmé en IRTF";
+        :couleur            "Jaune";
+        :id                 "13395";
+        :logo               "Non";
+        :numeroEchantillon  "5699";
+        :ovule              "0";
+        :provientDe         :scelle_66584;
+        :typeDrogue         "Divers" .
+
+:estDansRegion  rdf:type    owl:FunctionalProperty , owl:ObjectProperty;
+        rdfs:subPropertyOf  owl:topObjectProperty .
+
+:saisine_28171  rdf:type  :Saisine;
+        :date     "2022-02-16T23:00:00Z"^^xsd:dateTime;
+        :id       "28171" .
+
+:substance_83  rdf:type  :Substance;
+        :nomSubstance  "Phénacétine" .
+
+:echantillon_13626  rdf:type  :Echantillon;
+        :aAspectExterne     :aspect_comprimes;
+        :aPrincipeActif     :principe_actif_59137;
+        :aProduitCoupage    :produit_coupage_73284;
+        :abime              "Non";
+        :couleur            "Blanche";
+        :diametre           "8,17";
+        :epaisseur          "3,32";
+        :forme              "Circulaire";
+        :id                 "13626";
+        :logo               "Oui";
+        :masse              "245";
+        :nomLogo            "LETAP";
+        :numeroEchantillon  "3-3";
+        :provientDe         :scelle_66743;
+        :secabiliteRecto    "Aucune";
+        :secabiliteVerso    "Demi";
+        :typeDrogue         "Divers" .
+
+:echantillon_14135  rdf:type  :Echantillon;
+        :aAspectExterne     :aspect_resines;
+        :aPrincipeActif     :principe_actif_59593;
+        :id                 "14135";
+        :logo               "Non";
+        :numeroEchantillon  "SR1";
+        :presentation       "Morceaux";
+        :provientDe         :scelle_67238;
+        :typeDrogue         "Cannabis" .
+
+:aspect_substances_dissimulees
+        rdf:type        :Aspect;
+        :libelleAspect  "Substances Dissimulées" .
+
+:saisine_28157  rdf:type  :Saisine;
+        :date     "2022-02-20T23:00:00Z"^^xsd:dateTime , "2022-02-23T23:00:00Z"^^xsd:dateTime;
+        :id       "28157" .
+
+:substance_69  rdf:type  :Substance;
+        :nomSubstance  "O3-Monoacétylmorphine  (3MAM)" .
+
+:saisine_27971  rdf:type  :Saisine;
+        :date     "2022-02-16T23:00:00Z"^^xsd:dateTime , "2022-02-17T23:00:00Z"^^xsd:dateTime;
+        :id       "27971" .
+
+:principe_actif_58479
+        rdf:type         :PrincipeActif , :Composant;
+        :aFormeChimique  :forme_chimique_indeterminee;
+        :aSubstance      :substance_600;
+        :dosage          "0.0"^^xsd:float .
+
+:produit_coupage_72895
+        rdf:type     :ProduitCoupage , :Composant;
+        :aSubstance  :substance_70;
+        :dosage      "0.0"^^xsd:float .
+
+:scelle_65989  rdf:type  :Scelle;
+        :estDansSaisine  :saisine_28036;
+        :id              "65989" .
+
+:aEchantillon  rdf:type     owl:InverseFunctionalProperty , owl:ObjectProperty;
+        rdfs:domain         :Scelle;
+        rdfs:range          :Echantillon;
+        rdfs:subPropertyOf  owl:topObjectProperty;
+        owl:inverseOf       :provientDe .
+
+:scelle_66245  rdf:type  :Scelle;
+        :estDansSaisine  :saisine_28162;
+        :id              "66245" .
+
+:FormeChimique  rdf:type     owl:Class;
+        rdfs:comment         "Une forme chimique (Base, HCL, Base et HCL, Sulfate, Chlorhydrate, Phosphate ou Indéterminée) est associée à un principe actif pour décrire sa forme chimique.";
+        owl:equivalentClass  [ rdf:type            owl:Restriction;
+                               owl:onProperty      :estFormeChimiqueDe;
+                               owl:someValuesFrom  :PrincipeActif
+                             ] .
+
+:principe_actif_58977
+        rdf:type         :PrincipeActif , :Composant;
+        :aFormeChimique  :forme_chimique_indeterminee;
+        :aSubstance      :substance_450;
+        :dosage          "0.0"^^xsd:float .
+
+:Region  rdf:type            owl:Class;
+        rdfs:comment         "Une région a un ou plusieurs département est dans un un pays.";
+        owl:equivalentClass  [ rdf:type            owl:Class;
+                               owl:intersectionOf  ( [ rdf:type            owl:Restriction;
+                                                       owl:onProperty      :aDepartement;
+                                                       owl:someValuesFrom  :Departement
+                                                     ]
+                                                     [ rdf:type                  owl:Restriction;
+                                                       owl:onClass               :Pays;
+                                                       owl:onProperty            :estDansPays;
+                                                       owl:qualifiedCardinality  "1"^^xsd:nonNegativeInteger
+                                                     ]
+                                                   )
+                             ] .
+
+:scelle_66743  rdf:type  :Scelle;
+        :estDansSaisine  :saisine_28332;
+        :id              "66743" .
+
+:echantillon_13041  rdf:type  :Echantillon;
+        :aAspectExterne     :aspect_vegetaux;
+        :aPrincipeActif     :principe_actif_58726;
+        :id                 "13041";
+        :logo               "Non";
+        :numeroEchantillon  "01-1/STUP";
+        :presentation       "Sommités";
+        :provientDe         :scelle_66283;
+        :typeDrogue         "Cannabis" .
+
+:principe_actif_58503
+        rdf:type         :PrincipeActif , :Composant;
+        :aFormeChimique  :forme_chimique_chlorhydrate;
+        :aSubstance      :substance_296;
+        :dosage          "54.0"^^xsd:float .
+
+:echantillon_12739  rdf:type  :Echantillon;
+        :aAspectExterne     :aspect_substances_dissimulees;
+        :aPrincipeActif     :principe_actif_58485;
+        :id                 "12739";
+        :logo               "Oui";
+        :nomLogo            "TORO taureau";
+        :numeroEchantillon  "2-4";
+        :presentation       "Pâte";
+        :provientDe         :scelle_66033;
+        :typeDrogue         "Cocaïne" .
+
+<http://swrl.stanford.edu/ontologies/3.3/swrla.owl#isRuleEnabled>
+        rdf:type  owl:AnnotationProperty .
+
+:principe_actif_59219
+        rdf:type         :PrincipeActif , :Composant;
+        :aFormeChimique  :forme_chimique_indeterminee;
+        :aSubstance      :substance_267;
+        :dosage          "2.2"^^xsd:float .
+
+:produit_coupage_72905
+        rdf:type     :ProduitCoupage , :Composant;
+        :aSubstance  :substance_240;
+        :dosage      "15.5"^^xsd:float .
+
+:scelle_65870  rdf:type  :Scelle;
+        :estDansSaisine  :saisine_27997;
+        :id              "65870" .
+
+:scelle_67238  rdf:type  :Scelle;
+        :estDansSaisine  :saisine_28549;
+        :id              "67238" .
+
+:scelle_67095  rdf:type  :Scelle;
+        :estDansSaisine  :saisine_28501;
+        :id              "67095" .
+
+:trace  rdf:type    owl:FunctionalProperty , owl:DatatypeProperty;
+        rdfs:range  xsd:boolean .
+
+:echantillon_12652  rdf:type  :Echantillon;
+        :aAspectExterne     :aspect_vegetaux;
+        :aPrincipeActif     :principe_actif_58410;
+        :id                 "12652";
+        :logo               "Non";
+        :numeroEchantillon  "22_100289";
+        :presentation       "Sommités";
+        :provientDe         :scelle_65983;
+        :typeDrogue         "Cannabis" .
+
+:Pays   rdf:type             owl:Class;
+        rdfs:comment         "Un pays a une ou plusieurs régions";
+        owl:equivalentClass  [ rdf:type            owl:Restriction;
+                               owl:onProperty      :aRegion;
+                               owl:someValuesFrom  :Region
+                             ] .
+
+:saisine_28508  rdf:type  :Saisine;
+        :date     "2022-02-26T23:00:00Z"^^xsd:dateTime , "2022-03-21T23:00:00Z"^^xsd:dateTime;
+        :id       "28508" .
+
+:principe_actif_59132
+        rdf:type         :PrincipeActif , :Composant;
+        :aFormeChimique  :forme_chimique_chlorhydrate;
+        :aSubstance      :substance_359;
+        :dosage          "98.0"^^xsd:float .
+
+:substance_70  rdf:type  :Substance;
+        :nomSubstance  "O6-Monoacétylmorphine (6MAM)" .
+
+:principe_actif_58402
+        rdf:type         :PrincipeActif , :Composant;
+        :aFormeChimique  :forme_chimique_chlorhydrate;
+        :aSubstance      :substance_263;
+        :dosage          "83.0"^^xsd:float .
+
+:estProcheChimiquementDe
+        rdf:type            owl:IrreflexiveProperty , owl:TransitiveProperty , owl:SymmetricProperty , owl:ObjectProperty;
+        rdfs:domain         :Echantillon;
+        rdfs:range          :Echantillon;
+        rdfs:subPropertyOf  owl:topObjectProperty .
+
+:produit_coupage_73534
+        rdf:type     :ProduitCoupage , :Composant;
+        :aSubstance  :substance_265;
+        :dosage      "0.0"^^xsd:float .
+
+:principe_actif_58687
+        rdf:type         :PrincipeActif , :Composant;
+        :aFormeChimique  :forme_chimique_indeterminee;
+        :aSubstance      :substance_600;
+        :dosage          "0.0"^^xsd:float .
+
+:principe_actif_59662
+        rdf:type         :PrincipeActif , :Composant;
+        :aFormeChimique  :forme_chimique_chlorhydrate;
+        :aSubstance      :substance_263;
+        :dosage          "38.6"^^xsd:float .
+
+:principe_actif_59196
+        rdf:type         :PrincipeActif , :Composant;
+        :aFormeChimique  :forme_chimique_indeterminee;
+        :aSubstance      :substance_338;
+        :dosage          "0.0"^^xsd:float .
+
+:produit_coupage_72882
+        rdf:type     :ProduitCoupage , :Composant;
+        :aSubstance  :substance_70;
+        :dosage      "0.0"^^xsd:float .
+
+:echantillon_12740  rdf:type  :Echantillon;
+        :aAspectExterne     :aspect_substances_dissimulees;
+        :aPrincipeActif     :principe_actif_58485;
+        :id                 "12740";
+        :logo               "Oui";
+        :nomLogo            "TORO taureau";
+        :numeroEchantillon  "2-5";
+        :presentation       "Pâte";
+        :provientDe         :scelle_66033;
+        :typeDrogue         "Cocaïne" .
+
+:aspect_vegetaux  rdf:type  :Aspect;
+        :libelleAspect  "Végétaux" .
+
+:echantillon_12551  rdf:type  :Echantillon;
+        :aAspectExterne     :aspect_comprimes;
+        :aPrincipeActif     :principe_actif_58327;
+        :abime              "Non";
+        :couleur            "Rose";
+        :couleurInterieur   "Rose";
+        :epaisseur          "4,47";
+        :forme              "Autre";
+        :hauteur            "9,12";
+        :id                 "12551";
+        :largeur            "16,21";
+        :logo               "Oui";
+        :masse              "500";
+        :nomLogo            "SOUND CLOUD nuage";
+        :numeroEchantillon  "1";
+        :provientDe         :scelle_65883;
+        :secabiliteRecto    "Aucune";
+        :secabiliteVerso    "Demi";
+        :typeDrogue         "Amphétamine et dérivés" .
+
+:scelle_66043  rdf:type  :Scelle;
+        :estDansSaisine  :saisine_28072;
+        :id              "66043" .
+
+:echantillon_12758  rdf:type  :Echantillon;
+        :aAspectExterne     :aspect_poudres;
+        :aPrincipeActif     :principe_actif_58503;
+        :aProduitCoupage    :produit_coupage_72895 , :produit_coupage_72894 , :produit_coupage_72896 , :produit_coupage_72897 , :produit_coupage_72899 , :produit_coupage_72900 , :produit_coupage_72898 , :produit_coupage_72893;
+        :couleur            "Beige";
+        :id                 "12758";
+        :logo               "Non";
+        :numeroEchantillon  "H3";
+        :ovule              "0";
+        :provientDe         :scelle_66045;
+        :typeDrogue         "Héroïne" .
+
+:scelle_66029  rdf:type  :Scelle;
+        :estDansSaisine  :saisine_28062;
+        :id              "66029" .
+
+:echantillon_13719  rdf:type  :Echantillon;
+        :aAspectExterne     :aspect_vegetaux;
+        :aPrincipeActif     :principe_actif_59219;
+        :id                 "13719";
+        :logo               "Non";
+        :numeroEchantillon  "4A/TIC";
+        :presentation       "Plantes";
+        :provientDe         :scelle_66823;
+        :typeDrogue         "Cannabis" .
+
+:empreinte  rdf:type  owl:FunctionalProperty , owl:DatatypeProperty;
+        rdfs:range  xsd:string .
+
+:echantillon_14007  rdf:type  :Echantillon;
+        :aAspectExterne     :aspect_poudres;
+        :aPrincipeActif     :principe_actif_59468;
+        :commentaire        "3-HO-PCP";
+        :couleur            "Blanche";
+        :id                 "14007";
+        :logo               "Non";
+        :numeroEchantillon  "1";
+        :ovule              "0";
+        :provientDe         :scelle_67085;
+        :typeDrogue         "Divers" .
+
+:principe_actif_59593
+        rdf:type         :PrincipeActif , :Composant;
+        :aFormeChimique  :forme_chimique_indeterminee;
+        :aSubstance      :substance_267;
+        :dosage          "27.0"^^xsd:float .
+
+:produit_coupage_72767
+        rdf:type     :ProduitCoupage , :Composant;
+        :aSubstance  :substance_83;
+        :dosage      "0.0"^^xsd:float .
+
+:substance_359  rdf:type  :Substance;
+        :nomSubstance  "3,4-méthylène-dioxy-méthylamphétamine (MDMA)" .
+
+:principe_actif_58421
+        rdf:type         :PrincipeActif , :Composant;
+        :aFormeChimique  :forme_chimique_chlorhydrate;
+        :aSubstance      :substance_263;
+        :dosage          "83.6"^^xsd:float .
+
+:echantillon_14141  rdf:type  :Echantillon;
+        :aAspectExterne     :aspect_resines;
+        :aPrincipeActif     :principe_actif_59597;
+        :id                 "14141";
+        :logo               "Non";
+        :numeroEchantillon  "S1";
+        :presentation       "Morceaux";
+        :provientDe         :scelle_67241;
+        :typeDrogue         "Cannabis" .
+
+:principe_actif_59603
+        rdf:type         :PrincipeActif , :Composant;
+        :aFormeChimique  :forme_chimique_chlorhydrate;
+        :aSubstance      :substance_263;
+        :dosage          "32.6"^^xsd:float .
+
+:produit_coupage_73009
+        rdf:type     :ProduitCoupage , :Composant;
+        :aSubstance  :substance_104;
+        :dosage      "0.0"^^xsd:float .
+
+:principe_actif_59137
+        rdf:type         :PrincipeActif , :Composant;
+        :aFormeChimique  :forme_chimique_chlorhydrate;
+        :aSubstance      :substance_551;
+        :dosage          "0.0"^^xsd:float .
+
+:Service  rdf:type           owl:Class;
+        rdfs:comment         "Il existe deux types de services : les services requérants et les services capteurs. Tous les services sont identifiés par un nom. De plus un service est localisé dans une ville et peut être associé à un certain nombre d’informations administratives (numéro de téléphone etc.).";
+        owl:equivalentClass  [ rdf:type                  owl:Restriction;
+                               owl:onClass               :Ville;
+                               owl:onProperty            :estSitueA;
+                               owl:qualifiedCardinality  "1"^^xsd:nonNegativeInteger
+                             ] .
+
+:Substance  rdf:type         owl:Class;
+        rdfs:comment         "Le concept de substance est le même que celui de la chimie. Ici, il est utilisé pour représenter la substance à laquelle sont reliés les composants d’un échantillon (Principe actif et Produit de coupage) ainsi que les pics d’un profil. Une substance à un nom.";
+        owl:equivalentClass  [ rdf:type     owl:Class;
+                               owl:unionOf  ( [ rdf:type            owl:Restriction;
+                                                owl:onProperty      :estRepresenteePar;
+                                                owl:someValuesFrom  :Pic
+                                              ]
+                                              [ rdf:type            owl:Restriction;
+                                                owl:onProperty      :estSubstanceDe;
+                                                owl:someValuesFrom  :Composant
+                                              ]
+                                            )
+                             ] .
+
+:substance_75  rdf:type  :Substance;
+        :nomSubstance  "Papavérine" .
+
+:echantillon_13618  rdf:type  :Echantillon;
+        :aAspectExterne     :aspect_cristaux;
+        :aPrincipeActif     :principe_actif_59133;
+        :couleur            "Beige";
+        :id                 "13618";
+        :logo               "Non";
+        :numeroEchantillon  "1-4";
+        :ovule              "0";
+        :provientDe         :scelle_66741;
+        :typeDrogue         "Amphétamine et dérivés" .
+
+:principe_actif_58485
+        rdf:type         :PrincipeActif , :Composant;
+        :aFormeChimique  :forme_chimique_chlorhydrate;
+        :aSubstance      :substance_263;
+        :dosage          "85.2"^^xsd:float .
+
+:substance_240  rdf:type  :Substance;
+        :nomSubstance  "Caféine" .
+
+:produit_coupage_72855
+        rdf:type     :ProduitCoupage , :Composant;
+        :aSubstance  :substance_287;
+        :dosage      "0.0"^^xsd:float .
+
+:produit_coupage_73539
+        rdf:type     :ProduitCoupage , :Composant;
+        :aSubstance  :substance_265;
+        :dosage      "0.0"^^xsd:float .
+
+:principe_actif_58264
+        rdf:type         :PrincipeActif , :Composant;
+        :aFormeChimique  :forme_chimique_indeterminee;
+        :aSubstance      :substance_267;
+        :dosage          "0.0"^^xsd:float .
+
+:produit_coupage_72887
+        rdf:type     :ProduitCoupage , :Composant;
+        :aSubstance  :substance_363;
+        :dosage      "0.0"^^xsd:float .
+
+:echantillon_13720  rdf:type  :Echantillon;
+        :aAspectExterne     :aspect_vegetaux;
+        :aPrincipeActif     :principe_actif_59219;
+        :id                 "13720";
+        :logo               "Non";
+        :numeroEchantillon  "6A/TIC";
+        :presentation       "Plantes";
+        :provientDe         :scelle_66824;
+        :typeDrogue         "Cannabis" .
+
+:echantillon_12745  rdf:type  :Echantillon;
+        :aAspectExterne     :aspect_substances_dissimulees;
+        :aPrincipeActif     :principe_actif_58490;
+        :id                 "12745";
+        :logo               "Oui";
+        :nomLogo            "SKALA Brasil";
+        :numeroEchantillon  "2-10";
+        :presentation       "Pâte";
+        :provientDe         :scelle_66033;
+        :typeDrogue         "Cocaïne" .
+
+:scelle_66283  rdf:type  :Scelle;
+        :estDansSaisine  :saisine_28179;
+        :id              "66283" .
+
+:principe_actif_58716
+        rdf:type         :PrincipeActif , :Composant;
+        :aFormeChimique  :forme_chimique_indeterminee;
+        :aSubstance      :substance_267;
+        :dosage          "40.5"^^xsd:float .
+
+:scelle_67244  rdf:type  :Scelle;
+        :estDansSaisine  :saisine_28549;
+        :id              "67244" .
+
+:saisine_28030  rdf:type  :Saisine;
+        :date     "2022-02-23T23:00:00Z"^^xsd:dateTime , "2022-02-24T23:00:00Z"^^xsd:dateTime;
+        :id       "28030" .
+
+:saisine_28062  rdf:type  :Saisine;
+        :date     "2022-02-16T23:00:00Z"^^xsd:dateTime , "2022-02-20T23:00:00Z"^^xsd:dateTime;
+        :id       "28062" .
+
+:aPrincipeActif  rdf:type   owl:InverseFunctionalProperty , owl:FunctionalProperty , owl:ObjectProperty;
+        rdfs:domain         :Echantillon;
+        rdfs:range          :PrincipeActif;
+        rdfs:subPropertyOf  owl:topObjectProperty;
+        owl:inverseOf       :estPrincipeActifDe .
+
+:saisine_28269  rdf:type  :Saisine;
+        :date     "2022-02-17T23:00:00Z"^^xsd:dateTime , "2022-02-27T23:00:00Z"^^xsd:dateTime;
+        :id       "28269" .
+
+:scelle_66823  rdf:type  :Scelle;
+        :estDansSaisine  :saisine_28370;
+        :id              "66823" .
+
+:aUnite  rdf:type           owl:ObjectProperty;
+        rdfs:subPropertyOf  owl:topObjectProperty;
+        owl:inverseOf       :estUniteDe .
+
+:Pic    rdf:type             owl:Class;
+        rdfs:comment         "Un pic d’un profil chimique caractérise un composé chimique (molécule) présent dans l’échantillon. Chaque pic est caractérisé par un temps de rétention et une aire, correspondant à la quantité du composé cible dans l’échantillon.";
+        owl:equivalentClass  [ rdf:type                  owl:Restriction;
+                               owl:onClass               :Substance;
+                               owl:onProperty            :representeSubstance;
+                               owl:qualifiedCardinality  "1"^^xsd:nonNegativeInteger
+                             ] .
+
+:principe_actif_59598
+        rdf:type         :PrincipeActif , :Composant;
+        :aFormeChimique  :forme_chimique_indeterminee;
+        :aSubstance      :substance_267;
+        :dosage          "30.0"^^xsd:float .
+
+:produit_coupage_73540
+        rdf:type     :ProduitCoupage , :Composant;
+        :aSubstance  :substance_287;
+        :dosage      "0.0"^^xsd:float .
+
+:produit_coupage_73572
+        rdf:type     :ProduitCoupage , :Composant;
+        :aSubstance  :substance_70;
+        :dosage      "3.9"^^xsd:float .
+
+:echantillon_14146  rdf:type  :Echantillon;
+        :aAspectExterne     :aspect_vegetaux;
+        :aPrincipeActif     :principe_actif_59599;
+        :id                 "14146";
+        :logo               "Non";
+        :numeroEchantillon  "SB11";
+        :presentation       "Sommités";
+        :provientDe         :scelle_67247;
+        :typeDrogue         "Cannabis" .
+
+:echantillon_12732  rdf:type  :Echantillon;
+        :aAspectExterne     :aspect_poudres;
+        :aPrincipeActif     :principe_actif_58479;
+        :aProduitCoupage    :produit_coupage_72872;
+        :couleur            "Blanche";
+        :id                 "12732";
+        :logo               "Non";
+        :numeroEchantillon  "22_100291";
+        :ovule              "0";
+        :provientDe         :scelle_66029;
+        :typeDrogue         "Divers" .
+
+:aPaysDestination  rdf:type  owl:FunctionalProperty , owl:ObjectProperty;
+        rdfs:domain         :Saisine;
+        rdfs:range          :Pays;
+        rdfs:subPropertyOf  owl:topObjectProperty;
+        owl:inverseOf       :estPaysDestinationDe .
+
+:echantillon_14178  rdf:type  :Echantillon;
+        :aAspectExterne     :aspect_poudres;
+        :aPrincipeActif     :principe_actif_59641;
+        :aProduitCoupage    :produit_coupage_73576 , :produit_coupage_73575 , :produit_coupage_73572 , :produit_coupage_73574 , :produit_coupage_73573;
+        :couleur            "Beige";
+        :id                 "14178";
+        :logo               "Non";
+        :numeroEchantillon  "16718";
+        :ovule              "0";
+        :provientDe         :scelle_67293;
+        :typeDrogue         "Héroïne" .
+
+:nomSubstance  rdf:type  owl:FunctionalProperty , owl:DatatypeProperty;
+        rdfs:range  xsd:string .
+
+:echantillon_12543  rdf:type  :Echantillon;
+        :aAspectExterne     :aspect_poudres;
+        :aPrincipeActif     :principe_actif_58317;
+        :couleur            "Blanche";
+        :id                 "12543";
+        :logo               "Non";
+        :numeroEchantillon  "22_100266";
+        :ovule              "1";
+        :provientDe         :scelle_65868;
+        :typeDrogue         "Cocaïne" .
+
+:echantillon_13006  rdf:type  :Echantillon;
+        :aAspectExterne     :aspect_comprimes;
+        :aPrincipeActif     :principe_actif_58694;
+        :abime              "Non";
+        :couleur            "Vert";
+        :couleurInterieur   "Vert";
+        :epaisseur          "5,15";
+        :forme              "Rectangulaire / Carré";
+        :hauteur            "8,05";
+        :id                 "13006";
+        :largeur            "12,48";
+        :logo               "Oui";
+        :masse              "494";
+        :nomLogo            "Heineken";
+        :numeroEchantillon  "1-3";
+        :provientDe         :scelle_66244;
+        :secabiliteRecto    "Aucune";
+        :secabiliteVerso    "Demi";
+        :typeDrogue         "Amphétamine et dérivés" .
+
+:echantillon_14013  rdf:type  :Echantillon;
+        :aAspectExterne     :aspect_resines;
+        :aPrincipeActif     :principe_actif_59474;
+        :epaisseur          "27.8";
+        :etiquette          "Oui";
+        :id                 "14013";
+        :largeur            "56.5";
+        :logo               "Oui";
+        :longueur           "97";
+        :masse              "96.3";
+        :nomLogo            "m & m";
+        :numeroEchantillon  "22_100471";
+        :presentation       "Plaquette";
+        :provientDe         :scelle_67099;
+        :typeDrogue         "Cannabis" .
+
+:saisine_28501  rdf:type  :Saisine;
+        :date     "2022-02-24T23:00:00Z"^^xsd:dateTime , "2022-03-10T23:00:00Z"^^xsd:dateTime;
+        :id       "28501" .
+
+:saisine_28035  rdf:type  :Saisine;
+        :date     "2022-02-21T23:00:00Z"^^xsd:dateTime , "2022-02-22T23:00:00Z"^^xsd:dateTime;
+        :id       "28035" .
+
+:scelle_65867  rdf:type  :Scelle;
+        :estDansSaisine  :saisine_27997;
+        :id              "65867" .
+
+:echantillon_12663  rdf:type  :Echantillon;
+        :aAspectExterne     :aspect_poudres;
+        :aPrincipeActif     :principe_actif_58421;
+        :couleur            "Blanche";
+        :id                 "12663";
+        :logo               "Non";
+        :numeroEchantillon  "1";
+        :ovule              "1";
+        :provientDe         :scelle_65988;
+        :typeDrogue         "Cocaïne" .
+
+:principe_actif_58389
+        rdf:type         :PrincipeActif , :Composant;
+        :aFormeChimique  :forme_chimique_chlorhydrate;
+        :aSubstance      :substance_263;
+        :dosage          "91.1"^^xsd:float .
+
+:aScelle  rdf:type          owl:InverseFunctionalProperty , owl:ObjectProperty;
+        rdfs:domain         :Saisine;
+        rdfs:range          :Scelle;
+        rdfs:subPropertyOf  owl:topObjectProperty;
+        owl:inverseOf       :estDansSaisine .
+
+:principe_actif_59641
+        rdf:type         :PrincipeActif , :Composant;
+        :aFormeChimique  :forme_chimique_base;
+        :aSubstance      :substance_296;
+        :dosage          "53.5"^^xsd:float .
+
+:echantillon_13624  rdf:type  :Echantillon;
+        :aAspectExterne     :aspect_comprimes;
+        :aPrincipeActif     :principe_actif_59137;
+        :aProduitCoupage    :produit_coupage_73284;
+        :abime              "Non";
+        :couleur            "Blanche";
+        :diametre           "8,17";
+        :epaisseur          "3,32";
+        :forme              "Circulaire";
+        :id                 "13624";
+        :logo               "Oui";
+        :masse              "245";
+        :nomLogo            "LETAP";
+        :numeroEchantillon  "3-1";
+        :provientDe         :scelle_66743;
+        :secabiliteRecto    "Aucune";
+        :secabiliteVerso    "Demi";
+        :typeDrogue         "Divers" .
+
+:principe_actif_58491
+        rdf:type         :PrincipeActif , :Composant;
+        :aFormeChimique  :forme_chimique_chlorhydrate;
+        :aSubstance      :substance_263;
+        :dosage          "87.5"^^xsd:float .
+
+:produit_coupage_73545
+        rdf:type     :ProduitCoupage , :Composant;
+        :aSubstance  :substance_299;
+        :dosage      "0.0"^^xsd:float .
+
+:aServiceCapteur  rdf:type  owl:FunctionalProperty , owl:ObjectProperty;
+        rdfs:domain         :Saisine;
+        rdfs:range          :ServiceCapteur;
+        rdfs:subPropertyOf  owl:topObjectProperty;
+        owl:inverseOf       :estServiceCapteurDe .
+
+:produit_coupage_72893
+        rdf:type     :ProduitCoupage , :Composant;
+        :aSubstance  :substance_363;
+        :dosage      "0.0"^^xsd:float .
+
+:produit_coupage_73577
+        rdf:type     :ProduitCoupage , :Composant;
+        :aSubstance  :substance_240;
+        :dosage      "0.0"^^xsd:float .
+
+:principe_actif_58975
+        rdf:type         :PrincipeActif , :Composant;
+        :aFormeChimique  :forme_chimique_indeterminee;
+        :aSubstance      :substance_513;
+        :dosage          "0.0"^^xsd:float .
+
+:scelle_66741  rdf:type  :Scelle;
+        :estDansSaisine  :saisine_28332;
+        :id              "66741" .
+
+:principe_actif_58501
+        rdf:type         :PrincipeActif , :Composant;
+        :aFormeChimique  :forme_chimique_chlorhydrate;
+        :aSubstance      :substance_296;
+        :dosage          "51.2"^^xsd:float .
+
+:echantillon_12737  rdf:type  :Echantillon;
+        :aAspectExterne     :aspect_substances_dissimulees;
+        :aPrincipeActif     :principe_actif_58483;
+        :id                 "12737";
+        :logo               "Oui";
+        :nomLogo            "SCOTT";
+        :numeroEchantillon  "2-3";
+        :presentation       "Pâte";
+        :provientDe         :scelle_66033;
+        :typeDrogue         "Cocaïne" .
+
+:PrincipeActif  rdf:type     owl:Class;
+        rdfs:comment         "Un principe actif est la principale substance d’un échantillon. Tout principe actif a une forme chimique.";
+        rdfs:subClassOf      :Composant;
+        owl:disjointWith     :ProduitCoupage;
+        owl:equivalentClass  [ rdf:type            owl:Class;
+                               owl:intersectionOf  ( [ rdf:type                  owl:Restriction;
+                                                       owl:onClass               :FormeChimique;
+                                                       owl:onProperty            :aFormeChimique;
+                                                       owl:qualifiedCardinality  "1"^^xsd:nonNegativeInteger
+                                                     ]
+                                                     [ rdf:type                  owl:Restriction;
+                                                       owl:onClass               :Echantillon;
+                                                       owl:onProperty            :estPrincipeActifDe;
+                                                       owl:qualifiedCardinality  "1"^^xsd:nonNegativeInteger
+                                                     ]
+                                                   )
+                             ] .
+
+:estFaitA  rdf:type         owl:FunctionalProperty , owl:ObjectProperty;
+        rdfs:subPropertyOf  owl:topObjectProperty;
+        owl:inverseOf       :estLieuSaisineDe .
+
+:substance_296  rdf:type  :Substance;
+        :nomSubstance  "Héroïne" .
+
+:pic    rdf:type  owl:AnnotationProperty .
+
+:produit_coupage_72903
+        rdf:type     :ProduitCoupage , :Composant;
+        :aSubstance  :substance_334;
+        :dosage      "0.0"^^xsd:float .
+
+:scelle_66584  rdf:type  :Scelle;
+        :estDansSaisine  :saisine_28269;
+        :id              "66584" .
+
+:echantillon_12650  rdf:type  :Echantillon;
+        :aAspectExterne     :aspect_poudres;
+        :aPrincipeActif     :principe_actif_58408;
+        :couleur            "Blanche";
+        :id                 "12650";
+        :logo               "Non";
+        :numeroEchantillon  "J";
+        :ovule              "0";
+        :provientDe         :scelle_65980;
+        :typeDrogue         "Cocaïne" .
+
+:longueur  rdf:type  owl:FunctionalProperty , owl:DatatypeProperty;
+        rdfs:range  xsd:float .
+
+:principe_actif_59130
+        rdf:type         :PrincipeActif , :Composant;
+        :aFormeChimique  :forme_chimique_chlorhydrate;
+        :aSubstance      :substance_359;
+        :dosage          "95.0"^^xsd:float .
+
+:nomLogo  rdf:type  owl:FunctionalProperty , owl:DatatypeProperty;
+        rdfs:range  xsd:string .
+
+:substance_338  rdf:type  :Substance;
+        :nomSubstance  "N,N-diéthyllysergamide (LSD)" .
+
+:echantillon_23736  rdf:type  :Echantillon;
+        :aAspectExterne     :aspect_poudres;
+        :aPrincipeActif     :principe_actif_59600;
+        :aProduitCoupage    :produit_coupage_73528 , :produit_coupage_73531 , :produit_coupage_73530 , :produit_coupage_73529 , :produit_coupage_73527;
+        :couleur            "Blanche";
+        :id                 "23736";
+        :logo               "Non";
+        :numeroEchantillon  "Profilage moyen 1";
+        :ovule              "0";
+        :provientDe         :scelle_67245;
+        :typeDrogue         "Cocaïne" .
+
+:produit_coupage_73532
+        rdf:type     :ProduitCoupage , :Composant;
+        :aSubstance  :substance_240;
+        :dosage      "0.0"^^xsd:float .
+
+:aspect_poudres  rdf:type  :Aspect;
+        :libelleAspect  "Poudres" .
+
+:produit_coupage_72880
+        rdf:type     :ProduitCoupage , :Composant;
+        :aSubstance  :substance_363;
+        :dosage      "0.0"^^xsd:float .
+
+:dosage  rdf:type   owl:FunctionalProperty , owl:DatatypeProperty;
+        rdfs:range  xsd:decimal .
+
+:echantillon_14138  rdf:type  :Echantillon;
+        :aAspectExterne     :aspect_resines;
+        :aPrincipeActif     :principe_actif_59595;
+        :id                 "14138";
+        :logo               "Non";
+        :numeroEchantillon  "SZA1-2";
+        :presentation       "Morceaux";
+        :provientDe         :scelle_67239;
+        :typeDrogue         "Cannabis" .
+
+:scelle_66262  rdf:type  :Scelle;
+        :estDansSaisine  :saisine_28171;
+        :id              "66262" .
+
+:produit_coupage_72898
+        rdf:type     :ProduitCoupage , :Composant;
+        :aSubstance  :substance_240;
+        :dosage      "9.8"^^xsd:float .
+
+:echantillon_12756  rdf:type  :Echantillon;
+        :aAspectExterne     :aspect_poudres;
+        :aPrincipeActif     :principe_actif_58501;
+        :aProduitCoupage    :produit_coupage_72886 , :produit_coupage_72884 , :produit_coupage_72883 , :produit_coupage_72881 , :produit_coupage_72882 , :produit_coupage_72880 , :produit_coupage_72885;
+        :couleur            "Beige";
+        :id                 "12756";
+        :logo               "Non";
+        :numeroEchantillon  "H1";
+        :ovule              "0";
+        :provientDe         :scelle_66043;
+        :typeDrogue         "Héroïne" .
+
+:estServiceCapteurDe  rdf:type  owl:InverseFunctionalProperty , owl:ObjectProperty;
+        rdfs:subPropertyOf  owl:topObjectProperty .
+
+:estDansSaisine  rdf:type   owl:FunctionalProperty , owl:ObjectProperty;
+        rdfs:subPropertyOf  owl:topObjectProperty .
+
+:echantillon_13717  rdf:type  :Echantillon;
+        :aAspectExterne     :aspect_vegetaux;
+        :aPrincipeActif     :principe_actif_59219;
+        :id                 "13717";
+        :logo               "Non";
+        :numeroEchantillon  "2A/TIC";
+        :presentation       "Plantes";
+        :provientDe         :scelle_66821;
+        :typeDrogue         "Cannabis" .
+
+:principe_actif_58317
+        rdf:type         :PrincipeActif , :Composant;
+        :aFormeChimique  :forme_chimique_chlorhydrate;
+        :aSubstance      :substance_263;
+        :dosage          "88.0"^^xsd:float .
+
+:substance_150  rdf:type  :Substance;
+        :nomSubstance  "Dextrométhorphane" .
+
+:echantillon_12623  rdf:type  :Echantillon;
+        :aAspectExterne     :aspect_poudres;
+        :aPrincipeActif     :principe_actif_58389;
+        :couleur            "Blanche";
+        :id                 "12623";
+        :logo               "Non";
+        :numeroEchantillon  "1-3";
+        :ovule              "0";
+        :provientDe         :scelle_65960;
+        :typeDrogue         "Cocaïne" .
+
+:substance_104  rdf:type  :Substance;
+        :nomSubstance  "Saccharose" .
+
+:scelle_67098  rdf:type  :Scelle;
+        :estDansSaisine  :saisine_28501;
+        :id              "67098" .
+
+:hauteur  rdf:type  owl:FunctionalProperty , owl:DatatypeProperty;
+        rdfs:range  xsd:float .
+
+:principe_actif_59601
+        rdf:type         :PrincipeActif , :Composant;
+        :aFormeChimique  :forme_chimique_chlorhydrate;
+        :aSubstance      :substance_263;
+        :dosage          "57.9"^^xsd:float .
+
+:       rdf:type  owl:Ontology .
+
+:principe_actif_59135
+        rdf:type         :PrincipeActif , :Composant;
+        :aFormeChimique  :forme_chimique_chlorhydrate;
+        :aSubstance      :substance_359;
+        :dosage          "92.0"^^xsd:float .
+
+:echantillon_13616  rdf:type  :Echantillon;
+        :aAspectExterne     :aspect_cristaux;
+        :aPrincipeActif     :principe_actif_59131;
+        :couleur            "Beige";
+        :id                 "13616";
+        :logo               "Non";
+        :numeroEchantillon  "1-2";
+        :ovule              "0";
+        :provientDe         :scelle_66741;
+        :typeDrogue         "Amphétamine et dérivés" .
+
+:principe_actif_58483
+        rdf:type         :PrincipeActif , :Composant;
+        :aFormeChimique  :forme_chimique_chlorhydrate;
+        :aSubstance      :substance_263;
+        :dosage          "85.1"^^xsd:float .
+
+:produit_coupage_73537
+        rdf:type     :ProduitCoupage , :Composant;
+        :aSubstance  :substance_240;
+        :dosage      "0.0"^^xsd:float .
+
+:echantillon_12743  rdf:type  :Echantillon;
+        :aAspectExterne     :aspect_substances_dissimulees;
+        :aPrincipeActif     :principe_actif_58488;
+        :id                 "12743";
+        :logo               "Oui";
+        :nomLogo            "Elvive L'oréal";
+        :numeroEchantillon  "2-8";
+        :presentation       "Pâte";
+        :provientDe         :scelle_66033;
+        :typeDrogue         "Cocaïne" .
+
+:produit_coupage_72885
+        rdf:type     :ProduitCoupage , :Composant;
+        :aSubstance  :substance_150;
+        :dosage      "0.0"^^xsd:float .
+
+:saisine_28179  rdf:type  :Saisine;
+        :date     "2022-02-22T23:00:00Z"^^xsd:dateTime , "2022-02-06T23:00:00Z"^^xsd:dateTime;
+        :id       "28179" .
+
+:principe_actif_58714
+        rdf:type         :PrincipeActif , :Composant;
+        :aFormeChimique  :forme_chimique_indeterminee;
+        :aSubstance      :substance_267;
+        :dosage          "17.1"^^xsd:float .
+
+:echantillon_13031  rdf:type  :Echantillon;
+        :aAspectExterne     :aspect_resines;
+        :aPrincipeActif     :principe_actif_58715;
+        :commentaire        "Echentillon identifié \"I3/C\".";
+        :epaisseur          "23";
+        :id                 "13031";
+        :largeur            "51";
+        :logo               "Non";
+        :longueur           "92";
+        :masse              "97.5";
+        :numeroEchantillon  "16638";
+        :presentation       "Plaquette";
+        :provientDe         :scelle_66262;
+        :typeDrogue         "Cannabis" .
+
+:scelle_67242  rdf:type  :Scelle;
+        :estDansSaisine  :saisine_28549;
+        :id              "67242" .
+
+:airPic  rdf:type   owl:FunctionalProperty , owl:DatatypeProperty;
+        rdfs:range  xsd:decimal .
+
+:principe_actif_59500
+        rdf:type         :PrincipeActif , :Composant;
+        :aFormeChimique  :forme_chimique_indeterminee;
+        :aSubstance      :substance_267;
+        :dosage          "31.7"^^xsd:float .
+
+:scelle_66046  rdf:type  :Scelle;
+        :estDansSaisine  :saisine_28072;
+        :id              "66046" .
+
+:libelleAspect  rdf:type  owl:FunctionalProperty , owl:DatatypeProperty;
+        rdfs:range  [ rdf:type   rdfs:Datatype;
+                      owl:oneOf  [ rdf:type   rdf:List;
+                                   rdf:first  "Billes";
+                                   rdf:rest   [ rdf:type   rdf:List;
+                                                rdf:first  "Cailloux";
+                                                rdf:rest   [ rdf:type   rdf:List;
+                                                             rdf:first  "Comprimés";
+                                                             rdf:rest   [ rdf:type   rdf:List;
+                                                                          rdf:first  "Cristaux";
+                                                                          rdf:rest   [ rdf:type   rdf:List;
+                                                                                       rdf:first  "Gélules";
+                                                                                       rdf:rest   [ rdf:type   rdf:List;
+                                                                                                    rdf:first  "Huiles";
+                                                                                                    rdf:rest   [ rdf:type   rdf:List;
+                                                                                                                 rdf:first  "Liquides";
+                                                                                                                 rdf:rest   [ rdf:type   rdf:List;
+                                                                                                                              rdf:first  "Non renseignés";
+                                                                                                                              rdf:rest   [ rdf:type   rdf:List;
+                                                                                                                                           rdf:first  "Poudres";
+                                                                                                                                           rdf:rest   [ rdf:type   rdf:List;
+                                                                                                                                                        rdf:first  "Pâtes";
+                                                                                                                                                        rdf:rest   [ rdf:type   rdf:List;
+                                                                                                                                                                     rdf:first  "Résines";
+                                                                                                                                                                     rdf:rest   [ rdf:type   rdf:List;
+                                                                                                                                                                                  rdf:first  "Substances Dissimulées";
+                                                                                                                                                                                  rdf:rest   [ rdf:type   rdf:List;
+                                                                                                                                                                                               rdf:first  "Timbres";
+                                                                                                                                                                                               rdf:rest   [ rdf:type   rdf:List;
+                                                                                                                                                                                                            rdf:first  "Végétaux";
+                                                                                                                                                                                                            rdf:rest   ()
+                                                                                                                                                                                                          ]
+                                                                                                                                                                                             ]
+                                                                                                                                                                                ]
+                                                                                                                                                                   ]
+                                                                                                                                                      ]
+                                                                                                                                         ]
+                                                                                                                            ]
+                                                                                                               ]
+                                                                                                  ]
+                                                                                     ]
+                                                                        ]
+                                                           ]
+                                              ]
+                                 ]
+                    ] .
+
+:saisine_28267  rdf:type  :Saisine;
+        :date     "2022-02-23T23:00:00Z"^^xsd:dateTime , "2022-03-02T23:00:00Z"^^xsd:dateTime;
+        :id       "28267" .
+
+:substance_312  rdf:type  :Substance;
+        :nomSubstance  "Lidocaïne" .
+
+:scelle_66821  rdf:type  :Scelle;
+        :estDansSaisine  :saisine_28370;
+        :id              "66821" .
+
+:scelle_67085  rdf:type  :Scelle;
+        :estDansSaisine  :saisine_28497;
+        :id              "67085" .
+
+:representeSubstance  rdf:type  owl:ObjectProperty;
+        rdfs:subPropertyOf  owl:topObjectProperty .
+
+:principe_actif_59596
+        rdf:type         :PrincipeActif , :Composant;
+        :aFormeChimique  :forme_chimique_indeterminee;
+        :aSubstance      :substance_267;
+        :dosage          "35.0"^^xsd:float .
+
+:scelle_65980  rdf:type  :Scelle;
+        :estDansSaisine  :saisine_28030;
+        :id              "65980" .
+
+:echantillon_14144  rdf:type  :Echantillon;
+        :aAspectExterne     :aspect_resines;
+        :aPrincipeActif     :principe_actif_59598;
+        :id                 "14144";
+        :logo               "Non";
+        :numeroEchantillon  "SB1";
+        :presentation       "Morceaux";
+        :provientDe         :scelle_67243;
+        :typeDrogue         "Cannabis" .
+
+:scelle_67127  rdf:type  :Scelle;
+        :estDansSaisine  :saisine_28508;
+        :id              "67127" .
+
+:Echantillon  rdf:type   owl:Class;
+        rdfs:comment     "Un échantillon de drogue est extrait à partir d’un prélèvement d’un scellé. Un échantillon est caractérisé par un numéro d’échantillon et son type de drogue ('cannabis', 'cocaïne', 'divers' ou 'amphétamine et dérivés'). Un échantillon a des caractéristiques macroscopiques (aspect internes et externes, couleurs etc.), un principe actif et des produits de coupage. Les experts peuvent aussi donner des commentaires sur l’échantillon. De plus, un échantillon peut être regroupé avec d’autres échantillon dans un lot.\nDans le cas des stupéfiants sur lesquels une analyse de profilage chimique est réalisée, chaque échantillon est associé à un profil chimique.";
+        rdfs:subClassOf  [ rdf:type                  owl:Restriction;
+                           owl:onDataRange           xsd:string;
+                           owl:onProperty            :numeroEchantillon;
+                           owl:qualifiedCardinality  "1"^^xsd:nonNegativeInteger
+                         ];
+        rdfs:subClassOf  [ rdf:type            owl:Restriction;
+                           owl:onProperty      :aProduitCoupage;
+                           owl:someValuesFrom  :ProduitCoupage
+                         ];
+        rdfs:subClassOf  [ rdf:type                     owl:Restriction;
+                           owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger;
+                           owl:onClass                  :ProfilChimique;
+                           owl:onProperty               :aProfilChimique
+                         ];
+        rdfs:subClassOf  [ rdf:type                     owl:Restriction;
+                           owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger;
+                           owl:onClass                  :Aspect;
+                           owl:onProperty               :aAspectInterne
+                         ];
+        rdfs:subClassOf  [ rdf:type                  owl:Restriction;
+                           owl:onDataRange           xsd:string;
+                           owl:onProperty            :typeDrogue;
+                           owl:qualifiedCardinality  "1"^^xsd:nonNegativeInteger
+                         ];
+        rdfs:subClassOf  [ rdf:type                  owl:Restriction;
+                           owl:onClass               :Aspect;
+                           owl:onProperty            :aAspectExterne;
+                           owl:qualifiedCardinality  "1"^^xsd:nonNegativeInteger
+                         ];
+        rdfs:subClassOf  [ rdf:type                     owl:Restriction;
+                           owl:minQualifiedCardinality  "0"^^xsd:nonNegativeInteger;
+                           owl:onClass                  :Echantillon;
+                           owl:onProperty               :estProcheDe
+                         ];
+        rdfs:subClassOf  [ rdf:type                  owl:Restriction;
+                           owl:onClass               :Scelle;
+                           owl:onProperty            :provientDe;
+                           owl:qualifiedCardinality  "1"^^xsd:nonNegativeInteger
+                         ];
+        rdfs:subClassOf  [ rdf:type                  owl:Restriction;
+                           owl:onClass               :PrincipeActif;
+                           owl:onProperty            :aPrincipeActif;
+                           owl:qualifiedCardinality  "1"^^xsd:nonNegativeInteger
+                         ];
+        rdfs:subClassOf  [ rdf:type                  owl:Restriction;
+                           owl:onDataRange           xsd:string;
+                           owl:onProperty            :id;
+                           owl:qualifiedCardinality  "1"^^xsd:nonNegativeInteger
+                         ] .
+
+:produit_coupage_72872
+        rdf:type     :ProduitCoupage , :Composant;
+        :aSubstance  :substance_148;
+        :dosage      "0.0"^^xsd:float .
+
+:aDepartement  rdf:type     owl:InverseFunctionalProperty , owl:ObjectProperty;
+        rdfs:subPropertyOf  owl:topObjectProperty;
+        owl:inverseOf       :estDansRegion .
+
+:echantillon_14176  rdf:type  :Echantillon;
+        :aAspectExterne     :aspect_poudres;
+        :aPrincipeActif     :principe_actif_59640;
+        :couleur            "Blanche";
+        :id                 "14176";
+        :logo               "Non";
+        :numeroEchantillon  "16716";
+        :ovule              "0";
+        :provientDe         :scelle_67292;
+        :typeDrogue         "Cocaïne" .
+
+:principe_actif_58488
+        rdf:type         :PrincipeActif , :Composant;
+        :aFormeChimique  :forme_chimique_chlorhydrate;
+        :aSubstance      :substance_263;
+        :dosage          "85.1"^^xsd:float .
+
+:echantillon_12541  rdf:type  :Echantillon;
+        :aAspectExterne     :aspect_poudres;
+        :aPrincipeActif     :principe_actif_58316;
+        :couleur            "Blanche";
+        :id                 "12541";
+        :logo               "Non";
+        :numeroEchantillon  "22_100265";
+        :ovule              "1";
+        :provientDe         :scelle_65867;
+        :typeDrogue         "Cocaïne" .
+
+:numeroLot  rdf:type  owl:FunctionalProperty , owl:DatatypeProperty;
+        rdfs:range  xsd:string .
+
+:scelle_66033  rdf:type  :Scelle;
+        :estDansSaisine  :saisine_28065;
+        :id              "66033" .
+
+:echantillon_13723  rdf:type  :Echantillon;
+        :aAspectExterne     :aspect_vegetaux;
+        :aPrincipeActif     :principe_actif_59219;
+        :id                 "13723";
+        :logo               "Non";
+        :numeroEchantillon  "7B/TIC";
+        :presentation       "Plantes";
+        :provientDe         :scelle_66827;
+        :typeDrogue         "Cannabis" .
+
+:echantillon_12573  rdf:type  :Echantillon;
+        :aAspectExterne     :aspect_poudres;
+        :aPrincipeActif     :principe_actif_58347;
+        :aProduitCoupage    :produit_coupage_72767;
+        :couleur            "Blanche";
+        :id                 "12573";
+        :logo               "Non";
+        :numeroEchantillon  "1";
+        :ovule              "0";
+        :provientDe         :scelle_65903;
+        :typeDrogue         "Cocaïne" .
+
+:echantillon_13004  rdf:type  :Echantillon;
+        :aAspectExterne     :aspect_comprimes;
+        :aPrincipeActif     :principe_actif_58694;
+        :abime              "Non";
+        :couleur            "Vert";
+        :couleurInterieur   "Vert";
+        :epaisseur          "5,15";
+        :forme              "Rectangulaire / Carré";
+        :hauteur            "8,05";
+        :id                 "13004";
+        :largeur            "12,48";
+        :logo               "Oui";
+        :masse              "494";
+        :nomLogo            "Heineken";
+        :numeroEchantillon  "1-1";
+        :provientDe         :scelle_66244;
+        :secabiliteRecto    "Aucune";
+        :secabiliteVerso    "Demi";
+        :typeDrogue         "Amphétamine et dérivés" .
+
+:visqueux  rdf:type  owl:FunctionalProperty , owl:DatatypeProperty;
+        rdfs:range  xsd:boolean .
+
+:scelle_67293  rdf:type  :Scelle;
+        :estDansSaisine  :saisine_28563;
+        :id              "67293" .
+
+:echantillon_14011  rdf:type  :Echantillon;
+        :aAspectExterne     :aspect_resines;
+        :aPrincipeActif     :principe_actif_59474;
+        :epaisseur          "27.8";
+        :etiquette          "Oui";
+        :id                 "14011";
+        :largeur            "56.5";
+        :logo               "Oui";
+        :longueur           "97";
+        :masse              "96.3";
+        :nomLogo            "m & m";
+        :numeroEchantillon  "22_100469";
+        :presentation       "Plaquette";
+        :provientDe         :scelle_67097;
+        :typeDrogue         "Cannabis" .
+
+:scelle_67247  rdf:type  :Scelle;
+        :estDansSaisine  :saisine_28549;
+        :id              "67247" .
+
+:echantillon_14043  rdf:type  :Echantillon;
+        :aAspectExterne     :aspect_poudres;
+        :aPrincipeActif     :principe_actif_59496;
+        :couleur            "Blanche";
+        :id                 "14043";
+        :logo               "Non";
+        :numeroEchantillon  "1-ECH";
+        :ovule              "0";
+        :provientDe         :scelle_67127;
+        :typeDrogue         "Cocaïne" .
+
+:saisine_28065  rdf:type  :Saisine;
+        :date     "2022-02-23T23:00:00Z"^^xsd:dateTime;
+        :id       "28065" .
+
+:substance_363  rdf:type  :Substance;
+        :nomSubstance  "Acétylcodéine" .
+
+:commentaire  rdf:type  owl:FunctionalProperty , owl:DatatypeProperty;
+        rdfs:range  xsd:string .
+
+:scelle_65819  rdf:type  :Scelle;
+        :estDansSaisine  :saisine_27975;
+        :id              "65819" .
+
+:secabiliteVerso  rdf:type  owl:FunctionalProperty , owl:DatatypeProperty;
+        rdfs:range  [ rdf:type   rdfs:Datatype;
+                      owl:oneOf  [ rdf:type   rdf:List;
+                                   rdf:first  "Aucune";
+                                   rdf:rest   [ rdf:type   rdf:List;
+                                                rdf:first  "Autre";
+                                                rdf:rest   [ rdf:type   rdf:List;
+                                                             rdf:first  "Demi";
+                                                             rdf:rest   [ rdf:type   rdf:List;
+                                                                          rdf:first  "Quart";
+                                                                          rdf:rest   ()
+                                                                        ]
+                                                           ]
+                                              ]
+                                 ]
+                    ] .
+
+:principe_actif_58387
+        rdf:type         :PrincipeActif , :Composant;
+        :aFormeChimique  :forme_chimique_indeterminee;
+        :aSubstance      :substance_267;
+        :dosage          "13.2"^^xsd:float .
+
+:saisine_28563  rdf:type  :Saisine;
+        :date     "2022-02-23T23:00:00Z"^^xsd:dateTime , "2022-03-02T23:00:00Z"^^xsd:dateTime;
+        :id       "28563" .
+
+:aAspectExterne  rdf:type   owl:FunctionalProperty , owl:ObjectProperty;
+        rdfs:domain         :Echantillon;
+        rdfs:range          :Aspect;
+        rdfs:subPropertyOf  owl:topObjectProperty;
+        owl:inverseOf       :estAspectExterneDe .
+
+:scelle_66826  rdf:type  :Scelle;
+        :estDansSaisine  :saisine_28370;
+        :id              "66826" .
+
+:principe_actif_58411
+        rdf:type         :PrincipeActif , :Composant;
+        :aFormeChimique  :forme_chimique_indeterminee;
+        :aSubstance      :substance_267;
+        :dosage          "15.0"^^xsd:float .
+
+:saisine_28549  rdf:type  :Saisine;
+        :date     "2022-02-20T23:00:00Z"^^xsd:dateTime , "2022-02-21T23:00:00Z"^^xsd:dateTime;
+        :id       "28549" .
+
+:echantillon_13622  rdf:type  :Echantillon;
+        :aAspectExterne     :aspect_comprimes;
+        :aPrincipeActif     :principe_actif_59136;
+        :aProduitCoupage    :produit_coupage_73283;
+        :abime              "Non";
+        :couleur            "Rouge";
+        :diametre           "7,19";
+        :epaisseur          "4,56";
+        :forme              "Circulaire";
+        :id                 "13622";
+        :logo               "Non";
+        :masse              "183";
+        :numeroEchantillon  "2-2";
+        :provientDe         :scelle_66742;
+        :secabiliteRecto    "Aucune";
+        :secabiliteVerso    "Aucune";
+        :typeDrogue         "Divers" .
+
+:produit_coupage_73543
+        rdf:type     :ProduitCoupage , :Composant;
+        :aSubstance  :substance_83;
+        :dosage      "9.7"^^xsd:float .
+
+:volume  rdf:type   owl:FunctionalProperty , owl:DatatypeProperty;
+        rdfs:range  xsd:float .
+
+:produit_coupage_72891
+        rdf:type     :ProduitCoupage , :Composant;
+        :aSubstance  :substance_150;
+        :dosage      "0.0"^^xsd:float .
+
+:produit_coupage_73575
+        rdf:type     :ProduitCoupage , :Composant;
+        :aSubstance  :substance_364;
+        :dosage      "0.0"^^xsd:float .
+
+:produit_coupage_73529
+        rdf:type     :ProduitCoupage , :Composant;
+        :aSubstance  :substance_265;
+        :dosage      "0.0"^^xsd:float .
+
+:echantillon_14149  rdf:type  :Echantillon;
+        :aAspectExterne     :aspect_poudres;
+        :aPrincipeActif     :principe_actif_59602;
+        :aProduitCoupage    :produit_coupage_73539 , :produit_coupage_73541 , :produit_coupage_73538 , :produit_coupage_73540 , :produit_coupage_73537;
+        :couleur            "Blanche";
+        :id                 "14149";
+        :logo               "Non";
+        :numeroEchantillon  "SB16-2";
+        :ovule              "0";
+        :provientDe         :scelle_67246;
+        :typeDrogue         "Cocaïne" .
+
+:produit_coupage_73308
+        rdf:type     :ProduitCoupage , :Composant;
+        :aSubstance  :substance_240;
+        :dosage      "0.0"^^xsd:float .
+
+:echantillon_12735  rdf:type  :Echantillon;
+        :aAspectExterne     :aspect_poudres;
+        :aPrincipeActif     :principe_actif_58482;
+        :couleur            "Blanche";
+        :id                 "12735";
+        :logo               "Non";
+        :numeroEchantillon  "3";
+        :ovule              "1";
+        :provientDe         :scelle_66032;
+        :typeDrogue         "Cocaïne" .
+
+:principe_actif_59468
+        rdf:type         :PrincipeActif , :Composant;
+        :aFormeChimique  :forme_chimique_chlorhydrate;
+        :aSubstance      :substance_600;
+        :dosage          "0.0"^^xsd:float .
+
+:aVille  rdf:type           owl:InverseFunctionalProperty , owl:ObjectProperty;
+        rdfs:subPropertyOf  owl:topObjectProperty;
+        owl:inverseOf       :estDansDepartement .
+
+:produit_coupage_72901
+        rdf:type     :ProduitCoupage , :Composant;
+        :aSubstance  :substance_363;
+        :dosage      "0.0"^^xsd:float .
+
+:tempsRetention  rdf:type  owl:FunctionalProperty , owl:DatatypeProperty;
+        rdfs:range  xsd:decimal .
+
+:echantillon_14205  rdf:type  :Echantillon;
+        :aAspectExterne     :aspect_resines;
+        :aPrincipeActif     :principe_actif_59663;
+        :id                 "14205";
+        :logo               "Non";
+        :numeroEchantillon  "AB";
+        :presentation       "Morceaux";
+        :provientDe         :scelle_67322;
+        :typeDrogue         "Cannabis" .
+
+:scelle_66582  rdf:type  :Scelle;
+        :estDansSaisine  :saisine_28267;
+        :id              "66582" .
+
+:scelle_65806  rdf:type  :Scelle;
+        :estDansSaisine  :saisine_27971;
+        :id              "65806" .
+
+:echantillon_14048  rdf:type  :Echantillon;
+        :aAspectExterne     :aspect_resines;
+        :aPrincipeActif     :principe_actif_59500;
+        :id                 "14048";
+        :logo               "Non";
+        :numeroEchantillon  "SA";
+        :presentation       "Morceaux";
+        :provientDe         :scelle_67133;
+        :typeDrogue         "Cannabis" .
+
+:scelle_67322  rdf:type  :Scelle;
+        :estDansSaisine  :saisine_28570;
+        :id              "67322" .
+
+:date   rdf:type    owl:FunctionalProperty , owl:DatatypeProperty;
+        rdfs:range  xsd:dateTime .
+
+:produit_coupage_73530
+        rdf:type     :ProduitCoupage , :Composant;
+        :aSubstance  :substance_287;
+        :dosage      "0.0"^^xsd:float .
+
+:estLieA  rdf:type          owl:ObjectProperty;
+        rdfs:subPropertyOf  owl:topObjectProperty .
+
+:scelle_67133  rdf:type  :Scelle;
+        :estDansSaisine  :saisine_28510;
+        :id              "67133" .
+
+:echantillon_14150  rdf:type  :Echantillon;
+        :aAspectExterne     :aspect_poudres;
+        :aPrincipeActif     :principe_actif_59603;
+        :aProduitCoupage    :produit_coupage_73542 , :produit_coupage_73544 , :produit_coupage_73545 , :produit_coupage_73543;
+        :couleur            "Blanche";
+        :id                 "14150";
+        :logo               "Non";
+        :numeroEchantillon  "SB21";
+        :ovule              "0";
+        :provientDe         :scelle_67248;
+        :typeDrogue         "Cocaïne" .
+
+:scelle_65972  rdf:type  :Scelle;
+        :estDansSaisine  :saisine_28028;
+        :id              "65972" .
+
+:id     rdf:type    owl:FunctionalProperty , owl:DatatypeProperty;
+        rdfs:range  xsd:string .
+
+:echantillon_14136  rdf:type  :Echantillon;
+        :aAspectExterne     :aspect_resines;
+        :aPrincipeActif     :principe_actif_59593;
+        :id                 "14136";
+        :logo               "Non";
+        :numeroEchantillon  "SZB1-1";
+        :presentation       "Morceaux";
+        :provientDe         :scelle_67240;
+        :typeDrogue         "Cannabis" .
+
+:produit_coupage_72896
+        rdf:type     :ProduitCoupage , :Composant;
+        :aSubstance  :substance_334;
+        :dosage      "0.0"^^xsd:float .
+
+:estPaysDestinationDe
+        rdf:type            owl:InverseFunctionalProperty , owl:ObjectProperty;
+        rdfs:subPropertyOf  owl:topObjectProperty .
+
+:substance_267  rdf:type  :Substance;
+        :nomSubstance  "Delta9-Tétrahydrocannabinol (THC)" .
+
+:principe_actif_58504
+        rdf:type         :PrincipeActif , :Composant;
+        :aFormeChimique  :forme_chimique_chlorhydrate;
+        :aSubstance      :substance_296;
+        :dosage          "19.6"^^xsd:float .
+
+:substance_299  rdf:type  :Substance;
+        :nomSubstance  "Hydroxyzine" .
+
+:scelle_65871  rdf:type  :Scelle;
+        :estDansSaisine  :saisine_27997;
+        :id              "65871" .
+
+:ovule  rdf:type    owl:FunctionalProperty , owl:DatatypeProperty;
+        rdfs:range  xsd:boolean .
+
+:echantillon_13028  rdf:type  :Echantillon;
+        :aAspectExterne     :aspect_vegetaux;
+        :aPrincipeActif     :principe_actif_58712;
+        :id                 "13028";
+        :logo               "Non";
+        :numeroEchantillon  "16635";
+        :presentation       "Sommités";
+        :provientDe         :scelle_66261;
+        :typeDrogue         "Cannabis" .
+
+:scelle_67239  rdf:type  :Scelle;
+        :estDansSaisine  :saisine_28549;
+        :id              "67239" .
+
+:estEloigneDe  rdf:type     owl:SymmetricProperty , owl:ObjectProperty;
+        rdfs:domain         :Echantillon;
+        rdfs:range          :Echantillon;
+        rdfs:subPropertyOf  owl:topObjectProperty .
+
+:echantillon_12621  rdf:type  :Echantillon;
+        :aAspectExterne     :aspect_vegetaux;
+        :aPrincipeActif     :principe_actif_58387;
+        :id                 "12621";
+        :logo               "Non";
+        :numeroEchantillon  "1-1";
+        :presentation       "Sommités";
+        :provientDe         :scelle_65960;
+        :typeDrogue         "Cannabis" .
+
+:principe_actif_58347
+        rdf:type         :PrincipeActif , :Composant;
+        :aFormeChimique  <http://www.stups.fr/ontologies/2023/stups/forme_chimique_base_&_hcl>;
+        :aSubstance      :substance_263;
+        :dosage          "80.8"^^xsd:float .
+
+:scelle_67096  rdf:type  :Scelle;
+        :estDansSaisine  :saisine_28501;
+        :id              "67096" .
+
+:substance_600  rdf:type  :Substance;
+        :nomSubstance  "HO-PCP (ou hydroxyphencyclidine)" .
+
+:echantillon_12653  rdf:type  :Echantillon;
+        :aAspectExterne     :aspect_vegetaux;
+        :aPrincipeActif     :principe_actif_58411;
+        :id                 "12653";
+        :logo               "Non";
+        :numeroEchantillon  "22_100290";
+        :presentation       "Sommités";
+        :provientDe         :scelle_65984;
+        :typeDrogue         "Cannabis" .
+
+:substance_309  rdf:type  :Substance;
+        :nomSubstance  "Lactose" .
+
+:aPic   rdf:type            owl:InverseFunctionalProperty , owl:ObjectProperty;
+        rdfs:domain         :ProfilChimique;
+        rdfs:range          :Pic;
+        rdfs:subPropertyOf  owl:topObjectProperty;
+        owl:inverseOf       :estPicDe .
+
+:principe_actif_59133
+        rdf:type         :PrincipeActif , :Composant;
+        :aFormeChimique  :forme_chimique_chlorhydrate;
+        :aSubstance      :substance_359;
+        :dosage          "96.0"^^xsd:float .
